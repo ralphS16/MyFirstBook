@@ -1,0 +1,254 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Solutions to Exercises}\label{chap:solutions}
+\section{Solutions to Chapter \ref{chap:catfunc}}
+\begin{proof}[Solution to Exercise \ref{exer:catfunc:countersubcat}]\label{soln:catfunc:countersubcat}
+    Take any "monoid" $M$ with an idempotent element $x\neq 1_M$ (it satisfies $x\cdot x = x$). Letting $\mathbf{C}$ be $\deloop{M}$ and $\mathbf{C}'$ contain the "object" $\deloopobject$ and only the "morphism" $x$ yields a suitable example because the "identity" in $\mathbf{C}'$ is $x$.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:catfunc:diagfunc}]\label{soln:catfunc:diagfunc}
+    On "morphisms", we define $\diagFunc_{\mathbf{C}}(f) = (f,f)$. The "functoriality" properties hold because everything in $\mathbf{C}\cattimes \mathbf{C}$ is done componentwise.
+    \begin{enumerate}[i.]
+        \item For $f: X \rightarrow Y$, we have $(f,f): (X,X) \rightarrow (Y,Y)$.
+        \item For $f: X \rightarrow Y$ and $g: Y \rightarrow Z$, we have $(g,g) \circ (f,f) = (g \circ f, g \circ f)$.
+        \item For any $X \in \obj{\mathbf{C}}$, we have $\diagFunc_{\mathbf{C}}(\id_X) = (\id_X,\id_X) = \id_{(X,X)}$.
+    \end{enumerate}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:catfunc:placeholder}]\label{soln:catfunc:placeholder}
+    A quick way to show $F(X,\placeholder)$ is a "functor" is to recognize it as the "composition" of $F$ with $X \functimes \id_{\mathbf{C}'}$, where $X$ is the "constant functor" at $X$. Similarly, $F(\placeholder, Y) := F \circ (\id_{\mathbf{C}} \functimes Y)$.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:catfunc:funccomponent}]\label{soln:catfunc:funccomponent}
+    Let us show the three properties of "functoriality".
+    \begin{enumerate}[i.]
+        \item For any $(f,g): (X,Y) \rightarrow (X',Y')$%TODO: do this exercise.
+    \end{enumerate}
+\end{proof}
+\section{Solutions to Chapter \ref{chap:duality}}
+\begin{proof}[Solution to Exercise \ref{exer:duality:composemor}]\label{soln:duality:composemor}
+    Let us have two "morphisms" $f: X \rightarrow Y$ and $g: Y \rightarrow Z$.
+    \begin{itemize}
+        \item Suppose $f$ and $g$ are "monic". For any $h_1,h_2: Z \rightarrow Z'$ satisfying $h_1 \circ g \circ f = h_2 \circ g \circ f$, "monicity" of $f$ implies $h_1 \circ g = h_2 \circ g$ which in turn, by "monicity" of $g$ imply $h_1 = h_2$. Thus, $g \circ f$ is "monic".
+        \item We apply "duality". Suppose $f$ and $g$ are "epic", then $\op{f}$ and $\op{g}$ are "monic" so $\op{g\circ f} = \op{f} \circ \op{g}$ is "monic", thus $g \circ f$ is "epic".
+        \item If $f$ and $g$ are "isomorphisms@@CAT", then it is easy to check that $f^{-1} \circ g^{-1}$ is the "inverse" of $g \circ f$, implying $g \circ f$ is an "isomorphism@@CAT".
+    \end{itemize}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:duality:equivsubobj}]\label{soln:duality:equivsubobj}
+    Let us have three "monomorphisms" $m: Y \hookrightarrow X$, $n: Z \hookrightarrow X$ and $o: W \hookrightarrow X$.
+
+    \textbf{Reflexivity:} We have $m \circ \id_Y = m$ thus $m \sim m$.
+
+    \textbf{Symmetry:} Suppose that $m \sim n$, namely, there is an "isomorphism@@CAT" $i: Y \rightarrow X$ such that $m = n \circ i$. Then, "pre-composing" with the "isomorphism@@CAT" $i^{-1}$ yields $m \circ i^{-1} = n$ which implies $n \sim m$.
+
+    \textbf{Transitivity:} If $m\sim n$ and $n\sim o$, then there exist "isomorphisms@@CAT" $i: Y \rightarrow Z$ and $i': W \rightarrow Z$ satisfying $m = n \circ i$ and $n = o \circ i'$. Therefore, we have $m =  o \circ i' \circ i$ which implies $m \sim o$.\footnote{Recall that the "composition" of two "isomorphisms@@CAT" is an "isomorphism@@CAT".}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:duality:posetsubobj}]\label{soln:duality:posetsubobj}
+    Let us have five "monomorphisms" $m: Y \hookrightarrow X$, $m:Y' \hookrightarrow X$, $n: Z \hookrightarrow X$, $n': Z' \hookrightarrow X$ and $o: W \hookrightarrow X$.\footnote{Recall that we often use $m$ to refer to $[m]$.}
+
+    \textbf{Well-defined:} Suppose that $m \leq n$, $m' \sim m$ and $n\sim n'$, namely, there is a "morphism" $k: Y \rightarrow Z$ and "isomorphisms@@CAT" $i: Y \circ Y'$ and $i': Z' \rightarrow Z$ such that $m = n \circ k$, $m' = m \circ i$ and $n = n' \circ i'$. Combining these equalities yields $m' = n' \circ i' \circ  k \circ i$ which witnesses $m' \leq n'$.
+
+    \textbf{Reflexivity:} We have $m \circ \id_Y = m$ thus $m \leq m$.
+
+    \textbf{Antisymmetry:} If $m\leq n$ and $n\leq m$, then there exist "morphisms" $k: Y \rightarrow Z$ and $k': Z \rightarrow Y$ satisfying $m = n \circ k$ and $n = m \circ k'$. Combining these two equalities yield $m = m \circ k' \circ k$ and $n = n \circ k \circ k'$. Therefore, since $m$ and $n$ are "monic", we infer that $k' \circ k = \id_Y$ and $k \circ k' = \id_Z$. This means $k$ is an "isomorphism@@CAT" and $m \sim n$ (so $[m] = [n]$).
+
+    \textbf{Transitivity:} If $m\leq n$ and $n\leq o$, then there exist "morphisms" $k: Y \rightarrow Z$ and $k': W \rightarrow Z$ satisfying $m = n \circ k$ and $n = o \circ k'$. Therefore, we have $m =  o \circ k' \circ k$ which implies $m \leq o$.
+\end{proof}
+\section{Solutions to Chapter \ref{chap:limits}}
+\begin{proof}[Solution to Exercise \ref{exer:limits:functionproduct}]\label{soln:limits:functionproduct}
+    The existence and uniqueness of $\Product_{i \in I} f_i$ is given by the "universal property" of the "product" $\Product_{i \in I} Y_i$ with for each $j \in I$, the "morphism" $f_j \circ \projection_j: \Product_{i \in I} X_i \rightarrow Y_j$.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:limits:pullbackmono}]\label{soln:limits:pullbackmono}
+    ($\Rightarrow$) Suppose $f:X \rightarrow Y$ is "monic", "commutativity" of \eqref{diag:pullbackmono} is trivial. For any $\begin{tikzcd}[cramped, sep=small] X &\arrow[l, "g"']  Z\arrow[r, "h"]&X \end{tikzcd}$ satisfying $f \circ g = f \circ h$, we have $g = h$. Thus $g=h$ is the "mediating" "morphism" $!$ of \eqref{diag:solpullbackmono}, it is unique because $\id_X \circ m = g$ implies $m = g$.\begin{marginfigure}
+        \begin{equation}\label{diag:solpullbackmono}
+            \begin{tikzcd}
+                Z \\
+                & X & X \\
+                & X & Y
+                \arrow["{\id_X}"', from=2-2, to=3-2]
+                \arrow["f"', from=3-2, to=3-3]
+                \arrow["{\id_X}", from=2-2, to=2-3]
+                \arrow["f", from=2-3, to=3-3]
+                \arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=2-2, to=3-3]
+                \arrow["g"', curve={height=12pt}, from=1-1, to=3-2]
+                \arrow["h", curve={height=-12pt}, from=1-1, to=2-3]
+                \arrow["{!}"{description}, dashed, from=1-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+    ($\Leftarrow$) For any $g,h : Z \rightarrow X$ satisfying $f \circ g = f \circ h$, the "universal property" of the "pullback" tells us there is a unique $!:Z \rightarrow X$ making \eqref{diag:solpullbackmono} "commute". Since $!$ satisfies $g = \id_X \circ ! = h$, we conclude $g = ! = h$, thus $f$ is a "monomorphism".
+    \begin{marginfigure}[1\baselineskip]
+        \begin{equation}\label{diag:pushoutepic}
+            \begin{tikzcd}
+                X & Y \\
+                Y & Y
+                \arrow["{\id_X}"', from=2-1, to=2-2]
+                \arrow["f"', from=1-1, to=2-1]
+                \arrow["{\id_X}", from=1-2, to=2-2]
+                \arrow["f", from=1-1, to=1-2]
+                \arrow["\pushoutd"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+            \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+    The "dual" statement is that $f: X \rightarrow Y$ is "epic" if and only if \eqref{diag:pushoutepic} is a "pushout". We leave the proof to you.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:limits:termpullcomplete}]\label{soln:limits:termpullcomplete}
+    We will show that if $\mathbf{C}$ has all "pullbacks" and a "terminal" "object", then it has all finite "products" and "equalizers". This implies, using Remark \ref{rem:prodeqcomplete}, that $\mathbf{C}$ is "finitely complete".
+
+    For finite "products", recall that it is enough to show that $\mathbf{C}$ has all "binary products" as it already has the empty "product" (the "terminal" "object"). We claim that the "pullback" of $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "\termmorph"] & \terminal & B \arrow[l, "\termmorph"'] \end{tikzcd}$ is the "binary product" $A \product B$.%TODO: ref for first sentence.
+    \begin{marginfigure}
+        \begin{equation}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFxwdWxsYmFja3tcXHRlcm1pbmFsfSBCIl0sWzAsMSwiQSJdLFsxLDAsIkIiXSxbMSwxLCJcXHRlcm1pbmFsIl0sWzAsMSwiXFxwaV9BIiwyXSxbMCwyLCJcXHBpX0IiXSxbMiwzLCJcXHRlcm1tb3JwaCJdLFsxLDMsIlxcdGVybW1vcnBoIiwyXSxbMCwzLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+            \begin{tikzcd}
+                {A\pullback{\terminal} B} & B \\
+                A & \terminal
+                \arrow["{\pi_A}"', from=1-1, to=2-1]
+                \arrow["{\pi_B}", from=1-1, to=1-2]
+                \arrow["\termmorph", from=1-2, to=2-2]
+                \arrow["\termmorph"', from=2-1, to=2-2]
+                \arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+    Indeed, for any $\begin{tikzcd}[cramped, sep=small] A &\arrow[l, "p_A"']  X\arrow[r, "p_B"]&B \end{tikzcd}$, we have $\termmorph \circ p_A = \termmorph \circ p_B$, thus, there is a unique "morphism" $!:X \rightarrow A\pullback{\terminal} B$ making \eqref{diag:prodfrompull} "commute". Since the "commutativity" of the squares always hold, this is equivalent to the "unviersal property" of the "binary product". Hence $A \product B \isoCAT A \pullback{\terminal} B$.
+    \begin{equation}\label{diag:prodfrompull}
+        % https://q.uiver.app/?q=WzAsNSxbMSwxLCJBXFxwdWxsYmFja3tcXHRlcm1pbmFsfSBCIl0sWzEsMiwiQSJdLFsyLDEsIkIiXSxbMiwyLCJcXHRlcm1pbmFsIl0sWzAsMCwiWCJdLFswLDEsIlxccGlfQSIsMl0sWzAsMiwiXFxwaV9CIl0sWzIsMywiXFx0ZXJtbW9ycGgiXSxbMSwzLCJcXHRlcm1tb3JwaCIsMl0sWzAsMywiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV0sWzQsMiwicF9CIiwxLHsiY3VydmUiOi0yfV0sWzQsMSwicF9BIiwxLHsiY3VydmUiOjJ9XSxbNCwwLCIhIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+        \begin{tikzcd}
+            X \\
+            & {A\pullback{\terminal} B} & B \\
+            & A & \terminal
+            \arrow["{\pi_A}"', from=2-2, to=3-2]
+            \arrow["{\pi_B}", from=2-2, to=2-3]
+            \arrow["\termmorph", from=2-3, to=3-3]
+            \arrow["\termmorph"', from=3-2, to=3-3]
+            \arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=2-2, to=3-3]
+            \arrow["{p_B}"{description}, curve={height=-12pt}, from=1-1, to=2-3]
+            \arrow["{p_A}"{description}, curve={height=12pt}, from=1-1, to=3-2]
+            \arrow["{!}"{description}, dashed, from=1-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}
+    %TODO: equalizers.
+\end{proof}
+\section{Solutions to Chapter \ref{chap:universal}}
+\begin{proof}[Solution to Exercise \ref{exer:universal:termslice}]\label{soln:universal:termslice}
+    The "terminal" "object" of $\slice{\mathbf{C}}{X}$ is the "identity morphism" $\id_X : X \rightarrow X$. For any "object" of the "slice category" $f:A \rightarrow X$, we have the "commutative" triangle \eqref{diag:soltermslice} with $!=f$. Uniqueness of $!$ follows from $\id_X \circ ! = f \implies ! = f$.\begin{marginfigure}
+        \begin{equation}\label{diag:soltermslice}
+            \begin{tikzcd}
+                A && X \\
+                & X
+                \arrow["f"', from=1-1, to=2-2]
+                \arrow["f", dashed, from=1-1, to=1-3]
+                \arrow["{\id_X}", from=1-3, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+    The "dual" statement is that $\id_X$ is the "initial" "object" of $\coslice{X}{\mathbf{C}}$.
+\end{proof}
+\section{Solutions to Chapter \ref{chap:natural}}
+\begin{proof}[Solution to Exercise \ref{exer:natural:componentwise}]\label{soln:natural:componentwise}
+    ($\Rightarrow$) For any $g: Y \rightarrow Y'$, the "naturality" of $\phi$ yields this "commutative square".
+    \begin{equation}\label{diag:naturalcomponentY}
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGKFgsWSkiXSxbMCwxLCJGKFgsWScpIl0sWzEsMCwiRyhYLFkpIl0sWzEsMSwiRyhYLFknKSJdLFswLDEsIkYoXFxpZF9YLGYpIiwyXSxbMCwyLCJcXHBoaV97WCxZfSJdLFsyLDMsIkcoXFxpZF9YLGYpIl0sWzEsMywiXFxwaGlfe1gsWSd9IiwyXV0=
+        \begin{tikzcd}
+            {F(X,Y)} & {G(X,Y)} \\
+            {F(X,Y')} & {G(X,Y')}
+            \arrow["{F(X,g) = F(\id_X,g)}"', from=1-1, to=2-1]
+            \arrow["{\phi_{X,Y}}", from=1-1, to=1-2]
+            \arrow["{G(\id_X,g) = G(X,g)}", from=1-2, to=2-2]
+            \arrow["{\phi_{X,Y'}}"', from=2-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}
+    We conclude that $\phi_{X,\placeholder}$ is a "natural transformation" $F(X,\placeholder)$. A symmetric argument works for $\phi_{\placeholder,Y}$ (see \eqref{diag:naturalcomponentX}).\begin{marginfigure}[-4\baselineskip]
+        \begin{equation}\label{diag:naturalcomponentX}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGKFgsWSkiXSxbMSwwLCJHKFgsWSkiXSxbMCwxLCJGKFgnLFkpIl0sWzEsMSwiRyhYJyxZKSJdLFswLDEsIlxccGhpX3tYLFl9Il0sWzIsMywiXFxwaGlfe1gnLFl9IiwyXSxbMCwyLCJGKGYsXFxpZF9ZKSIsMl0sWzEsMywiRyhmLFxcaWRfWSkiXV0=
+        \begin{tikzcd}
+            {F(X,Y)} & {G(X,Y)} \\
+            {F(X',Y)} & {G(X',Y)}
+            \arrow["{\phi_{X,Y}}", from=1-1, to=1-2]
+            \arrow["{\phi_{X',Y}}"', from=2-1, to=2-2]
+            \arrow["{F(f,\id_Y)}"', from=1-1, to=2-1]
+            \arrow["{G(f,\id_Y)}", from=1-2, to=2-2]
+        \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+
+    ($\Leftarrow$) For any $(f,g): (X,Y) \rightarrow (X',Y')$, we note that, by "functoriality", $F(f,g) = F(f, \id_{Y'}) \circ F(\id_X, g)$ and similarly for $G$. Thus, we can combine the "naturality" of $\phi_{X,\placeholder}$ and $\phi_{\placeholder,Y}$ to obtain the "commutativity" of $\phi_{X,Y}$ as shown in \eqref{diag:naturalcombined}.
+    \begin{equation}\label{diag:naturalcombined}
+        % https://q.uiver.app/?q=WzAsNixbMCwwLCJGKFgsWSkiXSxbMCwxLCJGKFgsWScpIl0sWzEsMCwiRyhYLFkpIl0sWzEsMSwiRyhYLFknKSJdLFswLDIsIkYoWCcsWScpIl0sWzEsMiwiRyhYJyxZJykiXSxbMCwxLCJGKFxcaWRfWCxnKSJdLFswLDIsIlxccGhpX3tYLFl9Il0sWzIsMywiRyhcXGlkX1gsZykiLDJdLFsxLDMsIlxccGhpX3tYLFknfSJdLFs0LDUsIlxccGhpX3tYJyxZJ30iLDJdLFsxLDQsIkYoZixcXGlkX1kpIl0sWzMsNSwiRyhmLFxcaWRfWSkiLDJdLFswLDQsIkYoZixnKSIsMix7ImN1cnZlIjo0fV0sWzIsNSwiRyhmLGcpIiwwLHsiY3VydmUiOi00fV1d
+        \begin{tikzcd}
+            {F(X,Y)} & {G(X,Y)} \\
+            {F(X,Y')} & {G(X,Y')} \\
+            {F(X',Y')} & {G(X',Y')}
+            \arrow["{F(\id_X,g)}", from=1-1, to=2-1]
+            \arrow["{\phi_{X,Y}}", from=1-1, to=1-2]
+            \arrow["{G(\id_X,g)}"', from=1-2, to=2-2]
+            \arrow["{\phi_{X,Y'}}", from=2-1, to=2-2]
+            \arrow["{\phi_{X',Y'}}"', from=3-1, to=3-2]
+            \arrow["{F(f,\id_{Y'})}", from=2-1, to=3-1]
+            \arrow["{G(f,\id_{Y'})}"', from=2-2, to=3-2]
+            \arrow["{F(f,g)}"', curve={height=24pt}, from=1-1, to=3-1]
+            \arrow["{G(f,g)}", curve={height=-24pt}, from=1-2, to=3-2]
+\end{tikzcd}
+    \end{equation}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:natural:natiso}]\label{soln:natural:natiso}Let $F, G: \mathbf{C} \rightsquigarrow \mathbf{D}$ be "functors".
+
+    ($\Rightarrow$) If $\phi: F \Rightarrow G$ is a "natural isomorphism", then it has an "inverse" $\phi^{-1}: G \Rightarrow F$ which satisfies $\phi \cdot \phi^{-1} = \one_G$ and $\phi^{-1}\cdot \phi = \one_F$. Looking at each "components", we find $\phi_X \circ (\phi^{-1})_X = \id_X$ and $(\phi^{-1})_X \circ  \phi_X = \id_X$, hence they are "isomorphisms@@CAT".
+
+    ($\Leftarrow$) Let $\phi: F \Rightarrow G$ be a "natural transformation" such that $\phi_X$ is an "isomorphism@@CAT" for each $X \in \obj{\mathbf{C}}$. We claim that the family $\phi_X^{-1}$ is the "inverse" of $\phi$. After we show that this family is a "natural transformation" $G \Rightarrow F$, the construction implies it is the "inverse" of $\phi$. For any $f: X \rightarrow Y \in \mor{\mathbf{C}}$, the "naturality" of $\phi$ implies $\phi_Y \circ F(f) = G(f) \circ \phi_X$. "Pre-composing" with $\phi_X^{-1}$, we have $G(f) = \phi_Y \circ F(f) \circ \phi_X^{-1}$ and therefore
+    \[\phi^{-1}_Y \circ G(f) = \phi^{-1}_Y \circ \phi_Y \circ F(f) \circ \phi_X^{-1} = F(f) \circ \phi_X^{-1}\]
+    yields the "naturality" of $\phi^{-1}$.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:natural:compositionisfunc}]\label{soln:natural:compositionisfunc}%TODO: and say how you use it in other exercises.
+    On "morphisms", this "functor" must send a pair of "natural transformations" $\eta: F \Rightarrow F'$ and $\phi: G \Rightarrow G'$ to a "natural transformation" $FG \Rightarrow F'G'$. This is exactly what "horizontal composition" does.
+    
+    To see that "horizontal composition" is "functorial", first note that $\one_F \horcomp \one_G = \one_{FG}$. Next, the fact that "horizontal composition" commutes with "composition" of "functors" is exactly the "interchange identity".
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:natural:equivequiv}]\label{soln:natural:equivequiv}
+    We need to show that $\eqCat$ is reflexive, symmetric and transitive. Symmetry is trivial because the definition of $\mathbf{C} \eqCat \mathbf{D}$ is symmetric. Reflexivity follows from the fact that the "identity functor" on any "category" is "fully faithful" and "essentially surjective".
+
+    For transitivity, given the "categories" and "functors" represented in \eqref{diag:composeequiv} with "natural isomorphisms" $\phi: FG\Rightarrow \id_{\mathbf{D}}$, $\psi: GF \Rightarrow \id_{\mathbf{C}}$, $\phi': F'G'\Rightarrow \id_{\mathbf{E}}$ and $\psi': G'F' \Rightarrow \id_{\mathbf{D}}$, we claim that the "composition" $G \circ G'$ is the "quasi-inverse" of $F' \circ F$.
+    \begin{marginfigure}[-3\baselineskip]
+        \begin{equation}\label{diag:composeequiv}
+            % https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXG1hdGhiZntDfSJdLFsyLDAsIlxcbWF0aGJme0R9Il0sWzQsMCwiXFxtYXRoYmZ7RX0iXSxbMCwxLCJGIiwwLHsiY3VydmUiOi0yLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFsxLDIsIkYnIiwwLHsiY3VydmUiOi0yLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFsxLDAsIkciLDAseyJjdXJ2ZSI6LTIsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6InNxdWlnZ2x5In19fV0sWzIsMSwiRyciLDAseyJjdXJ2ZSI6LTIsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6InNxdWlnZ2x5In19fV1d
+            \begin{tikzcd}
+            {\mathbf{C}} && {\mathbf{D}} && {\mathbf{E}}
+            \arrow["F", curve={height=-12pt}, squiggly, from=1-1, to=1-3]
+            \arrow["{F'}", curve={height=-12pt}, squiggly, from=1-3, to=1-5]
+            \arrow["G", curve={height=-12pt}, squiggly, from=1-3, to=1-1]
+            \arrow["{G'}", curve={height=-12pt}, squiggly, from=1-5, to=1-3]
+            \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+    Since the "biaction" of "functors" preserves "natural isomorphisms",\footnote{This holds because acting on the left or right with a "functor" is a "functor", part of this is shown in the next solution and it also follows from the previous exercise.} we have two "natural isomorphisms"
+    \[\phi' \cdot (F'\phi G'):F'FGG' \Rightarrow \id_{\mathbf{E}} \text{ and } \psi \cdot (G\psi' F):GG'F'F \Rightarrow \id_{\mathbf{C}},\]
+    which shows $\mathbf{C} \eqCat \mathbf{E}$.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:natural:equivfunccat}]\label{soln:natural:equivfunccat}
+    We will show the following two implications
+    \begin{align*}
+        \mathbf{C} \eqCat \mathbf{C}' &\implies \catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}}\\
+        \mathbf{D} \eqCat \mathbf{D}' &\implies \catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}}{\mathbf{D}'}
+    \end{align*}
+    and infer that $\mathbf{C} \eqCat \mathbf{C}'$ and $\mathbf{D} \eqCat \mathbf{D}'$ implies 
+    \[\catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}} \eqCat  \catFunc{\mathbf{C}'}{\mathbf{D}'}.\]
+    For the first implication, let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ and $G: \mathbf{C}' \rightsquigarrow \mathbf{C}$ be "quasi-inverses". We define the "functor" $(\placeholder)F: \catFunc{\mathbf{C}'}{\mathbf{D}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$ that acts on "functors" by "pre-composition" and on "natural transformations" by the right action in Definition \ref{defn:rightaction}.\footnote{i.e.: $H: \mathbf{C} \rightsquigarrow \mathbf{D}$ is mapped to $HF = H \circ F$ and $\phi: H \Rightarrow H'$ is mapped to $\phi F$. "Functoriality" follows from the properties of the right action.
+    
+    Another way to show "functoriality" is to recall that $\phi F = \phi \horcomp \one_F$ and hence $(\placeholder)F$ is the "composition" of the "functor" \[\id_{\catFunc{\mathbf{C}'}{\mathbf{D}}} \cattimes F:\catFunc{\mathbf{C}'}{\mathbf{D}}\cattimes \termcat \rightsquigarrow \catFunc{\mathbf{C}'}{\mathbf{D}}\cattimes \catFunc{\mathbf{C}}{\mathbf{C}'}\] with the "horizontal composition" "functor" defined in Exercise \ref{exer:natural:compositionisfunc}.} Similarly, we define the "functor" $(\placeholder)G: \catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \catFunc{\mathbf{C}'}{\mathbf{D}}$. We claim that $(\placeholder)F$ and $(\placeholder)G$ are "quasi-inverses".
+
+    Let $\Phi: GF \Rightarrow \id_{\mathbf{C}}$ be a "natural isomorphism" witnessing $F$ and $G$ being "quasi-inverses", then $(\placeholder)\Phi$ is a "natural isomorphism" from $(\placeholder)GF$ to $\id_{\catFunc{\mathbf{C}}{\mathbf{D}}}$. Indeed, for any $\phi: H \Rightarrow H' \in \mor{\catFunc{\mathbf{C}}{\mathbf{D}}}$, \eqref{diag:natisoequivfunccat} "commutes" as the top path and bottom path are both equal to $\phi \horcomp \Phi$ and $H\Phi$ is an "isomorphism" because $\Phi$ is and "functors" preserve "isomorphisms".
+    \begin{equation}\label{diag:natisoequivfunccat}
+        \begin{tikzcd}
+            HGF & H \\
+            {H'GF} & {H'}
+            \arrow["{\phi GF}"', from=1-1, to=2-1]
+            \arrow["H\Phi", from=1-1, to=1-2]
+            \arrow["\phi", from=1-2, to=2-2]
+            \arrow["{H'\Phi}"', from=2-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}
+    We leave to you the symmetric argument showing $(\placeholder)FG \isoCAT \id_{\catFunc{\mathbf{C}'}{\mathbf{D}}}$ and the similar argument for the second implication.
+    %TODO: footnote naturality square notation.
+\end{proof}
+\section{Solutions to Chapter \ref{chap:yoneda}}
+\section{Solutions to Chapter \ref{chap:adjoints}}
+\section{Solutions to Chapter \ref{chap:monads}}
+\section{Solutions to Chapter \ref{chap:coalgebra}}
+\end{document}

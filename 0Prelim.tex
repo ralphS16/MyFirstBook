@@ -1,0 +1,342 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Preliminaries}\label{chap:prelim}
+Our main goal is to introduce notation and terminology so that this book is self-contained.\footnote{Especially with the heavy use of the \texttt{"knowledge"} package, I felt it was necessary to cover enough background material in order to have the least amount of external links in the book.}
+
+We assume you are familiar with basic concepts about sets (e.g.: subsets, union, Cartesian product, cardinality, equivalence classes, quotients, etc.), functions (e.g.: injectivity, surjectivity, inverses, (pre)image, etc.), logic (e.g.: quantifiers, implication) and proofs (e.g.: you can write, read and understand proofs),\footnote{The very first things usually taught in early undergraduate mathematics courses.} and we will not recall anything here. However, we need to have a little talk about foundations.
+
+\AP Several times in our coverage of category theory, we will use the term ""collection"" in order to avoid set-theoretical paradoxes. "Collections" are supposed to behave just like sets except that we will never consider "collections" containing other "collections". We do not make it more formal because there are many ways to do it\footnote{Most commonly, people use classes or Grothendieck universes. If this sticky point worries you, we suggest you keep it in the back of your mind and go read \url{https://arxiv.org/pdf/0810.1279.pdf} when you are a bit more comfortable with category theory.} and none of them are relevant to this course. However, you still need to know why we cannot use sets as is usual in all other courses.
+
+In short, there exist "collections" of objects that cannot be sets.\footnote{Famous examples include the "collection" of ordinal numbers which, by the Burali--Forti paradox, cannot be a set and the "collection" of all sets that do not contain themselves which, by the Russel paradox, cannot be a set.} In our case, we will need to talk about the "collection" of all sets and the "collection" of all groups (among others) and they cannot form sets. For the former, it is easy to see because if $S$ is the set of all sets, then it contains all its subsets and hence $\mP(S) \subseteq S$, this leads to the contradiction $|\mP(S)| \leq |S| < |\mP(S)|$.
+
+In the rest of this chapter, we cover the necessary background that we will use in the rest of the book. It is supposed to be a quick and (unfortunately) dry overview of stuff you may or may not have seen, so we will not dwell on explanations, intuitions and motivations.\footnote{Contrarily to the other chapters of this book.} You can safely skip these sections and come back whenever you click on a word or symbol that is defined here. We hope that this will save you from several trips to Wikipedia.
+\section{Abstract Algebra}
+Here we recall definitions, examples and results you may have seen in classes on abstract algebra or linear algebra.\footnote{"Monoids" are not commonly covered, but they are simpler than "groups" and we need them at one point so we present them here.}
+\subsection{Monoids}
+\begin{defn}[Monoid]
+    \AP A ""monoid"" is set $M$ equipped with a binary operation $\cdot: M\times M \rightarrow M$ called ""multiplication@@MON"" and an ""identity@@MON"" element\footnote{Some authors call $1_M$ the \textbf{unity} or the \textbf{neutral} element.} $1_M$ satisfying for all $x,y,z \in M$
+    \[(x\cdot y) \cdot z = x \cdot (y\cdot z) \quad \text{ and } \quad 1_M \cdot x = x = x \cdot 1_M.\]
+    \AP If it satisfies $\forall x,y \in M, x\cdot y = y \cdot x$, $M$ is a ""commutative monoid"".\marginnote{Depending on the context, we will refer to a "monoid" either as $M$ or $(M,\cdot)$ or $(M,\cdot, 1_M)$.}
+\end{defn}
+\begin{rem}
+    We will quickly drop the $\cdot$ symbol and denote "multiplication@@MON" with plain juxtaposition (i.e.: $xy:= x\cdot y$) for "monoids" and other algebraic structures with a multiplication.
+\end{rem}
+\begin{exmps}
+    \begin{enumerate}
+        \item For any set $S$, the set of function from $S$ to itself form a "monoid" with the "multiplication@@MON" being composition and the "identity@@MON" being the identity map $s \mapsto s$.
+        \item The sets $\N$, $\Z$, $\Q$ and $\R$ equipped with the operation of addition are all "commutative monoids".
+        \item For any set $S$, the "powerset" $\mP(S)$ has two simple "monoid" structures: one where the "multiplication@@MON" is $\cup$ and the "identity@@MON" if $\emptyset\subseteq S$ and the other where "multiplication@@MON" is $\cap$ and the "identity@@MON" is $S\subseteq S$.
+    \end{enumerate}
+\end{exmps}
+\begin{defn}[Homomorphism]
+    \AP Let $M$ and $N$ be two "monoids", a ""monoid homomorphism"" from $M$ to $N$ is a function $f: M \rightarrow N$ satisfying the following property:
+    \[f(1_M) = 1_N \quad \text{ and } \quad \forall x,y \in M, f(xy) = f(x)f(y).\]
+    \AP When $f$ is a bijection, we call it a ""monoid isomorphism"", say that $M$ and $N$ are ""isomorphic@@MON"" and denote $M \intro*\isoMON N$.
+\end{defn}
+\begin{defn}[Submonoid]
+    \AP Given a "monoid" $M$, a ""submonoid"" of $M$ is a subset $N\subseteq M$ containing $1_M$ that is closed under "multiplication@@MON" (i.e.: $\forall x,y \in N, x\cdot y \in N$).\footnote{This implies $N$ is also a "monoid" with the "multiplication@@MON" and "identity@@MON" inherited from $M$.}
+\end{defn}
+\begin{defn}[Kernel]
+    \AP The ""kernel@@MON"" of a "homomorphism@@MON" $f: M \rightarrow N$ is the preimage of $1_N$: $\kermon(f) := f^{-1}(1_N)$. For any "homomorphism@@MON" $f$, $\kermon(f)$ is a "submonoid" of $M$.\footnote{Similarly, the image of a "homomorphism@@MON" is also a "submonoid".}
+\end{defn}
+\begin{exmp}
+    The inclusions $(\N,+) \rightarrow (\Z,+) \rightarrow (\Q,+) \rightarrow (\R,+)$ are all "monoid homomorphisms" with trivial "kernel@@MON".\footnote{i.e.: the "kernel@@MON" only contains the "identity@@MON".} This implies this is also a chain of inclusions as "submonoids".
+\end{exmp}
+\begin{defn}[Monoid action]
+    Let $M$ be a "monoid" and $S$ a set, \AP an (left) ""action@@MON"" of $M$ on $S$ is an operation $\actmon : M \times S \rightarrow S$ satisfying for all $x,y \in M$ and $s \in S$\marginnote{\AP The data $(M,S,\actmon)$ will also be called an $M$""--set@mset"" and we may refer to it abusively with $S$.}
+    \[(x\cdot y)\actmon s = x \actmon (y\act s) \quad \text{ and } \quad 1_M \actmon s = s.\]
+    \AP Any "monoid action" has a ""permutation representation@@MON"" defined to be the map \[\sigma_{\actmon}: M \rightarrow \Perm_S = x \mapsto (s \mapsto x \actmon s).\]
+    Conversely, a map $\sigma: M \rightarrow \Perm_S$ that satisfies $\sigma(1_M) = \id_S$ and $\sigma(xy)= \sigma(x) \circ \sigma(y)$ for any $x,y \in M$ gives rise to a "monoid action" $\actmon_\sigma$ defined by $x \actmon_\sigma s = \sigma(x)(s)$.\footnote{These are inverse operations, i.e.:\[\sigma_{\actmon_{\sigma}} = \sigma \quad \text{ and } \quad \actmon_{\sigma_{\actmon}} = \actmon.\]}
+\end{defn}
+\begin{exmp}
+    Any "monoid" $M$ has a canonical "left action@@MON" on itself defined by $x \actmon m = xm$ for all $x,m\in M$.
+\end{exmp}
+\subsection{Groups}
+\begin{defn}[Group]
+    \AP A ""group"" is set $G$ equipped with a binary operation $\cdot: G\times G \rightarrow G$ called ""multiplication@@GRP"", an ""inverse@@GRP"" operation $(-)^{-1} : G \rightarrow G$ and an ""identity@@GRP"" element $1_G$ such that $(G,\cdot, 1_G)$ is a "monoid" and for all $x \in G$
+    \[x \cdot x^{-1} = 1_G = x^{-1} \cdot x.\]
+    \AP If $(G,\cdot, 1_G)$ is a "commutative monoid", we say that $G$ is an ""abelian group"".
+\end{defn}
+\begin{exmps}
+    \begin{enumerate}
+        \item For any set $S$, the set of bijections from $S$ to itself form a "group" with the "multiplication@@GRP" being composition, the "inverse@@GRP" being the set-theoretical inverse and the "identity@@GRP" being the identity map $s \mapsto s$. \AP We denote this "group" $\intro*\Perm_S$ and call it the "group" of ""permutations"" of $S$.\footnote{For $n \in \N$, we denote $\Perm_n$ the "group" of "permutations" of $\{1,\dots, n\}$.}
+        \item The "monoids" on $(\Z,+)$, $(\Q,+)$ and $(\R,+)$ are also "abelian groups" with the "inverse@@GRP" of $x$ being $-x$.
+        \item %TODO: quotients, generators and \Z/p\Z.
+    \end{enumerate}
+\end{exmps}
+\begin{defn}[Homomorphism]
+    \AP Let $G$ and $H$ be two "groups", a ""group homomorphism"" from $G$ to $H$ is a "monoid homomorphism" $f: G \rightarrow H$. It follows that\footnote{For this, you need to show that "inverses@@GRP" are unique.} \[\forall x \in G, f(x^{-1}) = f(x)^{-1}.\]
+    \AP When $f$ is a bijection, we call it a ""group isomorphism"", say that $G$ and $H$ are ""isomorphic@@GRP"" and denote $G \intro*\isoGRP H$.
+\end{defn}
+\begin{defn}[Subgroup]
+    \AP Given a "group" $G$, a ""subgroup"" of $G$ is a "submonoid" $H$ of $G$ closed under taking "inverses@@GRP" (i.e.: $\forall x \in H, x^{-1} \in H$).\footnote{This implies $H$ is also a "group" with the "multiplication@@GRP", "inverse@@GRP" and "identity@@GRP" inherited from $G$.}
+\end{defn}
+\begin{defn}[Quotient]
+	\AP Let $G$ be a "group" and $H$ a "subgroup" of $G$, the ""quotient@@MON"" $\quotGRP{G}{H}$ is the "group" whose elements are equivalence class of 
+\end{defn}
+\begin{defn}[Kernel]
+    \AP The ""kernel@@GRP"" of a "homomorphism@@GRP" $f: G \rightarrow H$ is the preimage of $1_H$: $\kergrp(f) := f^{-1}(1_H)$. For any "homomorphism@@GRP" $f$, $\kergrp(f)$ is a "subgroup" of $G$.\footnote{Similarly, the image of a "homomorphism@@GRP" is also a "subgroup".}
+\end{defn}
+\begin{defn}[Group action]
+    Let $G$ be a "group" and $S$ a set, \AP an (left) ""action@@GRP"" of $G$ on $S$ is a (left) "monoid action" of $G$ on $S$.
+\end{defn}
+\begin{exmp}
+    Any "group" $G$ has a canonical "left action@@GRP" on itself defined by $x \actmon m = xm$ for all $x,m\in G$.
+\end{exmp}
+\subsection{Rings}
+\subsection{Fields}
+\subsection{Vector Spaces}
+\section{Order Theory}
+In this section, we briefly cover some early definitions and results from order theory. Since this subject is not usually taught in undergraduate courses, we spend a bit more time. In fact, we even introduce stuff we will not use later to make sure readers can get more familiar with the most important objects: "posets" and "monotone" functions.
+\begin{defn}[Poset]
+	\AP A ""poset"" (short for "partially ordered set") is a pair $(A, \leq)$ comprising a set $A$ and a binary relation ${\leq}\subseteq A \times A$ that is 
+    \begin{enumerate}
+        \itemAP ""reflexive"" ($\forall x \in A, x \leq x$),
+        \itemAP ""transitive"" ($\forall x,y,z \in A$ if $x \leq y$ and $y \leq z$ then $x \leq z$), and
+        \itemAP ""antisymmetric"" ($\forall x,y \in A$ if $x\leq y$ and $y\leq x$ the $x = y$).
+    \end{enumerate}
+    The relation is also called a \textbf{"partial order"}.\footnote{\AP If "antisymmetry" is not satisfied, $\leq$ is called a ""preorder"".}
+\end{defn}
+\begin{exmps}
+    \begin{enumerate}
+        \item The usual non-strict orders ($\leq$ and $\geq$) on $\N$, $\Z$, $\Q$ and $\R$ are all "partial orders". The strict orders do not satisfy "reflexivity".
+        \item The divisibility relation $\mid$ on $\N$ satisfying $n \mid m$ whenever $n$ divides $m$ is a "partial order".
+        \item For any set $S$, the "powerset" of $S$ $\mP(S)$ is a "poset" when equipped with the $\subseteq$ relation.\begin{marginfigure}For any "monoid" $M$, there are three "preorders" defined by the so-called \href{https://en.wikipedia.org/wiki/Green%27s_relations}{Green's relations}:
+        \begin{align*}
+            \forall x,y \in M x\leq_L y &\Leftrightarrow \exists m \in M, x = my\\
+            \forall x,y \in M x\leq_R y &\Leftrightarrow \exists m \in M, x = ym\\
+            \forall x,y \in M x\leq_J y &\Leftrightarrow \exists m,m' \in M, x = mym'
+        \end{align*}\end{marginfigure}
+        \item Any subset of a "poset" inherits a "poset" structure by restricting the "partial order".
+    \end{enumerate}
+\end{exmps}
+\begin{defn}[Monotone]
+	\AP A function $f:(A, \leq_A) \rightarrow (B,\leq_B)$ between "posets" is ""monotone"" (or \textbf{"order-preserving"}) if for any $a, a' \in A$, $a \leq a' \implies f(a) \leq f(a')$.
+\end{defn}
+\begin{exmp}
+    You probably already know lots of "monotone" functions, but let us give two less intuitive examples. \AP Let $f: S \rightarrow T$ be a function, the ""image"" map of $f$\footnote{Which we abusively denote $f$.} is the function $\mP(S) \rightarrow \mP(T)$ defined by $S \supseteq X\mapsto f(X) := \{f(x) \mid x\in X\}$. When both "powersets" are equipped with the inclusion "partial order", the "image" map is "monotone" because $X \subseteq X'\subseteq S$ implies $f(X) \subseteq f(X')$.
+
+    \AP The ""preimage"" map is \[f^{-1}: \mP(T) \rightarrow \mP(S) = T \supseteq Y \mapsto f^{-1}(Y) := \{y \in S \mid f(y) \in Y\}.\]
+    It is also "order-preserving" because $Y \subseteq Y'\subseteq T$ implies $f^{-1}(Y) \subseteq f^{-1}(Y')$.
+\end{exmp}
+\begin{fact}
+    The composition of "monotone" functions between "posets" is "monotone".
+\end{fact}
+\begin{defn}[Dual]
+	\AP The ""dual order""\footnote{This definition lets us avoid many symmetric arguments.} of a "poset" $(A, \leq)$, denoted $\op{(A, \leq)}$, is the same set equipped with the converse relation $\geq$ defined by \[\forall x,y \in A, x \geq y \Leftrightarrow y\leq x.\]
+\end{defn}
+\begin{defn}
+	\AP Let $(A, \leq)$ be a "poset" and $S \subseteq A$, then $a \in A$ is an ""upper bound"" of $S$ if $\forall s \in S, s\leq a$. \AP Moreover, $a \in A$ is a ""supremum"" of $S$, if it is a least "upper bound", that is, $a$ is an "upper bound" of $S$ and for any "upper bound" $a'$ of $S$, $a\leq a'$. A "supremum" of $S$ is denoted $\supremum S$, but when $S$ contains only two elements, we use the infix notation $s_1 \supremum s_2$ and call this a \textbf{"join"}.
+	
+	\AP A ""lower bound"" (resp. ""infimum""/\textbf{"meet"}) of $S$ is an "upper bound" (resp. "supremum"/"join") of $S$ in the "dual order" $\op{(A, \leq)}$.\footnote{Explicityly, $a\in A$ is a "lower bound" of $S$ if $\forall s\in S, a\leq s$. It is an "infimum" of $S$ if, in addition to being a "lower bound" of $S$, any "lower bound" $a'$ of $S$ satisfies $a' \leq a$.} An "infimum" of $S$ is denoted $\infimum S$ or $s_1 \infimum s_2$ in the binary case.
+\end{defn}
+\begin{prop}
+	"Infimums" and "supremums" are unique when they exist.\footnote{This holds by "antisymmetry".}
+\end{prop}
+\begin{defn}
+	\AP A ""complete lattice"" comprises the data $(L, \infimum, \supremum, \leq)$ where $(L, \leq)$ is a "poset", and $\infimum, \supremum : (\mP(L), \subseteq) \rightarrow (L, \leq)$ are respectively "infimum" and "supremum" as defined above.\footnote{Notice that, by definition, these are "monotone" maps when the domain $\mP(L)$ is equipped with the inclusion order. Moreover, if these functions are defined on all of $\mP(L)$, all "supremums" and "infimums" exist in $(L, \leq)$.} Observe that $L$ has a smallest element $\supremum \emptyset$ and a largest element $\infimum \emptyset$ (they are usually called \textbf{top} and \textbf{bottom} respectively).
+\end{defn}
+\begin{exmps}
+    \begin{enumerate}
+        \item For any set $S$, $(\mP(S), \subseteq)$ is a "complete lattice": the "supremum" of a family of subsets is their union and the "infimum" is their intersection.
+        \item Defining "supremums" and "infimums" on the "poset" $(\N, \mid)$ is subtle. When $S \subseteq \N$ is non-empty, $\infimum S$ is the greatest common divisor of all elements in $S$ and $\infimum \emptyset$ is $0$ because any integer divides $0$. For a finite and non-empty $S \subseteq \N$, $\supremum S$ is the least common multiple of all elements in $S$. If $S$ is infinite, then $\supremum S$ is $0$ and the "supremum" of the empty set is $1$ because $1$ divides any integer.
+    \end{enumerate}
+\end{exmps}
+You might be wondering about possible "posets" where all "infimums" exist but not necessarily all "supremums" or vice-versa, it turns out that this is not possible as shown below.
+\begin{lem}\label{lem:posetlattice}%TODO: fibonacci as meet-preserving functor.
+	Let $(L, \leq)$ be a "poset", then the following are equivalent:
+	\begin{enumerate}[(i)]
+		\item $(L, \infimum, \supremum, \leq)$ is a "complete lattice".
+		\item Any $S \subseteq L$ has a "supremum".
+		\item Any $S \subseteq L$ has an "infimum".
+	\end{enumerate}
+\end{lem}
+\begin{proof} %TODO: my defs might be weird.
+	(i) $\implies$ (ii), (i) $\implies$ (iii) and (ii) + (iii) $\implies$ (i) are all trivial. Also, by using duality, we only need to prove (ii) $\implies$ (iii). For that, it suffices to note that for any $S \subseteq L$, $\infimum S = \bigvee \{a \in L \mid \forall s \in S, a \leq s\}$ is a suitable definition of the "infimum".
+	
+	Defined that way, $\infimum S$ is a "lower bound" of $S$ because if $s < \infimum S$, then $s < a$ for some "lower bound" $a$ of $S$\footnote{Because $\infimum S$ was the least "upper bound" for "lower bounds" of $S$.}, in particular $s \notin S$. Additionally, since we are taking the "supremum" over all "lower bounds" of $S$, no "lower bound" of $S$ can be greater and we conclude that $\infimum S$ is indeed the "infimum" of $S$.
+\end{proof}
+\begin{defn}[Fixpoints]%TODO: check which is which
+	\AP Let $f: (L, \leq) \rightarrow (L, \leq)$, a ""pre-fixpoint"" of $L$ is an element $x \in L$ such that $f(x) \leq x$. \AP A ""post-fixpoint"" is an element $x\in L$ such that $x \leq f(x)$. \AP A ""fixpoint"" (or \textbf{"fixed point"}) of $f$ is a "pre-@pre-fixpoint" and "post-fixpoint".
+\end{defn}
+\begin{thm}[Knaester-Tarski]\label{thm:knatar}\footnote{This is actually a weaker version of the Knaester-Tarski theorem which states that the "fixpoints" of a "monotone" $f$ form a "complete lattice".}
+	Let $(L, \infimum, \supremum, \leq)$ be a "complete lattice" and $f: L\rightarrow L$ be "monotone", then 
+	\begin{enumerate}
+		\item The least "fixpoint" of $f$ is $\mu f := \infimum \{a \in L \mid f(a) \leq a\}$.
+		\item The greatest "fixpoint" of $f$ is $\nu f := \supremum \{a \in L \mid a \leq f(a)\}$.
+	\end{enumerate}
+\end{thm}
+\begin{proof}
+	\begin{enumerate}
+		\item Any "fixpoint" of $f$ is in particular a "pre-fixpoint", thus $\mu f$, being a "lower bound" of all "pre-fixpoints", is smaller than all "fixpoints". Moreover, because for any "pre-fixpoint" $a\in L$, $f(\mu f) \leq f(a) \leq a$, $f(\mu f)$ is also a "lower bound" of the "pre-fixpoints", so $f(\mu f) \leq \mu f$. We infer that $f(f(\mu f)) \leq f(\mu f)$, so $f(\mu f)$ is a "pre-fixpoint" and $\mu f \leq f(\mu f)$. We conclude that $\mu f$ is a "fixpoint" by "antisymmetry".\marginnote{The proof of the second item is the proof of the first item done in the "dual order".}
+		
+		\item Any "fixpoint" of $f$ is in particular a "post-fixpoint", thus $\nu f$, being an "upper bound" of "post-fixpoints", is bigger than all "fixpoints". Moreover, because for any "post-fixpoint" $a\in L$, $a \leq f(a) \leq f(\nu f)$, $f(\nu f)$ is an "upper bound" of the "post-fixpoints", so $\nu f\leq f(\nu f)$. We infer that $f(\nu f) \leq f(f(\nu f))$, so $f(\nu f)$ is a "post-fixpoint" and $f(\nu f) \leq \nu f$. We conclude that $\nu f$ is a "fixpoint" by "antisymmetry".
+	\end{enumerate}
+\end{proof}
+\begin{defn}
+	\AP Let $(A, \leq)$ be a "poset", a ""closure operator"" on $A$ is a map $c: A \rightarrow A$ that is 
+    \begin{enumerate}
+        \item "monotone",
+        \itemAP ""extensive"" ($\forall x \in A, x \leq c(x)$), and
+        \itemAP ""idempotent"" ($\forall x \in A, c(x) = c(c(x))$).\footnote{We will use this definition of "idempotence" in other contexts.}
+    \end{enumerate} 
+\end{defn}
+\begin{exmp}%TODO: change a's to x's or vice-versa
+    The floor ($\lfloor \placeholder \rfloor$) and ceiling ($\lceil \placeholder \rceil$) operations are "closure operators" on $(\R, \geq)$ and $(\R, \leq)$ respectively.
+\end{exmp}
+\begin{defn}
+	\AP Given two "posets" $(A, \leq)$ and $(B, \sqsubseteq)$, a ""Galois connection"" is a pair of "monotone" functions $l: A \rightarrow B$ and $r: B\rightarrow A$ such that for any $a \in A$ and $b\in B$, \[l(a) \sqsubseteq b \Leftrightarrow a \leq r(b).\]
+	For such a pair, we write $l \mathbin{\kl[Galois connection]{\dashv}} r:A\rightarrow B$.
+\end{defn}
+\begin{lem}
+	Let $l \mathbin{\kl[Galois connection]{\dashv}} r: A\rightarrow B$ be a "Galois connection", then $l$ and $r$ are "monotone".
+\end{lem}
+\begin{proof}%TODO: help in footnote.
+	Assume towards a contradiction that $a < a'$ and $l(a) \not\sqsubseteq l(a')$, then because $l(a') \sqsubseteq l(a')$, we infer that $a' \leq r(l(a'))$ and thus, by transitivity, $a \leq r(l(a'))$. However, this contradicts the fact that $l(a) \not\sqsubseteq l(a')$ (using the $\Leftarrow$ of the "Galois connection"). We conclude that $l$ is "monotone".
+	
+	A symmetric argument works to show that $r$ is "monotone".
+\end{proof}
+\begin{exmp}
+	%TODO: Implication and wedge in a Heyting algebra.
+\end{exmp}
+\begin{lem}
+	Let $l \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ be a "Galois connection", then $r\circ l: A\rightarrow A$ is a "closure operator".
+\end{lem}
+\begin{proof}
+	Because $r$ and $l$ are "monotone", $r\circ l$ is clearly "monotone". Also, for any $a \in A$, $l(a) \sqsubseteq l(a)$ implying $a \leq r(l(a))$, so $r\circ l$ is "extensive".
+	
+	Now, in order to prove $r\circ l$ is "idempotent", it is enough to show that\footnote{The $\leq$ inequality follows by "extensiveness".} \[r(l(a)) \geq r(l(r(l(a)))).\]
+	Observe that since $r(b) \leq r(b)$ for any $b\in B$, we have $l(r(b)) \leq b$, thus in particular, with $b = l(a)$, we have $l(r(l(a))) \leq l(a)$. Applying $r$ which is "monotone" yields the desired inequality.
+\end{proof}
+\section{Topology}
+In this section, we introduce the basic terminology of "topological spaces". Again we go a bit further than needed to help readers that first lear about "topology" here. We end this section by recalling some definitions about "metric spaces". 
+\begin{defn}\label{defn:topspace}
+	\AP A ""topological space"" is a pair $(X, \topo)$, where $X$ is a set and $\topo\subseteq \mP(X)$ is closed under arbitrary unions and finite intersections\footnote{For any family of "open sets" $\{U_i\}_{i \in I}\subseteq \topo$,\[\bigcup_{i \in I} U_i \in \topo,\] and if $I$ is finite,\[\bigcup_{i \in I} U_i \in \topo.\]} whose elements are called ""open sets"" of $X$. We call $\topo$ a \textbf{"topology"} on $X$.
+	
+	\AP The ""complement"" of an "open set" $U$, denoted $U^\comple$, is said to be ""closed"".\footnote{Observe that both the empty set and the whole "space@@TOP" are "open" and "closed" (sometimes referred to as \textbf{clopen}) because 
+	\[\emptyset = \bigcup_{U \in \emptyset} U \text{ and } X = \bigcap_{U \in \emptyset} U \text { and } \emptyset = X^\comple.\]}
+\end{defn}
+In the sequel, fix a "topological space" $(X,\topo)$.
+\begin{lem}
+	Let $(C_i)_{i \in I}$ be a family of "closed sets" of $X$, then $\cap_{i \in I} C_i$ is "closed" and if $I$ is finite, $\cup_{i \in I} C_i$ is also "closed".\footnote{This lemma gives an alternative to the axioms of Definition \ref{defn:topspace}. Indeed, it is sometimes more convenient to define a "topological space" by giving its "closed sets", and you can show the axioms about "open sets" still hold.}
+\end{lem}
+\begin{proof}
+	Both statements readily follow from DeMorgan's laws and the fact that the "complement" of a "closed set" is "open" and vice-versa. For the first one, DeMorgan's laws yield
+	\[\bigcap_{i \in I} C_i =  \left( \bigcup_{i \in I} C_i^\comple \right)^\comple,\]
+	and the LHS is the "complement" of a union of "opens", so it is "closed". For the second one, DeMorgan's laws yield
+	\[\bigcup_{i \in I} C_i =  \left( \bigcap_{i \in I} C_i^\comple \right)^\comple,\]
+	and the LHS is the "complement" of a finite intersection of "opens", so it is "closed".
+\end{proof}
+\begin{lem}\label{lem:openchar}
+	A subset $A \subseteq X$ is "open" if and only if for any $x \in A$, there exists an "open" $U \subseteq A$ such that $x \in U$.
+\end{lem}
+\begin{proof}
+	($\Rightarrow$) For any $x \in A$, set $U = A$.
+	
+	($\Leftarrow$) For each $x \in X$, pick an open $U_x \subseteq A$ such that $x \in A$, then we claim $A = \cup_{x \in A} U_x$ which is "open"\footnote{Arbitrary unions of "opens" are "open".}. The $\subseteq$ inclusion follows because each $x \in A$ has a set $U_x$ in the union that contains $x$. The $\supseteq$ inclusion follows because each term of the union is a subset of $A$ by assumption.
+\end{proof}
+\begin{lem}\label{lem:closedchar}
+	A subset $A\subseteq X$ is "closed" if and only if for any $x \notin A$, there exists an "open" $U$ such that, $x \in U$ and $U\cap A = \emptyset$.\footnote{This result is simply a restatement of the last one by setting $A = A^\comple$.}
+\end{lem}
+\begin{defn}%TODO: say that you don't like notation.
+	\AP Given $A \subseteq X$, the ""closure"" of $A$, denoted $\closure{A}$ is the intersection of all "closed sets" containing $A$. One can show that $\closure{A}$ is the smallest "closed set" containing $A$.\footnote{$\closure{A}$ is "closed" because it is an intersection of "closed sets" and any "closed sets" containing $A$ also contains $\closure{A}$ by definition.} Then, it follows that $A$ is "closed" if and only if $\closure{A} = A$.
+\end{defn}
+Here are more easy results on the "closure" of a subset.
+\begin{lem}\label{lem:closure}%TODO: L.H.S. or LHS
+	Given $A,B \subseteq X$ then the following statements hold:
+	\begin{enumerate}
+		\item $A \subseteq B \implies \closure{A} \subseteq \closure{B}$
+		\item $A \subseteq \closure{A}$
+		\item $\closure{\closure{A}} = \closure{A}$
+		\item $\closure{\emptyset} = \emptyset$
+		\item $\closure{(A \cup B)} = \closure{A} \cup \closure{B}$
+	\end{enumerate}\marginnote[-10\baselineskip]{%TODO: put some in the footnote.
+		\begin{proof}[Proof of Lemma \ref{lem:closure}]
+			\begin{enumerate}
+				\item By definition, $\closure{B}$ contains $B$, thus $A$, but $\closure{B}$ is "closed", so it must contain $\closure{A}$.
+				\item By definition.
+				\item $\closure{A}$ is "closed", so its "closure" is itself.
+				\item 3 applied to $\emptyset$.
+				\item $\subseteq$ follows because the LHS is the smallest "closed set" containing $A \cup B$ and the RHS is "closed" and contains $A\cup B$.\\ $\supseteq$: Since the RHS is "closed", we have $\closure{(\closure{A} \cup \closure{B})} = \closure{A} \cup \closure{B}$ implying that the RHS is the smallest "closed set" containing $\closure{A} \cup \closure{B}$. Then, since the LHS is a "closed set" containing $A$ and $B$, it contains $\closure{A}$ and $\closure{B}$ and hence must contain the RHS.
+			\end{enumerate}
+		\end{proof}}
+\end{lem}
+\begin{rem}
+    If we view $\mP(X)$ as "partial order" equipped with the inclusion relation, the previous lemma is about good properties of the function $\closure{(\placeholder)}: \mP(X) \rightarrow \mp(X)$. Namely, we showed in the first three points that it is a "monotone", "extensive" and "idempotent", and therefore it is a "closure operator".\footnote{In fact, this is where the terminology comes from.} %TODO: check
+\end{rem}
+\begin{defn}
+	\AP A subset $A\subseteq X$ is said to be ""dense"" (in $X$) if any non-empty "open set" intersects $A$ non-trivially, that is, $\forall\emptyset\neq  U  \in \topo, A \cap U \neq \emptyset$.
+\end{defn}
+\begin{thm}[Decomposition]\label{thm:decomptop}
+	Let $A\subseteq X$, then $A = \closure{A} \cap (A \cup (\closure{A})^\comple)$, where $\closure{A}$ is "closed" and $A \cup (\closure{A})^\comple$ is "dense". This results says that any subset of $X$ can be decomposed into a "closed" and a "dense" set.
+\end{thm}
+\begin{proof}
+	The equality is clear\footnote{We use (in this order) distributivity of $\cap$ over $\cup$, the fact that a set and its "complement" intersect trivially and the inclusion $A \subseteq \closure{A}$:
+    \begin{align*}
+        \closure{A} \cap (A \cup (\closure{A})^\comple) &= (\closure{A} \cap A)\cup (\closure{A} \cap (\closure{A})^\comple)\\&= A \cup \emptyset\\ &= A
+    \end{align*}} and $\closure{A}$ is "closed" by definition. It is left to show that $A \cup (\closure{A})^\comple$ is "dense". Let $U \neq \emptyset$ be an "open set". If $U$ intersects $A$, we are done. Otherwise, we have the following equivalences:\[U \cap A = \emptyset\Leftrightarrow A \subseteq U^\comple \Leftrightarrow \closure{A} \subseteq U^\comple \Leftrightarrow U \subseteq (\closure{A})^\comple,\]
+	where the second $\Rightarrow$ holds because $U^\comple$ is "closed". We conclude $U \cap (\closure{A})^\comple \neq \emptyset$.
+\end{proof}
+\begin{lem}
+	A subset $A \subseteq X$ is "dense" if and only if $\closure{A} = X$.
+\end{lem}
+\begin{proof}
+	($\Rightarrow$) Since $(\closure{A})^\comple$ is "open" but it intersects trivially the "dense" set $A$, it must be empty, thus $\closure{A}$ is the whole "space@@TOP".
+	
+	($\Leftarrow$) Let $U$ be an "open set" such that $U \cap A = \emptyset$, then $A$ is contained in the "closed set" $U^\comple$, but this implies $\closure{A} \subseteq U^\comple$,\footnote{Recall that the "closure" of $A$ is the smallest "closed set" containing $A$.} thus $U$ is empty.
+\end{proof}
+\begin{defn}
+	\AP Let $A \subseteq X$, the ""interior"" of $A$, denoted $\interior{A}$ is the union of all "open sets" contained in $A$. Similarly to the "closure", we can check that that $\interior{A}$ is the largest "open" subset of $A$ and thus that $A$ is "open" if and only if $A = \interior{A}$.\footnote{It also follows that $A \subseteq B \implies \interior{A} \subseteq \interior{B}$ and that $\interior{\interior{A}} = \interior{A}$.} 
+\end{defn}
+
+We end this section by presenting a largely preferred way of defining a "topology" that avoid describing all "open sets".
+\begin{defn}[Base]%TODO: look at other sources.
+	\AP Let $X$ be a set, a ""base"" $B$ is a set $B\subseteq \mP(X)$ such that $X = \cup_{U \in B} U$ and any finite intersection of sets in $B$ can be written as a union of sets in $B$. 
+\end{defn}
+\begin{lem}
+	Let $X$ and $B \subseteq \mP(X)$. If $\topo$ is the set of all unions of sets in $B$, then it is a "topology" on $X$. We say that $\topo$ is the "topology" ""generated@@TOP"" by $B$.
+\end{lem}
+\begin{proof}
+	By assumption, we know that unions of "opens" are "open" and finite intersections of sets in $B$ are "open". It remains to show that finite intersections of unions of sets in $B$ are also "open". Let $U = \cup_{i \in I} U_i$ and $V = \cup_{j \in J} V_j$ with $U_i \in B$ and $V_j \in B$, then by distributivity, we obtain
+	\[U\cap V = \cup_{i \in I} U_i \bigcap \cup_{j \in J} V_j = \bigcup_{i\in I, j \in J} U_i \cap V_j,\]
+	so $U \cap V$ is "open".\footnote{It is a union of "opens".} The lemma then follows by induction. %TODO: finish
+\end{proof}
+In practice, instead of "generating@@TOP" a "topology" from a "base" $B$, we start with any family $B_0 \subseteq \mP(X)$ and let $B$ be its closure under finite intersections, which satisfies the axioms of a "base". Such a $B_0$ is often called a ""subbase"" for the "topology" "generated@@TOP" by $B$.
+
+Another very useful way to define "topological spaces" is to consider the "topology" induced by a "metric".
+\begin{defn}[Metrics space]
+	\AP A ""metric space"" $(X,d)$ is a set $X$ together with a function $d: X \times X \rightarrow \R$ called a \textbf{"metric"} with the following properties for $x,y,z \in X$:
+	\begin{enumerate}
+		\item $d(x,y) \geq 0$
+		\item $d(x,y) = 0 \Leftrightarrow x = y$
+		\item $d(x,y) = d(y,x)$
+		\item $d(x,y) \leq d(x,z) + d(z,y)$
+	\end{enumerate}
+\end{defn}
+\begin{defn}[Non-expansive]
+	\AP A function between "metric spaces" $f: (X,d_X) \rightarrow (Y, d_Y)$ is said to be ""non-expansive""\footnote{Also called \textbf{$1$--Lipschitz} or \textbf{short}.} if for all $x, x' \in X$, \[d_Y(f(x),f(x')) \leq d_X(x,x').\]
+\end{defn}
+\begin{fact}
+	The composition of any two "non-expansive" maps is "non-expansive".
+\end{fact}
+\begin{defn}[Open ball]
+	\AP Let $(X,d)$ be a "metric space". Given a point $x \in X$ and a non-negative radius $r\in [0,\infty)$, the "open ball" of radius $r$ centered at $x$ is
+	\[\ball_r(x) := \{y \in X \mid d(x,y) < r.\]
+\end{defn}
+\begin{defn}[Induced topology]
+	\AP Any "metric space" $(X,d)$ has an ""induced topology"" "generated@@TOP" by the set of all "open balls" of $X$.\footnote{This "topology" is sometimes called the "open ball" "topology".}
+
+	In this "topology", a set $S \subseteq X$ is "open" if and only if every point $x \in S$ is contained in an "open ball" which is contained in $S$.\footnote{Equivalently, $\forall x \in S, \exists r>0, \ball_r(x)\subseteq S$.}
+\end{defn}
+
+\begin{defn}[Convergence]
+	\AP Let $(X,d)$ be a "metric space", a sequence $\{p_n\}_{n \in \N} \subseteq X$ ""converges"" to $p \in X$ if \[\forall \varepsilon > 0, \exists N \in \N, \forall n \geq N, d(p_n,p) < \varepsilon.\]
+\end{defn}
+\begin{defn}[Cauchy sequence]
+	\AP Let $(X,d)$ be a "metric space", a sequence $\{p_n\}_{n \in \N} \subseteq X$  is called ""Cauchy"" if \[\forall \varepsilon > 0, \exists N \in \N, \forall m,n \geq N \implies d(p_n,p_m) < \varepsilon.\]
+\end{defn}
+\begin{defn}[Completeness]
+	\AP A "metric space" in which every "Cauchy sequence" "converges" is called ""complete@cmet"".
+\end{defn}
+%TODO: completion of metric spaces, look into: http://www.math.ncku.edu.tw/~fjmliou/advcal/Completion.pdf
+\end{document}

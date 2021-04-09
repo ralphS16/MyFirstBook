@@ -1,0 +1,262 @@
+\documentclass[justified]{tufte-book} % A4 paper and 11pt font size
+%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{mathpazo} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm, amssymb} % Math packages
+\usepackage{pgf,tikz}
+\usetikzlibrary{positioning,matrix,arrows,calc,decorations.pathmorphing}
+\usepackage{float}
+\usepackage{tikz-cd}
+\usepackage{caption}
+\usepackage{stmaryrd}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{etoolbox}
+\usepackage{verbatim}
+\usepackage{subfiles}
+\usepackage[xcolor,hyperref,notion,quotation]{knowledge}
+\usepackage{enumerate}
+\allowdisplaybreaks
+% A TikZ style for curved arrows of a fixed height, due to AndréC.
+\tikzset{curve/.style={settings={#1},to path={(\tikztostart)
+    .. controls ($(\tikztostart)!\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    and ($(\tikztostart)!1-\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    .. (\tikztotarget)\tikztonodes}},
+    settings/.code={\tikzset{quiver/.cd,#1}
+        \def\pv##1{\pgfkeysvalueof{/tikz/quiver/##1}}},
+    quiver/.cd,pos/.initial=0.35,height/.initial=0}
+
+% TikZ arrowhead/tail styles.
+\tikzset{tail reversed/.code={\pgfsetarrowsstart{tikzcd to}}}
+\tikzset{2tail/.code={\pgfsetarrowsstart{Implies[reversed]}}}
+\tikzset{2tail reversed/.code={\pgfsetarrowsstart{Implies}}}
+% TikZ arrow styles.
+\tikzset{no body/.style={/tikz/dash pattern=on 0 off 1mm}}
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{facts}[thm]{Facts}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{quest}[thm]{Question}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{defns}[thm]{Definitions}
+\newtheorem{con}[thm]{Construction}
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{exmps}[thm]{Examples}
+\newtheorem{notn}[thm]{Notation}
+\newtheorem{notns}[thm]{Notations}
+\newtheorem{addm}[thm]{Addendum}
+\newtheorem{exer}[thm]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{warn}[thm]{Warning}
+\newtheorem{sch}[thm]{Scholium}
+
+% MACROS
+\newcommand{\Mod}[1]{\ (\text{mod}\ #1)}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mG}{\mathcal{G}}
+\newcommand{\mP}{\mathcal{P}}
+\renewcommand{\P}{\mathbb{P}}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\gal}{Gal}
+\DeclareMathOperator{\orb}{Orb}
+\DeclareMathOperator{\stab}{Stab}
+\DeclareMathOperator{\inn}{Inn}
+\DeclareMathOperator{\spn}{Span}
+\DeclareMathOperator{\out}{Out}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\arr}{Arr}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\rcf}{rcf}
+\DeclareMathOperator{\tors}{Tors}
+\DeclareMathOperator{\ann}{Ann}
+\DeclareMathOperator{\syl}{Syl}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\inp}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\gln}{\mathrm{GL}_n}
+
+
+\geometry{
+	left=10mm, % left margin
+	textwidth=130mm, % main text block
+	marginparsep=10mm, % gutter between main text block and margin notes
+	marginparwidth=60mm % width of margin notes
+}
+\fontsize{10}{20}\selectfont
+
+\input{know.tex}
+\newrobustcmd{\source}{\kl[source]{s}}
+\newrobustcmd{\target}{\kl[target]{t}}
+\newrobustcmd{\obj}[1]{#1_{\kl[objects]{0}}}
+\newrobustcmd{\mor}[1]{#1_{\kl[morphisms]{1}}}
+\newrobustcmd{\mortwo}[1]{#1_{\kl[path]{2}}}
+\newrobustcmd{\idu}{\kl[identity]{u}}
+\newrobustcmd{\id}{\kl[identity]{\mathrm{id}}}
+\newrobustcmd{\termcat}{\kl[termcat]{\mathbf{1}}}
+\newrobustcmd{\cattwo}{\kl[cattwo]{\mathbf{2}}}
+\newrobustcmd{\Hom}{\kl[Hom]{\mathrm{Hom}}}
+\newrobustcmd{\deloop}[1]{\kl[delooping]{\mathbf{B}}(#1)}
+\newrobustcmd{\inclF}{\kl[inclusion functor]{\mathcal{I}}}
+\newrobustcmd{\coproduct}{\mathbin{\kl[coproduct]{+}}}
+\newrobustcmd{\product}{\mathbin{\kl[bproduct]{\times}}}
+\newrobustcmd{\diagRel}{\kl[diagonal relation]{\Delta}}
+\newrobustcmd{\diagFunc}{\kl[diagonal functor]{\Delta}}
+\newrobustcmd{\gdiagFunc}{\kl[gdf]{\Delta}}
+\newrobustcmd{\mPcov}{\kl[powerset functor]{\mathcal{P}}}
+\newrobustcmd{\mPcontr}{\widehat{\mathcal{P}}}
+\newrobustcmd{\forget}{\kl[forgetful]{U}}
+\newrobustcmd{\free}{\kl(FUNC)[free]{F}}
+\newrobustcmd{\deloopobject}{\kl[deloopobject]{\ast}}
+\newrobustcmd{\act}{\mathbin{\kl(GRP)[action]{\star}}}
+\newrobustcmd{\actmon}{\mathbin{\kl(MON)[action]{\star}}}
+\newrobustcmd{\postcomp}[1]{\kl[post-composition]{#1_{*}}}
+\newrobustcmd{\precomp}[1]{\kl[pre-composition]{{\kern0pt#1}^{*}}}
+\newrobustcmd{\op}[1]{{\kern0pt#1}^{\kl[opposite]{\mathrm{op}}}}
+\newrobustcmd{\isoCAT}{\mathrel{\kl(CAT)[isomorphic]{\cong}}}
+\newrobustcmd{\isoMON}{\mathrel{\kl(MON)[isomorphic]{\cong}}}
+\newrobustcmd{\isoGRP}{\mathrel{\kl(GRP)[isomorphic]{\cong}}}
+\newrobustcmd{\isoRING}{\mathrel{\kl(RING)[isomorphic]{\cong}}}
+\newrobustcmd{\isoFLD}{\mathrel{\kl(FLD)[isomorphic]{\cong}}}
+\newrobustcmd{\isoVECT}{\mathrel{\kl(VECT)[isomorphic]{\cong}}}
+\newrobustcmd{\initial}{\kl[initial]{\emptyset}}
+\newrobustcmd{\initmorph}{\kl[initial]{()}}
+\newrobustcmd{\terminal}{\kl[terminal]{\mathbf{1}}}
+\newrobustcmd{\termmorph}{\kl[terminal]{[]}}
+\newrobustcmd{\zero}{\kl[zero]{\mathbf{0}}}
+\newrobustcmd{\Product}{\mathop{\kl[product]{\prod}}}
+\newrobustcmd{\Coproduct}{\mathop{\kl[coproduct]{\coprod}}}
+\newrobustcmd{\productm}{\mathbin{\kl[productm]{\times}}}
+\newrobustcmd{\coproductm}{\mathbin{\kl[coproductm]{+}}}
+\newrobustcmd{\cattimes}{\mathbin{\kl[cattimes]{\times}}}
+\newrobustcmd{\functimes}{\mathbin{\kl[functimes]{\times}}}
+\newrobustcmd{\eqclass}[1]{\left[ #1 \right]}
+\newrobustcmd{\gen}[1]{\left\langle #1 \right\rangle}
+\newrobustcmd{\coker}{\kl[cokernel]{\mathrm{coker}}}
+\newrobustcmd{\pushout}[1]{\mathbin{\kl[pushout]{+}_{#1}}}
+\newrobustcmd{\pullback}[1]{\mathbin{\kl[pullback]{\times}_{#1}}}
+\newrobustcmd{\pullbackd}{\mbox{\kl[pullbackd]{\LARGE$\lrcorner$}}}
+\newrobustcmd{\pushoutd}{\mbox{\kl[pushoutd]{\LARGE$\lrcorner$}}}
+\newrobustcmd{\cone}{\kl[cone]{\mathrm{Cone}}}
+\newrobustcmd{\cocone}{\kl[cocone]{\mathrm{Cocone}}}
+\renewrobustcmd{\lim}{\kl[limit]{\mathrm{lim}}}
+\newrobustcmd{\colim}{\kl[colimit]{\mathrm{colim}}}
+\newrobustcmd{\projection}{\kl[projection]{\pi}}
+\newrobustcmd{\coprojection}{\kl[coprojection]{\kappa}}
+\newrobustcmd{\freemon}[1]{{\kern0pt#1}^{\kl(MON)[free]{*}}}
+\newrobustcmd{\emptyword}{\kl[emptyword]{\varepsilon}}
+\newrobustcmd{\ev}{\kl[evaluation]{\mathsf{ev}}}
+\newrobustcmd{\comcat}[2]{#1\kl[comma]{\downarrow} #2}
+\newrobustcmd{\ab}[1]{{\kern0pt#1}^{\kl[abelianization]{\mathrm{ab}}}}
+\newrobustcmd{\curry}[1]{\kl[curry]{\lambda}#1}
+\newrobustcmd{\uncurry}[1]{\kl[uncurry]{\lambda^{-1}}#1}
+\newrobustcmd{\arrowcat}[1]{{\kern0pt#1}^{\kl[arrow category]{\rightarrow}}}
+\newrobustcmd{\slice}[2]{{#1}\kl[slice]{/}{#2}}
+\newrobustcmd{\coslice}[2]{{#1}\kl[coslice]{/}{#2}}
+\newrobustcmd{\one}{\kl[identity transformation]{\mathbb{1}}}
+\newrobustcmd{\units}[1]{{\kern0pt#1}^{\kl(RING)[units]{\times}}}
+\newrobustcmd{\vertcomp}{\mathbin{\kl[vertical]{\cdot}}}
+\newrobustcmd{\horcomp}{\mathbin{\kl[horizontal]{\diamond}}}
+\newrobustcmd{\eqCat}{\mathrel{\kl[equivalent]{\simeq}}}
+\newrobustcmd{\Nat}{\kl[NatHom]{\mathrm{Nat}}}
+\newrobustcmd{\Hombis}{\kl(YON)[embedding]{H}}
+\newrobustcmd{\Ev}{\kl[Evaluation]{\mathsf{Ev}}}
+\newrobustcmd{\Perm}{\kl[permutation]{\Sigma}}
+\newrobustcmd{\NOW}{\kl[nowexer]{NOW!}}
+\newrobustcmd{\kermon}{\kl(MON)[kernel]{\ker}}
+\newrobustcmd{\kergrp}{\kl(GRP)[kernel]{\ker}}
+\newrobustcmd{\infimum}{\mathbin{\kl[infimum]{\wedge}}}
+\newrobustcmd{\supremum}{\mathbin{\kl[supremum]{\vee}}}
+\newrobustcmd{\placeholder}{\kl[placeholder]{-}}
+\newrobustcmd{\topo}{\kl[topology]{\tau}}
+\newrobustcmd{\interior}[1]{{\kern0pt#1}^{\kl[interior]{\mathrm{o}}}}
+\newrobustcmd{\comple}{{\kl[complement]{c}}}
+\newrobustcmd{\closure}[1]{{\kern0pt#1}^{\kl[closure]{-}}}
+\newrobustcmd{\ball}{{\kl[open ball]{B}}}
+\newrobustcmd{\quotRING}[2]{{#1}\kl(RING)[quotient]{/}{#2}}
+\newrobustcmd{\quotGRP}[2]{{#1}\kl(GRP)[quotient]{/}{#2}}
+\newrobustcmd{\quotVECT}[2]{{#1}\kl(VECT)[quotient]{/}{#2}}
+\newrobustcmd{\adjoint}{\mathrel{\kl[adjoint]{\dashv}}}
+\newrobustcmd{\transpose}[1]{{\kern0pt#1}^{\kl[transpose]{\mathrm{t}}}}
+\newrobustcmd{\pfun}{\mathrel{\kl[partial]{\rightharpoonup}}}
+%OLD STUFF
+\DeclareMathOperator{\Alg}{Alg}
+\newcommand{\inl}{\textsf{inl}}
+\newcommand{\inr}{\textsf{inr}}
+\newcommand{\mPne}{\mathcal{P}_{\text{ne}}}
+\renewcommand{\succ}{\textsf{succ}}
+\newcommand{\Str}{\textsf{Str}}
+\newcommand{\head}{\textsf{head}}
+\newcommand{\tail}{\textsf{tail}}
+\newcommand{\sfodd}{\textsf{odd}}
+\newcommand{\sfmerge}{\textsf{merge}}
+\newcommand{\sfeven}{\textsf{even}}
+\newrobustcmd{\Sub}{\kl[subobject]{\mathrm{Sub}}}
+
+%Categories
+\newrobustcmd{\catSet}{\kl[Set]{\mathbf{Set}}}
+\newrobustcmd{\catFinSet}{\kl[FinSet]{\mathbf{FinSet}}}
+\newrobustcmd{\catFinOrd}{\kl[FinOrd]{\mathbf{FinOrd}}}
+\newrobustcmd{\catMon}{\kl[Mon]{\mathbf{Mon}}}
+\newrobustcmd{\catCMon}{\kl[CMon]{\mathbf{CMon}}}
+\newrobustcmd{\catGrp}{\kl[Grp]{\mathbf{Grp}}}
+\newrobustcmd{\catAb}{\kl[Ab]{\mathbf{Ab}}}
+\newrobustcmd{\catRing}{\kl[Ring]{\mathbf{Ring}}}
+\newrobustcmd{\catCRing}{\kl[CRing]{\mathbf{CRing}}}
+\newrobustcmd{\catField}{\kl[Field]{\mathbf{Field}}}
+\newrobustcmd{\catVect}[1]{\kl[Vect]{\mathbf{Vect}}_{#1}}
+\newrobustcmd{\catFDVect}[1]{\kl[FDVect]{\mathbf{FDVect}}_{#1}}
+\newrobustcmd{\catTop}{\kl[Top]{\mathbf{Top}}}
+\newrobustcmd{\catPoset}{\kl[Poset]{\mathbf{Poset}}}
+\newrobustcmd{\catRel}{\kl[Rel]{\mathbf{Rel}}}
+\newrobustcmd{\catCat}{\kl[Cat]{\mathbf{Cat}}}
+\newrobustcmd{\catOpens}{\kl[catOpens]{\mathcal{O}}}
+\newrobustcmd{\catFunc}[2]{\kl[functor category]{[} #1,#2 \kl[functor category]{]}}
+\newrobustcmd{\catPtd}{\kl[pointed]{\mathbf{Set}_{\ast}}}
+\newrobustcmd{\catPar}{\kl[partial]{\mathbf{Par}}}
+\newrobustcmd{\catMat}[1]{\kl[Mat]{\mathbf{Mat}}\kern-2pt\left( #1 \right)}
+%Known Symbols
+
+\newrobustcmd{\R}{\kl[real numbers]{\mathbb{R}}}
+\newrobustcmd{\N}{\kl[natural numbers]{\mathbb{N}}}
+\newrobustcmd{\Q}{\kl[rational numbers]{\mathbb{Q}}}
+\newrobustcmd{\Z}{\kl[integers]{\mathbb{Z}}}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{Category Theory}\author{Ralph Sarkis} % Your name
+%The First Category Theory Textbook Written by a Master's Student
+\begin{document}
+%\justifying
+%\frontmatter
+%\maketitle
+
+
+%TODO: knowledge for rightsquigarrow.
+%TODO: -- inside names
+%TODO: put emphasis on principle of equivalence and mention evil.
+
+\subfile{0Prelim.tex}
+\subfile{1CatFunc.tex}
+\subfile{2Duality.tex}
+\subfile{3Limits.tex}
+\subfile{4Universal.tex}
+\subfile{5Natural.tex}
+\subfile{6Yoneda.tex}
+\subfile{7Adjoints.tex}
+\subfile{8Monads.tex}
+\subfile{BCoalgebra.tex}
+\subfile{Solutions.tex}
+\end{document}

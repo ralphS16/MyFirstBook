@@ -1,0 +1,318 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Adjunctions}\label{chap:adjoints}
+%TODO: assemble all representables of previous section into one, show it yields a big natural iso => def of adjoint.
+%TODO: section properties of adjunction is done with alternative definition.
+% \begin{prop}
+%     A "category" $\mathbf{C}$ has all "binary products" if and only if
+% \end{prop}
+%The "diagonal functor" $\diagFunc_{\mathbf{C}}: \mathbf{C} \rightsquigarrow \mathbf{C} \cattimes \mathbf{C}$ has
+\begin{defn}[Adjunction]
+    \AP Two "functors" $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ are ""adjoint"" if there exists two "natural transformations" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ and $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ called the ""unit@@ADJ"" and ""counit@@ADJ"" satisfying the ""triangle identities"" shown in \eqref{diag:triangleftadj} and \eqref{diag:triangrightadj}.\\
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:triangleftadj}
+            \begin{tikzcd}
+                L & LRL \\
+                & L
+                \arrow["{\one_L}"', from=1-1, to=2-2]
+                \arrow["L\eta", from=1-1, to=1-2]
+                \arrow["{\varepsilon L}", from=1-2, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:triangrightadj}
+            \begin{tikzcd}
+                RLR & R \\
+                L
+                \arrow["{\eta R}"', from=1-2, to=1-1]
+                \arrow["R\varepsilon"', from=1-1, to=2-1]
+                \arrow["{\one_L}", from=1-2, to=2-1]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}\\
+\end{defn}
+\begin{exmp}[Boring]
+    The "identity functor" on any "category" is self-"adjoint", i.e.: $\id_{\mathbf{C}} \adjoint \id_{\mathbf{C}}$. Both the "unit@@ADJ" and "counit@@ADJ" are $\one_{\id_{\mathbf{C}}}$. This "adjunction" follows from the next result as $\id_{\mathbf{C}}$ is its own "inverse".%TODO: better phrasing
+\end{exmp}
+\begin{prop}\label{prop:equivadj}
+    Let $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ be "quasi-inverses", then $L \adjoint R$ and $R \adjoint L$.
+\end{prop}
+\begin{proof}
+    It is enough to show $L \adjoint R$ as the definition of "quasi-inverses" is symmetric.%TODO: but not using this. There are "natural isomorphisms" $\eta: \id_{\mathbf{C}} \cong RL$ and $\varepsilon: LR \cong \id_{\mathbf{D}}$.
+\end{proof}
+\begin{exmp}
+    Recall from Exercise \ref{exer:limits:maybefunctor} the "maybe functor" $\placeholder \coproduct \terminal$. Denote $\terminal = \{\ast\}$ for the "terminal" "object" of $\catSet$. We consider a very similar "functor" $\placeholder\coproduct\terminal: \catSet \rightsquigarrow \catPtd$ sending a set $X$ to $(X\coproduct\terminal,\ast)$ and $f: X \rightarrow Y$ to $f\coproductm\id_{\terminal}: X\coproduct\terminal \rightarrow Y\coproduct\terminal$. In the other direction, we have the "forgetful functor" $U:\catPtd \rightsquigarrow \catSet$ that forgets about the distinguished element of a "pointed" set. We claim that $\placeholder\coproduct\terminal \adjoint U$.
+
+    First, for every set $X$, we need to define $\eta_X: X \rightarrow U((X\coproduct\terminal,\ast)) = X\coproduct\terminal$. The only obvious choice is to let $\eta_X$ be the inclusion of $X$ in $X\coproduct\terminal$ and one can check it makes $\eta$ into a "natural transformation" $\id_{\catSet} \Rightarrow U(\placeholder\coproduct\terminal)$.\begin{marginfigure}
+        Check $\eta$ and $\varepsilon$ are "natural":
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiWSJdLFsxLDAsIlhcXGNvcHJvZHVjdFxcdGVybWluYWwiXSxbMSwxLCJZXFxjb3Byb2R1Y3RcXHRlcm1pbmFsIl0sWzAsMSwiZiIsMl0sWzAsMiwiXFxldGFfWCJdLFsyLDMsImZcXGNvcHJvZHVjdG1cXGlkX3tcXHRlcm1pbmFsfSJdLFsxLDMsIlxcZXRhX1kiLDJdXQ==
+        \[\begin{tikzcd}
+            X & X\coproduct\terminal \\
+            Y & Y\coproduct\terminal
+            \arrow["f"', from=1-1, to=2-1]
+            \arrow["{\eta_X}", from=1-1, to=1-2]
+            \arrow["{f\coproductm\id_{\terminal}}", from=1-2, to=2-2]
+            \arrow["{\eta_Y}"', from=2-1, to=2-2]
+        \end{tikzcd}\begin{tikzcd}
+            {(X,x)} & {(X\coproduct\terminal,\ast)} \\
+            {(Y,y)} & {(Y\coproduct\terminal,\ast)}
+            \arrow["f"', from=1-1, to=2-1]
+            \arrow["{\varepsilon_{(X,x)}}", from=1-1, to=1-2]
+            \arrow["{f\coproductm \id_{\terminal}}", from=1-2, to=2-2]
+            \arrow["{\varepsilon_{(Y,y)}}"', from=2-1, to=2-2]
+        \end{tikzcd}\]
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCIoWCx4KSJdLFswLDEsIihZLHkpIl0sWzEsMCwiKFhcXGNvcHJvZHVjdFxcdGVybWluYWwsXFxhc3QpIl0sWzEsMSwiKFlcXGNvcHJvZHVjdFxcdGVybWluYWwsXFxhc3QpIl0sWzAsMSwiZiIsMl0sWzAsMiwiXFx2YXJlcHNpbG9uX3soWCx4KX0iXSxbMiwzLCJmXFxjb3Byb2R1Y3RtIFxcaWRfe1xcdGVybWluYWx9Il0sWzEsMywiXFx2YXJlcHNpbG9uX3soWSx5KX0iLDJdXQ==
+    \end{marginfigure}
+    Second, for every "pointed" set $(X,x)$, we need to define $\varepsilon_{(X,x)}: (X\coproduct\terminal,\ast) \rightarrow (X,x)$. Again, there is one clear choice, i.e.: acting like the identity on $X$ and sending $\ast$ to $x$, we will denote $\varepsilon_{(X,x)} = [\id_X,\ast \mapsto x]$.
+
+    Finally, we need to check the "triangle identities" which we instantiate below.\footnote{When dealing with a set $(X\coproduct\terminal)\coproduct\terminal$, we will denote $\ast$ for the element of the inner $\terminal$ and $\star$ for the outer one.
+    
+    In \eqref{diag:triangptdright}, $X = U(X,x)$.}\\
+    \begin{minipage}{0.51\textwidth}
+        \begin{equation}\label{diag:triangptdleft}
+            \begin{tikzcd}
+                {(X\coproduct\terminal,\ast)} & {((X\coproduct\terminal)\coproduct\terminal,\star)} \\
+                & {(X\coproduct\terminal,\ast)}
+                \arrow["{\eta_X\coproductm\id_{\terminal}}", from=1-1, to=1-2]
+                \arrow["{[\id_{X\coproduct\terminal},\star\mapsto\ast]}", from=1-2, to=2-2]
+                \arrow["{\id_{X\coproduct\terminal}}"', from=1-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{equation}\label{diag:triangptdright}
+            \begin{tikzcd}
+                X & X\coproduct\terminal \\
+                & X
+                \arrow["{\eta_X}", from=1-1, to=1-2]
+                \arrow["{[\id_X,\ast \mapsto x]}", from=1-2, to=2-2]
+                \arrow["{\id_{X}}"', from=1-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}\\
+    We conclude that $\placeholder \coproduct\terminal \adjoint U$. A good exercise in categorical thinking is to generalize this example to an arbitrary "category" $\mathbf{C}$ with binary "coproducts" and a "terminal" "object".\footnote{See ... for a solution.}%TODO: ref maybe monad.
+\end{exmp}
+\begin{defn}[Adjunction]
+    Two "functors" $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ are "adjoint" if there is a "natural isomorphism"\footnote{We use Remark \ref{rem:hombifunctor} to define
+    \begin{align*}
+        \Hom_{\mathbf{C}}(\placeholder, R \placeholder) &:= \Hom_{\mathbf{C}}(\placeholder, \placeholder) \circ (\id_{\op{\mathbf{C}}} \functimes R)\\
+        \Hom_{\mathbf{D}}(L\placeholder, \placeholder) &:= \Hom_{\mathbf{D}}(\placeholder, \placeholder) \circ (\op{L}\functimes \id_{\mathbf{D}})
+    \end{align*}}
+    \[\Hom_{\mathbf{C}}(\placeholder, R \placeholder) \cong \Hom_{\mathbf{D}}(L\placeholder, \placeholder).\]
+    Less concisely, for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{D}}$, there is an "isomorphism@@CAT" $\Phi_{X,Y} : \Hom_{\mathbf{C}}(X,RY) \cong \Hom_{\mathbf{D}}(LX,Y)$ such that for any $f:X \rightarrow X' \in \mor{\mathbf{C}}$ and $g: Y \rightarrow Y' \in \mor{\mathbf{D}}$ the following "commutes". We split the "naturality" in two squares because we will often use one square on its own.\footnote{This is possible by Exercise \ref{exer:natural:componentwise}.}
+    \begin{equation}\label{defn:adjnaturality}
+        % https://q.uiver.app/?q=WzAsNixbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsIEdZKSJdLFsyLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oWCwgR1knKSJdLFsxLDEsIlxcSG9tX3tcXG1hdGhiZntEfX0oRlgsIFkpIl0sWzIsMSwiXFxIb21fe1xcbWF0aGJme0R9fShGWCwgWScpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0N9fShYJywgR1kpIl0sWzAsMSwiXFxIb21fe1xcbWF0aGJme0R9fShGWCcsIFkpIl0sWzAsMSwiR2cgXFxjaXJjIFxccGxhY2Vob2xkZXIiXSxbMCwyLCJcXFBoaV97WCxZfSIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFsyLDMsImcgXFxjaXJjIFxccGxhY2Vob2xkZXIiLDJdLFsxLDMsIlxcUGhpX3tYLFknfSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFs0LDUsIlxcUGhpX3tYJyxZfSIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFs0LDAsIlxccGxhY2Vob2xkZXIgXFxjaXJjIGYiXSxbNSwyLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyBGZiIsMl1d
+        \begin{tikzcd}
+            {\Hom_{\mathbf{C}}(X', RY)} & {\Hom_{\mathbf{C}}(X, RY)} & {\Hom_{\mathbf{C}}(X, RY')} \\
+            {\Hom_{\mathbf{D}}(LX', Y)} & {\Hom_{\mathbf{D}}(LX, Y)} & {\Hom_{\mathbf{D}}(LX, Y')}
+            \arrow["{Rg \circ \placeholder}", from=1-2, to=1-3]
+            \arrow["{\Phi_{X,Y}}"', tail reversed, from=1-2, to=2-2]
+            \arrow["{g \circ \placeholder}"', from=2-2, to=2-3]
+            \arrow["{\Phi_{X,Y'}}", tail reversed, from=1-3, to=2-3]
+            \arrow["{\Phi_{X',Y}}"', tail reversed, from=1-1, to=2-1]
+            \arrow["{\placeholder \circ f}", from=1-1, to=1-2]
+            \arrow["{\placeholder \circ Lf}"', from=2-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}
+
+\end{defn}
+%TODO: example discrete forgetful codiscrete
+\begin{prop}\label{prop:adjproduct}
+    Let $\mathbf{C}: L \adjoint R : \mathbf{D}$ be "adjoint" "functors" and $X, Y \in \obj{\mathbf{D}}$, if $X \product Y$ exists, then $R(X \product Y)$ with the "projections" $R(\projection_X)$ and $R(\projection_Y)$ is the "product@binary product" $R(X) \product R(Y)$. In other words, "right adjoints" "preserve" "binary products".\footnote{Dually, if $A, B \in \obj{\mathbf{C}}$ and $A \coproduct B$ exists, then $L(A \coproduct B)$ with the "coprojections" $L(\coprojection_A)$ and $L(\coprojection_B)$ is the "coproduct" $L(A) \product L(B)$. In other words, "left adjoints" "preserve" "binary coproducts".}%TODO: check if dually.
+\end{prop}
+\begin{proof}
+    Let $p_X: A \rightarrow RX$ and $p_Y: A \rightarrow RY$ be such that \eqref{diag:adjprodhyp} "commutes".
+    \begin{equation}\label{diag:adjprodhyp}
+        % https://q.uiver.app/?q=WzAsNCxbMSwwLCJBIl0sWzAsMSwiR1giXSxbMiwxLCJHWSJdLFsxLDEsIkcoWFxccHJvZHVjdCBZKSJdLFswLDEsInBfWCIsMl0sWzAsMiwicF9ZIl0sWzMsMSwiR1xccHJvamVjdGlvbl9YIl0sWzMsMiwiR1xccHJvamVjdGlvbl9ZIiwyXV0=
+        \begin{tikzcd}
+            & A \\
+            RX & {R(X\product Y)} & RY
+            \arrow["{p_X}"', from=1-2, to=2-1]
+            \arrow["{p_Y}", from=1-2, to=2-3]
+            \arrow["{R\projection_X}", from=2-2, to=2-1]
+            \arrow["{R\projection_Y}"', from=2-2, to=2-3]
+        \end{tikzcd}
+    \end{equation}
+    We need to show there is a unique "mediating morphism" $A \rightarrow R(X \product Y)$. First, we will get rid of the applications of $R$ at the bottom, in order to use the "universal property" of the "product@binary product" $X \product Y$. To do this, we apply $L$ to \eqref{diag:adjprodhyp} and use the "counit" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ to obtain \eqref{diag:Fadjprodhyp}.
+    \begin{equation}\label{diag:Fadjprodhyp}
+        % https://q.uiver.app/?q=WzAsNyxbMSwwLCJGQSJdLFswLDEsIkZHWCJdLFsyLDEsIkZHWSJdLFsxLDEsIkZHKFhcXHByb2R1Y3QgWSkiXSxbMSwyLCJYXFxwcm9kdWN0IFkiXSxbMCwyLCJYIl0sWzIsMiwiWSJdLFswLDEsIkZwX1giLDJdLFswLDIsIkZwX1kiXSxbMywxLCJGR1xccHJvamVjdGlvbl9YIl0sWzMsMiwiRkdcXHByb2plY3Rpb25fWSIsMl0sWzMsNCwiXFx2YXJlcHNpbG9uX3tYXFxwcm9kdWN0IFl9IiwyXSxbMSw1LCJcXHZhcmVwc2lsb25fWCIsMl0sWzIsNiwiXFx2YXJlcHNpbG9uX1kiLDJdLFs0LDUsIlxccHJvamVjdGlvbl9YIl0sWzQsNiwiXFxwcm9qZWN0aW9uX1kiLDJdXQ==
+        \begin{tikzcd}
+            & LA \\
+            LRX & {LR(X\product Y)} & LRY \\
+            X & {X\product Y} & Y
+            \arrow["{Lp_X}"', from=1-2, to=2-1]
+            \arrow["{Lp_Y}", from=1-2, to=2-3]
+            \arrow["{LR\projection_X}", from=2-2, to=2-1]
+            \arrow["{LR\projection_Y}"', from=2-2, to=2-3]
+            \arrow["{\varepsilon_{X\product Y}}"', from=2-2, to=3-2]
+            \arrow["{\varepsilon_X}"', from=2-1, to=3-1]
+            \arrow["{\varepsilon_Y}"', from=2-3, to=3-3]
+            \arrow["{\projection_X}", from=3-2, to=3-1]
+            \arrow["{\projection_Y}"', from=3-2, to=3-3]
+        \end{tikzcd}
+    \end{equation}
+    \begin{marginfigure}[2\baselineskip]
+        % https://q.uiver.app/?q=WzAsNixbMSwwLCJGQSJdLFswLDEsIkZHWCJdLFsyLDEsIkZHWSJdLFsxLDIsIlhcXHByb2R1Y3QgWSJdLFswLDIsIlgiXSxbMiwyLCJZIl0sWzAsMSwiRnBfWCIsMl0sWzAsMiwiRnBfWSJdLFsxLDQsIlxcdmFyZXBzaWxvbl9YIiwyXSxbMiw1LCJcXHZhcmVwc2lsb25fWSIsMl0sWzMsNCwiXFxwcm9qZWN0aW9uX1giXSxbMyw1LCJcXHByb2plY3Rpb25fWSIsMl0sWzAsMywiISIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+        \[\begin{tikzcd}
+            & LA \\
+            LRX && LRY \\
+            X & {X\product Y} & Y
+            \arrow["{Lp_X}"', from=1-2, to=2-1]
+            \arrow["{Lp_Y}", from=1-2, to=2-3]
+            \arrow["{\varepsilon_X}"', from=2-1, to=3-1]
+            \arrow["{\varepsilon_Y}"', from=2-3, to=3-3]
+            \arrow["{\projection_X}", from=3-2, to=3-1]
+            \arrow["{\projection_Y}"', from=3-2, to=3-3]
+            \arrow["{!}"', dashed, from=1-2, to=3-2]
+        \end{tikzcd}\]
+    \end{marginfigure}
+    The "universal property" of $X \product Y$ tells us there is a unique $!: LA \rightarrow X \product Y$ such that $\pi_X \circ ! = \varepsilon_X \circ Lp_X$ and $\pi_Y \circ ! = \varepsilon_Y \circ Lp_Y$. We claim that $\transpose{!}$ is the "mediating morphism" of \eqref{diag:adjprodhyp}, i.e.: $R\projection_X \circ \transpose{!} = p_X$ and $R \projection_Y \circ \transpose{!} = p_Y$. Using the "adjunction" $L \adjoint R$, we obtain the following "commutative" square.
+    \begin{equation}\label{diag:adjprodtranssquare}
+        % https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsIEcoWFxccHJvZHVjdCBZKSkiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsIEdYKSJdLFswLDAsIlxcSG9tX3tcXG1hdGhiZntEfX0oRkEsIFhcXHByb2R1Y3QgWSkiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KEZBLCBYKSJdLFswLDEsIkdcXHByb2plY3Rpb25fWCBcXGNpcmMgXFxwbGFjZWhvbGRlciJdLFswLDIsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFsyLDMsIlxccHJvamVjdGlvbl9YIFxcY2lyYyBcXHBsYWNlaG9sZGVyIiwyXSxbMSwzLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XV0=
+        \begin{tikzcd}
+            {\Hom_{\mathbf{D}}(LA, X\product Y)} & {\Hom_{\mathbf{C}}(A, R(X\product Y))} \\
+            {\Hom_{\mathbf{D}}(LA, X)} & {\Hom_{\mathbf{C}}(A, RX)}
+            \arrow["{R\projection_X \circ \placeholder}", from=1-2, to=2-2]
+            \arrow[tail reversed, from=1-2, to=1-1]
+            \arrow["{\projection_X \circ \placeholder}"', from=1-1, to=2-1]
+            \arrow[tail reversed, from=2-2, to=2-1]
+        \end{tikzcd}
+    \end{equation}
+    Now, starting with $!$ on the top left corner, we obtain the following derivation.
+    \begin{align*}%TODO: refs.
+        p_X &= \transpose{\transpose{p_X}}\\
+        &= \transpose{(\varepsilon_X \circ Lp_X)}\\
+        &= \transpose{\projection_X \circ !} &&\text{definition of $!$}\\
+        &= R\projection_X \circ \transpose{!} &&\text{"commutativity" of \eqref{diag:adjprodtranssquare}}
+    \end{align*}
+    \begin{marginfigure}[2\baselineskip]
+        \begin{equation}\label{diag:adjprodexist}
+            % https://q.uiver.app/?q=WzAsNCxbMSwwLCJBIl0sWzAsMSwiR1giXSxbMiwxLCJHWSJdLFsxLDEsIkcoWFxccHJvZHVjdCBZKSJdLFswLDEsInBfWCIsMl0sWzAsMiwicF9ZIl0sWzMsMSwiR1xccHJvamVjdGlvbl9YIl0sWzMsMiwiR1xccHJvamVjdGlvbl9ZIiwyXSxbMCwzLCJcXHRyYW5zcG9zZXshfSIsMl1d
+        \begin{tikzcd}
+            & A \\
+            RX & {R(X\product Y)} & RY
+            \arrow["{p_X}"', from=1-2, to=2-1]
+            \arrow["{p_Y}", from=1-2, to=2-3]
+            \arrow["{R\projection_X}", from=2-2, to=2-1]
+            \arrow["{R\projection_Y}"', from=2-2, to=2-3]
+            \arrow["{\transpose{!}}"', from=1-2, to=2-2]
+        \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+    Replacing $X$ with $Y$ in the previous argument shows $\transpose{!}$ makes \eqref{diag:adjprodexist} "commute". For the uniqueness, note that if $m:A \rightarrow R(X \product Y)$ can replace $\transpose{!}$, then \eqref{diag:adjprodunique} "commutes" which implies by uniqueness of $!$ that $\transpose{m} = \varepsilon_{X\product Y} \circ Lm = {!}$. Transposing yields $\transpose{!} = m$.
+    \begin{equation}\label{diag:adjprodunique}
+        % https://q.uiver.app/?q=WzAsNyxbMSwwLCJGQSJdLFswLDEsIkZHWCJdLFsyLDEsIkZHWSJdLFsxLDEsIkZHKFhcXHByb2R1Y3QgWSkiXSxbMSwyLCJYXFxwcm9kdWN0IFkiXSxbMCwyLCJYIl0sWzIsMiwiWSJdLFswLDEsIkZwX1giLDJdLFswLDIsIkZwX1kiXSxbMywxLCJGR1xccHJvamVjdGlvbl9YIl0sWzMsMiwiRkdcXHByb2plY3Rpb25fWSIsMl0sWzMsNCwiXFx2YXJlcHNpbG9uX3tYXFxwcm9kdWN0IFl9IiwyXSxbMSw1LCJcXHZhcmVwc2lsb25fWCIsMl0sWzIsNiwiXFx2YXJlcHNpbG9uX1kiLDJdLFs0LDUsIlxccHJvamVjdGlvbl9YIl0sWzQsNiwiXFxwcm9qZWN0aW9uX1kiLDJdLFswLDMsIkZtIiwyXV0=
+        \begin{tikzcd}
+            & LA \\
+            LRX & {LR(X\product Y)} & LRY \\
+            X & {X\product Y} & Y
+            \arrow["{Lp_X}"', from=1-2, to=2-1]
+            \arrow["{Lp_Y}", from=1-2, to=2-3]
+            \arrow["{LR\projection_X}", from=2-2, to=2-1]
+            \arrow["{LR\projection_Y}"', from=2-2, to=2-3]
+            \arrow["{\varepsilon_{X\product Y}}"', from=2-2, to=3-2]
+            \arrow["{\varepsilon_X}"', from=2-1, to=3-1]
+            \arrow["{\varepsilon_Y}"', from=2-3, to=3-3]
+            \arrow["{\projection_X}", from=3-2, to=3-1]
+            \arrow["{\projection_Y}"', from=3-2, to=3-3]
+            \arrow["Lm"', from=1-2, to=2-2]
+        \end{tikzcd}
+    \end{equation}
+\end{proof}
+%TODO: Recall exercise \ref{exer:limits:pullbackmono} to motivate the second proposition.
+\begin{prop}\label{prop:adjmono}
+    Let $\mathbf{C}: L \adjoint R : \mathbf{D}$ be "adjoint" "functors" and $g: X \rightarrow Y \in \mor{\mathbf{D}}$ be an "monomorphism", then $R(g)$ is "monic". In other words, "right adjoints" "preserve" "monomorphisms".\footnote{Dually, if $f: A \rightarrow  B \in \mor{\mathbf{C}}$ is "epic", then $L(f)$ is "epic". In other words, "left adjoints" "preserve" "epimorphisms".}%TODO: check if dually.
+\end{prop}
+\begin{proof}
+    Let $h_1,h_2 : Z \rightarrow R(X)$ be such that $R(g) \circ h_1 = R(g) \circ h_2$, we need to show that $h_1 = h_2$. Since $L \adjoint R$, we have the following "commutative" square.
+    \begin{equation}\label{diag:adjmonosquare}
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KFosIEdYKSJdLFswLDEsIlxcSG9tX3tcXG1hdGhiZntDfX0oWiwgR1kpIl0sWzEsMCwiXFxIb21fe1xcbWF0aGJme0R9fShGWiwgWCkiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KEZaLCBZKSJdLFswLDEsIkdnIFxcY2lyYyBcXHBsYWNlaG9sZGVyIiwyXSxbMCwyLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMiwzLCJnIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzEsMywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV1d
+        \begin{tikzcd}
+            {\Hom_{\mathbf{C}}(Z, RX)} & {\Hom_{\mathbf{D}}(FZ, X)} \\
+            {\Hom_{\mathbf{C}}(Z, RY)} & {\Hom_{\mathbf{D}}(FZ, Y)}
+            \arrow["{Rg \circ \placeholder}"', from=1-1, to=2-1]
+            \arrow[tail reversed, from=1-1, to=1-2]
+            \arrow["{g \circ \placeholder}", from=1-2, to=2-2]
+            \arrow[tail reversed, from=2-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}
+    Starting with $h_1$ and $h_2$ in the top left corner, we find that\footnote{The first and last equality follow from "commutativity" of \eqref{diag:adjmonosquare} and the middle equality is a hypothesis.} 
+    \[g \circ \transpose{h_1} = Rg \circ h_1 = Rg \circ h_2 = g \circ \transpose{h_2},\]
+    which, by "monicity" of $g$ implies $\transpose{h_1} = \transpose{h_2}$. This in turn means that $h_1 = h_2$ because $\transpose{(\placeholder)}$ is a bijection. 
+\end{proof}
+
+\begin{thm}
+    If $\mathbf{C}: L \adjoint R : \mathbf{D}$ and $\mathbf{D}: L' \adjoint R' : \mathbf{E}$ are two "adjunctions", then $\mathbf{C}: L'L \adjoint RR' : \mathbf{E}$ is an "adjunction".
+\end{thm}
+\begin{proof}
+    Let $\eta$ and $\varepsilon$ be the "unit@@ADJ" and "counit@@ADJ" of the first "adjunction" and $\eta'$ and $\varepsilon'$ be the "unit@@ADJ" and "counit@@ADJ" of the second one. We define the following "unit@@ADJ" and "counit@ADJ" for the composite "adjunction":
+    \begin{align*}
+        \widehat{\eta} &= R\eta'L \vertcomp \eta: \id_{\mathbf{C}} \Rightarrow RR'L'L\\
+        \widehat{\varepsilon} &= \varepsilon' \vertcomp L'\varepsilon R': L'LRR' \Rightarrow \id_{\mathbf{E}}.
+    \end{align*}
+    The following diagrams show the "triangle identities".
+    \marginnote[4\baselineskip]{Showing \eqref{diag:compositelefttriang} "commutes":\begin{enumerate}[(a)]
+        \item Apply $L'(\placeholder)$ to the left "triangle identity" of $\eta$ and $\varepsilon$.
+        \item This is the "commutative" square in the definition of $L'(\varepsilon \horcomp \eta')L$.
+        \item Apply $(\placeholder)L$ to the left "triangle identity" of $\eta'$ and $\varepsilon'$.
+    \end{enumerate}}
+    \begin{equation}\label{diag:compositelefttriang}
+        % https://q.uiver.app/?q=WzAsNixbMCwwLCJMJ0wiXSxbNCw0LCJMJ0wiXSxbNCwwLCJMJ0xSUidMJ0wiXSxbMiwwLCJMJ0xSTCJdLFs0LDIsIkwnUidMJ0wiXSxbMiwyLCJMJ0wiXSxbMCwxLCJcXG9uZV97TCdMfSIsMix7ImN1cnZlIjo0fV0sWzAsMiwiTCdMXFx3aWRlaGF0e1xcZXRhfSIsMCx7ImN1cnZlIjotNH1dLFsyLDEsIlxcd2lkZWhhdHtcXHZhcmVwc2lsb259TCdMIiwwLHsiY3VydmUiOi00fV0sWzAsMywiTCdMXFxldGEiXSxbMywyLCJMJ0xSXFxldGEnTCJdLFsyLDQsIkwnXFx2YXJlcHNpbG9uIFInTCdMIiwxXSxbNCwxLCJcXHZhcmVwc2lsb24nTCdMIiwxXSxbMyw1LCJMJ1xcdmFyZXBzaWxvbiBMIl0sWzUsNCwiTCdcXGV0YSdMIl0sWzUsMSwiXFxvbmVfe0wnTH0iLDFdLFswLDUsIlxcb25lX3tMJ0x9IiwxXSxbOSw1LCJcXHRleHR7KGEpfSIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxMCwxNCwiXFx0ZXh0eyhiKX0iLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTQsMSwiXFx0ZXh0eyhjKX0iLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+        \begin{tikzcd}
+            {L'L} && {L'LRL} && {L'LRR'L'L} \\
+            \\
+            && {L'L} && {L'R'L'L} \\
+            \\
+            &&&& {L'L}
+            \arrow["{\one_{L'L}}"', curve={height=24pt}, from=1-1, to=5-5]
+            \arrow["{L'L\widehat{\eta}}", curve={height=-24pt}, from=1-1, to=1-5]
+            \arrow["{\widehat{\varepsilon}L'L}", curve={height=-24pt}, from=1-5, to=5-5]
+            \arrow[""{name=0, anchor=center, inner sep=0}, "{L'L\eta}", from=1-1, to=1-3]
+            \arrow[""{name=1, anchor=center, inner sep=0}, "{L'LR\eta'L}", from=1-3, to=1-5]
+            \arrow["{L'\varepsilon R'L'L}"{description}, from=1-5, to=3-5]
+            \arrow["{\varepsilon'L'L}"{description}, from=3-5, to=5-5]
+            \arrow["{L'\varepsilon L}", from=1-3, to=3-3]
+            \arrow[""{name=2, anchor=center, inner sep=0}, "{L'\eta'L}", from=3-3, to=3-5]
+            \arrow["{\one_{L'L}}"{description}, from=3-3, to=5-5]
+            \arrow["{\one_{L'L}}"{description}, from=1-1, to=3-3]
+            \arrow["{\text{(a)}}"{description}, Rightarrow, draw=none, from=0, to=3-3]
+            \arrow["{\text{(b)}}"{description}, Rightarrow, draw=none, from=1, to=2]
+            \arrow["{\text{(c)}}"{description}, Rightarrow, draw=none, from=2, to=5-5]
+        \end{tikzcd}
+    \end{equation}
+    \marginnote[4\baselineskip]{Showing \eqref{diag:compositerighttriang} "commutes":\begin{enumerate}[(a)]
+        \item This is the "commutative" square in the definition of $R(\eta' \horcomp \varepsilon)R'$.
+        \item Apply $(\placeholder)R'$ to the right "triangle identity" of $\eta$ and $\varepsilon$.
+        \item Apply $R(\placeholder)$ to the right "triangle identity" of $\eta'$ and $\varepsilon'$.
+    \end{enumerate}}
+    \begin{equation}\label{diag:compositerighttriang}
+        % https://q.uiver.app/?q=WzAsNixbNCwwLCJSUiciXSxbMCw0LCJSUiciXSxbMCwwLCJSUidMJ0xSUiciXSxbMiwwLCJSTFJSJyJdLFswLDIsIlJSJ0wnUiciXSxbMiwyLCJSUiciXSxbMCwxLCJcXG9uZV97UlInfSIsMCx7ImN1cnZlIjotNH1dLFswLDIsIlxcd2lkZWhhdHtcXGV0YX1SUiciLDIseyJjdXJ2ZSI6NH1dLFsyLDEsIlJSJ1xcd2lkZWhhdHtcXHZhcmVwc2lsb259IiwyLHsiY3VydmUiOjR9XSxbMCwzLCJcXGV0YSBSUiciLDJdLFszLDIsIlJcXGV0YSdMUlInIiwyXSxbMiw0LCJSUidMJ1xcdmFyZXBzaWxvbiBSJyIsMV0sWzQsMSwiUlInXFx2YXJlcHNpbG9uJyIsMV0sWzMsNSwiUlxcdmFyZXBzaWxvbiBSJyIsMl0sWzUsNCwiUlxcZXRhJ1InIiwyXSxbNSwxLCJcXG9uZV97UlInfSIsMV0sWzAsNSwiXFxvbmVfe1JSJ30iLDFdLFs5LDUsIlxcdGV4dHsoYSl9IiwxLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEwLDE0LCJcXHRleHR7KGIpfSIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxNCwxLCJcXHRleHR7KGMpfSIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+        \begin{tikzcd}
+            {RR'L'LRR'} && {RLRR'} && {RR'} \\
+            \\
+            {RR'L'R'} && {RR'} \\
+            \\
+            {RR'}
+            \arrow["{\one_{RR'}}", curve={height=-24pt}, from=1-5, to=5-1]
+            \arrow["{\widehat{\eta}RR'}"', curve={height=24pt}, from=1-5, to=1-1]
+            \arrow["{RR'\widehat{\varepsilon}}"', curve={height=24pt}, from=1-1, to=5-1]
+            \arrow[""{name=0, anchor=center, inner sep=0}, "{\eta RR'}"', from=1-5, to=1-3]
+            \arrow[""{name=1, anchor=center, inner sep=0}, "{R\eta'LRR'}"', from=1-3, to=1-1]
+            \arrow["{RR'L'\varepsilon R'}"{description}, from=1-1, to=3-1]
+            \arrow["{RR'\varepsilon'}"{description}, from=3-1, to=5-1]
+            \arrow["{R\varepsilon R'}"', from=1-3, to=3-3]
+            \arrow[""{name=2, anchor=center, inner sep=0}, "{R\eta'R'}"', from=3-3, to=3-1]
+            \arrow["{\one_{RR'}}"{description}, from=3-3, to=5-1]
+            \arrow["{\one_{RR'}}"{description}, from=1-5, to=3-3]
+            \arrow["{\text{(b)}}"{description}, Rightarrow, draw=none, from=0, to=3-3]
+            \arrow["{\text{(a)}}"{description}, Rightarrow, draw=none, from=1, to=2]
+            \arrow["{\text{(c)}}"{description}, Rightarrow, draw=none, from=2, to=5-1]
+        \end{tikzcd}
+    \end{equation}
+\end{proof}
+%TODO: define category of adjunctions.
+%TODO: functors preserve adjunction hence see below.
+%TODO: show that compositionisfunc with adjunction yields an adjunction
+%TODO: show that limits are taken pointwise.
+\end{document}

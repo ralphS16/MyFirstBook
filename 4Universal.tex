@@ -1,0 +1,155 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Universal Properties}\label{chap:universal}
+%TODO: section on freeness, cofreeness, currying, ends.
+\subsection{Free Monoid}
+The construction of a \textit{free} object is common to different fields of mathematics and the example we will carry out in $\catMon$ can be carried out in many other "categories" like $\catGrp$, $\catAb$, $\catRing$, $\textbf{Mod}_R$ (we will do this one in the next section). In fact, one way to view this construction comes from the "forgetful" "functor" to $\catSet$ that all these "categories" have in common. In Chapter \ref{chap:adjoints}, we will cover "adjoints" and recover the free constructions from $U$.
+
+We choose $\catMon$ because the concrete characterization of a "free monoid" is the simplest.
+\begin{defn}[Classical]
+    \AP A "monoid" $M$ is said to be ""free@@MON"" if it can be "presented@@MON" by a set of "generators@@MON" without any "relations", i.e. $M = \langle A \mid \emptyset \rangle$. In this case, $M$ is called the \textbf{"free monoid" on $A$} and denoted $\freemon{A}$.
+\end{defn}
+It is easy to check that $\freemon{A}$ is the set of finite words with symbols in $A$ with the operation being concatenation and identity being \AP the empty word (denoted $\intro*\emptyword$). In order to give a categorical characterization, we need to look at "homomorphisms@@MON" from or into the "free monoid". Notice that any "homomorphism@@MON" $h^*:\freemon{A} \rightarrow M$ is completely determined by where $h^*$ sends elements of $A$. Indeed, in order to satisfy the "homomorphism@@MON" property, we must have for any $a_1, a_2 \in A$, \[h^*(a_1a_2) = h^*(a_1)\cdot h^*(a_2) \text{ and } h^*(\emptyword) = 1_M.\] In general, the unique "homomorphism@@MON" sending $a \in A$ to $h(a)$ can be defined recursively:
+\[h^*(w) = \begin{cases}
+    h(a)\cdot h^*(w') &a \in A, w \in \freemon{A}, w = aw'\\
+    1_M &w = \emptyword\end{cases}.\]
+Now, suppose that a "monoid" $N$ contains $A$ and satisfies the same property, that is for any (set-theoretic) function $h:A \rightarrow M$, there is a unique "homomorphism@@MON" $h^*:N \rightarrow M$ with $h^*(a) = h(a)$. 
+
+%TODO: put subscripts to
+If we take $M = \freemon{A}$, and $h: A \rightarrow \freemon{A} = a \mapsto a$, then we get a "homomorphism@@MON" $h_N^*: N \rightarrow \freemon{A}$. Moreover, taking $M = N$ and $i: A \hookrightarrow N$ be the inclusion, the property of $\freemon{A}$ means there is a unique "homomorphism@@MON" $i^*: \freemon{A} \rightarrow N$. Note that $h_N^* \circ i^* : \freemon{A} \rightarrow \freemon{A}$ is a "homomorphism@@MON" satisfying $a \mapsto a$, so it must be the identity by uniqueness. We conclude that $N$ and $\freemon{A}$ are "isomorphic@@MON".
+\begin{defn}[Categorical]
+    \AP The "free monoid" of a set $A$ is an object $\freemon{A}$ in $\catMon$ along with a \textit{canonical inclusion} $i: A \rightarrow U(\freemon{A})$ that satisfies the following "universal property": for any "monoid" $M$ and function $h:A \rightarrow U(M)$, there exists a unique "homomorphism@@MON" $h^*: \freemon{A} \rightarrow M$ such that $U(h^*) \circ i = h$, namely, $h^*(i(a)) = h(a)$. This is summarized in \eqref{diag-freemon}, where we omit the $U$ as the underlying set of a "monoid" is often denoted with the same symbol as the "monoid".
+    \begin{equation}\label{diag-freemon}
+        \begin{tikzcd}
+            A \arrow[r, "i"] \arrow[rd, "h"'] \arrow[r, phantom, "\text{in } \catSet", shift left=6] & \freemon{A} \arrow[d, "h^*", dashed] & {} \arrow[rr, phantom, "\text{in } \catMon", shift left=6] & \freemon{A} \arrow[d, "h^*", dashed] \arrow[ll, squiggly, shift left=5] & {} \\ & M & & M &   
+            \end{tikzcd}
+    \end{equation}
+\end{defn}
+
+\subsection{Abelianization}
+\begin{defn}[Classical]
+    \AP Let $G$ be a group, the ""abelianization"" of $G$, denoted $\ab{G}$, is the "quotient@@GRP" of $G$ with $G' := \{xyx^{-1}y^{-1} \mid x, y \in G\} \leq G$, called the ""commutator subgroup"", that is $\ab{G} := G/G'$.
+\end{defn}
+Let us get insight into this definition. The "abelianization" is supposed to be the \textit{biggest} "abelian" "quotient@@GRP" of $G$. To see why, note that if $A$ is an "abelian group", any "homomorphism@@GRP" $h:G \rightarrow A$ must satisfy $h(xyx^{-1}y^{-1}) = 1_A$ for any $x,y\in G$. Hence, $G'$ is contained in the "kernel@GRP" of $h$. This yields a factorization $h = G \stackrel{\pi}{\rightarrow} G/G' \stackrel{h^*}{\rightarrow} A$ with $h^*$ unique, where $\pi$ is the canonical "quotient@@GRP" map.%TODO: maybe define factorization
+
+Moreover, since $\catAb$ is a "full@@CAT" "subcategory" of $\catGrp$, $h^*$ is also unique as a "morphism" in $\catAb$. Using the fact that $G/G'$ is "abelian", we conclude the following categorical definition of $\ab{G}$.
+\begin{defn}[Categorical]
+    Let $G$ be a group, the "abelianization" of $G$ is an "abelian group" $\ab{G}$ with a map $\pi: G \rightarrow \ab{G}$ satisfying the following "universal property": for any "homomorphism@@GRP" $h:G \rightarrow A$ where $A$ is "abelian", there is a unique "homomorphism@@GRP" $h^*: \ab{G} \rightarrow A$ such that $h^* \circ \pi = h$. This is summarized in \eqref{diag-abelianization}.
+    \begin{equation}\label{diag-abelianization}
+        \begin{tikzcd}
+            G \arrow[r, "\pi"] \arrow[rd, "h"'] \arrow[r, phantom, "\text{in } \catGrp", shift left=6] & \ab{G} \arrow[d, "h^*", dashed] & {} \arrow[rr, phantom, "\text{in } \catAb", shift left=6] & \ab{G} \arrow[d, "h^*", dashed] \arrow[ll, squiggly, shift left=5] & {} \\ & A & & A &   
+        \end{tikzcd}
+    \end{equation}
+\end{defn}
+\subsection{Vector Space Basis}
+\begin{defn}[Classical]
+    \AP Let $V$ be a "vector space" over a "field" $k$, a ""basis"" for $V$ is a subset $S \subseteq V$ that is "linearly independent" and "generates@@VECT" $V$, namely, any $v \in V$ can be expressed as a "linear combination" of elements in $S$ and any $s \in S$ cannot be expressed as a "linear combination" of elements in $S \setminus\{s\}$.
+\end{defn}
+Once again, we would like to get rid of the content of this definition talking about elements, so we focus on what this means for "linear maps" coming out of $V$. Let $S$ be a "basis" of $V$, $W$ be another "vector space" over $k$ and $T: V \rightarrow W$ be a "linear map". By "linearity", $T$ is completely determined by where it sends the elements of $S$. Indeed, for any $v \in V$, write $v$ as a "linear combination" $\sum_{s \in S} \lambda_s s$ with $\lambda_s \in k$ (only finitely many of the coefficients are non-zero), then $T(v) = \sum_{s \in S} \lambda_s T(s)$. We conclude that any (set-theoretic) function $t: S \rightarrow W$ extends to a unique "linear map" $T: V \rightarrow  W$.
+
+We claim that this property completely characterizes "bases" of $V$. Indeed, let $S \subseteq V$ be such that for any $t: S \rightarrow W$, there is a unique "linear map" $T: V \rightarrow  W$ extending $t$. We will show that $S$ is "generating@@VECT" and "linearly independent".
+\begin{enumerate}
+    \item Assume towards a contradiction that $S$ is not "generating@@VECT", that is, there exists $v \in V$ that is not a "linear combination" of vectors in $S$. Equivalently, if $U$ is the "subspace" "generated@@VECT" by $S$, then $V/U$ is not $0$. Now, let $t: S \rightarrow V/U$ be the $0$ map, both the quotient map $\pi: V \rightarrow V/U$ and the $0$ map $0: V \rightarrow V/U$ extend $t$, and since $V/U$ is not trivial, they are different maps.
+    \item Assume towards a contradiction that $S$ is not "linearly dependent", that is, there exists $v \in S$ is such that $v = \sum_{s \in S-v} \lambda_s s$. Consider the function \[t: S \rightarrow V \oplus V  = \begin{cases}(s,0) & s\neq v\\ (0,v) & s = v\end{cases}.\]
+    There cannot exist a "linear map" $T: V \rightarrow V\oplus V$ extending $t$ because by "linearity", we can show
+    \[(0,v) = t(v) = T(v) = T(\sum_{s \in S-v} \lambda_s s) = \sum_{s \in S-v} \lambda_s T(s) = \sum_{s \in S-v} \lambda_s (s,0),\]
+    which is absurd.
+\end{enumerate}
+In conclusion, we have the following alternate definition of a "vector space" "basis".
+\begin{defn}[Categorical]
+    Let $V$ be a "vector space", a "basis" of $V$ is a set $S$ along with an inclusion $i: S \rightarrow V$ satisfying the following "universal property": for any function $t: S \rightarrow W$ where $W$ is a "vector space", there is a unique "linear map" $T: V \rightarrow W$ such that $T \circ i = t$. This is summarized in \eqref{diag-basis}.
+    \begin{equation}\label{diag-basis}
+        \begin{tikzcd}
+            S \arrow[r, "i"] \arrow[rd, "t"'] \arrow[r, phantom, "\text{in } \catSet", shift left=6] & V \arrow[d, "T", dashed] & {} \arrow[rr, phantom, "\text{in } \catVect{k}", shift left=6] & V \arrow[d, "T", dashed] \arrow[ll, squiggly, shift left=5] & {} \\ & W & & W &   
+        \end{tikzcd}
+    \end{equation}
+\end{defn}
+
+\subsection{Exponential Objects}
+Let $A$ and $X$ be sets and denote $A^X$ the set of functions $X \rightarrow A$. In hope to generalize this construction to other "categories", let us study "morphisms" into $A^X$. Given a set $B$ and a "morphism" $f: B \rightarrow A^X$, \AP there is a natural operation called ""uncurrying"" that takes $f$ to $\uncurry{f}:B \times X \rightarrow A$ which basically evaluates both $f$ and its output at the same time. Namely, $\uncurry{f}(b,x) = f(b)(x)$.
+
+As a particular case, we consider the identity function $A^X \rightarrow A^X$. \AP "Uncurrying" yields the ""evaluation"" function $\ev: A^X \times X \rightarrow A$ that evaluates the function in the first coordinate at the second coordinate: $\ev(f,x) = f(x)$.
+
+\AP Now, as the name suggests, "uncurrying" has an inverse operation called ""currying"" which takes $g : B\times X \rightarrow A$ to $\curry{g}: B \rightarrow A^X$. Morally, $\curry{g}$ delays the evaluation of $g$ to later.\footnote{For computer scientists, this is also related to the concept of \textit{continuations}.} Moreover, notice that if we are given $b \in B$ and $x \in X$, then we obtain an element of $\ev(\curry{g}(b), x) = g(b,x) \in A$. This along with the fact that "currying" and "uncurrying" are bijective operations leads to a "universal property" that $\ev$ satisfies. It is summarized in \eqref{diag-exponent}.
+
+\begin{equation}\label{diag-exponent}
+ \begin{tikzcd}
+ A \arrow[r, "\text{in } \catSet", phantom, shift left=6] & A^X\times X \arrow[l, "\ev"'] & {} \arrow[rr, "\text{in } \catSet", phantom, shift left=6] & A^X \arrow[ll, squiggly, shift left=4] & {} \\
+ & B\times X \arrow[lu, "g"] \arrow[u, "\curry{g} \times \id_X"', dashed] & & B \arrow[u, "\curry{g}"', dashed] & 
+ \end{tikzcd}
+\end{equation}
+This is entirely categorical, so we can define an ""exponential object"" in an arbitrary "category" $\mathbf{C}$ (with "binary products") as an "object" $A^X$ along with a "morphism" $\ev: A^X \times X \rightarrow A$ such that for all $g: B\times X \rightarrow A$, there is a unique $\curry{g}:B \rightarrow A^X$ making \eqref{diag-exponent} "commute". %TODO: write better !
+ 
+%\subsection{Metric Completion}
+%\begin{defn}[Classical]
+%    Let $(M, d)$ be a metric space, the \textbf{completion} of $M$, denoted $(\widehat{M}, D)$ is the space consisting of all Cauchy sequences in $M$ quotiented by the equivalence relation \[\{a_n\} \sim \{b_n\} \Leftrightarrow \lim_{n \rightarrow \infty} d(a_n,b_n) = 0,\]
+%    where $D(\{a_n\}, \{b_n\}) = \lim_{n \rightarrow \infty} d(a_n, b_n)$. One can show that $(\widehat{M}, D)$ is a complete metric space.
+%\end{defn}
+
+
+%TODO: These example have two things in common, they all arise from a forgetful functor and they are all in the same direction.
+\section{Generalization}
+\begin{defn}[Comma category]\label{defn:comma}
+    \AP Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, there is a "category" $\comcat{F}{G}$, called the ""comma category"", whose "objects" are triples $(X, Y, \alpha)$ with $X \in \obj{\mathbf{D}}$, $Y \in \obj{\mathbf{E}}$ and $\alpha : F(X) \rightarrow G(Y)$ (in $\mor{\mathbf{C}}$) and "morphisms" between $(X_1, Y_1, \alpha)$ and $(X_2, Y_2, \beta)$ are pairs of "morphisms" $(f,g) \in \Hom_{\mathbf{D}}(X_1,X_2) \times \Hom_{\mathbf{E}}(Y_1,Y_2)$ yielding a "commutative" square as in \eqref{diag-morphicomcat}.
+    \begin{equation}\label{diag-morphicomcat}
+    \begin{tikzcd}
+        F(X_1) \arrow[d, "\alpha"'] \arrow[r, "F(f)"] & F(X_2) \arrow[d, "\beta"] \\
+        G(Y_1) \arrow[r, "G(g)"'] & G(Y_2)
+    \end{tikzcd}
+    \end{equation}
+\end{defn}
+%We mention them here because it is the perfect time, but not related to universal properties.
+\begin{defn}[Arrow category]
+    In the setting of Definition \ref{defn:comma}, if $F = G = \id_{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{\id_{\mathbf{C}}}$ is called the ""arrow category"" of $\mathbf{C}$ and denoted $\arrowcat{\mathbf{C}}$. Its "objects" are "morphisms" in $\mathbf{C}$ and its "morphisms" are "commutative" squares in $\mathbf{C}$.%TODO: detail
+\end{defn}
+\begin{defn}[Slice category]
+    In the setting of Definition \ref{defn:comma}, if $F = \id_{\mathbf{C}}$ and $G= X: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $G(\bullet) = X \in \obj{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{X}$ is called the ""slice category"" over $X$ and denoted $\slice{\mathbf{C}}{X}$.\footnote{Some authors call this "category" $\mathbf{C}$ over $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "target" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag-slice}.
+    \begin{equation}\label{diag-slice}
+        \begin{tikzcd} 
+            A \arrow[rr] \arrow[rd] & & B \arrow[ld]\\
+            & X &
+        \end{tikzcd}
+    \end{equation}
+\end{defn}
+\begin{defn}[Coslice category]
+    In the setting of Definition \ref{defn:comma}, if $G = \id_{\mathbf{C}}$ and $F= X: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $F(\bullet) = X \in \obj{\mathbf{C}}$, then $\comcat{X}{\id_{\mathbf{C}}}$ is called the ""coslice category"" under $X$ and denoted $\coslice{X}{\mathbf{C}}$.\footnote{Some authors call this "category" $\mathbf{C}$ under $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "source" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag-slice}.
+    \begin{equation}\label{diag-slice}
+        \begin{tikzcd}
+            & X \arrow[ld] \arrow[rd] &\\
+            A \arrow[rr]  & & B 
+        \end{tikzcd}
+    \end{equation}
+\end{defn}
+\begin{exer}\label{exer:universal:termslice}\marginnote{\hyperref[soln:universal:termslice]{See solution.}}
+    Show that for any "category" $\mathbf{C}$ and "object" $X \in \obj{\mathbf{C}}$, the "slice category" $\slice{\mathbf{C}}{X}$ has a "terminal" "object". State and prove the "dual@@CAT" statement.
+\end{exer}
+Back to "universal properties".
+\begin{defn}[Universal morphism]
+    If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a functor and $X \in \obj{\mathbf{C}}$. \AP A ""universal morphism"" from $X$ to $F$ is an "initial" "object" in $\comcat{X}{F}$. Namely, it is a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is unique "commutative" triangle as in \eqref{diag-univmorph}.
+    \begin{equation}\label{diag-univmorph}
+        \begin{tikzcd}
+            & X \arrow[ld, "a"'] \arrow[rd, "b"] &\\
+            F(A) \arrow[rr, dashed, "F(f)"']  & & F(B) 
+        \end{tikzcd}
+    \end{equation}
+    Notice that equivalently, one could say that for any $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag-univmorphalt}.
+    \begin{equation}\label{diag-univmorphalt}
+        \begin{tikzcd}
+            X \arrow[r, "a"] \arrow[rd, "b"'] \arrow[r, phantom, "\text{in } \mathbf{C}", shift left=6] & F(A) \arrow[d, "F(f)", dashed] & {} \arrow[rr, phantom, "\text{in } \mathbf{D}", shift left=6] & A \arrow[d, "f", dashed] \arrow[ll, squiggly, shift left=5] & {} \\ & F(B) & & B &   
+        \end{tikzcd}
+    \end{equation}
+    
+    The "dual@@CAT" notion is a "universal morphism" from $F$ to $X$, it is a "terminal" "object" in $\comcat{F}{X}$. The "dual@@CAT" of \eqref{diag-univmorphalt} is depicted below.
+    \begin{equation}\label{diag-univmorphaltdual}
+        \begin{tikzcd}
+            X \arrow[r, "\text{in } \mathbf{C}", phantom, shift left=6] & F(A) \arrow[l, "a"'] & {} \arrow[rr, "\text{in } \mathbf{D}", phantom, shift left=6] & A \arrow[ll, shift left=5, squiggly] & {}\\
+            & F(B) \arrow[lu, "b"] \arrow[u, "F(f)"', dashed] & & B \arrow[u, "f"', dashed]  &
+        \end{tikzcd}
+    \end{equation} 
+\end{defn}
+\begin{defn}[Universal property]
+    \AP A ""universal property"" is the property of being a universal morphism. %TODO: meh
+\end{defn}
+
+We will not bother applying this general definition anymore because the formalism is not crucial to the study of "universal properties". Recall that we claimed that "@colimit""limits" satisfied some "universal properties", and indeed, you can show this very formally, but notice that our definition of "universal property" also uses a special case of "@colimit""limits", that is, "initial" and "terminal" "objects". What is more, in the following chapters, we will introduce a couple  more concepts which often coincide\footnote{By \textit{coincide}, we mean that one is a special case of the other or vice-versa or both directions.} with the concepts of "@colimit""limits" and "universal properties".
+\end{document}

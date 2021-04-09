@@ -1,0 +1,388 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Categories and Functors}\label{chap:catfunc}
+\section{Categories}
+%TODO: monoides, le voir comme un objet avec des endo fleches pour chaque element. IMPORTANT: fleche et composition. -> Qu'est-ce qu'il se passe quand y a plusieurs objets? -> Intuition pour les catégories, formaliser par la notion de graphe orienté. 
+% Before giving any definitions, let us start with an example. Let $M$ be a monoid, that is, a set endowed with an associative binary operation $\star$ and a neutral element $e$ (i.e.: a group without inverses). We can represent $M$ with a graph containing a unique point $*$ and for each element $m\in M$ we draw an arrow from $*$ to $*$. Any sequence of arrows (also called path) in this graph corresponds to a sequence of element in $M$. Then, since we can combine these elements using the monoid operation, this path also corresponds to an element of $M$ (i.e. an arrow in the graph). As an example, let $m,n \in M$ be represented in the diagram below, following the arrow $m$ and then the arrow $n$ corresponds to following the arrow $m\star n$. (The point $\ast$ is duplicated to better show the intuition, but there is only one point in the graph.)
+% \begin{center}
+% \begin{tikzcd}
+% \ast \arrow[r, "m"'] \arrow[rr, "n\star m", bend left] & \ast \arrow[r, "n"'] & \ast
+% \end{tikzcd}
+% \end{center}
+% Note that the associativity of $\star$ is essential. Without it, a path $\{m,n,o\}$ could correspond to two different arrows $(m\star n) \star o$ and $m\star (n\star o)$. The notion of category is a suitable generalization of this idea where we allow several points. We first formalize some intuitions with oriented graphs.
+
+%TODO: knowledge for subscripts?
+%TODO: draw one arrow to show source and target
+%TODO: explain definition from oriented graph.
+%TODO: retract and section.
+\begin{defn}[Oriented graph]
+	\AP An ""oriented graph"" $G$ consists of a "collection" of ""nodes""/""objects"" denoted $\obj{G}$ and a "collection" of ""arrows""/""morphisms"" denoted $\mor{G}$ along with \AP two maps $\source,\target: \mor{G} \rightarrow \obj{G}$, so that each "arrow" $f \in \mor{G}$ has a ""source"" $\source(f)$ and a ""target"" $\target(f)$. 
+\end{defn}
+\begin{defn}[Paths]
+	\AP A ""path"" in an "oriented graph" $G$ is a sequence of "arrows" $(f_1, \dots, f_k)$ that are ""composable"" in the sense that $\target(f_i) = \source(f_{i-1})$ for $i=2,\dots, k$ as drawn below in \eqref{diag:defpath}. The "collection" of "paths" of "length" $k$\footnote{\AP The ""length"" of a "path" is the number of "arrows" in it.} in $G$ will be denoted $G_k$.
+	\begin{equation}\label{diag:defpath}
+		\begin{tikzcd}
+			\bullet \arrow[r, "f_k"] & \bullet \arrow[r, "f_{k-1}"] & \bullet\cdots\bullet \arrow[r, "f_2"] & \bullet \arrow[r, "f_1"] & \bullet
+		\end{tikzcd}
+	\end{equation}
+\end{defn}
+
+Observe that the notation indicating the direction of the "path" does not correspond to the usual notation in graph theory. The motivation for this divergence will come shortly as the "composition" of "arrows" in a "category" is defined. The main idea is that, conceptually, "arrows" coincide more closely with functions between mathematical objects rather than "arrows" between nodes of a graph.
+\begin{defn}[Category]\label{defn:cat}
+	\AP An "oriented graph" $\mathbf{C}$ along with a ""composition"" map $\circ: \mortwo{\mathbf{C}} \rightarrow \mor{\mathbf{C}}$ is a ""category"" if it satisfies the following properties:
+	\begin{enumerate}
+		\item For any $(f, g) \in \mortwo{\mathbf{C}}$, $\source(f \circ g) = \source(g)$ and $\target(f \circ g) = \target(f)$. This is more naturally understood visually in \eqref{diag:stcomp}.\begin{marginfigure}\begin{equation}\label{diag:stcomp}
+			\begin{tikzcd}
+				\bullet \arrow[r, "g"'] \arrow[rr, "f \circ g", bend left] & \bullet \arrow[r, "f"'] & \bullet
+			\end{tikzcd}
+		\end{equation}\end{marginfigure}
+		\item For any $(f,g,h) \in \mathbf{C}_3$, $f\circ(g\circ h) = (f\circ g)\circ h$, namely, composition is "associative".
+		\item For any "object" $A \in \obj{\mathbf{C}}$, there exists an ""identity"" morphism $\idu_{\mathbf{C}}(A) \in \mor{\mathbf{C}}$ with $A$ as its "source" and "target" that satisfies $\idu_{\mathbf{C}}(A) \circ f = f$ and $g \circ \idu_{\mathbf{C}}(A) = g$, for any $f,g \in \mor{\mathbf{C}}$ where $\target(f) = A$ and $\source(g) = A$.
+	\end{enumerate}
+\end{defn}
+\marginnote{\AP If the third property of Definition \ref{defn:cat} is not satisfied, $\mathbf{C}$ will be referred to as a ""semicategory"". Some authors choose to explicit when a category \textit{does} satisfy this property, qualifying it as \kl[semicategory]{unital}, but this term also has other meanings, hence our preference for the first convention.}
+\begin{rem}[Notation]
+	In general, we will denote "categories" with uppercase letters typeset with \verb!\mathbf! ($\mathbf{C}$, $\mathbf{D}$, $\mathbf{E}$, etc.), their "objects" with uppercase letters ($A$, $B$, $X$, $Y$, $Z$, etc.) and their "morphisms" with lowercase letters ($f$, $g$, $h$, etc.). When the "category" is clear from the context, we denote the "identity" "morphism" $\id_A$ instead of $\idu_{\mathbf{C}}(A)$. \AP We say that two "morphisms" are ""parallel"" if they have the same "source" and "target".
+\end{rem}
+
+Observe that since $\circ$ is "associative", it induces a unique \kl[comppaths]{composition} map on paths of any finite lengths, which we abusively denote $\circ: \mathbf{C}_k \rightarrow \mor{\mathbf{C}}$. This lets us write $f_1 \circ f_2 \circ \cdots \circ f_k$ with no parentheses. \AP Occasionally, we will mention the \intro[comppaths]{composition of a path} or the \reintro[comppaths]{morphism that a path composes to} to mean the image of the path under this map.
+\begin{exmps}[Boring examples]\label{exmp:simplecats}
+	\begin{marginfigure}[5\baselineskip]\begin{equation}\label{diag:cat1}\begin{tikzcd}\bullet \arrow[loop, distance=2em, in=55, out=125]\end{tikzcd}\end{equation}\end{marginfigure} 
+	It is really easy to construct a "category" by drawing its underlying "oriented graph" and inferring the definition of the "composition" from it. Starting from the very simple "graph@@OG" depicted in \eqref{diag:cat1}, we can infer the definition of a "category" with a single "object" and its "identity morphism". \AP This "category" is denoted $\intro*\termcat$, the "composition" is trivial since $\id_{\bullet} \circ \id_{\bullet} = \id_{\bullet}$.
+
+	\begin{marginfigure}[1\baselineskip]\begin{equation}\label{diag:cat1p1}\begin{tikzcd}\bullet_1 \arrow[loop, distance=2em, in=55, out=125]&\bullet_2 \arrow[loop, distance=2em, in=55, out=125]\end{tikzcd}\end{equation}\end{marginfigure}
+	Similarly, we construct from the "graph@@OG" in \eqref{diag:cat1p1} a "category" with two "objects", their "identity morphisms" and nothing else. The "composition" is again trivial. This category will be denoted $\termcat \coproduct \termcat$.\footnote{This name will be explained in } %TODO:ref.
+	More generally, for any "collection" $\obj{\mathbf{C}}$, there is a "category" $\mathbf{C}$ whose "collection" of "objects" is $\obj{\mathbf{C}}$ and whose "collection" of "morphisms" is $\mor{\mathbf{C}} := \{\id_X \mid X \in \obj{\mathbf{C}}\}$. The "composition map" is completely determined by the third property in Definition \ref{defn:cat}.\footnote{i.e.: for any $X \in \obj{\mathbf{C}}$, $\id_X \circ \id_X = \id_X$.}
+	
+	The "graph@@OG" in \eqref{diag:cat2} corresponds to the "category" with "objects" $\{A, B\}$ and "morphisms" $\{\id_A, \id_B, f\}$.
+	\begin{equation}\label{diag:cat2}
+		\begin{tikzcd}
+			A \arrow[r, "f"] \arrow["\id_A", loop, distance=2em, in=145, out=215] & B \arrow["\id_B"', loop, distance=2em, in=35, out=325]
+		\end{tikzcd}
+	\end{equation}
+	The "composition map" is then completely determined by the properties of "identity morphisms".\footnote{i.e.: $f \circ \id_A = f$, $\id_B \circ f = f$, $\id_A \circ \id_A = \id_A$ and $\id_B \circ \id_B = \id_B$} \AP This category is denoted $\intro*\cattwo$, note however that $\termcat \coproduct \termcat \neq \cattwo$. %TODO: add comment on this?
+	Starting now, we will omit the "identity morphisms" from the diagrams (as is usual in the literature) for clarity reasons; they would hinder readability without adding information.
+	
+	It is not always as straightforward to construct a "category" from an "oriented graph". For instance, if two distinct "arrows" have the same "source" and "target", they must be explicitly drawn and the ambiguity in the "composition" must be dealt with. The "graph@@OG" in \eqref{diag:ambsquare} is problematic: it has two distinct "paths" of "length" two starting at the top-left corner and ending at the bottom-right corner. Since the \kl[comppaths]{composition} of these "paths" can be equal to any of the two distinct "morphisms" between these corners, there is no obvious "category" corresponding to this "graph@@OG".\begin{marginfigure}[-5\baselineskip]\begin{equation}\label{diag:ambsquare}\begin{tikzcd}
+		\bullet \arrow[r] \arrow[d] \arrow[rd, shift left] \arrow[rd, shift right] & \bullet \arrow[d] \\
+		\bullet \arrow[r]                                                          & \bullet          
+		\end{tikzcd}\end{equation}\end{marginfigure}
+	
+	Diagram \eqref{diag:commsquare} shows a very important example of a simple "category" that \textit{handles} this problem.
+	\begin{equation}\label{diag:commsquare}\begin{tikzcd}
+		\bullet \arrow[r] \arrow[d] & \bullet \arrow[d] \\
+		\bullet \arrow[r]           & \bullet          
+	\end{tikzcd}\end{equation}
+	It is implicitly stating that the bottom and top "paths" \kl[comppaths]{compose to} the same "morphism", the latter is thus absent of the diagram. This "category" is called the \textbf{"commutative" square} and is denoted $\cattwo \cattimes \cattwo$.\footnote{This notation will be explained in Definition \ref{defn:prodcat}.}
+\end{exmps}
+\begin{defn}[Commutativity]
+	\AP The term ""commutative"" is generalized to arbitrary diagrams, it means that any two "paths" of "length" bigger than $1$ which have the same "source" and "target" must \kl[comppaths]{compose to} the same "morphism".
+\end{defn}
+\begin{warn}
+	Diagrams are not "commutative" by default. As our usage of "commutative" diagrams will ramp up in the following chapters, %TODO: continue
+\end{warn}
+\begin{rem}[Convention]%TODO: diagram and oriented graphs. also I.
+	As you will see in this book, "commutative diagrams" are used quite a lot in category theory, yet there is no standard definition that everyone systematically uses.\footnote{This does not really lead to many misunderstandings anyway because what is meant by a diagram is made clear from the context.} For this reason, I decided to pick my favorite definition of "commutativity" which is somewhat uncommon (the constraint on the length is not usual).
+\end{rem}
+Before moving on to more interesting examples, we introduce the $\Hom$ notation.
+\begin{defn}[$\Hom$]
+	\AP Let $\mathbf{C}$ be a "category" and $A,B \in \obj{\mathbf{C}}$ be "objects", the "collection" of all "morphisms" going from $A$ to $B$ is 
+	\[\intro*\Hom_{\mathbf{C}}(A,B) := \{f \in \mor{\mathbf{C}} \mid \source(f) = A \text{ and } \target(f) = B\}.\]
+	This leads to an alternative way of defining the "morphisms" of $\mathbf{C}$, namely, one can describe $\Hom_{\mathbf{C}}(A,B)$ for all $A, B \in \obj{\mathbf{C}}$ instead of describing all of $\mor{\mathbf{C}}$ at once. Defining the "morphisms" this way also means takes care of the "source" and "target" functions implicitly.
+\end{defn}
+\begin{rem}[Notation]
+    Some authors choose to denote the "collection" of "morphisms" between $A$ and $B$ with $\mathbf{C}(A,B)$. We prefer to use the latter notation when working with "$2$--categories@2cat"\footnote{c.f. Definition \ref{defn:2cat}.} to highlight the fact that $\mathbf{C}(A,B)$ has more structure. Other authors use $\mathrm{hom}$ with a lowercase ``h'', our choice here is arbitrary.
+\end{rem}
+\begin{defn}[Smallness]
+	\AP A "category" $\mathbf{C}$ is called ""small"" if the "collections" of "objects" and "morphisms" are sets. \AP If for all "objects" $A,B \in \obj{\mathbf{C}}$, $\Hom_{\mathbf{C}}(A,B)$ is a set, $\mathbf{C}$ is said to be ""locally small"" and $\Hom_{\mathbf{C}}(A,B)$ is called a ""hom--set"". \AP A "category" that is not "small" can be referred to as ""large"".%TODO: footnote about foundation.
+\end{defn}
+\begin{exmp}[$\catSet$]
+	\AP The "category" $\intro*\catSet$ has the "collection" of sets as its "objects" and for any sets $X$ and $Y$, $\Hom_{\catSet}(X,Y)$ is the set of all the functions from $X$ to $Y$. The "composition map" is given by composition of functions, the "associativity" follows from the definition and the identity maps serve as the "identity morphisms". This "category" is "locally small" but not "small".\footnote{By Russel's paradox.}
+\end{exmp}
+\begin{exmp}
+	Let $(X, \leq)$ be a "partially ordered set", then $X$ can be viewed as a "category" with elements of $X$ as its "objects". For any $x,y \in X$, the "hom--set" $\Hom_X(x,y)$ contains a single "morphism" if $x \leq y$ and is empty otherwise. The "identity morphisms" arise from the "reflexivity" of $\leq$. Since every "hom--set" contains at most one element and $\leq$ is "transitive", the "composition map" is completely determined. Detailing this out, if $f:x \rightarrow y$ and $g: y \rightarrow z$ are "morphisms", then we know that $x \leq y$ and $y\leq z$. Thus, "transitivity" implies that $x\leq z$ and there is a unique "morphism" $x \rightarrow z$ so it must be $g \circ f$.
+	
+	\AP If a "category" corresponds to this construction for some "poset", it is called ""posetal"". In \eqref{diag:natposet}, we depict the "posetal" "category" associated to $(\N, \leq)$. The "arrows" between numbers $n$ and $n+k$ are omitted for $k>1$ as they can be inferred by the composition $n \leq n+1 \leq n+2 \leq \cdots \leq n+k$.
+	\begin{equation}\label{diag:natposet}
+		\begin{tikzcd}
+			\stackrel{0}{\bullet} \arrow[r] & \stackrel{1}{\bullet} \arrow[r] & \stackrel{2}{\bullet} \arrow[r] & \cdots
+		\end{tikzcd}
+	\end{equation}
+	
+	As a particular case of "posetal" "categories", let $(X, \tau)$ be a "topological space" and note that the inclusion of "open sets" is a "partial order" on $\tau$. Thus $X$ has a corresponding "posetal" "category". More explicitly, the "objects" are "open sets" and for any $U, V \in \tau$, the "hom--set" $\Hom_X(U,V)$ contains the inclusion map $i_{UV}$ if $U\subseteq V$ and is empty otherwise. \AP This category will be denoted $\intro*\catOpens(X,\tau)$ or $\catOpens(X)$.
+\end{exmp}
+\begin{exmp}[Single object categories]\label{exmp:monoid}
+	\AP If a "category" $\mathbf{C}$ has a single "object" $\deloopobject$, then the only "morphisms" go from $\deloopobject$ to $\deloopobject$. In particular, $\mor{\mathbf{C}} = \Hom_{\mathbf{C}}(\deloopobject, \deloopobject)$ and $\mortwo{\mathbf{C}} = \mor{\mathbf{C}} \times \mor{\mathbf{C}}$. Then, the "associativity" of $\circ$ and existence of $\id_{\deloopobject}$ makes $(\mor{\mathbf{C}}, \circ)$ into a "monoid".
+	
+	Conversely, a "monoid" $(M, \cdot)$ can be represented by a single "object" "category" $M$, where $\Hom_M(\deloopobject, \deloopobject) = M$ and the "composition map" is the "monoid" operation.
+	
+	Since many algebraic structures have an "associative" operation  with an identity element, this yields a fairly general construction. \AP The single "object" "category" associated to a "monoid" or "group" $G$ will be denoted $\deloop{G}$ and referred to as the \intro{delooping} of $G$.
+		\begin{marginfigure}
+		\begin{center}
+			\begin{tikzpicture}[scale=0.2]
+			\tikzstyle{every node}+=[inner sep=0pt]
+			\draw [black] (37.4,-25.7) circle (3);
+			\draw (37.4,-25.7) node {$\deloopobject$};
+			\draw [black] (34.593,-24.676) arc (277.6886:-10.3114:2.25);
+			\draw (31.72,-20.34) node [above] {$1$};
+			\fill [black] (36.51,-22.85) -- (36.89,-21.99) -- (35.9,-22.12);
+			\draw [black] (40.276,-26.512) arc (101.97044:-186.02956:2.25);
+			\draw (42.95,-31.68) node [right] {$(1\ 2)$};
+			\fill [black] (38.51,-28.48) -- (38.18,-29.36) -- (39.16,-29.16);
+			\draw [black] (39.111,-28.15) arc (62.6723:-225.3277:2.25);
+			\draw (39.45,-33.13) node [below] {$(2\ 3)$};
+			\fill [black] (36.5,-28.55) -- (35.69,-29.03) -- (36.57,-29.49);
+			\draw [black] (37.059,-28.669) arc (21.17668:-266.82332:2.25);
+			\draw (31.05,-31.87) node [below] {$(1\ 3)$};
+			\fill [black] (34.84,-27.24) -- (33.91,-27.06) -- (34.27,-27.99);
+			\draw [black] (36.077,-23.02) arc (234:-54:2.25);
+			\draw (37.4,-18.45) node [above] {$(1\ 2\ 3)$};
+			\fill [black] (38.72,-23.02) -- (39.6,-22.67) -- (38.79,-22.08);
+			\draw [black] (38.053,-22.784) arc (195.11223:-92.88777:2.25);
+			\draw (45.36,-19.95) node [above] {$(1\ 3\ 2)$};
+			\fill [black] (40.11,-24.44) -- (41.01,-24.72) -- (40.75,-23.75);
+			\end{tikzpicture}
+		\end{center}
+		\caption{The "delooping" of the symmetric group $S_3$, aka $\deloop{S_3}$.}
+	\end{marginfigure}
+	
+	The natural numbers can also be endowed with the "monoid" structure of addition, thus a particular instance of a single object "category" is the "delooping" of $(\N, +)$. Notice that this "category" is very different from the "posetal" "category" $(\N, \leq)$. In the former, $\N$ is in correspondence with the "morphisms" while in the latter, it is in correspondence with the "objects". 
+\end{exmp}
+A lot of simple examples of "large" "categories" arise as "subcategories" of $\catSet$.
+\begin{defn}[Subcategory]
+	\AP Let $\mathbf{C}$ be a "category", a "category" $\mathbf{C}'$ is a ""subcategory"" of $\mathbf{C}$ if, the following properties are satisfied.
+	\begin{enumerate}
+		\item The "objects" and "morphisms" of $\mathbf{C}'$ are "objects" and "morphisms" of $\mathbf{C}$ (i.e.: $\obj{\mathbf{C}'} \subseteq \obj{\mathbf{C}}$ and $\mor{\mathbf{C}'} \subseteq \mor{\mathbf{C}}$).
+		\item The "source" and "target" maps of $\mathbf{C}'$ are the restrictions of the "source" and "target" maps of $\mathbf{C}$ on $\mor{\mathbf{C}'}$ and for every morphism $f \in \mor{\mathbf{C}'}$, $\source(f), \target(f) \in \obj{\mathbf{C}'}$.
+		\item The "composition map" of $\mathbf{C}'$ is the restriction of the "composition map" of $\mathbf{C}$ on $\mortwo{\mathbf{C}'}$ and for any $(f,g) \in \mortwo{\mathbf{C}'}$, $f\circ_{\mathbf{C}'} g = f \circ_{\mathbf{C}} g \in \mor{\mathbf{C}'}$.
+		\item The "identity morphisms" of "objects" in $\obj{\mathbf{C}'}$ are the "identity morphisms" of "objects" in $\obj{\mathbf{C}}$, i.e.: $\idu_{\mathbf{C}}(A) = \idu_{\mathbf{C}'}(A)$ when $A \in \obj{\mathbf{C}'}$.
+	\end{enumerate}
+	Intuitively, one can see $\mathbf{C}'$ as being obtained from $\mathbf{C}$ by removing some "objects" and "morphisms", but making sure that no "morphism" is left with no "source" or no "target" and that no "path" is left without its \kl[comppaths]{composition}.
+\end{defn}
+\begin{exer}[\NOW]\label{exer:catfunc:countersubcat}\marginnote[1\baselineskip]{\hyperref[soln:catfunc:countersubcat]{See solution.}}
+	Find an example of a "category" $\mathbf{C}$ and a "category" $\mathbf{C}'$ that satisfy the first three conditions but not the fourth.
+\end{exer}
+\begin{defn}[Full and wide]
+	\AP A "subcategory" $\mathbf{C}'$ of $\mathbf{C}$ is called ""full@@CAT"" if for any "objects" $A,B \in \obj{\mathbf{C}'}$, $\Hom_{\mathbf{C}'}(A,B) = \Hom_{\mathbf{C}}(A,B)$. \AP It is called ""wide"" if $\obj{\mathbf{C}'} = \obj{\mathbf{C}}$.
+\end{defn}
+\begin{exmps}[Subcategories of $\catSet$]\label{exmp:subcatSet}
+	%TODO:better intro.
+	One can view most of the theory studied in the first year of a typical mathematics curriculum through the lens of category theory as witnessed by the following list.
+	\begin{enumerate}
+		\item Since the composition of injective functions is again injective, the restriction of morphisms in $\catSet$ to injective functions yields a "wide" "subcategory" of $\catSet$, denoted $\mathbf{SetInj}$. Unsurprisingly, $\mathbf{SetSurj}$ can be constructed similarly.
+		\item Removing all infinite sets from $\catSet$ yields the "full@@CAT" "subcategory" of finite sets denoted $\catFinSet$.
+		\item %TODO: skeleton of finset.
+	\end{enumerate}
+\end{exmps}
+\begin{exmp}[Concrete categories]\label{exmp:concreteCat}
+	This second list of examples contains so-called "concrete" "categories", which, informally, are "categories" of sets with extra structure.\footnote{A formal definition is given in }%TODO: ref
+	\begin{enumerate}
+		\itemAP The "category" $\catPtd$ is the "category" of ""pointed"" sets. Its "objects" are sets with a distinguished element and its "morphisms" are "functions" that map distinguished elements to distinguished elements. More formally, $\obj{\catPtd}$ is the "collection" of pairs $(X,x)$ where $X$ is a set and $x \in X$. Moreover, for any two "pointed" sets $(X,x)$ and $(Y,y)$, 
+		\[\Hom_{\catPtd}((X,x), (Y,y)) = \left\{ f: X \rightarrow Y \mid f(x) = y \right\}.\]
+		The "identity morphisms" and "composition" are defined as in $\catSet$, so the axioms of a "category" clearly hold after checking that if $f(X,x) \rightarrow (Y,y)$ satisfies $f(x) =y$ and $g: (Y,y) \rightarrow (Z,z)$ satisfies $g(y) = z$, then $(g\circ f)(x) = z$.
+		\itemAP The "category" $\intro*\catMon$ is the "category" of "monoids" and their "homomorphisms@@MON", let us detail the structure of $\catMon$.\footnote{These details are essentially the same for the "categories" in the rest of Example \ref{exmp:concreteCat}.} The "objects" are "monoids", so $\obj{\catMon}$ is the "collection" of all "monoids", and the "morphisms" are "monoid homomorphisms", so for any $M, N \in \obj{\catMon}$, $\Hom_{\catMon}(M,N)$ is the set of "homomorphisms@@MON" from $M$ to $N$. The "composition" in $\catMon$ is given by the composition of "homomorphisms@@MON", we know it is well-defined because the composition of two "homomorphisms@@MON" is a "homomorphism@@MON". Also, the composition is "associative" and the identity functions are "homomorphisms@@MON", so we can define $\idu_{\catMon}(M) = \id_M$. %TODO: better?
+		\itemAP Similarly, the "category" of "groups" (resp. "rings" or "fields") where the "morphisms" are "group" (resp. "ring" or "field") "homomorphisms@@GRP" is denoted $\intro*\catGrp$ (resp. $\intro*\catRing$ or $\intro*\catField$). \AP The "category" of "abelian" "groups" (resp. commutative "monoids" or "rings") is a "full@@CAT" "subcategories" of $\catGrp$ (resp. $\catMon$ or $\catRing$) denoted $\intro*\catAb$ (resp. $\intro*\catCMon$ or $\intro*\catCRing$).
+		\itemAP Let $k$ be a fixed "field", the "category" of "vector spaces" over $k$ where the "morphisms" are "linear maps" is denoted $\intro*\catVect{k}$. \AP The "full@@CAT" "subcategory" of $\catVect{k}$ consisting only of finite dimensional "vector spaces" is denoted $\intro*\catFDVect{k}$.
+		\itemAP The "category" of "partially ordered sets" where "morphisms" are "order-preserving" functions is denoted $\intro*\catPoset$.
+		\itemAP The "category" of "topological spaces" where "morphisms" are "continuous" functions is denoted $\intro*\catTop$.
+	\end{enumerate}
+\end{exmp}
+
+Our last example is a "large" "category" which is not a "subcategory" of $\catSet$.
+\begin{exmp}[\textbf{Rel}]
+    \AP The "category" of sets and relations, denoted $\intro*\catRel$, has as "objects" the "collection" of all sets and for any sets $X$ and $Y$, $\Hom_{\catRel}(X,Y)$ is the set of relations between $X$ and $Y$, that is, the powerset of of $X\times Y$. The composition of two relations $R \subseteq X\times Y$ and $S \subseteq Y\times Z$ is defined by\marginnote{\begin{rem}\label{rem:setsubrel}
+		You can view $\catSet$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$, \[|\left\{ y \in Y\mid (x,y) \in R \right\}| = 1.\]
+	\end{rem}}
+    \[S\circ R = R;S := \{(x,z) \in X\times Z \mid \exists y \in Y, (x,y) \in R, (y,z) \in S\} \subseteq X \times Z.\]
+	
+    \AP One can check that this composition is "associative" and that, for any set $X$, the ""diagonal relation"" $\diagRel_X = \{(x,x) : x \in X\} \subseteq X \times X$ is the identity with respect to this composition.
+\end{exmp}
+
+\section{Functors}
+The list above is far from exhaustive; there are many more mathematical objects that can fit in a "category" and this is a main reason for studying this subject. Indeed, "categories" encapsulate a natural structure that accurately represents the heart of several mathematical theories from a global and abstract perspective. Still, a "category" is almost never studied on its own since the abstraction it provides can make the properties of its objects more obscure. For instance, stating and proving \href{https://en.wikipedia.org/wiki/Lagrange%27s_theorem_(group_theory)}{Lagrange's theorem} in the framework of $\catGrp$ is quite more involved than in the classical way. Nevertheless, we will get to see in subsequent chapters that some surprising links can arise between seemingly unrelated subjects through the study of how different "categories" relate. The central tool for exhibiting these relations is a "functor".%TODO: check Lagrange.
+
+As we will show, a "functor" is a "morphism" of "categories", thus, to motivate the definition, we can look at other "morphisms" we have encountered. A clear similarity between "categories" like $\catSet$, $\catGrp$, $\catRing$ or $\catTop$ is that all the "objects" have some sort of structure that the "morphisms" preserve. Hence, we want to define a "morphism" that preserves the structure of a "category", the latter being given by the "source" and "target" maps, the "composition" and the "identities".
+\begin{defn}[Functor]\label{defn:func}
+	\AP Let $\mathbf{C}$ and $\mathbf{D}$ be "categories", a ""functor"" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is a pair of maps $F_0:\obj{\mathbf{C}} \rightarrow \obj{\mathbf{D}}$ and $F_1:\mor{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ such that diagrams \eqref{diag:func1}, \eqref{diag:func2} and \eqref{diag:func3} commute.\footnote{$F_2$ is induced by the definition of $F_1$ with $(f,g) \mapsto (F_1(f), F_1(g))$.}
+	\begin{equation}\label{diag:func1}
+		\begin{tikzcd}
+			\obj{\mathbf{C}} \arrow[d, "F_0"'] & \mor{\mathbf{C}} \arrow[d, "F_1"] \arrow[l, "\source"'] \arrow[r, "\target"] & \obj{\mathbf{C}} \arrow[d, "F_0"] \\
+			\obj{\mathbf{D}} & \mor{\mathbf{D}} \arrow[l, "\source"] \arrow[r, "\target"'] & \obj{\mathbf{D}}
+		\end{tikzcd}
+	\end{equation}
+	\begin{minipage}{0.49\textwidth}
+		\begin{equation}\label{diag:func2}
+		\begin{tikzcd}
+			\mortwo{\mathbf{C}} \arrow[d, "\circ_\mathbf{C}"'] \arrow[r, "F_2"] & \mortwo{\mathbf{D}} \arrow[d, "\circ_\mathbf{D}"] \\
+			\mor{\mathbf{C}} \arrow[r, "F_1"'] & \mor{\mathbf{D}}
+		\end{tikzcd}
+		\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.49\textwidth}
+			\begin{equation}\label{diag:func3}
+		\begin{tikzcd}
+			\obj{\mathbf{C}} \arrow[d, "\idu_{\mathbf{C}}"'] \arrow[r, "F_0"] & \obj{\mathbf{D}} \arrow[d, "\idu_{\mathbf{D}}"] \\
+			\mor{\mathbf{C}} \arrow[r, "F_1"'] & \mor{\mathbf{D}}
+		\end{tikzcd}
+		\end{equation}
+	\end{minipage}
+\end{defn}
+\begin{rem}[Digesting diagrams]
+	"Commutative diagrams" will be heavily employed to make clearer and more compact arguments.\footnote{This is especially true when using a blackboard or pen and paper because it makes it easier to point at things. Sadly, I cannot point at things on this pdf you are reading.} However, it is an acquired skill to quickly grasp their meaning and make effective use of their advantages. Unpacking the above definition will help to understand it as well as getting better with manipulating diagrams.
+	
+	A "functor" $F:\mathbf{C}\rightsquigarrow \mathbf{D}$\footnote{The $\rightsquigarrow$ (\textbackslash\texttt{rightsquigarrow}) notation for "functors" is not that common, they are usually denoted with plain arrows because they are "morphisms". Still, we feel it is useful to have a special treatment for "functors" until you get accustomed to them. The squiggly arrow notation is sometimes used for "Kleisli morphisms" which we cover in.} must satisfy the following properties.%TODO: Ref.
+	\begin{enumerate}[i.]
+		\item For any $A, B \in \obj{\mathbf{C}}$ and $f \in \Hom_{\mathbf{C}}(A,B)$, $F(f) \in \Hom_{\mathbf{D}}(F(A), F(B))$. This is equivalent to the "commutativity" of \eqref{diag:func1} which says $F_0(\source(f)) = \source(F_1(f))$ and $F_0(\target(f)) = \target(F_1(f))$.
+		\item If $f,g \in \mor{\mathbf{C}}$ are "composable", then $F(f\circ_{\mathbf{C}} g) = F(f) \circ_{\mathbf{D}} F(g)$ by "commutativity" of \eqref{diag:func2}.
+		\item If $A \in \obj{\mathbf{C}}$, then $\idu_{\mathbf{D}}(F(A)) = F(\idu_{\mathbf{C}}(A))$ (alternatively, $\id_{F(A)} = F(\id_A)$) by "commutativity" of \eqref{diag:func3}.
+	\end{enumerate}
+	The subscript on $F$ is often omitted, as is common in the literature, because it is always clear whether $F$ is applied to an "object" or a "morphism".
+\end{rem}
+\begin{exmps}[Boring examples]
+	As usual, a few trivial constructions arise.
+	\begin{enumerate}
+		\itemAP For any "category" $\mathbf{C}$, the ""identity functor"" $\id_{\mathbf{C}}: \mathbf{C}\rightsquigarrow \mathbf{C}$ is defined by letting $(\id_{\mathbf{C}})_0$ and $(\id_{\mathbf{C}})_1$ be identity maps on $\obj{\mathbf{C}}$ and $\mor{\mathbf{C}}$ respectively.
+		\itemAP Let $\mathbf{C}$ be a "category" and $\mathbf{C}'$ a "subcategory" of $\mathbf{C}$, the ""inclusion functor"" $\inclF: \mathbf{C}' \rightsquigarrow \mathbf{C}$ is defined by letting $\inclF_0$ be the inclusion map $\obj{\mathbf{C}'} \hookrightarrow \obj{\mathbf{C}}$ and $\inclF_1$ be the inclusion map $\mor{\mathbf{C}'} \hookrightarrow \mor{\mathbf{C}}$.
+		\itemAP Let $\mathbf{C}$ and $\mathbf{D}$ be "categories" and $X$ be an object in $\mathbf{D}$, the ""constant functor"" $X: \mathbf{C} \rightsquigarrow \mathbf{D}$ is defined by letting $X_0(A) = X$ for any $A \in \obj{\mathbf{C}}$ and $X_1(f) = \id_X$ for any $f \in \mor{\mathbf{C}}$.
+	\end{enumerate}
+\end{exmps}
+\begin{exmps}[Less boring]\label{exmp:simplediagrams}
+    "Functors" with the domain being one of $\termcat$, $\cattwo$ or $\cattwo \product \cattwo$ (cf. Example \ref{exmp:simplecats}) are a bit less boring. Let the codomain be a "category" $\mathbf{C}$ and let us analyze these "functors".
+    \begin{itemize}
+        \item[-] Let $F: \termcat \rightsquigarrow \mathbf{C}$, $F_0$ assigns to the single "object" $\bullet \in \obj{\termcat}$ an "object" $F(\bullet) \in \obj{\mathbf{C}}$. Then, by "commutativity" of \eqref{diag:func3}, $F_1$ is completely determined by $\id_{\bullet} \mapsto \id_{F(\bullet)}$. We conclude that "functors" of this type are in correspondence with "objects" of $\mathbf{C}$.
+        
+        \item[-] Let $F: \cattwo \rightsquigarrow \mathbf{C}$, $F_0$ assigns to $A$ and $B$, two "objects" $FA, FB \in\obj{\mathbf{C}}$ and $F_1$'s action on "identities" is fixed. Still, there is one choice to make for $F_1(f)$ which must be a "morphism" in $\Hom_{\mathbf{C}}(FA, FB)$. Therefore, $F$ sums up to a choice of two "objects" in $\mathbf{C}$ and a "morphism" between them. In other words, "functors" of this type are in correspondence with "morphisms" in $\mathbf{C}$.\footnote{After picking a "morphism", the "source" and "target" are determined.}
+        
+        \item[-] Similarly (we leave the details as an exercise), functors of type $F: \cattwo\times \cattwo \rightsquigarrow \mathbf{C}$ are in correspondence with "commutative" squares inside the "category" $\mathbf{C}$.\footnote{i.e.: pairs of pairs of "composable" morphisms $((f,g), (f',g')) \in \mortwo{\mathbf{C}} \times \mortwo{\mathbf{C}}$ satisfying $f \circ g = f' \circ g'$.}
+    \end{itemize}
+\end{exmps}
+\begin{rem}[Functoriality]
+	\AP We will use the term ""functorial"" as an adjective to qualify transformations that behave like "functors" and ""functoriality"" to refer to the property of behaving like a "functor".
+\end{rem}
+Throughout the rest of this book, the goal will essentially be to grow our list of "categories" and "functors" with more and more interesting examples and perhaps exploit their properties wisely. Before pursuing this objective, we give important definitions analogous to injectivity and surjectivity of functions.
+\begin{defn}[Full and faithful]
+	Let $F:\mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor". For $A,B \in \obj{\mathbf{C}}$, denote the restriction of $F_1$ to $\Hom_{\mathbf{C}}(A,B)$ with \[F_{A,B}:\Hom_{\mathbf{C}}(A,B) \rightarrow \Hom_{\mathbf{D}}(F(A), F(B)).\]
+	\begin{itemize}
+		\item If $F_{A,B}$ is injective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""faithful"".
+		\item If $F_{A,B}$ is surjective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""full@@FUNC"".
+		\item If $F_{A,B}$ is bijective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""fully faithful"".
+	\end{itemize}    
+\end{defn}
+\begin{rem}%TODO: where to put this.
+These notions never mention the action of $F$ on "objects", so they cannot lead to a notion of "isomorphism@@CAT" of "categories".
+\end{rem}
+
+\begin{exmps}\label{exmp:functors}
+	For the following examples, we leave to the reader the easy and irrelevant to category theory task of proving they are actually functors.%TODO: actually prove at least one of them.
+	\begin{enumerate}
+		\item The ""powerset functor"" $\mPcov: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mPcov(X)$ and a function $f: X\rightarrow Y$ to the image map $\mPcov(f):\mPcov(X)\rightarrow \mPcov(Y)$, the latter sends a subset $S\subseteq X$ to \[\mPcov(f)(S)= f(S) := \{f(s) \mid s \in S\} \subseteq Y.\]
+		The "powerset" "functor" is "faithful" because the same image map cannot arise from two different functions\footnote{Indeed, if $f(x) \neq g(x)$, then $f(\{x\}) \neq g(\{x\})$.}, it is not "full@@FUNC" because lots of functions $\mPcov(X) \rightarrow \mPcov(Y)$ are not image maps. One can also argue by cardinality because (when $|X|, |Y| \geq 2$)
+		\[|\Hom_{\catSet}(X,Y)| = |Y|^{|X|} < |\mPcov(Y)|^{|\mPcov(X)|} = |\Hom_{\catSet}(\mPcov(X), \mPcov(Y))|.\]
+		\itemAP While in general the "inclusion functor" of a "subcategory" is not interesting,\footnote{Still, one can check the "inclusion functor" is always "faithful" and it is "full@@FUNC" if and only if the "subcategory" is "full@@CAT".} there are some distinguished cases. For instance, when considering "subcategories" of $\catSet$ such as those mentioned in Example \ref{exmp:subcatSet}, the "inclusion" "functor" gets a fancier denomination, namely, the ""forgetful"" "functor" (denoted $\forget$ for underlying). This is because, morally, the "functor" is forgetting about the inner structure of the "objects" and "morphisms" and it outputs the underlying sets and functions. The "forgetful" "functor" $\forget: \catGrp \rightsquigarrow \catSet$ sends a group $(G,\cdot,1_G)$ to its underlying set $G$, \textit{forgetting about the operation and identity}. It sends a "group homomorphism" $f: G \rightarrow H$ to the underlying function, \textit{forgetting about the homomorphism properties}.
+		
+		\item It is also sometimes useful to consider \textit{intermediate} "forgetful" "functors". For example, $\forget: \catRing \rightsquigarrow \catAb$ sends a ring $(R, +, \cdot, 1_R, 0_R)$ to the abelian group $(R, +, 0_R)$, \textit{forgetting about multiplication and $1_R$}. It sends a "ring homomorphism" $f: R \rightarrow S$ to the same underlying function seen as a "group homomorphism".\footnote{It can do that because part of the requirements for "ring homomorphisms" is to preserve the underlying additive "group" structure.}
+		
+		\item In some cases, there is a canonical way to go in the opposite direction of the "forgetful" "functor", that is, the "free@@FUNC" "functor". For $\catGrp$, the "free@@FUNC" "functor" $\free: \catSet \rightsquigarrow \catGrp$ sends a set to the "free group" generated by this set and a function $f: X\rightarrow Y$ to the unique "group homomorphism" $\free(X) \rightarrow \free(Y)$ that restricts to $f$ on the set of generators. %TODO: Maybe do the monoid case, it is easier.
+		
+		Later in the book, when covering "adjunctions", we will study a strong relation between the "forgetful" "functor" $\forget$ and the "free" "functor" $\free$ that will generalize to other mathematical structures.
+		
+		\item Let $(X, \leq)$ and $(Y, \sqsubseteq)$ be "posets", and $F:X\rightsquigarrow Y$ be a functor between their "posetal" "categories". For any $a, b \in X$, if $a\leq b$, then $\Hom_X(a,b)$ contains a single element, thus $\Hom_Y(F(a), F(b))$ must contain a "morphism" as well,\footnote{The image of the element in $\Hom_X(a,b)$ under $F$.} or equivalently $F(a) \sqsubseteq F(b)$. This shows that $F_0$ is an "order-preserving" function on the "posets".
+		
+		Conversely, any "order-preserving" function between $X$ and $Y$ will correspond to a unique "functor" since there is only one "morphism" in all the "hom--sets".\footnote{Given $f:(X,\leq) \rightarrow (Y,\sqsubseteq)$ "order-preserving", the corresponding "functor" between the "posetal" "categories" of $X$ and $Y$ acts like $f$ of the "objects" and sends a "morphism" $a \rightarrow b$ to the unique morphism $f(a) \rightarrow f(b)$ which exists because $a\leq b \implies f(a) \sqsubseteq f(b)$.}
+				
+		\item Let $G$ and $H$ be "groups" and $\deloop{G}$ and $\deloop{H}$ be their respective "deloopings", then the "functors" $F: \deloop{G} \rightsquigarrow \deloop{H}$ are exactly the "group homomorphisms" from $G$ to $H$.\footnote{Similarly for the "deloopings" of "monoids".} %TODO: Prove it.
+		
+		\item\label{exmp:functorgrpaction} For any "group" $G$, the "functors" $F:\deloop{G} \rightsquigarrow \catSet$ are in correspondence with "left actions@@GRP" of $G$. Indeed, if $S = F(\deloopobject)$, then \[F_1: G = \Hom_{\deloop{G}}(\deloopobject, \deloopobject) \rightarrow \Hom_{\catSet}(S, S)\]
+		is such that $F(gh) = F(g) \circ F(h)$ for any $g,h \in G$ and $F(1_G) = \id_S$.\footnote{This is because $gh$ is the composite of $g$ and $h$ in $\deloop{G}$ and $1_G$ is the "identity morphism" in $\deloop{G}$.} Moreover, since for any $g \in G$,
+		\[ F(g^{-1}) \circ F(g) = F(g^{-1}g) = F(1_G) = \id_S = F(1_G) = F(gg^{-1}) = F(g) \circ F(g^{-1}),\]
+		the function $F(g)$ is a bijection (its inverse if $F(g^{-1})$) and we conclude $F_1$ is the "permutation representation" of the "group action" defined by $g \act s = F(g)(s)$ for all $g \in G$ and $s \in S$.
+		
+		\item In the previous example, replacing $\catSet$ with $\catVect{k}$, one obtains $k$-linear representations of $G$ instead of "actions@@GRP" of $G$.\footnote{You might know about linear representations, we just mention them in passing.}
+	\end{enumerate}
+\end{exmps}
+\begin{rem}
+    From this long (and yet hardly exhaustive) list, one might get the feeling that every important mathematical transformation is a "functor". This is not the case so we wanted to show where "functoriality" can fail and hopefully give you a bit of intuition about why they fail.
+    
+	%TODO: these non-examples.
+    For instance, let us define $F: \catFDVect{k} \rightsquigarrow \catSet$ which assigns to any "vector space" over $k$ a choice of basis. There is no non-trivializing way to define an action of $F$ on linear maps which make $F$ into a functor. Another example of a non-functor is given by the center of a group in $\catGrp$: a morphism of group $H \to G$ does not necessarily send the center of $H$ in the center of $G$ (take for instance $S_2 \hookrightarrow S_3$).
+\end{rem}
+%TODO: Functoriality is useful to prove stuff. If you know about the fundamental group. One can show brouwer fixed point theorem using this.
+
+
+In this chapter, we introduced a novel structure, namely "categories", that "functors" preserve.\footnote{In fact, we defined "functors" so that they preserve the structure of "categories".} Since we also introduced several categories where "objects" had some structure that "morphisms" preserve, it is reasonable to wonder whether "categories" are also part of a "category". In fact, the only missing ingredient is the "composition@@FUNC" of "functors" (we already know what the "source" and "target" of a "functor" is and every "category" has an "identity functor"). After proving the following proposition, we end up with the "category" $\catCat$ where "objects" are "categories" and "morphisms" are "functors". In order to avoid paradoxes of the Russel kind, it is essential to restrict $\catCat$ to contain only "small" "categories".
+\begin{prop}
+	\AP Let $F:\mathbf{C}\rightsquigarrow \mathbf{D}$ and $G: \mathbf{D}\rightsquigarrow \mathbf{E}$ be "functors" and $G \circ F:\mathbf{C} \rightsquigarrow \mathbf{E}$ be their ""composition@@FUNC"" defined by $G_0 \circ F_0$ on "objects" and $G_1 \circ F_1$ on "morphisms". Then, $G \circ F$ is a "functor".
+\end{prop}
+\begin{proof}
+	One could proceed with a really hands-on proof and show that $G \circ F$ satisfies the three necessary properties in a straightforward manner. While this should not be too hard, the proof will end up involving "objects", "morphisms" and the "composition" from all three different "categories". This can easily lead to confusion or worse, boredom!
+	
+	Instead, we will use the diagrams we introduced in the first definition of a "functor". From the "functoriality" of $F$ and $G$, we get two sets of three diagrams and combining them yields the diagrams for $G \circ F$.\footnote{} %TODO: explain.
+	
+	\begin{equation}\label{diag:comp1}
+		\begin{tikzcd}
+			\obj{\mathbf{C}} \arrow[d, "F_0"'] & \mor{\mathbf{C}} \arrow[d, "F_1"] \arrow[r, "t"] \arrow[l, "s"'] & \obj{\mathbf{C}} \arrow[d, "F_0"] \\
+			\obj{\mathbf{D}} \arrow[d, "G_0"'] & \mor{\mathbf{D}} \arrow[d, "G_1"] \arrow[r, "t"] \arrow[l, "s"'] & \obj{\mathbf{D}} \arrow[d, "G_0"] \\
+			\obj{\mathbf{E}}                   & \mor{\mathbf{E}} \arrow[r, "t"] \arrow[l, "s"']                  & \obj{\mathbf{E}}                 
+		\end{tikzcd}
+	\end{equation}
+	\begin{minipage}{0.49\textwidth}
+		\begin{equation}\label{diag:comp2}
+			\begin{tikzcd}
+				\mortwo{\mathbf{C}} \arrow[r, "F_2"] \arrow[d, "\circ_{\mathbf{C}}"'] & \mortwo{\mathbf{D}} \arrow[r, "G_2"] \arrow[d, "\circ_{\mathbf{D}}"] & \mortwo{\mathbf{E}} \arrow[d, "\circ_{\mathbf{E}}"] \\
+				\mor{\mathbf{C}} \arrow[r, "F_1"']                      & \mor{\mathbf{D}} \arrow[r, "G_1"']                     & \mor{\mathbf{E}}                     
+			\end{tikzcd}
+		\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.49\textwidth}
+			\begin{equation}\label{diag:comp3}
+				\begin{tikzcd}
+					\obj{\mathbf{C}} \arrow[r, "F_0"] \arrow[d, "\idu_{\mathbf{C}}"'] & \obj{\mathbf{D}} \arrow[r, "G_0"] \arrow[d, "\idu_{\mathbf{D}}"] & \obj{\mathbf{E}} \arrow[d, "\idu_{\mathbf{E}}"] \\
+					\mor{\mathbf{C}} \arrow[r, "F_1"']                  & \mor{\mathbf{D}} \arrow[r, "G_1"']                 & \mor{\mathbf{E}}                 
+				\end{tikzcd}
+		\end{equation}
+	\end{minipage}\\
+	To finish the proof, you need to convince yourself that combining "commutative" diagrams in this way yields "commutative" diagrams. We proceed with a proof by example. Take diagram \eqref{diag:comp3}, we know the left and right square are "commutative" because $F$ and $G$ are functors. To show that the rectangle also "commutes", we need to show the top path and bottom path from $\obj{\mathbf{C}}$ to $\mor{\mathbf{E}}$ compose to the same function. Here is the derivation:\footnote{In this case, both the diagram and the derivation are fairly simple. This will not stay true in the rest of the book, but the complexity of diagrams will grow way slower than the complexity of derivations and we will mostly omit the latter for this reason.}
+	\begin{align*}
+		G_1 \circ F_1 \circ \idu_{\mathbf{C}} &= G_1 \circ \idu_{\mathbf{D}} \circ F_0 &&\text{left square "commutes"}\\
+		&= \idu_{\mathbf{E}} \circ G_0 \circ F_0&&\text{right square "commutes"}
+	\end{align*}
+	%Almost no argument is needed here as the commutativity of the smaller diagrams clearly implies the commutativity of the combined diagrams. One information that is not shown above is the fact that $(G\circ F)_2 = G_2 \circ F_2$, but it would be pedantic to prove this.
+\end{proof}
+Since "functors" are also a new structure, one might expect that there are transformations between "functors" that preserve it. It is indeed the case, they are called "natural transformations" and they are the main subject of Chapter \ref{chap:nattrans}. Moreover, although we will not cover it, there is a whole tower of abstraction that one could build in this way and it is the subject of study of higher category theory.
+
+\section{Products}
+There is one last thing we want to mention to end this chapter. We have defined two new mathematical objects, "categories" and "functors" and presented several examples of each. By defining products, we give you access to an unlimited amount of new "categories" and "functors" you can construct from known ones.\footnote{This is akin to product of "groups", diret sums of "vector spaces", etc.}
+\begin{defn}[Product categories]\label{defn:prodcat}
+	\AP Let $\mathbf{C}$ and $\mathbf{D}$ be two "categories", the \intro[cattimes]{product} of $\mathbf{C}$ and $\mathbf{D}$, denoted $\mathbf{C} \cattimes \mathbf{D}$, is the "category" whose "objects" are pairs of "objects" in $\obj{\mathbf{C}}\times \obj{\mathbf{D}}$ and for any two pairs $(X,Y), (X',Y') \in \obj{(\mathbf{C}\cattimes \mathbf{D})}$,\footnote{Explicitly, a "morphism" $(X,Y) \rightarrow (X',Y')$ is a pair of "morphisms" $X \rightarrow X'$ and $Y \rightarrow Y'$.}
+	\[\Hom_{\mathbf{C}\cattimes \mathbf{D}}((X,Y),(X',Y')) := \Hom_{\mathbf{C}}(X,X')\times \Hom_{\mathbf{D}}(Y,Y').\]
+	The "identity morphisms" and the "composition" are defined componentwise, i.e.: $\id_{(X,Y)} = (\id_X,\id_Y)$ and if $(f,f')\in \mortwo{\mathbf{C}}$ and $(g,g') \in \mortwo{\mathbf{D}}$ are two "composable" pairs, then $(f,g) \circ (f',g') = (f\circ f', g \circ g')$.\footnote{We leave you to check that this defines the "composition" of all "morphisms" in $\mathbf{C} \cattimes \mathbf{D}$. Namely, if $(f,g)$ and $(f',g')$ are "composable", then $f,f'$ and $g,g'$ are "composable".}
+\end{defn}
+\begin{exer}\label{exer:catfunc:diagfunc}\marginnote{\hyperref[soln:catfunc:diagfunc]{See solution.}}
+	Show that the assignment $\diagFunc_{\mathbf{C}} :\mathbf{C} \rightsquigarrow \mathbf{C}\cattimes \mathbf{C} = X \mapsto (X,X)$ is "functorial", i.e.: give its action on "morphisms" and show it satisfies the relevant axioms. We call $\diagFunc_{\mathbf{C}}$ the ""diagonal functor"".
+\end{exer}
+\begin{defn}[Product functor]
+	\AP Let $F: \mathbf{C} \rightsquigarrow  \mathbf{C}'$ and $G: \mathbf{D} \rightsquigarrow \mathbf{D}'$ be two "functors", the \intro[functimes]{product} of $F$ and $G$, denoted $F\functimes G$, is defined componentwise on "objects" and "morphisms", i.e.: for any $(X,Y) \in \obj{(\mathbf{C}\cattimes \mathbf{D})}$ and $(f,g) \in \mor{(\mathbf{C}\cattimes \mathbf{D})}$
+	\[(F\functimes G)(X,Y) = (FX,GY) \text{ and } (F\functimes G)(f,g) = (Ff,Gg).\]
+	Let us check this defines a "functor".
+	\begin{enumerate}[i.]
+		\item By definition of $\mathbf{C}'\cattimes \mathbf{D}'$, $(Ff,Gg)$ is a "morphism" from $(FX,GY)$ to $(FX', GY')$.
+		\item For $(f,f') \in \mortwo{\mathbf{C}}$ and $(g,g') \in \mortwo{\mathbf{D}}$, we have \begin{align*}
+			(F\functimes G)((f,g) \circ (f',g')) &= (F\functimes G)(f \circ f', g \circ g')\\
+			&= (F(f \circ f'), G(g \circ g'))\\
+			&= (Ff \circ Ff', Gg \circ Gg')\\
+			&= (Ff, Gg) \circ (Ff', Gg')\\
+			&= (F\functimes G)(f,g) \circ (F\functimes G)(f',g').
+		\end{align*}
+		\item Since $F$ and $G$ preserve "identity morphisms", we have
+			\[(F\functimes G)(\id_{(X,Y)}) = (F\functimes G)(\id_X, \id_Y) = (F\id_X, G\id_Y) = (\id_{FX}, \id_{GY}) = \id_{(FX,GY)}.\]
+	\end{enumerate}
+\end{defn}
+\begin{exer}[\NOW]\label{exer:catfunc:placeholder}\marginnote{\hyperref[soln:catfunc:placeholder]{See solution.}}
+	Let $F: \mathbf{C} \cattimes \mathbf{C}' \rightarrow \mathbf{D}$ be a "functor". For $X \in \obj{\mathbf{C}}$, we define $F(X, \placeholder): \mathbf{C}' \rightsquigarrow \mathbf{D}$ on "objects" by $Y \mapsto F(X,Y)$ and on "morphisms" by $g\mapsto F(\id_X, g)$.\marginnote{\AP We will often use $\placeholder$ as a ""placeholder"" for an input so that the latter remains nameless. For instance, $f(\placeholder,\placeholder)$ means $f$ takes two inputs. The type of the inputs and outputs will be made clear in the context.} Show that $F(X,\placeholder)$ is a "functor". Define $F(\placeholder, Y)$ similarly.
+\end{exer}
+\begin{exer}\label{exer:catfunc:funccomponent}\marginnote{\hyperref[soln:catfunc:funccomponent]{See solution.}}
+	Let $F: \mathbf{C} \cattimes \mathbf{C}' \rightarrow \mathbf{D}$ be an action defined on "objects" and "morphisms" which is not necessarily a "functor". Show that if for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{C}'}$, $F(X, \placeholder)$ and $F(\placeholder,Y)$ as defined above are "functors", then $F$ is a "functor". In other words, the "functoriality" of $F$ can be proven componentwise.
+\end{exer}
+%TODO: define hom functor
+In the next chapters, we will present other interesting constructions, but we will stop here for now.
+\end{document}
