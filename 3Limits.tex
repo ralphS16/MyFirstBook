@@ -1,7 +1,13 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
 \chapter{Limits and Colimits}\label{chap:limits}
+%TODO: relation is span, then pullback is almost composition.
+%TODO: can we do pushout rewriting? 
 %TODO: use each limit at least once in a categorical context, equalizer of idempotents etc..
+%TODO: say we will be loose on equality and isoCAT because limits are defined up to unique iso.
+%TODO: \textsf{swap} for commutativity of the product ?
+%TODO: new notation for pullback.
+%TODO: equalize and coequalize terminology.
 The unifying power of categorical abstraction is arguably its biggest benefit. Indeed, it is often the case that many mathematical objects or results from different fields fit under the same categorical definition or fact. In my opinion, category theory is at its peak of elegance when a complex idea becomes close to trivial when viewed categorically, and when this same view helps link together the intuitions behind many ideas throughout mathematics.
 
 The next two chapters concern one particular instance of this power, that is, the use of "universal properties" to define mathematical constructions. This term is somewhat delicate to define, therefore, we postpone its definition to next chapter and for a while, we suggest the reader to try and recognize \textit{"universality"} as the thing that all definitions of "(co)@colimits""limits" have in common. This chapter will cover "limits" and "colimits" which are specific cases of "universal" constructions.
@@ -68,7 +74,7 @@ To generalize the categorical "product@bproduct" to more than two "objects", one
         \Product_{i \in I}X_i \arrow[r, "\projection_j"']     & X_j
         \end{tikzcd}
     \end{equation}
-    A family of "objects" in a "category" is also called a "discrete" "diagram",\footnote{The terminology comes from Definition \ref{defn:diagram}.} the "product" is then the "limit" of this "diagram".
+    A family of "objects" in a "category" is also called a ""discrete"" "diagram",\footnote{The terminology comes from Definition \ref{defn:diagram}.} the "product" is then the "limit" of this "diagram".
 \end{defn}
 \begin{exer}
     Show that the "product" of an arbitrary family of sets is still the Cartesian product of this family.
@@ -211,18 +217,18 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
     \AP In the special case that $g \equiv 0$, $B/\im(f)$ is called the ""cokernel"" of $f$, denoted $\coker(f)$.
 
     %TODO: change all this to group presentations.
-    \textbf{"Monoid" "presentations"}: Let $M$ be a "monoid", recall that a set $A \subseteq M$ ""generates"" $M$, denoted $M = \gen{A}$, if any element of $M$ is a finite product of elements of $A$. Namely, for any $m \in M$, there exists $a_1,\dots, a_n \in A$ such that $a_1 \cdots a_n = m$. If we consider the set of all finite products on $A$, call it $F(A)$, $M = \gen{A}$ yields a surjection $F(A) \rightarrow M$. However, the converse is not true because such a surjection does not necessarily behave well with the "monoid" operation.
+    % \textbf{"Monoid" "presentations"}: Let $M$ be a "monoid", recall that a set $A \subseteq M$ ""generates"" $M$, denoted $M = \gen{A}$, if any element of $M$ is a finite product of elements of $A$. Namely, for any $m \in M$, there exists $a_1,\dots, a_n \in A$ such that $a_1 \cdots a_n = m$. If we consider the set of all finite products on $A$, call it $F(A)$, $M = \gen{A}$ yields a surjection $F(A) \rightarrow M$. However, the converse is not true because such a surjection does not necessarily behave well with the "monoid" operation.
 
-    However, there is a natural "monoid" operation on $F(A)$, that is concatenation: \[(a_1\cdots a_n) \cdot (a_1'\cdots a_m') = a_1\cdots a_na_1'\cdots a_m',\]
-    with the empty product as the identity.\footnote{Even if $1_M \in A$, the identity of $F(A)$ is still the empty product because $1_Ma \neq a$ as elements of $F(A)$.} Now, a surjective "homomorphism@@MON" $d: F(A) \twoheadrightarrow M$ does imply $M = \gen{A}$. Indeed, a product $a_1\cdots a_n$ in the preimage of $m$ has to equal $m$ inside $M$ or it would contradict the "homomorphism@@MON" property.
+    % However, there is a natural "monoid" operation on $F(A)$, that is concatenation: \[(a_1\cdots a_n) \cdot (a_1'\cdots a_m') = a_1\cdots a_na_1'\cdots a_m',\]
+    % with the empty product as the identity.\footnote{Even if $1_M \in A$, the identity of $F(A)$ is still the empty product because $1_Ma \neq a$ as elements of $F(A)$.} Now, a surjective "homomorphism@@MON" $d: F(A) \twoheadrightarrow M$ does imply $M = \gen{A}$. Indeed, a product $a_1\cdots a_n$ in the preimage of $m$ has to equal $m$ inside $M$ or it would contradict the "homomorphism@@MON" property.
 
-    By the "first isomorphism theorem", $M$ is "isomorphic@@MON" to $F(A)/\ker(d)$. To realize $d$ as a "coequalizer", we will find a "morphism" $f$ such that $\coker(f)$ is $M \cong F(A)/\ker(d)$, namely, we need to find $f: X \rightarrow F(A)$ with $\im(f) = \ker(d)$.\footnote{In this category, $g$ is not $0$ but $1$ everywhere.} This is similar to what we were doing at the start of this example. Indeed, let $R \subseteq F(A)$ be a set of "generators" of $\ker(d)$, then there is a "homomorphism@MON" $f: F(R) \rightarrow F(A)$ satisfying $\im(f) = \ker(d)$. In fact, we can take the morphism $f$ that simply views products of products of $A$ as products of $A$ by concatenation. We have shown that \eqref{diag:forkpresentation} forms a "fork" and the argument used in $\catAb$ can be applied here to show this is a "coequalizer".
-    \begin{equation}\label{diag:forkpresentation}
-        \begin{tikzcd}
-            F(R) \arrow[r, "f", shift left] \arrow[r, "1"', shift right] & F(A) \arrow[r, two heads, "d"] & M\cong F(A)/\ker(d)
-        \end{tikzcd}
-    \end{equation}
-    Thus, one can see $M$ as generated by $A$ subject to $R$ that identify some products of $A$ with the identity. Elements of $R$ are called ""relations"" and the pair $A$ and $R$ is a ""presentation"" of $M$, denoted $M = \langle A \mid R \rangle$. %TODO: examples of presentation.
+    % By the "first isomorphism theorem", $M$ is "isomorphic@@MON" to $F(A)/\ker(d)$. To realize $d$ as a "coequalizer", we will find a "morphism" $f$ such that $\coker(f)$ is $M \cong F(A)/\ker(d)$, namely, we need to find $f: X \rightarrow F(A)$ with $\im(f) = \ker(d)$.\footnote{In this category, $g$ is not $0$ but $1$ everywhere.} This is similar to what we were doing at the start of this example. Indeed, let $R \subseteq F(A)$ be a set of "generators" of $\ker(d)$, then there is a "homomorphism@MON" $f: F(R) \rightarrow F(A)$ satisfying $\im(f) = \ker(d)$. In fact, we can take the morphism $f$ that simply views products of products of $A$ as products of $A$ by concatenation. We have shown that \eqref{diag:forkpresentation} forms a "fork" and the argument used in $\catAb$ can be applied here to show this is a "coequalizer".
+    % \begin{equation}\label{diag:forkpresentation}
+    %     \begin{tikzcd}
+    %         F(R) \arrow[r, "f", shift left] \arrow[r, "1"', shift right] & F(A) \arrow[r, two heads, "d"] & M\cong F(A)/\ker(d)
+    %     \end{tikzcd}
+    % \end{equation}
+    % Thus, one can see $M$ as generated by $A$ subject to $R$ that identify some products of $A$ with the identity. Elements of $R$ are called ""relations"" and the pair $A$ and $R$ is a ""presentation"" of $M$, denoted $M = \langle A \mid R \rangle$. %TODO: examples of presentation.
 \end{exmps}
 
 \subsection{Pullback}
@@ -252,6 +258,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
             \arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=2-2, to=3-3]
         \end{tikzcd}
     \end{equation}
+    \AP We will call $p_A$ the "pullback" of $g$ ""along@apull"" $f$ and sometimes denote it $\pull{f}{g}$. Symmetrically, $p_B$ is the "pullback" of $f$ "along@apull" $g$, denoted $\pull{g}{f}$.
 \end{defn}
 \begin{exmp}[$\catSet$]
     Let $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & C & B \arrow[l, "g"'] \end{tikzcd}$ be a "cospan" in $\catSet$ and suppose that its "pullback" is $\begin{tikzcd}[cramped, sep=small] A & A \pullback{C} B \arrow[l, "p_A"'] \arrow[r, "p_B"]& B\end{tikzcd}$. Observe that $p_A$ and $p_B$ look like "projections", and in fact, by the "universality" of the "product" $A\product B$, there is a map $h: A\pullback{C} B \rightarrow A\product B$ such that $h(x) = (p_A(x), p_B(x))$ (\eqref{diag:setpullback} "commutes"). Consider the image of $h$, if $(a,b) \in \im(h)$, then there exists $x \in A \pullback{C} B$ such that $p_A(x) = a$ and $p_B(x) = b$. Moreover, the "commutativity" of the square in \eqref{diag:setpullback} implies $f(a) = g(b)$, hence \begin{marginfigure}
@@ -273,7 +280,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
     \end{marginfigure} \[\im(h) \subseteq \{(a,b) \in A\product B \mid f(a) = g(b)\} =: E.\]
     Now, letting $X= E$, $s = \projection_A$ and $t = \projection_B$, by definition, $f \circ s = g \circ t$ hence, there is a unique $!: E \rightarrow A\pullback{C} B$ satisfying $p_A \circ {!} = \projection_A$ and $p_B \circ {!} = \projection_B$. Viewing $h$ as going in the opposite direction to $!$,\footnote{We just saw that the image of $h$ is contained in $E$, so we can see $h$ as a function $h: A \pullback{C} B \rightarrow A\product B$.} it is easy to see that for any $(a,b) \in E$,\footnote{We use the fact that $\projection_A \circ h \circ {!} = p_A \circ {!}$ and similarly for $B$.} \[(h\circ {!})(a,b) = (p_A(!(a,b)), p_B(a,b)) = (\projection_A(a,b), \projection_B(a,b)) = (a,b),\] thus $!$ has a "left inverse" and is injective. Assume towards a contradiction that it is not surjective, then let $y \in A\pullback{C} B$ not be in the image of $!$ and denote $x = !(p_A(y), p_B(y))$. Define $!'$ as acting exactly like $!$ except on $(p_A(y),p_B(y))$ where it goes to $y$ instead of $x$. This ensure that $!'$ still makes the diagram "commutes", but this contradicts the uniqueness of $!$.
 
-    As a particular case, if a "cospan" is comprised of two inclusions $A \hookrightarrow C \hookleftarrow B$, then its "pullback" is the intersection $A \cap B$ with $p_A$ and $p_B$ being the inclusions.
+    As a particular case, if a "cospan" is comprised of two inclusions $A \hookrightarrow C \hookleftarrow B$, then its "pullback" is the intersection $A \cap B$ with $p_A$ and $p_B$ being the inclusions. %TODO: also preimage of sets.
 \end{exmp}
 \begin{exmps}
     \textbf{In a "posetal" "category"}, the "commutativity" of the square in \eqref{diag:pullback} does not depend on the "morphisms", thus the "universal property" is equivalent to the property of being a "product". %TODO: more examples.
@@ -321,6 +328,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
             \arrow["\pushoutd"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
         \end{tikzcd}
     \end{equation}
+    \AP We will call $k_A$ the "pushout" of $g$ ""along@apush"" $f$ and sometimes denote it $\push{f}{g}$. Symmetrically, $k_B$ is the "pushout" of $f$ "along@apush" $g$, denoted $\push{g}{f}$.
 \end{defn}
 \begin{exmp}[$\catSet$]
     Let $\begin{tikzcd}[cramped, sep=small]A & C \arrow[l, "f"'] \arrow[r, "g"]& B \end{tikzcd}$ be a "span" in $\catSet$ and suppose its "pushout" is $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "k_A"] & A\pushout{C} B & B \arrow[l, "k_B"'] \end{tikzcd}$. Similarly to above, observe that $k_A$ and $k_B$ are like "coprojections", so there is a unique map $!: A+ B \rightarrow A\pushout{C} B$ such that $!(a) = k_A(a)$ and $!(b) = k_B(b)$. Furthermore, for any $c \in C$, $!(f(c)) = !(g(c))$, thus 
@@ -337,24 +345,10 @@ In case you have not figured out the pattern, note that "products", "equalizers"
     \item These "morphisms" satisfy a "universal property". More specifically, for any "object" $L'$ with "morphisms" in $\Hom_{\mathbf{C}}(L',O)$ (resp. $\Hom_{\mathbf{C}}(O,L')$) "commuting" with $D$, there is a unique $!:L'\rightarrow L$ (resp. $L \rightarrow L'$) such that combining all the "morphisms" with $D$ yields a "commutative" diagram.
 \end{itemize}
 The first step towards a formal generalization is to formally define a "diagram".
-\subsection{Definitions}%TODO: Change D to J.
-\begin{defn}[Diagram]\label{defn:diagram}
-    \AP A ""diagram"" in $\mathbf{C}$ is a "functor" $F:\mathbf{D}\rightsquigarrow \mathbf{C}$ where $\mathbf{D}$ is usually a "small" or even finite "category".
-\end{defn}
-\begin{rem}
-\begin{marginfigure}
-    \begin{equation}\label{diag:commsquare}
-        \begin{tikzcd}
-            \cdot \arrow[r] \arrow[d] & \cdot \arrow[d] \\
-            \cdot \arrow[r] & \cdot
-        \end{tikzcd}
-    \end{equation}
-\end{marginfigure}
-"Diagrams" are usually represented by (partially) drawing the image of $F$. All the "diagrams" drawn up to this point define the domain of the functor implicitly. For instance, when considering a "commutative" square in $\mathbf{C}$, what is actually considered is the image from a "functor" with codomain $\mathbf{C}$ and domain the "category" $\mathbf{2}\product \mathbf{2}$ represented in \eqref{diag:commutesquare}. It follows trivially from this definition that "functors" "preserve" "commutative" "diagrams".\footnote{If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a "diagram" of shape $\mathbf{D}$ in $\mathbf{C}$ and $G: \mathbf{C}\rightsquigarrow \mathbf{C}'$ is a "functor", then $G\circ F$ is a "diagram" of shape $\mathbf{D}$ in $\mathbf{C}'$.}
-\end{rem}
+\subsection{Definitions}
 Next, notice that the "morphisms" given for $L$ and $L'$ have the same conditions, they form a "cone" or "cocone".
 \begin{defn}[Cone]
-    Let $F: \mathbf{D}\rightsquigarrow \mathbf{C}$ be a "diagram". \AP A "cone" from $X$ to $F$ is an "object" $X \in \obj{\mathbf{C}}$, called the ""tip"", along with a family of "morphisms" $\left\{ \psi_Y: X \rightarrow F(Y)\right\}$ indexed by "objects" $Y \in \obj{\mathbf{D}}$ such that for any "morphism" $f:Y \rightarrow Z$ in $\mor{\mathbf{D}}$, $F(f) \circ \psi_Y = \psi_Z$, i.e.: diagram \eqref{diag:cone} "commutes".
+    Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a "diagram". \AP A "cone" from $X$ to $F$ is an "object" $X \in \obj{\mathbf{C}}$, called the ""tip"", along with a family of "morphisms" $\left\{ \psi_Y: X \rightarrow F(Y)\right\}$ indexed by "objects" $Y \in \obj{\mathbf{J}}$ such that for any "morphism" $f:Y \rightarrow Z$ in $\mor{\mathbf{J}}$, $F(f) \circ \psi_Y = \psi_Z$, i.e.: diagram \eqref{diag:cone} "commutes".
     \begin{equation}\label{diag:cone}
         \begin{tikzcd}
             & X \arrow[ld, "\psi_Y"'] \arrow[rd, "\psi_Z"] &\\
@@ -365,7 +359,7 @@ Next, notice that the "morphisms" given for $L$ and $L'$ have the same condition
 \end{defn}
 Next, the fact that the "morphism" $!$ keeps everything "commutative" can be generalized.
 \begin{defn}[Morphism of cones]
-    Let $F:\mathbf{D}\rightsquigarrow \mathbf{C}$ be a "diagram" and $\{\psi_Y: A \rightarrow F(Y)\}_{Y \in \obj{\mathbf{D}}}$ and $\{\phi_Y: B\rightarrow F(Y)\}_{Y \in \obj{\mathbf{D}}}$ be two "cones" over $F$. A \textbf{"morphism" of "cones"} from $A$ to $B$ is a "morphism" $g:A\rightarrow B$ in $\mor{\mathbf{C}}$ such that for any $Y\in \obj{\mathbf{D}}$, $\phi_Y \circ g = \psi_Y$, i.e.: \eqref{diag:morphcone} "commutes".
+    Let $F:\mathbf{J}\rightsquigarrow \mathbf{C}$ be a "diagram" and $\{\psi_Y: A \rightarrow F(Y)\}_{Y \in \obj{\mathbf{J}}}$ and $\{\phi_Y: B\rightarrow F(Y)\}_{Y \in \obj{\mathbf{J}}}$ be two "cones" over $F$. A \textbf{"morphism" of "cones"} from $A$ to $B$ is a "morphism" $g:A\rightarrow B$ in $\mor{\mathbf{C}}$ such that for any $Y\in \obj{\mathbf{J}}$, $\phi_Y \circ g = \psi_Y$, i.e.: \eqref{diag:morphcone} "commutes".
     \begin{equation}\label{diag:morphcone}
         \begin{tikzcd}
             A \arrow[rr, "g"] \arrow[rd, "\psi_Y"'] &  & B \arrow[ld, "\phi_Y"] \\
@@ -375,7 +369,7 @@ Next, the fact that the "morphism" $!$ keeps everything "commutative" can be gen
 \end{defn}
 After verifying that "morphisms" can be composed, the last two definitions give rise to the "category" of "cones" over a "diagram" $F$ which we denote $\cone(F)$. Finally, the "universal property" can be stated in terms of "cones", thus giving the general definition of a "limit". Indeed, the "limit" of a "diagram" $D$ is a "cone" $L$ over $D$ such that for every "cone" $L'$ over $D$, there is a unique "cone" "morphism" $!:L'\rightarrow L$. Equivalently, $L$ is the "terminal" "object" of $\cone(F)$.
 \begin{defn}[Limit]
-    \AP Let $F:\mathbf{D} \rightsquigarrow \mathbf{C}$ be a "diagram", the ""limit"" of $F$ denoted $\lim F$ (or $\lim \mathbf{D}$), if it exists, is the terminal object of $\cone(F)$.
+    \AP Let $F:\mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram", the ""limit"" of $F$ denoted $\lim F$ (or $\lim_{\mathbf{J}} F$), if it exists, is the "terminal" "object" of $\cone(F)$.
 \end{defn}
 \begin{rem}
     Often, $\lim F$ also designates the "tip" of the "cone" as an "object" in $\mathbf{C}$ rather than the whole "cone".
@@ -409,7 +403,7 @@ After verifying that "morphisms" can be composed, the last two definitions give 
 \subsection{Codefinitions}
 Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. We suggests you spend a bit of time trying to "dualize@@CAT" all of the previous section on your own, but we have done it for completeness.  
 \begin{defn}[Cocone]
-    Let $F: \mathbf{D}\rightsquigarrow \mathbf{C}$ be a diagram. \AP A ""cocone"" from $F$ to $X$ is an "object" $X \in \obj{\mathbf{C}}$ along with a family of "morphisms" $\left\{ \psi_Y: F(Y) \rightarrow X \right\}$ indexed by "objects" of $Y \in \obj{\mathbf{D}}$ such that for any "morphism" $f:Y \rightarrow Z$ in $\mathbf{D}$, $\psi_Z \circ F(f) = \psi_Y$, i.e.: \eqref{diag:cocone} "commutes".
+    Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a diagram. \AP A ""cocone"" from $F$ to $X$ is an "object" $X \in \obj{\mathbf{C}}$ along with a family of "morphisms" $\left\{ \psi_Y: F(Y) \rightarrow X \right\}$ indexed by "objects" of $Y \in \obj{\mathbf{J}}$ such that for any "morphism" $f:Y \rightarrow Z$ in $\mathbf{J}$, $\psi_Z \circ F(f) = \psi_Y$, i.e.: \eqref{diag:cocone} "commutes".
     \begin{equation}\label{diag:cocone}
         \begin{tikzcd}
             F(Y) \arrow[rd, "\psi_Y"'] \arrow[rr, "F(f)"] & & F(Z) \arrow[ld, "\psi_Z"]\\
@@ -418,7 +412,7 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. We su
     \end{equation}
 \end{defn}
 \begin{defn}[Morphism of cocones]
-    Let $F:\mathbf{D}\rightsquigarrow \mathbf{C}$ be a "diagram" and $\{\psi_Y: F(Y)\rightarrow A \}_{Y \in \obj{\mathbf{D}}}$ and $\{\phi_Y: F(Y)\rightarrow B\}_{Y \in \obj{\mathbf{D}}}$ be two "cocones". A \textbf{"morphism" of "cocones"} from $A$ to $B$ is a "morphism" $g:A\rightarrow B$ in $\mathbf{C}$ such that for any $Y\in \obj{\mathbf{D}}$, $g \circ \psi_Y = \phi_Y$, i.e.: \eqref{diag:morphcocone} "commutes".
+    Let $F:\mathbf{J}\rightsquigarrow \mathbf{C}$ be a "diagram" and $\{\psi_Y: F(Y)\rightarrow A \}_{Y \in \obj{\mathbf{J}}}$ and $\{\phi_Y: F(Y)\rightarrow B\}_{Y \in \obj{\mathbf{J}}}$ be two "cocones". A \textbf{"morphism" of "cocones"} from $A$ to $B$ is a "morphism" $g:A\rightarrow B$ in $\mathbf{C}$ such that for any $Y\in \obj{\mathbf{J}}$, $g \circ \psi_Y = \phi_Y$, i.e.: \eqref{diag:morphcocone} "commutes".
     \begin{equation}\label{diag:morphcocone}
         \begin{tikzcd}
             & F(Y) \arrow[ld, "\psi_Y"'] \arrow[rd, "\phi_Y"] & \\
@@ -428,14 +422,14 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. We su
 \end{defn}
 The "category" of "cocones" from $F$, sometimes called "cones" under $F$, is denoted $\cocone(F)$.
 \begin{defn}[Colimit]
-    \AP Let $F:\mathbf{D} \rightsquigarrow \mathbf{C}$ be a "diagram", the "colimit" of $F$ denoted $\colim F$, if it exists, is the "initial" "object" of $\cocone(F)$.
+    \AP Let $F:\mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram", the "colimit" of $F$ denoted $\colim F$, if it exists, is the "initial" "object" of $\cocone(F)$.
 \end{defn}
 \begin{exmp}
     The "colimit" of the empty "diagram" is the "initial" "object" if it exists.
 \end{exmp}
 \subsection{Result}
 \begin{prop}[Uniqueness]
-    Let $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ be a "diagram", the "limit" (resp. "colimit") of $F$, if it exists, is unique up to unique "isomorphism@@CAT".
+    Let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram", the "limit" (resp. "colimit") of $F$, if it exists, is unique up to unique "isomorphism@@CAT".
 \end{prop}
 \begin{proof}
     This follows from the uniqueness of "terminal" (resp. "initial") "objects".
@@ -451,9 +445,9 @@ The "category" of "cocones" from $F$, sometimes called "cones" under $F$, is den
 %Proofs are really different on the board since it is easier to simply reuse work and add different colors instead of making cleaner diagrams.
 We show four results in increasing order of complexity to demonstrate "diagram chasing" through examples.
 
-\begin{thm}
-    Consider the "pullback" square in \eqref{diag-pullmono}.
-    \begin{equation}\label{diag-pullmono}
+\begin{thm}\label{thm:pullmono}
+    Consider the "pullback" square in \eqref{diag:pullmono}.
+    \begin{equation}\label{diag:pullmono}
         \begin{tikzcd}
             A \pullback{C} B \arrow[r, "p_B"] \arrow[d, "p_A"'] \arrow[dr, phantom, "\pullbackd", very near start] & B \arrow[d, "g"] \\
             A \arrow[r, "f"'] & C 
@@ -462,7 +456,7 @@ We show four results in increasing order of complexity to demonstrate "diagram c
     If $g$ is "monic", then $p_A$ also is. Symmetrically, if $f$ is "monic", then $p_B$ also is.\footnote{This is commonly stated simply as: ``The "pullback" of a "monomorphism" is a "monomorphism".''}
 \end{thm}
 \begin{proof}
-    Let $h_1, h_2: X \rightarrow A \pullback{C} B$ be such that $p_A \circ h_1 = p_A \circ h_2$, we need to show that $h_1 = h_2$. First, observe that $h_1$ and $h_2$ yield two "cones" over the "cospan" $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & C & B \arrow[l, "g"'] \end{tikzcd}$ as depicted in \eqref{diag-twopulls}.\begin{marginfigure}[2\baselineskip]The two "cones" are \[\begin{tikzcd}
+    Let $h_1, h_2: X \rightarrow A \pullback{C} B$ be such that $p_A \circ h_1 = p_A \circ h_2$, we need to show that $h_1 = h_2$. First, observe that $h_1$ and $h_2$ yield two "cones" over the "cospan" $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & C & B \arrow[l, "g"'] \end{tikzcd}$ as depicted in \eqref{diag:twopulls}.\begin{marginfigure}[2\baselineskip]The two "cones" are \[\begin{tikzcd}
         X & B \\
         A
         \arrow["{p_A \circ h_1}"', from=1-1, to=2-1]
@@ -473,7 +467,7 @@ We show four results in increasing order of complexity to demonstrate "diagram c
         \arrow["{p_A \circ h_2}"', from=1-1, to=2-1]
         \arrow["{p_B \circ h_2}", from=1-1, to=1-2]
     \end{tikzcd}\]They make the squares "commute" because the original "pullback" square "commutes".\end{marginfigure}
-    \begin{equation}\label{diag-twopulls}
+    \begin{equation}\label{diag:twopulls}
         % https://q.uiver.app/?q=WzAsNSxbMiwyLCJDIl0sWzEsMiwiQSJdLFsyLDEsIkIiXSxbMSwxLCJBXFxwdWxsYmFja3tDfSBCIl0sWzAsMCwiWCJdLFsxLDAsImYiLDJdLFsyLDAsImciXSxbMywxLCJwX0EiLDJdLFszLDIsInBfQiJdLFs0LDEsInBfQSBcXGNpcmMgaF8xID0gcF9BIFxcY2lyYyBoXzIiLDIseyJjdXJ2ZSI6Mn1dLFs0LDIsInBfQiBcXGNpcmMgaF8xIiwwLHsiY3VydmUiOi0yfV0sWzMsMCwiIiwwLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV0sWzQsMiwicF9CXFxjaXJjIGhfMiIsMCx7ImN1cnZlIjotNX1dLFs0LDMsImhfMSIsMSx7Im9mZnNldCI6Mn1dLFs0LDMsImhfMiIsMSx7Im9mZnNldCI6LTJ9XV0=
         \begin{tikzcd}
             {X} \\
@@ -503,19 +497,19 @@ We show four results in increasing order of complexity to demonstrate "diagram c
     The "pushout" of an "epimorphism" is an "epimorphism".
 \end{cor}
 
-\begin{thm}[Pasting Lemma]
-    Consider diagram \eqref{diag-pasting}, where the right square is a "pullback".
-    \begin{equation}\label{diag-pasting}
+\begin{thm}[Pasting Lemma]\label{lem:pasting}
+    Consider diagram \eqref{diag:pasting}, where the right square is a "pullback". This result is called the ""pasting lemma"".
+    \begin{equation}\label{diag:pasting}
         \begin{tikzcd}
             A \arrow[r, "f"] \arrow[d, "\alpha"'] & B \arrow[r, "g"] \arrow[d, "\beta"'] \arrow[rd, phantom ,"\pullbackd", very near start] & C \arrow[d, "\gamma"] \\
             A' \arrow[r, "f'"']                   & B' \arrow[r, "g'"']                                                      & C'                   
         \end{tikzcd}       
     \end{equation}
-    If \eqref{diag-pasting} "commutes", the left square is a "pullback" if and only if the rectangle is.
+    If \eqref{diag:pasting} "commutes", the left square is a "pullback" if and only if the rectangle is.
 \end{thm}
 \begin{proof}
-    ($\Rightarrow$) Explicitly, we have to show that $\alpha : A' \leftarrow A \rightarrow C : g \circ f$ is the "pullback" of $g' \circ f' : A' \rightarrow C' \leftarrow C:\gamma$. The "commutativity" $g'\circ f' \circ \alpha = \gamma \circ g \circ f$ implies this is already a "cone" over the "cospan" we just described. Now, suppose there is another "cone" over this "cospan", namely, there exist "morphisms" $p_{A'}: X \rightarrow A'$ and $p_C: X \rightarrow C$ satisfying $g'\circ f' \circ p_{A'} = \gamma \circ p_C$ as depicted in \eqref{diag-pastingproof}.
-    \begin{equation}\label{diag-pastingproof}
+    ($\Rightarrow$) Explicitly, we have to show that $\alpha : A' \leftarrow A \rightarrow C : g \circ f$ is the "pullback" of $g' \circ f' : A' \rightarrow C' \leftarrow C:\gamma$. The "commutativity" $g'\circ f' \circ \alpha = \gamma \circ g \circ f$ implies this is already a "cone" over the "cospan" we just described. Now, suppose there is another "cone" over this "cospan", namely, there exist "morphisms" $p_{A'}: X \rightarrow A'$ and $p_C: X \rightarrow C$ satisfying $g'\circ f' \circ p_{A'} = \gamma \circ p_C$ as depicted in \eqref{diag:pastingproof}.
+    \begin{equation}\label{diag:pastingproof}
         \begin{tikzcd}
             X \arrow[rrrd, "p_C", bend left] \arrow[rdd, "p_{A'}"', bend right] \arrow[rrd, "{!}_B", dashed, shift left] \arrow[rd, "{!}_A"', dashed] & & & \\
             & A \arrow[r, near start, "f"] \arrow[d, "\alpha"'] \arrow[rd, "\pullbackd", phantom, very near start] & B \arrow[r, "g"] \arrow[d, "\beta"'] \arrow[rd, "\pullbackd", phantom, very near start] & C \arrow[d, "\gamma"] \\
@@ -538,20 +532,50 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
                                                & A' \arrow[r, "f'"']                & B' \arrow[r, "g'"']                                  & C'          
 \end{tikzcd}
     \end{equation}
-    Let $p_{A'} : A' \leftarrow X \rightarrow B: p_B$ be a "cone" over the "cospan" of the left square (i.e.: $\beta \circ p_B = f' \circ p_{A'}$). The "commutativity" of \eqref{diag-pasting} implies $p_{A'}: A' \leftarrow X \rightarrow C: g \circ p_B$ is a "cone" over the rectangle "cospan", then by "universality" of $A$, there exists a unique ${!}_A: X \rightarrow A$ such that $g \circ f \circ {!}_A =  g \circ p_B$ and $\alpha \circ {!}_A = p_A$. Moreover, with the "commutativity" of the left square, we find that $f \circ {!}_A$ is a "morphism" of "cones" over the right "cospan" satisfying $\beta \circ f \circ {!}_A = f' \circ \alpha \circ {!}_A = f'\circ p_{A'} = \beta \circ p_B$ and $g \circ f \circ {!}_A = g \circ p_B$. But since our hypothesis on $p_{A'}$ and $p_B$ implies $p_B$ is a "morphism" of "cones" satisfying the same equations, by "universality" of $B$, $p_B = f \circ {!}_A$. Therefore, ${!}_A$ is a "morphism" of "cone" over the left "cospan".
+    Let $p_{A'} : A' \leftarrow X \rightarrow B: p_B$ be a "cone" over the "cospan" of the left square (i.e.: $\beta \circ p_B = f' \circ p_{A'}$). The "commutativity" of \eqref{diag:pasting} implies $p_{A'}: A' \leftarrow X \rightarrow C: g \circ p_B$ is a "cone" over the rectangle "cospan", then by "universality" of $A$, there exists a unique ${!}_A: X \rightarrow A$ such that $g \circ f \circ {!}_A =  g \circ p_B$ and $\alpha \circ {!}_A = p_A$. Moreover, with the "commutativity" of the left square, we find that $f \circ {!}_A$ is a "morphism" of "cones" over the right "cospan" satisfying $\beta \circ f \circ {!}_A = f' \circ \alpha \circ {!}_A = f'\circ p_{A'} = \beta \circ p_B$ and $g \circ f \circ {!}_A = g \circ p_B$. But since our hypothesis on $p_{A'}$ and $p_B$ implies $p_B$ is a "morphism" of "cones" satisfying the same equations, by "universality" of $B$, $p_B = f \circ {!}_A$. Therefore, ${!}_A$ is a "morphism" of "cone" over the left "cospan".
     
     Finally, if $m: X \rightarrow A$ also satisfies $\alpha \circ m = p_{A'}$ and $f \circ m = p_B$. We find in particular that $m$ is a "morphism" of "cones" over the rectangle "cospan", hence by "universality" of $A$, $m = {!}_A$.
 \end{proof}
 \begin{cor}%TODO: redraw the diagram.
-    In diagram \eqref{diag-pasting} where the right square is not necessarily a "pullback" but the left square is a "pushout", the right square is a "pushout" if and only if the rectangle is.
+    In diagram \eqref{diag:pasting} where the right square is not necessarily a "pullback" but the left square is a "pushout", the right square is a "pushout" if and only if the rectangle is.
 \end{cor}
+\begin{exer}\label{exer:limits:isopullback}\marginnote{\hyperref[soln:limits:isopullback]{See solution.}}
+    Show that \eqref{diag:pullidentity} is a "pullback" square. Let $i: A' \rightarrow A$ be an "isomorphism@@CAT", show that \eqref{diag:pulliso} is a "pullback" square.\\
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:pullidentity}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzAsMSwiQiJdLFsxLDAsIkEiXSxbMSwxLCJCIl0sWzAsMSwiZiIsMl0sWzAsMiwiXFxpZF9BIl0sWzIsMywiZiJdLFsxLDMsIlxcaWRfQiIsMl0sWzAsMywiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+            \begin{tikzcd}
+                A & A \\
+                B & B
+                \arrow["f"', from=1-1, to=2-1]
+                \arrow["{\id_A}", from=1-1, to=1-2]
+                \arrow["f", from=1-2, to=2-2]
+                \arrow["{\id_B}"', from=2-1, to=2-2]
+                \arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}\begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:pulliso}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzAsMSwiQiJdLFsxLDAsIkEiXSxbMSwxLCJCIl0sWzAsMSwiZiIsMl0sWzAsMiwiXFxpZF9BIl0sWzIsMywiZiJdLFsxLDMsIlxcaWRfQiIsMl0sWzAsMywiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+            \begin{tikzcd}
+                A' & A \\
+                B & B
+                \arrow["f \circ i"', from=1-1, to=2-1]
+                \arrow["{i}", from=1-1, to=1-2]
+                \arrow["f", from=1-2, to=2-2]
+                \arrow["{\id_B}"', from=2-1, to=2-2]
+                \arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}
+\end{exer}
 
 \begin{defn}[(Co)completeness]
     \AP A "category" is said to be ""(co)complete@complete"" (resp. ""finitely@finitely complete"" "(co)complete") if any "small" (resp. finite) "diagram" has a "(co)@colimit""limit".
 \end{defn}
 
 \begin{thm}\label{thm:prodeqcomplete}
-    Suppose that a "category" $\mathbf{C}$ has all "products" and "equalizers" then $\mathbf{C}$ has all "limits", i.e.: $\mathbf{C}$ is "complete".
+    Suppose that a "category" $\mathbf{C}$ has all "products" and "equalizers" then $\mathbf{C}$ has all "limits", i.e.: $\mathbf{C}$ is "complete". %TODO: talk about the axiom of choice
 \end{thm}
 \begin{proof}
     Let $F: J\rightsquigarrow \mathbf{C}$ be a "diagram", we will show that the "limit" of $F$ is obtained from the "equalizer" of two "morphisms"\footnote{Recall that $\source$ and $\target$ denote the "sources" and "targets" of "morphisms".}
@@ -559,8 +583,8 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
     which are defined below. The "equalizer" and the "products" it involves exist by hypothesis.
     
     Recall that for any $X \in J_0$ and $a \in J_1$, we have two canonical "projections" \[\projection_X:\Product_{X \in J_0}F(X)\rightarrow F(X) \quad \text{ and }\quad \projection_a:\Product_{a \in J_1} F(\target(a)) \rightarrow F(\target(a)).\]
-    The first family of "projections" makes $\Product_{X \in J_0}$ into a "cone" over $\{F(\target(a)) \mid a \in J_1\}$ with "projections" $\projection_{\target(a)}$. Hence, there is a unique "morphism" $u_1:\Product_{X \in J_0} F(X) \rightarrow \Product_{a \in J_1}F(\target(a))$ that satisfies $\projection_a \circ u_1 = \projection_{\target(a)}$. What is more, there is another way to "project" from $\Product_{X \in J_0}$ to $F(\target(a))$, namely, via $F(a) \circ \projection_{\source(a)}$, thus we get a unique "morphism" $u_2:\Product_{X \in J_0} F(X) \rightarrow \Product_{a \in J_1}F(\target(a))$ that satisfies $\projection_a \circ u_2 = F(a) \circ \projection_{\source(a)}$. The situation is summarized in \eqref{diag-twocones}.
-    \begin{equation}\label{diag-twocones}
+    The first family of "projections" makes $\Product_{X \in J_0}$ into a "cone" over $\{F(\target(a)) \mid a \in J_1\}$ with "projections" $\projection_{\target(a)}$. Hence, there is a unique "morphism" $u_1:\Product_{X \in J_0} F(X) \rightarrow \Product_{a \in J_1}F(\target(a))$ that satisfies $\projection_a \circ u_1 = \projection_{\target(a)}$. What is more, there is another way to "project" from $\Product_{X \in J_0}$ to $F(\target(a))$, namely, via $F(a) \circ \projection_{\source(a)}$, thus we get a unique "morphism" $u_2:\Product_{X \in J_0} F(X) \rightarrow \Product_{a \in J_1}F(\target(a))$ that satisfies $\projection_a \circ u_2 = F(a) \circ \projection_{\source(a)}$. The situation is summarized in \eqref{diag:twocones}.
+    \begin{equation}\label{diag:twocones}
         \begin{tikzcd}
             \Product_{X \in J_0} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] & & \Product_{X \in J_0} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \\& \Product_{a \in J_1} F(\target(a)) \arrow[d, "\projection_{a}"] &\\ & F(\target(a)) &         
             \end{tikzcd}
@@ -573,15 +597,15 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
         &= \projection_f \circ u_1 \circ e &&\mbox{(def. of $e$)}\\
         &= \projection_Z \circ e = \psi_Z, &&\mbox{(def. of $u_1$ and $\psi_Z$)}
     \end{align*}
-    so we indeed obtain a "cone" from $E$ to $F$, depicted in \eqref{diag-limitcone}.
-    \begin{equation}\label{diag-limitcone}
+    so we indeed obtain a "cone" from $E$ to $F$, depicted in \eqref{diag:limitcone}.
+    \begin{equation}\label{diag:limitcone}
         \begin{tikzcd}
             & E \arrow[ld, "\projection_X \circ e"'] \arrow[rd, "\projection_Y \circ e"] &      \\
             F(X) \arrow[rr, "F(f)"'] & & F(Y)
         \end{tikzcd}
     \end{equation}
-    Next, any other "cone" $\{U_X: O \rightarrow F(X)\}_{X \in J_0}$ over $F$ can also be viewed as a "cone" over the "discrete" "diagram" $\{F(\target(a))\}_{a \in J_1}$ with "projections" $\{U_{\target(a)}\}_{a \in J_1}$. Moreover, the "universality" of the "product" yields a unique "morphism" $p: O\rightarrow \Product_{X \in J_0} F(X)$ such that $\projection_X \circ p = U_X$. We claim that both $u_1 \circ p$ and $u_2 \circ p$ make \eqref{diag-conemorphisms} "commute" for all $a \in J_1$.
-    \begin{equation}\label{diag-conemorphisms}
+    Next, any other "cone" $\{U_X: O \rightarrow F(X)\}_{X \in J_0}$ over $F$ can also be viewed as a "cone" over the "discrete" "diagram" $\{F(\target(a))\}_{a \in J_1}$ with "projections" $\{U_{\target(a)}\}_{a \in J_1}$. Moreover, the "universality" of the "product" yields a unique "morphism" $p: O\rightarrow \Product_{X \in J_0} F(X)$ such that $\projection_X \circ p = U_X$. We claim that both $u_1 \circ p$ and $u_2 \circ p$ make \eqref{diag:conemorphisms} "commute" for all $a \in J_1$.
+    \begin{equation}\label{diag:conemorphisms}
         \begin{tikzcd}
             O \arrow[r, "p"] \arrow[rrd, "U_{\target(a)}"'] &\Product_{X \in J_0} F(X) \arrow[r, "u_i"] & \Product_{a \in J_1} F(\target(a)) \arrow[d, "\projection_a"] \\
              & & F(\target(a))
@@ -614,7 +638,7 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
             & F(\target(a))& & &     
 \end{tikzcd}
     \end{equation*}
-%    \begin{equation}\label{diag-firstcone}
+%    \begin{equation}\label{diag:firstcone}
 %        \begin{tikzcd}
 %            \Product_{X \in J_0} F(X) \arrow[rd, "\projection_{\target(a)}"'] \arrow[rr, "u_1", dashed] &         & \Product_{a \in J_1} F(\target(a)) \arrow[ld, "\projection_{a}"] \\ & F(\target(a)) &
 %        \end{tikzcd}

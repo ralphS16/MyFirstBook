@@ -27,9 +27,24 @@
     Let us have two "morphisms" $f: X \rightarrow Y$ and $g: Y \rightarrow Z$.
     \begin{itemize}
         \item Suppose $f$ and $g$ are "monic". For any $h_1,h_2: Z \rightarrow Z'$ satisfying $h_1 \circ g \circ f = h_2 \circ g \circ f$, "monicity" of $f$ implies $h_1 \circ g = h_2 \circ g$ which in turn, by "monicity" of $g$ imply $h_1 = h_2$. Thus, $g \circ f$ is "monic".
-        \item We apply "duality". Suppose $f$ and $g$ are "epic", then $\op{f}$ and $\op{g}$ are "monic" so $\op{g\circ f} = \op{f} \circ \op{g}$ is "monic", thus $g \circ f$ is "epic".
+        \item We apply "duality". Suppose $f$ and $g$ are "epic", then $\op{f}$ and $\op{g}$ are "monic" so $\op{(g\circ f)} = \op{f} \circ \op{g}$ is "monic", thus $g \circ f$ is "epic".
         \item If $f$ and $g$ are "isomorphisms@@CAT", then it is easy to check that $f^{-1} \circ g^{-1}$ is the "inverse" of $g \circ f$, implying $g \circ f$ is an "isomorphism@@CAT".
     \end{itemize}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:duality:preserving}]\label{soln:duality:preservingexer:duality:preserving}
+    \begin{enumerate}
+        \item Let $f:A \rightarrow B$ be the only non-identity "morphism" in $\cattwo$, it is a "monomorphism" vacuously because there is only one "morphism" with "target" $A$ ($\id_A$). Now, for any "morphism" $m: X \rightarrow Y \in \mor{\mathbf{C}}$, we can define $F: \cattwo \rightsquigarrow \mathbf{C}$ by $FA = X$, $FB = Y$ and $Ff = m$ and it will be a "functor". Thus, choosing $m$ that is not "monic" yields the required example.
+        \item If $f$ is "split monic", it has a "right inverse" $f'$. This implies $Ff'$ is the "right inverse" of $Ff$ because $Ff \circ Ff' = F(f \circ f') = F(\id) = \id$. We conclude that $Ff$ is "split monic".
+        \item We need to show that "functors" "preserve" "split epimorphisms". By "duality@@CAT", if $f$ is "split epic", then $\op{f}$ is "split monic", thus it is "preserved" by the "functor" $\op{F}$. And $Ff = \op{(\op{F}(\op{f}))}$ is "split epic". %TODO: write better.
+        \item "Functors" "preserve" "isomorphisms@@CAT" because a "morphism" is an "isomorphism@@CAT" if and only if it is "split epic" and "split monic".\footnote{Because "split epic" is equivalent to having a "left inverse" and "split monic" is equivalent to having a "right inverse".} If $A \isoCAT B$ and $i: A \rightarrow B$ is an "isomorphism@@CAT", then $Fi: FA \rightarrow FB$ is an "isomorphism@@CAT", so $FA \isoCAT FB$.
+    \end{enumerate}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:duality:reflecting}]\label{soln:duality:reflecting}
+    \begin{enumerate}
+    \item Let $\mathbf{C}$ be a "category" with at least one "morphism" $f$ that is not "monic", the only "functor" $\termmorph : \mathbf{C} \rightsquigarrow \termcat$ sends $f$ to $\id_{\bullet}$ which is "monic".
+    \item Suppose that $F(f)$ is "monic" and let $g$ and $h$ be such that $f \circ g = f \circ h$. By "monicity" of $F(f)$, $F(f) \circ F(g) = F(f \circ g) = F(f \circ h) = F(f) \circ F(h)$ implies $F(g) = F(h)$. Since $F$ is "faithful", $g = h$.
+    \item We need to show "faithful" "functors" "reflect" "epimorphisms". %TODO: finish
+    \end{enumerate}
 \end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:duality:equivsubobj}]\label{soln:duality:equivsubobj}
     Let us have three "monomorphisms" $m: Y \hookrightarrow X$, $n: Z \hookrightarrow X$ and $o: W \hookrightarrow X$.
@@ -89,6 +104,41 @@
     \end{marginfigure}
     The "dual" statement is that $f: X \rightarrow Y$ is "epic" if and only if \eqref{diag:pushoutepic} is a "pushout". We leave the proof to you.
 \end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:limits:isopullback}]\label{soln:limits:isopullback}
+    Let $p_A: X \rightarrow A$ and $p_B: X \rightarrow B$ be such that \eqref{diag:pullid} "commutes". A "mediating morphism" $!: X \rightarrow A$ must satisfy $\id_A \circ ! = p_A$ and $f \circ !  = p_B$. The first equality ensures $! = p_A$ is unique and satisfies the second equality because the outer square "commuting" yields $f \circ p_A = p_B$.\\
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:pullid}
+            % https://q.uiver.app/?q=WzAsNSxbMSwxLCJBIl0sWzEsMiwiQiJdLFsyLDEsIkEiXSxbMiwyLCJCIl0sWzAsMCwiWCJdLFswLDEsImYiLDJdLFswLDIsIlxcaWRfQSJdLFsyLDMsImYiXSxbMSwzLCJcXGlkX0IiLDJdLFswLDMsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFs0LDEsInBfQiIsMix7ImN1cnZlIjoyfV0sWzQsMiwicF9BIiwwLHsiY3VydmUiOi0yfV1d
+            \begin{tikzcd}
+            X \\
+            & A & A \\
+            & B & B
+            \arrow["f"', from=2-2, to=3-2]
+            \arrow["{\id_A}", from=2-2, to=2-3]
+            \arrow["f", from=2-3, to=3-3]
+            \arrow["{\id_B}"', from=3-2, to=3-3]
+            \arrow["{p_B}"', curve={height=12pt}, from=1-1, to=3-2]
+            \arrow["{p_A}", curve={height=-12pt}, from=1-1, to=2-3]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}\begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:pullisomorphism}
+            % https://q.uiver.app/?q=WzAsNSxbMSwxLCJBJyJdLFsxLDIsIkIiXSxbMiwxLCJBIl0sWzIsMiwiQiJdLFswLDAsIlgiXSxbMCwxLCJmXFxjaXJjIGkiLDJdLFswLDIsImkiXSxbMiwzLCJmIl0sWzEsMywiXFxpZF9CIiwyXSxbNCwxLCJwX0IiLDIseyJjdXJ2ZSI6Mn1dLFs0LDIsInBfQSIsMCx7ImN1cnZlIjotMn1dXQ==
+        \begin{tikzcd}
+            X \\
+            & {A'} & A \\
+            & B & B
+            \arrow["{f\circ i}"', from=2-2, to=3-2]
+            \arrow["i", from=2-2, to=2-3]
+            \arrow["f", from=2-3, to=3-3]
+            \arrow["{\id_B}"', from=3-2, to=3-3]
+            \arrow["{p_B}"', curve={height=12pt}, from=1-1, to=3-2]
+            \arrow["{p_A}", curve={height=-12pt}, from=1-1, to=2-3]
+        \end{tikzcd}
+        \end{equation}
+    \end{minipage}\\
+    Let $p_A: X \rightarrow A$ and $p_B: X \rightarrow B$ be such that \eqref{diag:pullisomorphism} "commutes". A unique "mediating morphism" $!: X \rightarrow A$ must satisfy $i \circ ! = p_A$ and $f \circ i \circ !  = p_B$. "Post-composing" the first equality by $i^{-1}$ implies $! = i^{-1} \circ p_A$ is unique and satisfies the second equality because $f \circ i \circ i^{-1} \circ p_A = f \circ p_A = p_B$.
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:limits:termpullcomplete}]\label{soln:limits:termpullcomplete}
     We will show that if $\mathbf{C}$ has all "pullbacks" and a "terminal" "object", then it has all finite "products" and "equalizers". This implies, using Remark \ref{rem:prodeqcomplete}, that $\mathbf{C}$ is "finitely complete".
 
@@ -127,6 +177,76 @@
     %TODO: equalizers.
 \end{proof}
 \section{Solutions to Chapter \ref{chap:universal}}
+\begin{proof}[Solution to Exercise \ref{exer:universal:prodXfunc}]\label{soln:universal:prodXfunc}
+    We define $\placeholder\product X$ on "morphisms" by sending $f: Y \rightarrow Y' \in \mor{\mathbf{C}}$ to $f \productm \id_X : Y \product X \rightarrow Y'\productm X$. "Functoriality" follows from the definition of $\productm$ on "morphisms". Indeed, $\id_Y \productm \id_X$ is the only "morphism" making \eqref{diag:idprodXfunc} "commute" and $(g \circ f) \productm \id_X$ is the only "morphism" making \eqref{diag:compprodXfunc} "commute".\begin{marginfigure}Recall that if $f: A \rightarrow A'$ and $g: B \rightarrow B'$, $f\productm g: A \product B \rightarrow A'\product B'$ is the unique "morphism" making the diagram below "commute":
+        \begin{equation*}
+            % https://q.uiver.app/?q=WzAsNixbMSwwLCJBXFxwcm9kdWN0IEIiXSxbMCwwLCJBIl0sWzAsMSwiQSciXSxbMSwxLCJBJ1xccHJvZHVjdCBCJyJdLFsyLDAsIkIiXSxbMiwxLCJCJyJdLFswLDEsIlxccHJvamVjdGlvbl9BIiwyXSxbMSwyLCJmIiwyXSxbMCwzLCJmXFxwcm9kdWN0bSBnIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsMiwiXFxwcm9qZWN0aW9uX3tBJ30iXSxbMCw0LCJcXHByb2plY3Rpb25fQiJdLFs0LDUsImciXSxbMyw1LCJcXHBpX0IiLDJdXQ==
+            \begin{tikzcd}
+                A & {A\product B} & B \\
+                {A'} & {A'\product B'} & {B'}
+                \arrow["{\projection_A}"', from=1-2, to=1-1]
+                \arrow["f"', from=1-1, to=2-1]
+                \arrow["{f\productm g}", dashed, from=1-2, to=2-2]
+                \arrow["{\projection_{A'}}", from=2-2, to=2-1]
+                \arrow["{\projection_B}", from=1-2, to=1-3]
+                \arrow["g", from=1-3, to=2-3]
+                \arrow["{\pi_B}"', from=2-2, to=2-3]
+            \end{tikzcd}
+        \end{equation*}
+        \end{marginfigure}
+        \begin{minipage}{0.49\textwidth}
+            \begin{equation}\label{diag:idprodXfunc}
+                \begin{tikzcd}
+                    Y & {Y\product X} \\
+                    Y & {Y\product X}
+                    \arrow["{\projection_Y}"', from=1-2, to=1-1]
+                    \arrow["{\id_Y}"', from=1-1, to=2-1]
+                    \arrow["{\id_Y\productm \id_X}", dashed, from=1-2, to=2-2]
+                    \arrow["{\projection_{Y}}", from=2-2, to=2-1]
+                \end{tikzcd}
+            \end{equation}
+        \end{minipage}\begin{minipage}{0.49\textwidth}
+            \begin{equation}\label{diag:compprodXfunc}
+                % https://q.uiver.app/?q=WzAsNixbMSwwLCJZXFxwcm9kdWN0IFgiXSxbMCwwLCJZIl0sWzAsMSwiWSciXSxbMSwxLCJZJ1xccHJvZHVjdCBYIl0sWzAsMiwiWScnIl0sWzEsMiwiWCJdLFswLDEsIlxccHJvamVjdGlvbl9ZIiwyXSxbMSwyLCJmIiwxXSxbMCwzLCJmXFxwcm9kdWN0bSBcXGlkX1giLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMywyLCJcXHByb2plY3Rpb25fe1knfSJdLFszLDUsImdcXHByb2R1Y3RtIFxcaWRfWCIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDQsImciLDFdLFs1LDQsIlxccHJvamVjdGlvbl97WScnfSJdLFsxLDQsImcgXFxjaXJjIGYiLDIseyJjdXJ2ZSI6M31dLFswLDUsIihnXFxjaXJjIGYpIFxccHJvZHVjdG0gXFxpZF9YIiwwLHsiY3VydmUiOi00LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+        \begin{tikzcd}
+            Y & {Y\product X} \\
+            {Y'} & {Y'\product X} \\
+            {Y''} & X
+            \arrow["{\projection_Y}"', from=1-2, to=1-1]
+            \arrow["f"{description}, from=1-1, to=2-1]
+            \arrow["{f\productm \id_X}"{description}, dashed, from=1-2, to=2-2]
+            \arrow["{\projection_{Y'}}", from=2-2, to=2-1]
+            \arrow["{g\productm \id_X}"{description}, dashed, from=2-2, to=3-2]
+            \arrow["g"{description}, from=2-1, to=3-1]
+            \arrow["{\projection_{Y''}}", from=3-2, to=3-1]
+            \arrow["{g \circ f}"', curve={height=18pt}, from=1-1, to=3-1]
+            \arrow["{(g\circ f) \productm \id_X}", dashed, curve={height=-24pt}, from=1-2, to=3-2]
+        \end{tikzcd}
+            \end{equation}
+        \end{minipage}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:universal:subobjfunctor}]\label{soln:universal:subobjfunctor}
+    First, we know that the "pullback" of the "monomorphism" $m$ "along@apull" $f$ is "monic" by Theorem \ref{thm:pullmono}. Next, for $n: I' \hookrightarrow X \in \Sub_{\mathbf{C}}(Y)$, we need to show $[m] = [n]$ implies $[\pull{f}{m}] = [\pull{f}{n}]$.\footnote{Recall that $[m] = [n]$ when there is an "isomorphism@@CAT" $i$ satifying $n = m \circ i$.} In \eqref{diag:subcfunctor}, we need to show there is an "isomorphism@@CAT" $i': J \rightarrow J'$ making everything "commute".
+    \begin{equation}\label{diag:subcfunctor}
+        % https://q.uiver.app/?q=WzAsNixbMCwxLCJKIl0sWzEsMiwiWCJdLFszLDIsIlkiXSxbMiwxLCJJIl0sWzMsMCwiSSciXSxbMSwwLCJKJyJdLFswLDEsIlxccHVsbHtmfXttfSIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzEsMiwiZiIsMl0sWzAsMywiaiIsMSx7ImxhYmVsX3Bvc2l0aW9uIjo3MH1dLFszLDIsIm0iLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFs0LDIsIm4iLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFszLDQsImkiLDFdLFs1LDEsIlxccHVsbHtmfXtufSIsMSx7ImxhYmVsX3Bvc2l0aW9uIjozMCwic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNSw0LCJqJyJdXQ==
+\begin{tikzcd}
+	& {J'} && {I'} \\
+	J && I \\
+	& X && Y
+	\arrow["{\pull{f}{m}}"', hook, from=2-1, to=3-2]
+	\arrow["f"', from=3-2, to=3-4]
+	\arrow["j"{description, pos=0.7}, from=2-1, to=2-3]
+	\arrow["m"{description}, hook, from=2-3, to=3-4]
+	\arrow["n", hook, from=1-4, to=3-4]
+	\arrow["i"{description}, from=2-3, to=1-4]
+	\arrow["{\pull{f}{n}}"{description, pos=0.3}, hook, from=1-2, to=3-2]
+	\arrow["{j'}", from=1-2, to=1-4]
+\end{tikzcd}
+    \end{equation}
+    By the "pullback" property of $J'$, there is a unique "mediating morphism" $i': J \rightarrow J'$ "commuting" with \eqref{diag:subcfunctor}.\footnote{Use the fact that $n \circ i^{-1} \circ j = m \circ j = f \circ \pull{f}{m}$.} Similarly, the "pullback" property of $J$, there is a unique "mediating morphism" $i'^{-1}: J' \rightarrow J$ "commuting" with \eqref{diag:subcfunctor}.\footnote{Use the fact that $m \circ i \circ j' = n \circ j' = f \circ \pull{f}{n}$.} The fact that $i'$ and $i'^{-1}$ are inverses follows from viewing $i'^{-1} \circ  i'$ as a "mediating morphism" from the "pullback" $J$ to itself which must be the identity by uniqueness. Similarly for $i' \circ i'^{-1}$.
+
+    For "functoriality" of $\Sub_{\mathbf{C}}$, we need to show $\pull{\id}{m} = m$ and $\pull{g}{\pull{f}{m}} = \pull{f \circ g}{m}$. The first equality follows from Exercise \ref{exer:limits:isopullback} and the second from the "pasting lemma".
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:universal:termslice}]\label{soln:universal:termslice}
     The "terminal" "object" of $\slice{\mathbf{C}}{X}$ is the "identity morphism" $\id_X : X \rightarrow X$. For any "object" of the "slice category" $f:A \rightarrow X$, we have the "commutative" triangle \eqref{diag:soltermslice} with $!=f$. Uniqueness of $!$ follows from $\id_X \circ ! = f \implies ! = f$.\begin{marginfigure}
         \begin{equation}\label{diag:soltermslice}
@@ -248,6 +368,21 @@
     %TODO: footnote naturality square notation.
 \end{proof}
 \section{Solutions to Chapter \ref{chap:yoneda}}
+\begin{proof}[Solution to Exercise \ref{exer:yoneda:initisrepr1}]\label{soln:yoneda:initisrepr1}
+    ($\Rightarrow$) Suppose there is a "natural isomorphism" $\phi: \Hom_{\mathbf{C}}(X,\placeholder) \Rightarrow \terminal$, then for any "object" $Y \in \obj{\mathbf{C}}$, there is a bijection $\Hom_{\mathbf{C}}(X,Y) \isoCAT \{\star\}$. Hence, there is a unique "morphism" $X \rightarrow Y$.
+
+    ($\Leftarrow$) Suppose that $X$ is "initial", then for any $Y \in \obj{\mathbf{C}}$, we have an "isomorphism@@CAT" $\phi_Y: \Hom_{\mathbf{C}}(X,Y) \rightarrow \terminal(Y)$ which sends the unique "morphism" $X \rightarrow Y$ to $\star$. We need to show this family is "natural" in $Y$. Let $f: Y \rightarrow Y'\in \mor{\mathbf{C}}$, \eqref{diag:initialrepr} clearly "commutes" because all sets are singletons.\begin{marginfigure}\begin{equation}\label{diag:initialrepr}
+       % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsWSkiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsWScpIl0sWzEsMCwiXFx0ZXJtaW5hbChZKSJdLFsxLDEsIlxcdGVybWluYWwoWScpIl0sWzAsMSwiZiBcXGNpcmMgXFxwbGFjZWhvbGRlciIsMl0sWzAsMiwiXFxwaGlfWSJdLFsyLDMsIlxcaWRfe1xcdGVybWluYWx9Il0sWzEsMywiXFxwaGlfe1knfSIsMl1d
+        \begin{tikzcd}
+        {\Hom_{\mathbf{C}}(X,Y)} & {\terminal(Y)} \\
+        {\Hom_{\mathbf{C}}(X,Y')} & {\terminal(Y')}
+        \arrow["{f \circ \placeholder}"', from=1-1, to=2-1]
+        \arrow["{\phi_Y}", from=1-1, to=1-2]
+        \arrow["{\id_{\terminal}}", from=1-2, to=2-2]
+        \arrow["{\phi_{Y'}}"', from=2-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+\end{proof}
 \section{Solutions to Chapter \ref{chap:adjoints}}
 \section{Solutions to Chapter \ref{chap:monads}}
 \section{Solutions to Chapter \ref{chap:coalgebra}}

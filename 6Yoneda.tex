@@ -184,11 +184,54 @@ The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We de
 \end{exmp}
 
 \section{Universality as Representability}
-It turns out the main concepts of the previous chapter and this one are closely related. In this section, we will explore how any "universal property" is equivalent to "representability" of some "functor".
+"Representability" is one of the two ways to describe "universal" constructions that we hinted at at the end of Chapter \ref{chap:universal}. In this section, we will explore how any "universal property" is equivalent to "representability" of some "functor". Since "(co)@colimits""limits" and "universal morphisms" are "initial" or "terminal" "objects" in some "category", there is a first trivial way to express "universality" as "representability".
+\begin{exer}[\NOW]\label{exer:yoneda:initisrepr1}\marginnote{\hyperref[soln:yoneda:initisrepr1]{See solution.}}
+	Let $\mathbf{C}$ be a "category", $X \in \obj{\mathbf{C}}$ and $\terminal: \mathbf{C} \rightsquigarrow \catSet$ be the "constant functor" at the singleton $\terminal = \{\star\}$. Show that $\Hom_{\mathbf{C}}(X,\placeholder) \isoCAT \terminal$ if and only if $X$ is "initial". Dually, $\Hom_{\mathbf{C}}(\placeholder,X) \isoCAT \terminal$ if and only if $X$ is "terminal".\footnote{In the dual statement, the domain of $\terminal$ is $\op{\mathbf{C}}$.}
+\end{exer}
+It turns out this result is not very useful.%TODO: explain why not useful.
+% This result is not completely satisfactory because it is a bit too close to a tautological construction. Indeed, let $F$ be a "discrete" "diagram" picking two "objects" $X,Y \in \obj{\mathbf{C}}$. The result above says that $P$ is the "limit" of $F$ (i.e.: the "product@binary product" of $X$ and $Y$) if and only if $\Hom_{\Cone(F)}()$ it says that $X\product Y$ is the "product@binary product" of $X$ and $Y$ using this need to construct the right "category" $\mathbf{C}$ and then 
+
 %TODO: translate definitions to repr
 %TODO: examples, terminal, product, exponentials
 %TODO: prove that limits are taken pointwise. https://math.stackexchange.com/questions/4050547/limits-in-functor-categories
 
+\begin{prop}
+	Let $X,Y\in \obj{\mathbf{C}}$. The "product@binary product" of $X$ and $Y$ exists if and only if there exists $P \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{C}\cattimes \mathbf{C}}(\diagFunc_{\mathbf{C}}(\placeholder),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(\placeholder,P)$. The "product@binary" is $P$. %TODO: better way to say this.
+\end{prop}
+\begin{proof}
+	($\Rightarrow$) Let $P = X \product Y$, for any $A \in \obj{\mathbf{C}}$, there is an "isomorphism@@CAT"
+	\[\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(A,X\product Y)\]
+	which sends the pair $(f:A \rightarrow X, g: A \rightarrow Y)$ to $(f,g): A \rightarrow X\product Y$.\footnote{Recall that $(f,g)$ is the unique "morphism" satisfying $\projection_X \circ (f,g) = f$ and $\projection_Y \circ (f,g) = g$. Be careful not to confuse it with a pair of "morphisms".} In the other direction, $p: A \rightarrow X\product Y$ is sent to the pair $(\projection_X \circ p, \projection_Y \circ p)$. Let us show it is "natural" in $A$. For any $m: A' \rightarrow A$, \eqref{diag:productreprnatural} "commutes" because the top path sends the pair $(f,g)$ to the "morphism" $(f,g)$ then to $(f,g) \circ m = (f \circ m, g \circ m)$ and the bottom path sends $(f,g)$ to $(f,g) \circ (m,m) = (f \circ m, g \circ m)$ which is then sent to $(f \circ m, g \circ m)$. %TODO: change the way we display pairs of functions.
+	\begin{equation}\label{diag:productreprnatural}%TODO: exercise for composition of product morphism
+		% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q31cXGNhdHRpbWVzIFxcbWF0aGJme0N9fSgoQSxBKSwoWCxZKSkiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q31cXGNhdHRpbWVzIFxcbWF0aGJme0N9fSgoQScsQScpLChYLFkpKSJdLFsxLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oQSxYXFxwcm9kdWN0IFkpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0N9fShBJyxYXFxwcm9kdWN0IFkpIl0sWzAsMiwiXFxzaW0iXSxbMCwxLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyAobSxtKSIsMl0sWzEsMywiXFxzaW0iLDJdLFsyLDMsIlxccGxhY2Vob2xkZXIgXFxjaXJjIG0iXV0=
+		\begin{tikzcd}
+			{\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y))} & {\Hom_{\mathbf{C}}(A,X\product Y)} \\
+			{\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A',A'),(X,Y))} & {\Hom_{\mathbf{C}}(A',X\product Y)}
+			\arrow["\sim", from=1-1, to=1-2]
+			\arrow["{\placeholder \circ (m,m)}"', from=1-1, to=2-1]
+			\arrow["\sim"', from=2-1, to=2-2]
+			\arrow["{\placeholder \circ m}", from=1-2, to=2-2]
+		\end{tikzcd}
+	\end{equation}
+
+	($\Leftarrow$) First, we define $\projection_X$ and $\projection_Y$ to be the pair of "morphisms" corresponding to $\id_P$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(P,P)$. Given two "morphism" $f: A \rightarrow X$ and $g: A \rightarrow Y$, the "isomorpshism@@CAT" 
+	\[\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(A,P)\]
+	yields a unique "morphism" $!: A \rightarrow P$. To see that $\projection_X \circ {!} = f$ and $\projection_Y \circ {!} = g$ we start with $\id_P$ in the top right of \eqref{diag:productreprnaturaltwo} which "commutes" by hypothesis.
+	\begin{marginfigure}\begin{equation}\label{diag:productreprnaturaltwo}
+		\begin{tikzcd}
+			{\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y))} & {\Hom_{\mathbf{C}}(P,P)} \\
+			{\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y))} & {\Hom_{\mathbf{C}}(A,P)}
+			\arrow["\sim"', from=1-2, to=1-1]
+			\arrow["{\placeholder \circ (!,!)}"', from=1-1, to=2-1]
+			\arrow["\sim", from=2-2, to=2-1]
+			\arrow["{\placeholder \circ {!}}", from=1-2, to=2-2]
+		\end{tikzcd}
+	\end{equation}\end{marginfigure}
+\end{proof}
+\begin{cor}["Dual@@CAT"]
+	Let $X,Y\in \obj{\mathbf{C}}$. The "coproduct" of $X$ and $Y$ exists if and only if there exists $S \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((X,Y), \diagFunc_{\mathbf{C}}(\placeholder)) \isoCAT \Hom_{\mathbf{C}}(S,\placeholder)$. The "coproduct" is $S$.\footnote{We implicitly use the fact that $\op{(\mathbf{C}\cattimes \mathbf{C})} \isoCAT \op{\mathbf{C}} \cattimes \op{\mathbf{C}}$.}
+\end{cor}
+In order to generalize these two results to arbitrary "(co)@colimits""limits", we defined the generalized version of $\diagFunc_{\mathbf{C}}$.
 \begin{defn}[Generalized diagonal functor]
 	\AP Let $\mathbf{J}$ and $\mathbf{C}$ be "categories" the ""generalized diagonal functor"" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{J}}{\mathbf{C}}$ sends an "object" $X \in \obj{\mathbf{C}}$ to the "constant functor" at $X$ and a "morphism" $f: X \rightarrow Y \in \mor{\mathbf{C}}$ to the "natural transformation" whose components are all $f: X \rightarrow Y$.\begin{marginfigure}[-1\baselineskip]We have $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f) : X \Rightarrow Y$ because for any $j \in \mor{\mathbf{J}}$, we have \[\begin{tikzcd}
 		X & X \\
@@ -200,11 +243,11 @@ It turns out the main concepts of the previous chapter and this one are closely 
 	\end{tikzcd}\]\end{marginfigure}
 \end{defn}
 \begin{rem}
-	This is a generalization of the "diagonal functor" $\diagFunc_{\mathbf{C}}: \mathbf{C} \rightsquigarrow \mathbf{C} \cattimes \mathbf{C}$ because with the "isomorphism@@CAT" $\catFunc{\termcat\coproduct\termcat}{\mathbf{C}} \isoCAT \mathbf{C} \cattimes \mathbf{C}$ described in Example \ref{exmp:isocat}, we can identify $\diagFunc_{\mathbf{C}}$ with $\gdiagFunc_{\mathbf{C}}^{\termcat\coproduct\termcat}$.
+	This is a generalization of the "diagonal functor" $\diagFunc_{\mathbf{C}}: \mathbf{C} \rightsquigarrow \mathbf{C} \cattimes \mathbf{C}$ because with the "isomorphism@@CAT" $\catFunc{\termcat\coproduct\termcat}{\mathbf{C}} \isoCAT \mathbf{C} \cattimes \mathbf{C}$ described in Example \ref{exmp:simplefunccat}.\ref{exmp:isoprodfunccat}, we can identify $\diagFunc_{\mathbf{C}}$ with $\gdiagFunc_{\mathbf{C}}^{\termcat\coproduct\termcat}$.
 \end{rem}
-\begin{prop}
-	Let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". The "limit" of $F$ exists if and only if there is an object $L \in \obj{\mathbf{C}}$ such that $\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) \isoCAT \Hom_{\mathbf{C}}(\placeholder,L)$.\footnote{Observe that 
-	\[\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) = \Nat(\placeholder,F) \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}.\]}
+\begin{prop}\label{prop:limitrepr}
+	Let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". The "limit" of $F$ exists if and only if there is an object $L \in \obj{\mathbf{C}}$ such that $\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) \isoCAT \Hom_{\mathbf{C}}(\placeholder,L)$.\footnote{Recall that 
+	\[\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) = \Nat(\placeholder,F) \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}.\]} The "tip" of the "limit" "cone" is $L$.
 \end{prop}
 \begin{proof}
 	First, we note that for any $X \in \obj{\mathbf{C}}$, a "natural transformation" $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X) \Rightarrow F$ is a "cone over" $F$ with "tip" $X$. Indeed, for any $j: A \rightarrow B \in \mor{\mathbf{J}}$, the "naturality" square in \eqref{diag:natiscone} is "commutative".
@@ -257,6 +300,76 @@ It turns out the main concepts of the previous chapter and this one are closely 
 
 	($\Leftarrow$) Let $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(L) \Rightarrow F$ be the "cone" corresponding to $\id_L \in \Hom_{\mathbf{C}}(L,L)$ under the "natural isomorphism", we will show it is "terminal". By the "commutativity" of \eqref{diag:natdefiso} and bijectivity of the horizontal arrows, for any "cone" $\phi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X) \Rightarrow F$, there is a unique "morphism" $f: X \rightarrow L$ such that $\phi = \psi \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$. By the first paragraph of the proof, this is the unique "morphism" of "cones" showing $\psi$ is "terminal".
 \end{proof}
-
+\begin{cor}["Dual@@CAT"]
+	Let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". The "colimit" of $F$ exists if and only if there is an object $L \in \obj{\mathbf{C}}$ such that $\Nat(F,\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder)) \isoCAT \Hom_{\mathbf{C}}(L,\placeholder)$. The "tip" of the "colimit" "cone" is $L$.
+\end{cor}
 %TODO: now do the same thing for the universal arrows.
+\begin{prop}
+	Let $U: \catMon \rightsquigarrow \catSet$ be the "forgetful functor", $A$ be a set and $\freemon{A}$ be the "free monoid" on $A$, we have $\Hom_{\catSet}(A,U\placeholder) \isoCAT \Hom_{\catMon}(\freemon{A},\placeholder)$.
+\end{prop}
+\begin{proof}
+	We have already shown before Definition \ref{defn:freemon} that sending $h: A \rightarrow M$ to $h^*: \freemon{A} \rightarrow M$ is a bijection.\footnote{In the other direction, $h:\freemon{A} \rightarrow M$ is sent to $U(h) \circ i$ where $i: A \hookrightarrow A^*$ is the inclusion.} Now, we need to show it is "natural" in $M$. For any "monoid homomorphism" $f: M \rightarrow N$, \eqref{diag:freemonrepr} "commutes" (we omitted applications of $U$) because starting with $h: A \rightarrow M$, we have $(f \circ h)^* = f \circ h^*$.\footnote{To check this, let $w = a_1\cdots a_n\in A^*$, we have \begin{align*}
+		(f \circ h)^*(w) &= fh(a_1)\cdots fh(a_n)\\&= f(h(a_1)\cdots h(a_n))\\&= f(h(w)).
+	\end{align*}}
+	\begin{equation}\label{diag:freemonrepr}
+		% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxjYXRTZXR9KEEsTSkiXSxbMCwxLCJcXEhvbV97XFxjYXRTZXR9KEEsTikiXSxbMSwwLCJcXEhvbV97XFxjYXRNb259KFxcZnJlZW1vbntBfSxNKSJdLFsxLDEsIlxcSG9tX3tcXGNhdE1vbn0oXFxmcmVlbW9ue0F9LE4pIl0sWzAsMSwiZiBcXGNpcmMgXFxwbGFjZWhvbGRlciIsMl0sWzAsMiwiXFxzaW0iXSxbMiwzLCJmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzEsMywiXFxzaW0iLDJdXQ==
+		\begin{tikzcd}
+			{\Hom_{\catSet}(A,M)} & {\Hom_{\catMon}(\freemon{A},M)} \\
+			{\Hom_{\catSet}(A,N)} & {\Hom_{\catMon}(\freemon{A},N)}
+			\arrow["{f \circ \placeholder}"', from=1-1, to=2-1]
+			\arrow["\sim", from=1-1, to=1-2]
+			\arrow["{f \circ \placeholder}", from=1-2, to=2-2]
+			\arrow["\sim"', from=2-1, to=2-2]
+		\end{tikzcd}
+	\end{equation}
+\end{proof}
+In the next Proposition, we will generalize this result to see how any "universal morphism" corresponds to some kind of "representability" and we will even give a converse direction. The generalizations of the proof is straightforward, so we suggest you try to get familiar with a specific case in the next exercise.
+\begin{exer}\label{exer:yoneda:expobjectrepr}\marginnote{\hyperref[soln:yoneda:expobjectrepr]{See solution.}}
+	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $\placeholder \product X$ is a "functor". An "object" $A \in \obj{\mathbf{C}}$ has an "exponential" $A^X \in \obj{\mathbf{C}}$ if and only if $\Hom_{\mathbf{C}}(\placeholder \product X, A) \isoCAT \Hom_{\mathbf{C}}(\placeholder,A^X)$.
+\end{exer} %TODO: solve
+\begin{prop}\label{prop:universalrepr}
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor" and $X \in \obj{\mathbf{D}}$. There is a "universal morphism" from $X$ to $F$ if and only if there exists $A \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{D}}(X,F\placeholder) \isoCAT \Hom_{\mathbf{C}}(A,\placeholder)$.
+\end{prop}
+\begin{proof}
+	($\Rightarrow$) Let $a: X \rightarrow FA$ be a "universal morphism", by definition, for any $b: X \rightarrow FB$, there is a unique "morphism" $\phi_B(b): A \rightarrow B$ such that $F(\phi_B(b)) \circ a = b$. In the other direction, $\phi_B^{-1}$ sending $f: A \rightarrow B$ to $Ff \circ a$ is the inverse of $\phi_B$.\footnote{We check they are inverses:
+	\begin{gather*}
+		\phi_B^{-1}(\phi_B(b)) = F(\phi_B(b)) \circ a = b\\
+		\phi_B(\phi_B^{-1}(f)) = \phi_B(Ff \circ a) = f.
+	\end{gather*}} Let us now check that $\phi_B$ is natural. For any $m: B \rightarrow B'$, \eqref{diag:universalrepr} "commutes" because when starting with $f: A \rightarrow B$ in the top right, the top path sends it to $Ff \circ a$ then to $Fm \circ Ff \circ a$ and the bottom path sends it to $m \circ f$ then to $F(m \circ f) \circ a$.
+	\begin{equation}\label{diag:universalrepr}
+		% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsRkIpIl0sWzAsMSwiXFxIb21fe1xcbWF0aGJme0N9fShYLEZCJykiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KEEsQikiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KEEsQicpIl0sWzAsMSwiRm0gXFxjaXJjIFxccGxhY2Vob2xkZXIiLDJdLFswLDIsIlxcc2ltIl0sWzIsMywibSBcXGNpcmMgXFxwbGFjZWhvbGRlciJdLFsxLDMsIlxcc2ltIiwyXV0=
+		\begin{tikzcd}
+			{\Hom_{\mathbf{C}}(X,FB)} & {\Hom_{\mathbf{D}}(A,B)} \\
+			{\Hom_{\mathbf{C}}(X,FB')} & {\Hom_{\mathbf{D}}(A,B')}
+			\arrow["{Fm \circ \placeholder}"', from=1-1, to=2-1]
+			\arrow["\sim"', from=1-2, to=1-1]
+			\arrow["{m \circ \placeholder}", from=1-2, to=2-2]
+			\arrow["\sim", from=2-2, to=2-1]
+		\end{tikzcd}
+	\end{equation}
+	($\Leftarrow$) Let $a: X \rightarrow FA$ be the image of $\id_A:A \rightarrow A$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}}(X,FA) \isoCAT \Hom_{\mathbf{D}}(A,A)$, we claim that $a$ is a "universal morphism" from $X$ to $F$. Given $b: X \rightarrow FB$, let $\phi_B(b)$ be its image under the "isomorphism@@CAT" $\Hom_{\mathbf{C}}(X,FB) \isoCAT \Hom_{\mathbf{D}}(A,B)$, it satisfies $F(\phi_B(b)) \circ a = b$ because \eqref{diag:universalreprconverse} "commutes" (start with $\id_A$ in the top right corner). The "morphism" $\phi_B(b)$ is unique with this property because any other $f: A \rightarrow B$ is the image of some $b'\neq b$ under $\phi_B$ yielding $Ff \circ a = b'\neq b$.\begin{marginfigure}[-2\baselineskip]\begin{equation}\label{diag:universalreprconverse}
+		% https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsRkIpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0N9fShYLEZBKSJdLFsxLDEsIlxcSG9tX3tcXG1hdGhiZntEfX0oQSxCKSJdLFsxLDAsIlxcSG9tX3tcXG1hdGhiZntEfX0oQSxBKSJdLFsxLDAsIkYoXFxwaGlfQihiKSkgXFxjaXJjIFxccGxhY2Vob2xkZXIiLDJdLFsyLDAsIlxcc2ltIl0sWzMsMiwiXFxwaGlfQihiKSBcXGNpcmMgXFxwbGFjZWhvbGRlciJdLFszLDEsIlxcc2ltIiwyXV0=
+		\begin{tikzcd}
+			{\Hom_{\mathbf{C}}(X,FA)} & {\Hom_{\mathbf{D}}(A,A)} \\
+			{\Hom_{\mathbf{C}}(X,FB)} & {\Hom_{\mathbf{D}}(A,B)}
+			\arrow["{F(\phi_B(b)) \circ \placeholder}"', from=1-1, to=2-1]
+			\arrow["\sim", from=2-2, to=2-1]
+			\arrow["{\phi_B(b) \circ \placeholder}", from=1-2, to=2-2]
+			\arrow["\sim"', from=1-2, to=1-1]
+		\end{tikzcd}
+	\end{equation}\end{marginfigure}
+\end{proof}
+\begin{cor}["Dual@@CAT"]\label{prop:universalreprdual}
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor" and $X \in \obj{\mathbf{D}}$. There is a "universal morphism" from $F$ to $X$ if and only if there exists $A \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{D}}(F\placeholder,X) \isoCAT \Hom_{\mathbf{C}}(\placeholder,A)$.
+\end{cor}
+Comparing Propositions \ref{prop:limitrepr} and \ref{prop:universalreprdual} and their "duals@@CAT", we infer that "(co)@colimit""limits" satisfy "universal properties".
+\begin{thm}\label{thm:limituniversal}
+	Let $F\in \obj{\catFunc{\mathbf{J}}{\mathbf{C}}}$ be a "diagram".
+	\begin{itemize}
+		\item[-] The "limit" of $F$ exists if and only if there is a "universal morphism" from $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$ to $F$.
+		\item[-] The "colimit" of $F$ exists if and only if there is a "universal morphism" from $F$ to $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$.
+	\end{itemize}
+\end{thm}
+%TODO: can we make this about limit preservation, reflection and creation ? Then prove that Hom preserves limits.
+In the next chapter, we will lift these correspondence to a more global version. Namely, we will see how to assemble the "universal morphisms" for all "diagrams" of shape $\mathbf{J}$ into a powerful "object".
 \end{document}

@@ -33,7 +33,7 @@ For the general case, let $F,G: \mathbf{C}\rightsquigarrow \mathbf{D}$ be "funct
 \end{center}
 Thus, a "morphism" between $F$ and $G$ should fit in this picture by sending diagram \eqref{diag:funcF} to diagram \eqref{diag:funcG} in a "commutative" way.
 \begin{defn}[Natural transformation]\label{defnattran}
-	\AP Let $F,G : \mathbf{C} \rightsquigarrow \mathbf{D}$ be two ("covariant") "functors", a "natural transformation" $\phi: F \Rightarrow G$ is a map $\phi: \obj{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ that satisfies $\phi(A) \in \Hom_{\mathbf{D}}(F(A), G(A))$ for all $A \in \obj{\mathbf{C}}$ and makes diagram \eqref{diag:nattrans} "commute" for any $f \in \Hom_{\mathbf{C}}(A,B)$:
+	\AP Let $F,G : \mathbf{C} \rightsquigarrow \mathbf{D}$ be two ("covariant") "functors", a "natural transformation" $\phi: F \Rightarrow G$ is a map $\phi: \obj{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ that satisfies $\phi(A) \in \Hom_{\mathbf{D}}(F(A), G(A))$ for all $A \in \obj{\mathbf{C}}$ and makes \eqref{diag:nattrans} "commute" for any $f \in \Hom_{\mathbf{C}}(A,B)$:\footnote{When doing proofs relying on "naturality" (i.e.: the property of being "natural"), we will use \eqref{diag:nattrans} where we instantiate $\phi$, $F$, $G$, $A$, $B$ and $f$ with the "natural transformation", "functors", "objects" and "morphism" that is needed in the proof. In order to make this instantiation less painful, we will use the shorthand $\intro*\NAT(\phi,A,B,f)$ and instantiate the parameters (we can omit $F$ and $G$ because they should be known from the context).}
 	\begin{equation}\label{diag:nattrans}
 	\begin{tikzcd}
 	F(A) \arrow[d, "F(f)"'] \arrow[r, "\phi(A)"] & G(A) \arrow[d, "G(f)"] \\
@@ -122,7 +122,7 @@ Now, in order to talk about a "category" of "functors", it remains to describe t
 				\end{tikzcd}
 			\end{equation}
 		\end{marginfigure}
-		\item Similarly, we can see a "functor" $F: \mathbf{1}\coproduct \mathbf{1} \rightsquigarrow \mathbf{C}$\footnote{Recall $\mathbf{1}\coproduct \mathbf{1}$ is the "category" depicted in \eqref{diag:cat1p1}.} as a choice of two "objects" $F(\bullet_1)$ and $F(\bullet_2)$ and a "natural transformation" $\phi: F \Rightarrow G$ between two such "functors" as a choice of two "morphisms" $\phi_1 : F(\bullet_1) \rightarrow G(\bullet_1)$ and $\phi_2 : F(\bullet_2) \rightarrow G(\bullet_2)$. Therefore, we infer that $\catFunc{\mathbf{1}\coproduct \mathbf{1}}{\mathbf{C}}$ can be identified with $\mathbf{C}\cattimes \mathbf{C}$.
+		\item\label{exmp:isoprodfunccat} Similarly, we can see a "functor" $F: \mathbf{1}\coproduct \mathbf{1} \rightsquigarrow \mathbf{C}$\footnote{Recall $\mathbf{1}\coproduct \mathbf{1}$ is the "category" depicted in \eqref{diag:cat1p1}.} as a choice of two "objects" $F(\bullet_1)$ and $F(\bullet_2)$ and a "natural transformation" $\phi: F \Rightarrow G$ between two such "functors" as a choice of two "morphisms" $\phi_1 : F(\bullet_1) \rightarrow G(\bullet_1)$ and $\phi_2 : F(\bullet_2) \rightarrow G(\bullet_2)$. Therefore, we infer that $\catFunc{\mathbf{1}\coproduct \mathbf{1}}{\mathbf{C}}$ can be identified with $\mathbf{C}\cattimes \mathbf{C}$.
 		\item Let us go one level harder. A "functor" $F: \cattwo \rightsquigarrow \mathbf{C}$\footnote{Recall $\cattwo$ is the "category" depicted in \eqref{diag:cat2}.} is a choice of two "objects" $FA$ and $FB$ as well as a morphism $Ff: FA \rightarrow FB$. It can also be seen as a single choice of "morphism" $Ff$ because $FA$ and $FB$ are determined to be the "source" and "target" of $Ff$ respectively. A "natural transformation" $\phi: F \Rightarrow G$ between two such "functors" is \textit{not} simply a choice of two "morphisms" $\phi_A : FA \rightarrow GA$ and $\phi_B: FB \rightarrow GB$ because, while the "naturality" squares for $\id_A$ and $\id_B$ trivially "commute", the "naturality" square \eqref{diag:natsquarearrow} for $f$ is an additional constraint on $\phi$. Namely, it says $(\phi_A,\phi_B)$ makes a "commutative" square with $Ff$ and $Gf$, hence we can identify $\catFunc{\cattwo}{\mathbf{C}}$ with the "arrow category" $\arrowcat{\mathbf{C}}$.
 		\begin{marginfigure}[-3\baselineskip]
 			\begin{equation}\label{diag:natsquarearrow}
@@ -169,7 +169,7 @@ It is now time to build intuition for the "horizontal composition" of "natural t
 		(G\circ F)(B) \arrow[r, "G\phi(B)"'] & (G\circ F')(B)
 		\end{tikzcd}
 	\end{equation}
-	Consider this diagram after removing all applications of $G$, by "naturality" of $\phi$, it is "commutative". Since "functors" "preserve" "commutativity", the diagram still "commutes" after applying $G$, hence $G\phi: G\circ F \Rightarrow G \circ F'$ is indeed "natural".
+	Consider this diagram after removing all applications of $G$, by "naturality" of $\phi$, it is "commutative". Since "functors" "preserve" "commutativity", the diagram still "commutes" after applying $G$, hence $G\phi: G\circ F \Rightarrow G \circ F'$ is indeed "natural".\footnote{More concisely, we apply $G$ to $\NAT(\phi,A,B,f)$ to obtain \eqref{diag:commleftaction}.}
 	
 	We leave you to check this constitutes a left action, namely, for any $G:\mathbf{D}\rightsquigarrow \mathbf{D}'$, $G':\mathbf{D}' \rightsquigarrow \mathbf{D}''$ and $\phi:F\Rightarrow F'$, \[\id_{\mathbf{D}}\phi = \phi \text{ and } G'(G\phi)= (G' \circ G)\phi.\]
 \end{defn}
@@ -194,7 +194,7 @@ It is now time to build intuition for the "horizontal composition" of "natural t
 	(F\circ H)(B) \arrow[r, "\phi H(B)"'] & (F'\circ H)(B)
 	\end{tikzcd}
 	\end{equation}
-	"Commutativity" of \eqref{diag:commrightaction} follows by "naturality" of $\phi$: change $f$ in diagram \eqref{diag:nattrans} with the "morphism" $H(f):H(A) \rightarrow H(B)$.
+	"Commutativity" of \eqref{diag:commrightaction} follows by "naturality" of $\phi$: change $f$ in diagram \eqref{diag:nattrans} with the "morphism" $H(f):H(A) \rightarrow H(B)$, i.e.: \eqref{diag:commrightaction} is $\NAT(\phi, HA,HB,Hf)$.
 	
 	We leave you to check this constitutes a right action, namely, for any $H:\mathbf{C}'\rightsquigarrow \mathbf{C}$, $H':\mathbf{C}''\rightsquigarrow \mathbf{C}'$ and $\phi:F\Rightarrow F'$,
 	\[\phi \id_{\mathbf{C}} = \phi \text{ and } (\phi H)H' = \phi(H \circ H').\]
@@ -217,6 +217,31 @@ It is now time to build intuition for the "horizontal composition" of "natural t
 \begin{proof}
 In both the L.H.S. and the R.H.S., an object $A \in \obj{\mathbf{C}}$ is sent to $G(\phi(H(A)))$.
 \end{proof}
+A very useful result following from the properties of these two actions is that for any "commutative" "diagram" in $\catFunc{\mathbf{C}}{\mathbf{D}}$, we can "pre-compose" and "post-compose" with any "functors" and still obtain a "commutative" "diagram". For instance, if \eqref{diag:commuteinfunc} "commutes" in $\catFunc{\mathbf{C}}{\mathbf{D}}$, then for any "functors" $F: \mathbf{C'} \rightsquigarrow \mathbf{C}$ and $G: \mathbf{D} \rightsquigarrow \mathbf{D'}$, then \eqref{diag:commuteinfunccomposed} "commutes".\footnote{We will often use this property by writing things like ``apply $F(\placeholder)G$ to \eqref{diag:commuteinfunc}'' to use the "commutativity" of \eqref{diag:commuteinfunccomposed} in a proof.}\\
+\begin{minipage}{0.49\textwidth}
+	\begin{equation}\label{diag:commuteinfunc}
+		\begin{tikzcd}
+			X & Y \\
+			{X'} & {Y'}
+			\arrow["\phi"', from=1-1, to=2-1]
+			\arrow["\eta", from=1-1, to=1-2]
+			\arrow["{\phi'}", from=1-2, to=2-2]
+			\arrow["{\eta'}"', from=2-1, to=2-2]
+		\end{tikzcd}
+	\end{equation}
+\end{minipage}\begin{minipage}{0.49\textwidth}
+	\begin{equation}\label{diag:commuteinfunccomposed}
+		\begin{tikzcd}
+			{F\circ X\circ G} & {F\circ Y\circ G} \\
+			{F\circ X'\circ G} & {F\circ Y'\circ G}
+			\arrow["{F\phi G}"', from=1-1, to=2-1]
+			\arrow["{F\phi' G}", from=1-2, to=2-2]
+			\arrow["{F\eta'G}"', from=2-1, to=2-2]
+			\arrow["{F\eta G}", from=1-1, to=1-2]
+		\end{tikzcd}
+	\end{equation}
+\end{minipage}\\
+
 \AP We will refer to these two actions as the ""biaction"" of "functors" on "natural transformations" and they will motivate the definition of another way to "compose" "natural transformations".
 
 Let $\mathbf{C}$, $\mathbf{D}$ and $\mathbf{E}$ be "categories", $H,H': \mathbf{C}\rightsquigarrow \mathbf{D}$ and $G,G':\mathbf{D} \rightsquigarrow \mathbf{E}$ be "functors" and $\phi:H\Rightarrow H'$ and $\eta:G\Rightarrow G'$ be "natural transformations". This is summarized in \eqref{diag:horizcompsetting}.
@@ -247,7 +272,7 @@ G'\circ H \arrow[r, "G'\phi"']                   & G'\circ H'
 
 At first glance, this suggests two different definitions for the "horizontal composition", that is, the "composition@comppaths" of the top "path" $(\eta H' \vertcomp G\phi)$ or the "composition@comppaths" of the bottom "path" $(G'\phi \vertcomp \eta H)$. Surprisingly, both definitions coincide as shown in the next result.
 \begin{lem}
-	Diagram \eqref{diag:etdc} "commutes", i.e.: $\eta H' \vertcomp G\phi = G'\phi \vertcomp \eta H$.
+	Diagram \eqref{diag:etdc} "commutes", i.e.: $\eta H' \vertcomp G\phi = G'\phi \vertcomp \eta H$.\footnote{Similarly to $\NAT$, we will refer to the "commutativity" of \eqref{diag:etdc} with $\intro*\HOR(\phi,\eta)$. We use $\HOR$ because this lemma is crucial in the definition of "horizontal composition".}
 \end{lem}
 \begin{proof}
 Fix an object $A \in \obj{\mathbf{C}}$. Under $\eta H' \vertcomp G\phi$, it is sent to $\eta(H'(A)) \circ G(\phi(A))$ and under $G'\phi \vertcomp \eta H$, it is sent to $G'(\phi(A)) \circ \eta(H(A))$. Thus, the proposition is equivalent to saying diagram \eqref{diag:proofhorizcomp} is "commutative" (in $\mathbf{E}$) for all $A \in \obj{\mathbf{C}}$.
@@ -257,7 +282,7 @@ Fix an object $A \in \obj{\mathbf{C}}$. Under $\eta H' \vertcomp G\phi$, it is s
 (G'\circ H)(A) \arrow[r, "G'(\phi(A))"']                       & (G'\circ H')(A)                        
 \end{tikzcd}
 \end{equation}
-This follows from the "naturality" of $\eta$.\footnote{In \eqref{diag:nattrans}, replace $A$ with $H(A)$, $B$ with $H'(A)$, $f$ with $\phi(A)$, $F$ with $G$ and $G$ with $G'$.}
+This follows from $\NAT(\eta,HA,H'A,\phi(A))$.
 \end{proof}
 
 \begin{defn}[Horizontal composition]\label{horizcomp}
@@ -283,7 +308,14 @@ The most important part we expect from a notion of "composition" is "associativi
 	\end{equation}
 \end{prop}
 \begin{proof}
-	Similarly to how we constructed diagram \eqref{diag:etdc} in $\catFunc{\mathbf{C}}{\mathbf{E}}$ previously, we can use the "biaction" of "functors" and "composition" of "functors" to obtain the following diagram in $\catFunc{\mathbf{C}}{\mathbf{E}}$.\footnote{All $\circ$'s are left out for simplicity.}
+	Similarly to how we constructed diagram \eqref{diag:etdc} in $\catFunc{\mathbf{C}}{\mathbf{E}}$ previously, we can use the "biaction" of "functors" and "composition" of "functors" to obtain the following diagram in $\catFunc{\mathbf{C}}{\mathbf{E}}$.\footnote{All $\circ$'s are left out for simplicity.} \marginnote[2\baselineskip]{Here is how each face "commutes".\begin{itemize}
+        \item[\textbf{Top:}]$\HOR(\psi,G\eta)$
+        \item[\textbf{Bottom:}]$\HOR(\psi,G'\eta)$
+        \item[\textbf{Left:}]$\HOR(\psi,\eta H)$
+        \item[\textbf{Right:}]$\HOR(\psi,\eta H')$
+        \item[\textbf{Front:}] $\HOR(K\eta,\phi)$
+        \item[\textbf{Back:}] $\HOR(K'\eta,\phi)$
+    \end{itemize}}
 	\begin{equation}
 	\begin{tikzcd}
 	& K'GH \arrow[dd, "K'\eta H" near start] \arrow[rr, "K'G\phi"] &                                                    & K'GH' \arrow[dd, "K'\eta H'"] \\
@@ -292,15 +324,16 @@ The most important part we expect from a notion of "composition" is "associativi
 	KG'H \arrow[rr, "KG'\phi"'] \arrow[ru, "\psi G'H"]                    &                                                    & KG'H'\arrow[uu, <-, crossing over, "K\eta H'" near start] \arrow[ru, "\psi G'H'"']                     &                              
 	\end{tikzcd}
 	\end{equation}
-	This "commutes" because each face of the cube corresponds to a variant of diagram \eqref{diag:etdc} (with some substitutions and application of a "functor") and combining "commutative" diagrams yields "commutative" diagrams.\footnote{Here is the rundown: Call Nat(phi,f,A,B) then use it.\begin{itemize}
-        \item[\textbf{Top face:}]
-        \item[\textbf{Bottom face:}]
-        \item[\textbf{Left face:}]
-        \item[\textbf{Right face:}]
-        \item[\textbf{Front face:}]
-        \item[\textbf{Back face:}]
-    \end{itemize}} Then, it follows easily that $\horcomp$ is associative.%TODO: do it!
-\end{proof}%TODO: instructions on how to follow proofs with NAT(,,,) earlier.
+	As detailed in the margin, this "commutes" because each face of the cube corresponds to a variant of diagram \eqref{diag:etdc} (with some substitutions and application of a "functor") and combining "commutative" diagrams yields "commutative" diagrams. Then, it follows that $\horcomp$ is associative because\footnote{We may have drawn only the front and right face, but the cube is cooler.} $\psi \horcomp (\eta \horcomp \phi)$ is the diagonal of the front face followed by the bottom right arrow and $(\psi \horcomp \eta) \horcomp \phi$ is the top front arrow followed by the diagonal of the right face.
+	% \begin{itemize}
+    %     \item[\textbf{Top:}]$\NAT(\psi,K,K',GHX, GH'X,G\phi_X)$
+    %     \item[\textbf{Bottom:}]$\NAT(\psi,K,K',G'HX, G'H'X,G'\phi_X)$
+    %     \item[\textbf{Left:}]$\NAT(\psi,K,K',GHX, G'HX,\eta_{HX})$
+    %     \item[\textbf{Right:}]$\NAT(\psi,K,K',GH'X, G'H'X,\eta_{H'X})$
+    %     \item[\textbf{Front:}] Apply $K$ to $\NAT(\eta, G,G',HX, H'X,\phi_X)$
+    %     \item[\textbf{Back:}] Apply $K'$ to $\NAT(\eta, G,G',HX, H'X,\phi_X)$
+    % \end{itemize}
+\end{proof}
 
 There is one last thing to conclude that $\catCat$ is a \kl[2cat]{$2$--category}, namely, that the "vertical" and "horizontal" "compositions" interact nicely.
 \begin{prop}[Interchange identity]\label{prop:interchange}
@@ -308,7 +341,7 @@ There is one last thing to conclude that $\catCat$ is a \kl[2cat]{$2$--category}
 	\begin{equation}\label{eqn:interid}
 		(\eta' \vertcomp \eta) \horcomp (\phi' \vertcomp \phi) = (\eta' \horcomp \phi') \vertcomp (\eta \horcomp \phi).
 	\end{equation}
-    \marginnote{It is in the drawing of \eqref{diag:interidsetting} that the intuition behind "vertical" and "horizontal" is taken.}
+    \marginnote{It is in the drawing of \eqref{diag:interidsetting} that the intuition behind the terms "vertical" and "horizontal" is taken.}
 	\begin{equation}\label{diag:interidsetting}
 	% https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXG1hdGhiZntDfSJdLFszLDAsIlxcbWF0aGJme0R9Il0sWzYsMCwiXFxtYXRoYmZ7RX0iXSxbMCwxLCJIJyIsMCx7ImxhYmVsX3Bvc2l0aW9uIjo4MCwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbMSwyLCJHJyciLDIseyJjdXJ2ZSI6NSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbMSwyLCJHIiwwLHsiY3VydmUiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFsxLDIsIkcnIiwwLHsibGFiZWxfcG9zaXRpb24iOjgwLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFswLDEsIkgnJyIsMix7ImN1cnZlIjo1LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFswLDEsIkgiLDAseyJjdXJ2ZSI6LTUsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6InNxdWlnZ2x5In19fV0sWzgsMywiXFxwaGkiLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzMsNywiXFxwaGknIiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs1LDYsIlxcZXRhIiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs2LDQsIlxcZXRhJyIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XV0=
     \begin{tikzcd}
@@ -337,12 +370,18 @@ There is one last thing to conclude that $\catCat$ is a \kl[2cat]{$2$--category}
 	\end{tikzcd}
 	\end{equation}
 
-	Moreover, observe that the diagram corresponding to the L.H.S. can be factored with the following equations.
+	Moreover, observe that the diagram corresponding to the L.H.S. can be factored with the following equations (it also yields the factored diagram in \eqref{diag:factoredLHS}). \begin{marginfigure}\begin{equation}\label{diag:factoredLHS}
+		\begin{tikzcd}
+		G\circ H \arrow[r, "G\phi"] \arrow[d, "\eta H"'] & G\circ H' \arrow[r, "G\phi'"]      & G\circ H'' \arrow[d, "\eta H''"]  \\
+		G'\circ H \arrow[d, "\eta'H"']                   &                                    & G'\circ H'' \arrow[d, "\eta'H''"] \\
+		G''\circ H \arrow[r, "G''\phi"']                 & G''\circ H' \arrow[r, "G''\phi'"'] & G''\circ H''                     
+		\end{tikzcd}
+	\end{equation}\end{marginfigure}
 	\begin{align*}
 	(\eta'\vertcomp \eta)H = \eta'H\vertcomp \eta H && (\eta'\vertcomp \eta)H'' = \eta'H''\vertcomp \eta H''\\
 	G(\phi'\vertcomp \phi) = G\phi'\vertcomp G\phi && G''(\phi'\vertcomp \phi) = G''\phi'\vertcomp G''\phi
 	\end{align*}
-	Combining the factored diagram with \eqref{diag:rhsinterid}, we obtain \eqref{diag:interid} from which the "interchange identity" readily follows.
+	Combining the factored diagram with \eqref{diag:rhsinterid}, we obtain \eqref{diag:interid} from which the "interchange identity" readily follows.\footnote{The top right and bottom left square "commute" by $\HOR(\eta,\phi')$ and $\HOR(\eta',\phi)$ respectively. This implies all of \eqref{diag:interid} "commutes" and we have seen that the "path" from $G \circ H$ to $G'' \circ H''$ can be seen as the R.H.S. of \eqref{eqn:interid} by looking at \eqref{diag:rhsinterid} or the L.H.S. by looking at \eqref{diag:factoredLHS}. Thus, we infer the equality of \eqref{eqn:interid}.}
 	\begin{equation}\label{diag:interid}
 	\begin{tikzcd}
 	G\circ H \arrow[r, "G\phi"] \arrow[d, "\eta H"']    & G\circ H' \arrow[d, "\eta H'"] \arrow[r, "G\phi'"]    & G\circ H'' \arrow[d, "\eta H''"]  \\
@@ -356,41 +395,17 @@ There is one last thing to conclude that $\catCat$ is a \kl[2cat]{$2$--category}
 	\AP A ""strict $2$--category@2cat"" consists of
 	\begin{itemize}
 		\item a "category" $\mathbf{C}$,
-		\item for every $A,B \in \obj{\mathbf{C}}$ a "category" $\mathbf{C}(A,B)$ with $\Hom_{\mathbf{C}}(A,B)$ as its "objects" ("composition" is denoted $\vertcomp$ and "identities" $\one$) and "morphisms" are called $2$--\textbf{morphism},
+		\item for every $A,B \in \obj{\mathbf{C}}$ a "category" $\mathbf{C}(A,B)$ with $\Hom_{\mathbf{C}}(A,B)$ as its "objects" ("composition" is denoted $\vertcomp$ and "identities" $\one$) and "morphisms" are called $2$--\textbf{morphisms},
 		\item a "category" with $\obj{\mathbf{C}}$ as its "objects", where the "morphisms" are pairs of "parallel" "morphisms" of $\mathbf{C}$ along with a $2$--morphism between them\footnote{A "morphism" in this category is also called a $2$--\textbf{cell}.} and the identity map sends $A \in \obj{\mathbf{C}}$ to the pair $(\id_A, \id_A)$ and the $2$--morphism $\one_{\id_A}$ ("composition" of $2$--cells is denoted $\horcomp$),
 	\end{itemize} 
 	such that the "interchange identity" \eqref{eqn:interid} holds.
 \end{defn}
 We will not cover it in this book, but there are notions of "morphisms" between "$2$--categories@2cat" (called $2$--functors), between $3$--categories as well as between $n$--categories for any $n$ (even $n= \infty$!), these objects are more deeply studied in higher category theory.\footnote{Most of higher category theory drops the \textit{strict} part of our definition of $2$--category because this condition is too strong. Very briefly, they allow the properties of "composition", namely "associativity" and "identities", to hold up to "natural isomorphisms".}
 
-A very useful corollary of Proposition \ref{prop:interchange} is shown in the next exercise (it also follows from the properties of the "biaction" of "functors"). In particular, it means that for any "commutative" "diagram" in $\catFunc{\mathbf{C}}{\mathbf{D}}$, we can "pre-compose" and "post-compose" with any "functors" and still obtain a "commutative" "diagram". For instance, if \eqref{diag:commuteinfunc} "commutes" in $\catFunc{\mathbf{C}}{\mathbf{D}}$, then for any "functors" $F: \mathbf{C'} \rightsquigarrow \mathbf{C}$ and $G: \mathbf{D} \rightsquigarrow \mathbf{D'}$, then \eqref{diag:commuteinfunccomposed} "commutes".\footnote{We will often use this property by writing things like ``apply $F(\placeholder)G$ to \eqref{diag:commuteinfunc}'' to use the "commutativity" of \eqref{diag:commuteinfunccomposed} in a proof.}\\
-\begin{minipage}{0.49\textwidth}
-	\begin{equation}\label{diag:commuteinfunc}
-		\begin{tikzcd}
-			X & Y \\
-			{X'} & {Y'}
-			\arrow["\phi"', from=1-1, to=2-1]
-			\arrow["\eta", from=1-1, to=1-2]
-			\arrow["{\phi'}", from=1-2, to=2-2]
-			\arrow["{\eta'}"', from=2-1, to=2-2]
-		\end{tikzcd}
-	\end{equation}
-\end{minipage}\begin{minipage}{0.49\textwidth}
-	\begin{equation}\label{diag:commuteinfunccomposed}
-		\begin{tikzcd}
-			{F\circ X\circ G} & {F\circ Y\circ G} \\
-			{F\circ X'\circ G} & {F\circ Y'\circ G}
-			\arrow["{F\phi G}"', from=1-1, to=2-1]
-			\arrow["{F\phi' G}", from=1-2, to=2-2]
-			\arrow["{F\eta'G}"', from=2-1, to=2-2]
-			\arrow["{F\eta G}", from=1-1, to=1-2]
-		\end{tikzcd}
-	\end{equation}
-\end{minipage}\\
 \begin{exer}[\NOW]\label{exer:natural:compositionisfunc}\marginnote[1\baselineskip]{\hyperref[soln:natural:equivequiv]{See solution.}}
 	Show that there is a "functor" $\catFunc{\mathbf{D}}{\mathbf{E}} \cattimes \catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{E}}$ whose action on "objects" is $(F,G) \mapsto F\circ G$.
 \end{exer}%TODO: explain the implications for commutative diagrams of natural transformations and how you will use it.
-
+%TODO: req exercises: Composing with a constant yields a functor that preserves isomorphisms for use when saying limits are taken pointwise [C x D, E] = [D x C, E]
 \section{Equivalences}
 As is expected, an isomorphism of "categories" is an "isomorphism@@CAT" in the "category" $\catCat$, namely, a "functor" $F:\mathbf{C}\rightsquigarrow \mathbf{D}$ with an inverse $G:\mathbf{D}\rightsquigarrow \mathbf{C}$ such that $F \circ G = \id_{\mathbf{D}}$ and $G\circ F = \id_{\mathbf{C}}$. As is typical in mathematics, one cannot distinguish between "isomorphic@@CAT" "categories" as they only differ in notations and terminology.%TODO: explain.
 \begin{exmps}\label{exmp:isocat}
@@ -400,8 +415,8 @@ As is expected, an isomorphism of "categories" is an "isomorphism@@CAT" in the "
 		\item In Example \ref{exmp:simplefunccat}, three other "isomorphisms@@CAT" were implicitly given:
 		\[\catFunc{\termcat}{\mathbf{C}} \isoCAT \mathbf{C} \quad \quad \quad \catFunc{\termcat\coproduct\termcat}{\mathbf{C}} \isoCAT \mathbf{C}\cattimes \mathbf{C} \quad \quad \quad\catFunc{\cattwo}{\mathbf{C}} \isoCAT \arrowcat{\mathbf{C}}.\]
 		\item The category $\catRel$ of sets with relations is "isomorphic@@CAT" to $\op{\catRel}$.\footnote{An arbitrary "category" $\mathbf{C}$ is not always "isomorphic@@CAT" to its "opposite". While the "opposite functors" $\op{(\placeholder)}_{\mathbf{C}}: \mathbf{C} \rightsquigarrow \op{\mathbf{C}}$ and $\op{(\placeholder)}_{\op{\mathbf{C}}}: \op{\mathbf{C}} \rightsquigarrow \mathbf{C}$ are inverses of each other, they are "contravariant functors".} The "functor" $\catRel \rightsquigarrow \op{\catRel}$ is the identity on "objects" and sends a relation $R \subseteq X \times Y$ to the opposite relation $\reflectbox{$R$} \subseteq Y \times X$ (which is a "morphism" $X \rightarrow Y$ in $\op{\catRel}$) defined by $(y,x) \in \reflectbox{$R$} \Leftrightarrow (x,y) \in R$. The inverse is defined similarly.
-		\item Given three "categories" $\mathbf{C}$, $\mathbf{D}$ and $\mathbf{E}$, there is an "isomorphism@@CAT"\footnote{You might recognize a similarity with "exponentials" which rely on an "isomorphism@@CAT" $\Hom_{\mathbf{C}}(B\times X, A)\isoCAT\Hom_{\mathbf{C}}(B, A^X)$. The example here is more than an instance of "exponentials" of "categories" because the "isomorphism@@CAT" is not only as sets but as "categories".} \[\catFunc{\mathbf{C}\cattimes \mathbf{D}}{\mathbf{E}}\isoCAT\catFunc{\mathbf{C}}{\catFunc{\mathbf{D}}{\mathbf{E}}} .\]%TODO: currying and uncurrying for functors.
-		Let $F: \mathbf{C}\cattimes \mathbf{D} \rightsquigarrow \mathbf{E}$, the "currying" of $F$ is $\curry{F}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{D}}{\mathbf{E}}$ defined as follows. For $X \in \obj{\mathbf{C}}$, the 
+		\item\label{exmp:curryingfunctors} Given three "categories" $\mathbf{C}$, $\mathbf{D}$ and $\mathbf{E}$, there is an "isomorphism@@CAT"\footnote{You might recognize a similarity with "exponentials" which rely on an "isomorphism@@CAT" $\Hom_{\mathbf{C}}(B\times X, A)\isoCAT\Hom_{\mathbf{C}}(B, A^X)$. The example here is more than an instance of "exponentials" of "categories" because the "isomorphism@@CAT" is not only as sets but as "categories".} \[\catFunc{\mathbf{C}\cattimes \mathbf{D}}{\mathbf{E}}\isoCAT\catFunc{\mathbf{C}}{\catFunc{\mathbf{D}}{\mathbf{E}}} .\]%TODO: currying and uncurrying for functors.
+		Let $F: \mathbf{C}\cattimes \mathbf{D} \rightsquigarrow \mathbf{E}$, the "currying" of $F$ is $\intro*\Curry{F}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{D}}{\mathbf{E}}$ defined as follows. For $X \in \obj{\mathbf{C}}$, the 
 	\end{enumerate}
 \end{exmps}
 Although there are other interesting instances of "isomorphic@@CAT" "categories", "natural transformations" lead to a more nuanced (and often more useful) equality between two "categories", that is, "equivalence".
@@ -470,7 +485,7 @@ The insight to extract from this argument is that two categories are "equivalent
 We will detail a couple of \textit{easy} examples of "equivalences" and briefly metion a few \textit{harder} ones.
 \begin{exmps}[Easy]
 	\begin{enumerate}
-		\itemAP Consider the "full@@CAT" "subcategory" of $\catFinSet$ consisting only of the sets $\emptyset, \{1\}, \{1,2\}, \dots, \{1,\dots,n\},\dots$, denote it $\intro*\catFinOrd$.\footnote{The name $\catFinOrd$ is an abbreviation of finite \href{https://en.wikipedia.org/wiki/Ordinal_number}{ordinals}, because we can also define $\catFinOrd$ as the "category" of finite ordinals and functions between them.} The "inclusion functor" is, by definition, already "fully faithful" and we claim it is "essentially surjective". Indeed, any set $X \in \obj{\catFinSet}$ has a finite cardinality $n$, so $X \isoCAT \{1,\dots,n\} \in \obj{\catFinOrd}$.
+		\itemAP Consider the "full@@CAT" "subcategory" of $\catFinSet$ consisting only of the sets $\emptyset, \{1\}, \{1,2\}, \dots, \{1,\dots,n\},\dots$, denote it $\intro*\catFinOrd$.\footnote{The name $\catFinOrd$ is an abbreviation of finite \href{https://en.wikipedia.org/wiki/Ordinal_number}{ordinals}, because we can also define $\catFinOrd$ as the "category" of finite ordinals and functions between them.} The "inclusion functor" is "fully faithful" by definition and we claim it is "essentially surjective". Indeed, any set $X \in \obj{\catFinSet}$ has a finite cardinality $n$, so $X \isoCAT \{1,\dots,n\} \in \obj{\catFinOrd}$.
 		\item In a very similar fashion, an early result in linear algebra says that any "finite dimensional" "vector space" over a "field" $k$ is "isomorphic@@VECT" to $k^n$ for some $n\in \N$. \AP Thus, the "category" whose objects are $k^n$ for all $n\in \N$ and "morphisms" are $m\times n$ "matrices" with entries in $k$,\footnote{After making a choice of "basis" for all $k^n$, an $m\times n$ matrix with entries in $k$ corresponds to a "linear map" $k^n \rightarrow k^m$.} which we denote $\intro*\catMat{k}$, is "equivalent" to the "category" of "finite dimensional" "vector spaces".
 		\itemAP A ""partial"" function $f: X \pfun Y$ is a function that may not be defined on all of $X$.\footnote{\AP In this context, a \textit{normal} function defined on all of $X$ is called ""total"".} There is "category" $\catPar$ of sets and "partial" functions where "identity morphism" and "composition" are defined straightforwardly.\footnote{You can view $\catPar$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$ (cf. Remark \ref{rem:setsubrel}), \[|\left\{ y \in Y\mid (x,y) \in R \right\}| \leq 1.\]} We can view a "partial" function $f:X \pfun Y$ as a "total" function $f':X \rightarrow Y\coproduct\terminal$ which assigns to every $x$ where $f(x)$ is undefined the value $\ast \in \terminal$. Further extending $f'$ to $[f',\id_{\terminal}]: X\coproduct\terminal \rightarrow Y\coproduct \terminal$, we can see any "partial" function as a function between "pointed" sets where the distinguished element corresponds to being undefined.
 		
@@ -490,6 +505,56 @@ A "category" always has a "skeleton" if you assume the axiom of choice and the n
 	Show that all "skeletons" of a "category" are "isomorphic@@CAT".
 \end{exer}
 Here are other more interesting examples of "equivalent" "categories".
+\begin{exmp}[Medium]
+	Let $\mathbf{C}$ be a "category", there is a "functor" $F: \mathbf{C} \rightsquigarrow \arrowcat{\mathbf{C}}$ sending $X$ to $\id_X$ and $f: X \rightarrow Y$ to the "commutative" square in \eqref{diag:commutesquareembedarrow}. This "functor" is an "equivalence" if and only if all "morphisms" in $\mathbf{C}$ are "isomorphisms@@CAT".\footnote{Such a "category" is called a ""groupoid"".} It is clearly "fully faithful", so it is left to show $F$ is "essentially surjective" if and only if $\mathbf{C}$ is a "groupoid".
+	\begin{marginfigure}\begin{equation}\label{diag:commutesquareembedarrow}
+		\begin{tikzcd}
+			X & X \\
+			Y & Y
+			\arrow["{\id_X}", from=1-1, to=1-2]
+			\arrow["f"', from=1-1, to=2-1]
+			\arrow["{\id_Y}"', from=2-1, to=2-2]
+			\arrow["f", from=1-2, to=2-2]
+		\end{tikzcd}
+	\end{equation}\end{marginfigure}
+	($\Rightarrow$) For any $f: X \rightarrow Y \in \mor{\mathbf{C}}$, by hypothesis, there exists $A \in \obj{\mathbf{C}}$ such that $\id_A \isoCAT f$ in $\arrowcat{C}$. Let $(s: A \rightarrow X ,t: A \rightarrow Y)$ be the "isomorphism@@CAT", its "inverse" must be $(s^{-1},t^{-1})$. Looking at the chain of "commutative" squares in \eqref{diag:chaincommsquare}, we can infer that $s \circ t^{-1}$ is the "inverse" of $f$.\footnote{The "composition" $f \circ s \circ t^{-1}$ is the top path of the combined two leftmost squares, the bottom path is $t \circ t^{-1} \circ \id_Y = \id_Y$. The "composition" $s \circ t^{-1} \circ f$ is the bottom path of the combined two rightmost squares, the top path is $\id_X \circ s \circ s^{-1} =\id_X$.}
+	\begin{equation}\label{diag:chaincommsquare}
+		% https://q.uiver.app/?q=WzAsMTAsWzEsMCwiQSJdLFsyLDAsIlgiXSxbMSwxLCJBIl0sWzIsMSwiWSJdLFszLDAsIkEiXSxbMywxLCJBIl0sWzQsMCwiWCJdLFs0LDEsIlgiXSxbMCwwLCJZIl0sWzAsMSwiWSJdLFswLDEsInMiXSxbMCwyLCJcXGlkX0EiLDJdLFsyLDMsInQiLDJdLFsxLDMsImYiLDJdLFsxLDQsInNeey0xfSJdLFszLDUsInReey0xfSIsMl0sWzQsNSwiXFxpZF9BIiwyXSxbNCw2LCJzIl0sWzUsNywicyIsMl0sWzYsNywiXFxpZF9YIl0sWzgsMCwidF57LTF9Il0sWzgsOSwiXFxpZF9ZIiwyXSxbOSwyLCJ0XnstMX0iLDJdLFs5LDMsIlxcaWRfWSIsMix7ImN1cnZlIjozfV0sWzEsNiwiXFxpZF9YIiwyLHsiY3VydmUiOi0zfV1d
+		\begin{tikzcd}
+			Y & A & X & A & X \\
+			Y & A & Y & A & X
+			\arrow["s", from=1-2, to=1-3]
+			\arrow["{\id_A}"', from=1-2, to=2-2]
+			\arrow["t"', from=2-2, to=2-3]
+			\arrow["f"', from=1-3, to=2-3]
+			\arrow["{s^{-1}}", from=1-3, to=1-4]
+			\arrow["{t^{-1}}"', from=2-3, to=2-4]
+			\arrow["{\id_A}"', from=1-4, to=2-4]
+			\arrow["s", from=1-4, to=1-5]
+			\arrow["s"', from=2-4, to=2-5]
+			\arrow["{\id_X}", from=1-5, to=2-5]
+			\arrow["{t^{-1}}", from=1-1, to=1-2]
+			\arrow["{\id_Y}"', from=1-1, to=2-1]
+			\arrow["{t^{-1}}"', from=2-1, to=2-2]
+		\end{tikzcd}
+	\end{equation}
+
+	($\Leftarrow$) Let $f: X \rightarrow Y$ be an "object" of $\arrowcat{C}$, the inverse of $f$ satisfies $f \circ f^{-1} = \id_Y$ and $f^{-1} \circ f = \id_X$, so the squares in \eqref{diag:twocommsquares} are "isomorphisms@@CAT" in $\arrowcat{\mathbf{C}}$ (they are inverses of each other). Thus, we find that $f$ is "isomorphic@@CAT" to $\id_X$ which is in the image of $F$.\begin{marginfigure}[-2\baselineskip]\begin{equation}\label{diag:twocommsquares}
+		% https://q.uiver.app/?q=WzAsOCxbMCwwLCJYIl0sWzAsMSwiWCJdLFsxLDAsIlgiXSxbMSwxLCJZIl0sWzMsMCwiWCJdLFszLDEsIlgiXSxbNCwwLCJZIl0sWzQsMSwiWCJdLFswLDEsIlxcaWRfWCIsMl0sWzAsMiwiXFxpZF9YIl0sWzIsMywiZiJdLFsxLDMsImYiLDJdLFs0LDUsIlxcaWRfWCIsMl0sWzQsNiwiZiJdLFs2LDcsImZeey0xfSJdLFs1LDcsIlxcaWRfWCIsMl1d
+		\begin{tikzcd}
+			X & X && X & Y \\
+			X & Y && X & X
+			\arrow["{\id_X}"', from=1-1, to=2-1]
+			\arrow["{\id_X}", from=1-1, to=1-2]
+			\arrow["f", from=1-2, to=2-2]
+			\arrow["f"', from=2-1, to=2-2]
+			\arrow["{\id_X}"', from=1-4, to=2-4]
+			\arrow["f", from=1-4, to=1-5]
+			\arrow["{f^{-1}}", from=1-5, to=2-5]
+			\arrow["{\id_X}"', from=2-4, to=2-5]
+		\end{tikzcd}
+	\end{equation}\end{marginfigure}
+\end{exmp}
 \begin{exmps}[Hard] Examples of significant "equivalences" are all over the place in higher mathematics. However, they require a bit of work to describe them, thus let us only say a few words on them.
 	\begin{enumerate}
 		\item The "equivalence" between the "category" of affine schemes and the "opposite" of the "category" of "commutative rings" is a seminal result scheme theory, a huge part of modern algebraic geometry.%TODO: seminal
@@ -500,6 +565,6 @@ Here are other more interesting examples of "equivalent" "categories".
 	Show that "equivalence" of "categories" is an equivalence relation.\marginnote{\hyperref[soln:natural:equivequiv]{See solution.}}
 \end{exer}
 \begin{exer}\label{exer:natural:equivfunccat}
-	Let $\mathbf{C} \eqCat \mathbf{C}'$ and $\mathbf{D} \eqCat \mathbf{D}'$ be "equivalent" "categories", then $\catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}'}$.\marginnote{\hyperref[soln:natural:equivfunccat]{See solution.}}
+	Show that $\mathbf{C} \eqCat \mathbf{C}'$ and $\mathbf{D} \eqCat \mathbf{D}'$ implies $\catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}'}$.\marginnote{\hyperref[soln:natural:equivfunccat]{See solution.}}
 \end{exer}
 \end{document}

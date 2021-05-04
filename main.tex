@@ -107,7 +107,7 @@
 \newrobustcmd{\termcat}{\kl[termcat]{\mathbf{1}}}
 \newrobustcmd{\cattwo}{\kl[cattwo]{\mathbf{2}}}
 \newrobustcmd{\Hom}{\kl[Hom]{\mathrm{Hom}}}
-\newrobustcmd{\deloop}[1]{\kl[delooping]{\mathbf{B}}(#1)}
+\newrobustcmd{\deloop}[1]{\kl[delooping]{\mathbf{B}}#1}
 \newrobustcmd{\inclF}{\kl[inclusion functor]{\mathcal{I}}}
 \newrobustcmd{\coproduct}{\mathbin{\kl[coproduct]{+}}}
 \newrobustcmd{\product}{\mathbin{\kl[bproduct]{\times}}}
@@ -161,6 +161,8 @@
 \newrobustcmd{\ab}[1]{{\kern0pt#1}^{\kl[abelianization]{\mathrm{ab}}}}
 \newrobustcmd{\curry}[1]{\kl[curry]{\lambda}#1}
 \newrobustcmd{\uncurry}[1]{\kl[uncurry]{\lambda^{-1}}#1}
+\newrobustcmd{\Curry}[1]{\kl[currycat]{\mathtt{\Lambda}}#1}
+\newrobustcmd{\Uncurry}[1]{\kl[uncurrycat]{\mathtt{\Lambda}^{-1}}#1}
 \newrobustcmd{\arrowcat}[1]{{\kern0pt#1}^{\kl[arrow category]{\rightarrow}}}
 \newrobustcmd{\slice}[2]{{#1}\kl[slice]{/}{#2}}
 \newrobustcmd{\coslice}[2]{{#1}\kl[coslice]{/}{#2}}
@@ -170,6 +172,8 @@
 \newrobustcmd{\horcomp}{\mathbin{\kl[horizontal]{\diamond}}}
 \newrobustcmd{\eqCat}{\mathrel{\kl[equivalent]{\simeq}}}
 \newrobustcmd{\Nat}{\kl[NatHom]{\mathrm{Nat}}}
+\newrobustcmd{\NAT}{\kl[natsquare]{\mathsf{NAT}}}
+\newrobustcmd{\HOR}{\kl[horsquare]{\mathsf{HOR}}}
 \newrobustcmd{\Hombis}{\kl(YON)[embedding]{H}}
 \newrobustcmd{\Ev}{\kl[Evaluation]{\mathsf{Ev}}}
 \newrobustcmd{\Perm}{\kl[permutation]{\Sigma}}
@@ -190,6 +194,12 @@
 \newrobustcmd{\adjoint}{\mathrel{\kl[adjoint]{\dashv}}}
 \newrobustcmd{\transpose}[1]{{\kern0pt#1}^{\kl[transpose]{\mathrm{t}}}}
 \newrobustcmd{\pfun}{\mathrel{\kl[partial]{\rightharpoonup}}}
+\newrobustcmd{\pull}[2]{{\kern0pt#1}^{\kl[apull]{*}}\left( {#2} \right)}
+\newrobustcmd{\push}[2]{{\kern0pt#1}_{\kl[apush]{*}}\left( {#2} \right)}
+\newrobustcmd{\charac}{\kl[characteristic]{\chi}}
+\newrobustcmd{\Power}{\kl[power object]{\mathfrak{P}}}
+\newrobustcmd{\Sub}{\kl[subobject]{\mathrm{Sub}}}
+\newrobustcmd{\Quot}{\kl[quotient object]{\mathrm{Quot}}}
 %OLD STUFF
 \DeclareMathOperator{\Alg}{Alg}
 \newcommand{\inl}{\textsf{inl}}
@@ -202,7 +212,6 @@
 \newcommand{\sfodd}{\textsf{odd}}
 \newcommand{\sfmerge}{\textsf{merge}}
 \newcommand{\sfeven}{\textsf{even}}
-\newrobustcmd{\Sub}{\kl[subobject]{\mathrm{Sub}}}
 
 %Categories
 \newrobustcmd{\catSet}{\kl[Set]{\mathbf{Set}}}
@@ -240,14 +249,17 @@
 %The First Category Theory Textbook Written by a Master's Student
 \begin{document}
 %\justifying
-%\frontmatter
+\frontmatter
 %\maketitle
 
 
 %TODO: knowledge for rightsquigarrow.
 %TODO: -- inside names
 %TODO: put emphasis on principle of equivalence and mention evil.
-
+%TODO: theorems should not be in italic.
+%TODO: three kinds of exercises : NOW, EXP and REQ.
+%TODO: how you view an object in CT depends on what you want to do with it (e.g.: different ways to see Natural numbers)
+\tableofcontents
 \subfile{0Prelim.tex}
 \subfile{1CatFunc.tex}
 \subfile{2Duality.tex}

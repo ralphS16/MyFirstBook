@@ -1,6 +1,7 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
 \chapter{Duality}\label{chap:duality}
+%TODO: say duality = co- in general.
 The concept of duality is ubiquitous throughout mathematics. It can relate two perspectives of the same object as for "dual@@VECT" "vector spaces", two complementary problems such as a maximization and a minimization linear program and even two seemingly unrelated fields like topology and logic (cf. Stone dualities). While this vague principle of duality is the foundation of many groundbreaking results, the duality in question here is categorical "duality@@CAT" and it is a bit more precise.%TODO: ref.
 
 Informally, there is nothing more to say than ``Take all the diagrams in a definition/theorem, reverse the arrows and reap the benefits of the "dual@@CAT" concept/result.`` The more formal version will follow after we first exhibit the principle in action.
@@ -54,14 +55,14 @@ Next, there is a couple of "functors" that are key to understand the philosophy 
 	Let $\mathbf{C}$ be a "locally small" "category" and $A \in \obj{\mathbf{C}}$ one of its "objects".\footnote{We need "local smallness" to have "functors" into $\catSet$.} We define the "covariant" and "contravariant" $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$.
 	\begin{enumerate}
 		\item The "covariant" "functor" $\Hom_{\mathbf{C}}(A,\placeholder): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom--set" $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(A,f): \Hom_{\mathbf{C}}(A,B) \rightarrow \Hom_{\mathbf{C}}(A,B') = g \mapsto f\circ g.\]
-		\AP This function is called ""post-composition by"" $f$ and is denoted $f \circ (\placeholder)$ or $\postcomp{f}$. Let us show $\Hom_{\mathbf{C}}(A, \placeholder)$ is a "covariant" "functor".
+		\AP This function is called ""post-composition by"" $f$ and is denoted $f \circ (\placeholder)$.\footnote{Some authors denote $f \circ (\placeholder)$ as $f^*$, we prefer to keep this notation for later (see "pullbacks").} Let us show $\Hom_{\mathbf{C}}(A, \placeholder)$ is a "covariant" "functor".
 		\begin{enumerate}[i.]
 			\item For any $f \in \mor{\mathbf{C}}$, it is clear from the definitions that \[\Hom_{\mathbf{C}}(A,\source(f)) = \source(\Hom_{\mathbf{C}}(A,f)) \text{ and } \Hom_{\mathbf{C}}(A,\target(f)) = \target(\Hom_{\mathbf{C}}(A,f)).\]
 			\item For any $(f_1,f_2) \in \mathbf{C}_2$, we claim that \[\Hom_{\mathbf{C}}(A,f_1\circ f_2) = \Hom_{\mathbf{C}}(A,f_1)\circ \Hom_{\mathbf{C}}(A,f_2).\] In the L.H.S., an element $g \in \Hom_{\mathbf{C}}(A,\source(f_1\circ f_2))$ is mapped to $(f_1 \circ f_2) \circ g$ and in the R.H.S., an element $g \in \Hom_{\mathbf{C}}(A,\source(f_2)$ is mapped to $f_1\circ (f_2 \circ g)$. Since $\source(f_1 \circ f_2) = \source(f_2)$ and "composition" is "associative", we conclude that the two maps are the same.
 			\item For any $B \in \obj{\mathbf{C}}$, the "post-composition" by $\idu_{\mathbf{C}}(B)$ is defined to be the identity,\footnote{Namely, for any $f: A \rightarrow B$, $\idu_{\mathbf{C}}(B) \circ f = f$.} hence \eqref{diag:func3} also commutes.
 		\end{enumerate}
 		\item The "contravariant functor" $\Hom_{\mathbf{C}}(\placeholder,A): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom--set" $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(f,A): \Hom_{\mathbf{C}}(B',A) \rightarrow \Hom_{\mathbf{C}}(B,A) = g \mapsto g\circ f.\]
-		\AP This function is called ""pre-composition by"" $f$ and is denoted $(\placeholder) \circ f$ or $\precomp{f}$. Let us show $\Hom_{\mathbf{C}}(\placeholder,A)$ is a "contravariant functor".%TODO: explain variance as sub or superscript.
+		\AP This function is called ""pre-composition by"" $f$ and is denoted $(\placeholder) \circ f$.\footnote{Some authors denote $(\placeholder) \circ f$ as $f_*$, we prefer to keep this notation for later (see "pushouts").} Let us show $\Hom_{\mathbf{C}}(\placeholder,A)$ is a "contravariant functor".%TODO: explain variance as sub or superscript.
 		\begin{enumerate}[i.]
 			\item For any $f \in \mor{\mathbf{C}}$, it is clear from the definitions that \[\Hom_{\mathbf{C}}(\source(f),A) = \target(\Hom_{\mathbf{C}}(f,A))\text{ and } \Hom_{\mathbf{C}}(\target(f),A) = \source(\Hom_{\mathbf{C}}(f,A)).\]
 			\item For any $(f_1,f_2) \in \mathbf{C}_2$, we claim that \[\Hom_{\mathbf{C}}(f_1\circ f_2,A) = \Hom_{\mathbf{C}}(f_2,A)\circ \Hom_{\mathbf{C}}(f_1,A).\] In the L.H.S., an element $g \in \Hom_{\mathbf{C}}(\target(f_1\circ f_2),A)$ is mapped to $g\circ (f_1 \circ f_2)$ and in the R.H.S., an element $g \in \Hom_{\mathbf{C}}(\target(f_1),A)$ is mapped to $(g\circ f_1) \circ f_2$. Since $\target(f_1 \circ f_2) = \target(f_1)$ and "composition" is "associative", we conclude that the two maps are the same.
@@ -96,7 +97,7 @@ In the rest of this book, we choose to work with "functors" of type $\op{\mathbf
 \end{enumerate}
 \end{exmps}
 \begin{exer}[\NOW]%TODO:solve
-	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor", show that $\op{F}$ defined by $\op{A} \mapsto \op{(FA)}$ on "objects" and $\op{f} \mapsto \op{(Ff)}$ on "morphisms" is a "functor". 
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor", show that its "dual" $\op{F}$ defined by $\op{A} \mapsto \op{(FA)}$ on "objects" and $\op{f} \mapsto \op{(Ff)}$ on "morphisms" is a "functor" $\op{\mathbf{C}} \rightsquigarrow \op{\mathbf{D}}$. 
 \end{exer}
 \marginnote{\begin{rem}\label{rem:hombifunctor}
 	It is sometimes useful to "compose" the $\Hom$ "bifunctor@hombif" with other "functors" as follows. Given two "functors" $F,G: \mathbf{C} \rightsquigarrow \mathbf{D}$, there is a "functor" $\Hom_{\mathbf{D}}(F\placeholder,G\placeholder): \op{\mathbf{C}} \cattimes \mathbf{C} \rightsquigarrow \mathbf{D}$ action on "objects" by $(X,Y) \mapsto \Hom_{\mathbf{D}}(FX,GY)$ and on "morphisms" by $(f,g) \mapsto Gg \circ (\placeholder) \circ Ff$.
@@ -128,7 +129,11 @@ Let us start illustrating how "duality@@CAT" can be useful with some simple defi
 \begin{proof}
 	Let $g,h \in \mor{\mathbf{C}}$ be such that $f_2\circ g = f_2\circ h$, we readily get that $(f_1\circ f_2)\circ g = (f_1 \circ f_2) \circ h$. Since $f_1\circ f_2$ is a "monomorphism", this implies $g = h$.
 \end{proof}
-The last two results make it obvious that "monomorphisms" are analogous to injective functions and we will see that they are exactly the same in the "category" $\catSet$, but first let us introduce the "dual@@CAT" concept. Given a definition or statement in an arbitrary category $\mathbf{C}$, one could view this concept inside the category $\op{\mathbf{C}}$ and obtain a similar definition or statement where all "morphisms" and the order of "composition" are reversed , this is called the ""dual@@CAT"" concept. "Dualizing@@CAT" the definition of a "monomorphism" yields an "epimorphism".
+The last two results make it obvious that "monomorphisms" are analogous to injective functions and we will see that they are exactly the same in the "category" $\catSet$, but first let us introduce the "dual@@CAT" concept. 
+\begin{defn}[Duality]
+	Given a definition or statement in an arbitrary category $\mathbf{C}$, one could view this concept inside the category $\op{\mathbf{C}}$ and obtain a similar definition or statement where all "morphisms" and the order of "composition" are reversed , this is called the ""dual@@CAT"" concept. For a definition or result where multiple "categories" are involved, the "dual" version is obtained by taking the "opposite" of all "categories".
+\end{defn}
+"Dualizing@@CAT" the definition of a "monomorphism" yields an "epimorphism".
 \begin{defn}[Epimorphism]
 	Let $\mathbf{C}$ be a "category", a "morphism" $f \in \mor{\mathbf{C}}$ is said to be ""epic"" (or an ""epimorphism"") if for any two "morphisms" $(g,f), (h,f) \in \mathbf{C}_2$ where $g$ and $h$ have the same "target", $g\circ f = h\circ f$ implies $g = h$. Equivalently, $f$ is "epic" if $g = h$ whenever the following diagram commutes.\footnote{Seeing the diagrams make it clearer that the concepts are "dual@@CAT".}
 	\begin{equation}
@@ -183,8 +188,9 @@ Conversely, an "epimorphism" is not necessarily surjective. For example, the inc
 \[ h(n)g(-n) = g(n)g(-n) = g(n-n) = g(0)= 1_M=h(0) = h(-n+n) = h(-n)h(n), \] but then $ g(-n) = h(-n)h(n)g(-n) = h(-n)$.
 \end{exmp}
 %TODO: example in cat: monic -> embedding. epic -> ?
+%TODO: exercise about alternative definition with Hom(-,f) is injective, etc. Say that it can be useful for enriched categories ?
 \begin{defn}[Isomorphism]
-	\AP Let $\mathbf{C}$ be a "category", a "morphism" $f:A\rightarrow B$ is said to be an ""isomorphism@@CAT"" if there exists a "morphism" $f^{-1}: B\rightarrow A$ such that $f\circ f^{-1} = \id_B$ and $f^{-1}\circ f = \id_A$.\footnote{\AP Then $f^{-1}$ is called the ""inverse"" of $f$.}
+	\AP Let $\mathbf{C}$ be a "category", a "morphism" $f:A\rightarrow B$ is said to be an ""isomorphism@@CAT"" if there exists a "morphism" $f^{-1}: B\rightarrow A$ such that $f\circ f^{-1} = \id_B$ and $f^{-1}\circ f = \id_A$.\footnote{\AP Then $f^{-1}$ is called the ""inverse"" of $f$. One can check that if $f'$ is the "left inverse" of $f$ and $f''$ is its "right inverse", then $f' = f'' = f^{-1}$.}
 \end{defn}
 As you might expect from the terminology, in general, we will not distinguish between "isomorphic@@CAT" "objects" in a "category" because all the properties we care about will hold for one if and only if it holds for the other.
 \begin{exer}\label{exer:duality:composemor}\marginnote{\hyperref[soln:duality:composemor]{See solution.}}
@@ -197,7 +203,7 @@ As you might expect from the terminology, in general, we will not distinguish be
 	A function $f: X \rightarrow Y$ in $\mor{\catSet}$ has an "inverse" $f^{-1}$ if and only if $f$ is bijective, thus "isomorphisms@@CAT" in $\catSet$ are bijections. As a consequence, we have $A \isoCAT B$ if and only if $|A| = |B|$.\footnote{This is in fact the definition of cardinality.}
 \end{exmp}
 \begin{exmp}[$\catCat$]
-	An "isomorphism@@CAT" in $\catCat$ is a "functor" $F:\mathbf{C} \rightsquigarrow \mathbf{D}$ with an "inverse" $F^{-1}: \mathbf{D} \rightsquigarrow \mathbf{C}$. This implies that $F_0$ and $F_1$ are bijections\footnote{Note that $F_1$ being a bijection is equivalent to $F$ being "fully faithful".} because $F_0^{-1}$ is the inverse of $F_0$ and $F_1^{-1}$ is the inverse of $F_1$.
+	An "isomorphism@@CAT" in $\catCat$ is a "functor" $F:\mathbf{C} \rightsquigarrow \mathbf{D}$ with an "inverse" $F^{-1}: \mathbf{D} \rightsquigarrow \mathbf{C}$. This implies that $F_0$ and $F_1$ are bijections\footnote{Note that $F_1$ being a bijection implies that $F$ is "fully faithful".} because $F_0^{-1}$ is the inverse of $F_0$ and $F_1^{-1}$ is the inverse of $F_1$.
 
 	Conversely, if $F:\mathbf{C} \rightsquigarrow \mathbf{D}$ is a "functor" whose components on "objects" and "morphisms" are bijective, we can check that defining $F^{-1}: \mathbf{D} \rightsquigarrow \mathbf{C}$ with $F_0^{-1} := (F_0)^{-1}$ and $F_1^{-1}= (F_1)^{-1}$ yields a "functor". Therefore, "isomorphisms@@CAT" are precisely the "fully faithful" functors which are bijective on "objects". %TODO: do the check.
 \end{exmp}
@@ -262,6 +268,9 @@ Moreover, "initial" (resp. "terminal") "objects" are unique up to \textit{unique
 	\end{enumerate}
 \end{exmps}
 
+\begin{exer}\label{exer:duality:morterminal}\marginnote{\hyperref[soln:duality:morterminal]{See solution.}}
+	Let $\mathbf{C}$ be a "category" with a "terminal object" $\terminal$. Show any "morphism" $f: \terminal \rightarrow X$ is "monic". State and prove the "dual@@CAT" statement.
+\end{exer}
 
 \begin{exmp}
 For our last application of "duality@@CAT" in this chapter,\footnote{Don't worry, we will have plenty of opportunities to use "duality@@CAT" later.} let $X$ be a set and consider the "posetal" "category" $(\mP(X), \subseteq)$. We would like to define the union of two subsets of $X$ in this "category". The usual definition $A \cup B = \{x \in X \mid x \in A \text{ or } x \in B\}$ is not suitable because the data in the "posetal" "category" $\mP(X)$ never refers to elements of $X$. In particular, the subsets $A,B \subseteq X$ are simply "objects" in the "category" and it is not clear to us how we can determine what elements are in $A$ and $B$ with our categorical tools ("objects" and "morphisms").
@@ -274,6 +283,48 @@ Putting this in words, $A \square B$ is the largest subset of $X$ which is conta
 \end{exmp}
 
 \section{More Vocabulary}%TODO: lots of examples with co-not co.
+
+In the next chapter, we will start heavily using diagrams, so before going further, we need to define the formal notion that we will use.\footnote{In fact, we will now refrain from referring to every picture on the page as a diagram and keep this terminology for the formal use (without necessarily making it explicitly formal).}%TODO: please check.
+\begin{defn}[Diagram]\label{defn:diagram}
+    \AP A ""diagram"" in $\mathbf{C}$ is a "functor" $F:\mathbf{J}\rightsquigarrow \mathbf{C}$ where $\mathbf{J}$ is usually a "small" or even finite "category".
+\end{defn}
+\begin{rem}
+\begin{marginfigure}
+    \begin{equation}\label{diag:commsquare}
+        \begin{tikzcd}
+            \cdot \arrow[r] \arrow[d] & \cdot \arrow[d] \\
+            \cdot \arrow[r] & \cdot
+        \end{tikzcd}
+    \end{equation}
+\end{marginfigure}
+"Diagrams" are usually represented by (partially) drawing the image of $F$. All the "diagrams" drawn up to this point define the domain of the "functor" implicitly. For instance, when considering a "commutative" square in $\mathbf{C}$, what is actually considered is the image from a "functor" with codomain $\mathbf{C}$ and domain the "category" $\mathbf{2}\product \mathbf{2}$ represented in \eqref{diag:commutesquare}.\footnote{If $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ is a "diagram" of shape $\mathbf{J}$ in $\mathbf{C}$ and $G: \mathbf{C}\rightsquigarrow \mathbf{D}$ is a "functor", then $G\circ F$ is a "diagram" of shape $\mathbf{J}$ in $\mathbf{D}$.}
+\end{rem}
+\begin{defn}%TODO: make sure this is nice. say that it will be better stated for limits.
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $P$ a property\footnote{This is intentionally a vague term.} of "diagrams" in $\mathbf{C}$.
+	\begin{itemize}
+		\item We say that $F$ ""preserves"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$. If $D$ has property $P$, then $F \circ D$ has property $P$.
+		\item We say that $F$ ""reflects"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$. If $F \circ D$ has property $P$, then $D$ has property $P$.
+	\end{itemize}
+\end{defn}
+\begin{warn}
+	"Preserving" and "reflecting" a property $P$ are not "dual@@CAT" notions.
+\end{warn}
+It follows easily from this definition that "functors" "preserve" "commutative" "diagrams". The following two exercises are a quick investigation in "preservation" and "reflection" of simple properties we have seen in this chapter.
+\begin{exer}\label{exer:duality:preserving}\marginnote{\hyperref[soln:duality:preserving]{See solution.}}
+	\begin{enumerate}
+        \item Find an example of "functor" which does not "preserve" "monomorphisms".\footnote{We can see a "morphism" as a "diagram" of shape $\cattwo$. Indeed, a "functor" $\cattwo \rightsquigarrow \mathbf{C}$ amounts to a choice of a "morphism" in $\mor{\mathbf{C}}$. Therefore, a "functor" $F$ "preserves" "monomorphisms" if whenever $f$ is "monic", $F(f)$ also is.}
+        \item Show that if $f \in \mathbf{C}_1$ is a "split monomorphism", then $F(f)$ is also a "split monomorphism", i.e.: any "functor" "preserves" "split monomorphisms".
+        \item State and prove the "dual@@CAT" statement.
+        \item Infer that all "functors" "preserve" "isomorphisms@@CAT", in particular "functors" send "isomorphic@@CAT" "objects" to "isomorphic@@CAT" "objects".
+    \end{enumerate}
+\end{exer}
+\begin{exer}\label{exer:duality:reflecting}\marginnote{\hyperref[soln:duality:reflecting]{See solution.}}
+	\begin{enumerate}
+		\item Find an example of "functor" which does not "reflect" "monomorphisms".\footnote{A "functor" "reflects" "monomorphisms" if whenever $Ff$ is "monic", $f$ also is.}
+		\item Show that if $F$ is "faithful", then $F$ "reflects" "monomorphisms".
+		\item State and prove the "dual@@CAT" statement.
+	\end{enumerate}
+\end{exer}
 %sub object, quotient object.
 %
 % \item We say that a functor $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ \textbf{preserves} monomorphisms if whenever $f \in \mathbf{C}_1$ is monic, then $F(f)$ is also monic.
@@ -292,15 +343,24 @@ Putting this in words, $A \square B$ is the largest subset of $X$ which is conta
 %     Denoting $[m]$ the equivalence class of $m$, $\text{Sub}_{\mathbf{C}}(X)$ has a poset structure defined by \[m \leq m' \Leftrightarrow \exists \text{ morphism } k, m = m'k.\]
 %     Show that $\sim$ is an equivalence relation and $\leq$ is a partial order on $\text{Sub}_{\mathbf{C}}(X)$.
 \begin{exer}\label{exer:duality:equivsubobj}\marginnote{\hyperref[soln:duality:equivsubobj]{See solution.}}
-	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, we define the relation $\sim$ on "monomorphisms" $Y \hookrightarrow X$  by \[m \sim m' \Leftrightarrow \exists \text{ "isomorphism@@CAT" } i,  m = m' \circ i.\]
+	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, we define the relation $\sim$ on "monomorphisms" with "target" $X$ by \[m \sim m' \Leftrightarrow \exists \text{ "isomorphism@@CAT" } i,  m = m' \circ i.\]
 	Show that $\sim$ is an equivalence relation.
 \end{exer}
 \begin{defn}[Subobject]
-	\AP Let $\mathbf{C}$ be a "category", a ""subobject"" of $X \in \obj{\mathbf{C}}$ is a equivalence class of the relation $\sim$ defined above. We will often abusively refer to a "subobject" simply with a "monomorphism" $Y \hookrightarrow X$. The "collection" of "subobjects" of $X$ is denoted $\Sub_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Sub_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""well-powered"".
+	\AP Let $\mathbf{C}$ be a "category", a ""subobject"" of $X \in \obj{\mathbf{C}}$ is an equivalence class of the relation $\sim$ defined above. We will often abusively refer to a "subobject" simply with a "monomorphism" $Y \hookrightarrow X$. The "collection" of "subobjects" of $X$ is denoted $\Sub_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Sub_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""well-powered"".
 \end{defn}
+\begin{exmp}[$\catSet$]
+	Let $X \in \obj{\catSet}$, "subobjects" of $X$ correspond to subsets of $X$.\footnote{The notation $\Sub_{\catSet}(X)$ is perfect!} Indeed, any subset $I \subseteq X$ has an inclusion function $i: I \hookrightarrow X$ which is injective, hence "monic". For the other direction, note that if $j: J \hookrightarrow X$ is in the same equivalence class as $i$ in $\Sub_{\catSet}(X)$, there is a bijection $f: I \rightarrow J$ such that $i = j \circ f$, hence the image of $j$ is $I\subseteq X$. We conclude that the correspondence between $\Sub_{\catSet}(X)$ and $\mPcov(X)$ sends $[i]$ to the image of $i$ and $I\subseteq X$ to the inclusion $i: I \hookrightarrow X$.
+\end{exmp}
 \begin{exer}\label{exer:duality:posetsubobj}\marginnote[\baselineskip]{\hyperref[soln:duality:posetsubobj]{See solution.}}
 	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, we define the relation $\leq$ on $\Sub_{\mathbf{C}}(X)$ by 
 	\[[m] \leq [m'] \Leftrightarrow \exists \text{ "morphism" } k,  m = m' \circ k.\]
 	Show that $\leq$ is a well-defined "partial order".
 \end{exer}
+We can use "duality@@CAT" to obtain (for free) the notion of "quotient objects".
+\begin{defn}[Quotients]
+	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, there is an equivalence relation $\sim$ on "epimorphisms" with "source" $X$ defined by \[q \sim q' \Leftrightarrow \exists \text{ "isomorphism@@CAT" } i,  q = i \circ q'.\]
+	\AP A ""quotient object"" (or simply "quotient@@CAT") of $X$ is an equivalence class of the relation $\sim$ defined above.\footnote{We will often abusively refer to a "quotient" simply with an "epimorphism" $X \twoheadrightarrow Y$.} The "collection" of "quotients@@CAT" of $X$ is denoted $\Quot_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Quot_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""co-well-powered"". There is a "partial order" $\leq$ on $\Quot_{\mathbf{C}}(X)$ defined by 
+	\[[q] \leq [q'] \Leftrightarrow \exists \text{ "morphism" } k,  q = k \circ q'.\]
+\end{defn}
 \end{document}

@@ -203,7 +203,7 @@ The list above is far from exhaustive; there are many more mathematical objects 
 
 As we will show, a "functor" is a "morphism" of "categories", thus, to motivate the definition, we can look at other "morphisms" we have encountered. A clear similarity between "categories" like $\catSet$, $\catGrp$, $\catRing$ or $\catTop$ is that all the "objects" have some sort of structure that the "morphisms" preserve. Hence, we want to define a "morphism" that preserves the structure of a "category", the latter being given by the "source" and "target" maps, the "composition" and the "identities".
 \begin{defn}[Functor]\label{defn:func}
-	\AP Let $\mathbf{C}$ and $\mathbf{D}$ be "categories", a ""functor"" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is a pair of maps $F_0:\obj{\mathbf{C}} \rightarrow \obj{\mathbf{D}}$ and $F_1:\mor{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ such that diagrams \eqref{diag:func1}, \eqref{diag:func2} and \eqref{diag:func3} commute.\footnote{$F_2$ is induced by the definition of $F_1$ with $(f,g) \mapsto (F_1(f), F_1(g))$.}
+	\AP Let $\mathbf{C}$ and $\mathbf{D}$ be "categories",\footnote{We call $\mathbf{C}$ the ""domain"" of $F$ and $\mathbf{D}$ its ""codomain"".} a ""functor"" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is a pair of maps $F_0:\obj{\mathbf{C}} \rightarrow \obj{\mathbf{D}}$ and $F_1:\mor{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ such that diagrams \eqref{diag:func1}, \eqref{diag:func2} and \eqref{diag:func3} commute.\footnote{$F_2$ is induced by the definition of $F_1$ with $(f,g) \mapsto (F_1(f), F_1(g))$.}
 	\begin{equation}\label{diag:func1}
 		\begin{tikzcd}
 			\obj{\mathbf{C}} \arrow[d, "F_0"'] & \mor{\mathbf{C}} \arrow[d, "F_1"] \arrow[l, "\source"'] \arrow[r, "\target"] & \obj{\mathbf{C}} \arrow[d, "F_0"] \\
@@ -241,7 +241,7 @@ As we will show, a "functor" is a "morphism" of "categories", thus, to motivate 
 \begin{exmps}[Boring examples]
 	As usual, a few trivial constructions arise.
 	\begin{enumerate}
-		\itemAP For any "category" $\mathbf{C}$, the ""identity functor"" $\id_{\mathbf{C}}: \mathbf{C}\rightsquigarrow \mathbf{C}$ is defined by letting $(\id_{\mathbf{C}})_0$ and $(\id_{\mathbf{C}})_1$ be identity maps on $\obj{\mathbf{C}}$ and $\mor{\mathbf{C}}$ respectively.
+		\itemAP For any "category" $\mathbf{C}$, the ""identity functor"" $\id_{\mathbf{C}}: \mathbf{C}\rightsquigarrow \mathbf{C}$ is defined by letting $(\id_{\mathbf{C}})_0$ and $(\id_{\mathbf{C}})_1$ be identity maps on $\obj{\mathbf{C}}$ and $\mor{\mathbf{C}}$ respectively.\marginnote{When the "domain" and "codomain" of a "functor" coincide, we may refer to it as an ""endofunctor"".}
 		\itemAP Let $\mathbf{C}$ be a "category" and $\mathbf{C}'$ a "subcategory" of $\mathbf{C}$, the ""inclusion functor"" $\inclF: \mathbf{C}' \rightsquigarrow \mathbf{C}$ is defined by letting $\inclF_0$ be the inclusion map $\obj{\mathbf{C}'} \hookrightarrow \obj{\mathbf{C}}$ and $\inclF_1$ be the inclusion map $\mor{\mathbf{C}'} \hookrightarrow \mor{\mathbf{C}}$.
 		\itemAP Let $\mathbf{C}$ and $\mathbf{D}$ be "categories" and $X$ be an object in $\mathbf{D}$, the ""constant functor"" $X: \mathbf{C} \rightsquigarrow \mathbf{D}$ is defined by letting $X_0(A) = X$ for any $A \in \obj{\mathbf{C}}$ and $X_1(f) = \id_X$ for any $f \in \mor{\mathbf{C}}$.
 	\end{enumerate}
@@ -263,9 +263,9 @@ Throughout the rest of this book, the goal will essentially be to grow our list 
 \begin{defn}[Full and faithful]
 	Let $F:\mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor". For $A,B \in \obj{\mathbf{C}}$, denote the restriction of $F_1$ to $\Hom_{\mathbf{C}}(A,B)$ with \[F_{A,B}:\Hom_{\mathbf{C}}(A,B) \rightarrow \Hom_{\mathbf{D}}(F(A), F(B)).\]
 	\begin{itemize}
-		\item If $F_{A,B}$ is injective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""faithful"".
-		\item If $F_{A,B}$ is surjective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""full@@FUNC"".
-		\item If $F_{A,B}$ is bijective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""fully faithful"".
+		\item[-] If $F_{A,B}$ is injective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""faithful"".
+		\item[-] If $F_{A,B}$ is surjective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""full@@FUNC"".
+		\item[-] If $F_{A,B}$ is bijective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""fully faithful"".
 	\end{itemize}    
 \end{defn}
 \begin{rem}%TODO: where to put this.
