@@ -4,6 +4,8 @@
 %TODO:knowledge for arrows. \rightsquigarrow and \Rightarrow
 %TODO: define "natural in ..."
 %TODO: translate commutativity of diagram with natural transformations to commutativity of the components.
+%TODO: exercise about product and coproduct in category of endofunctor 
+%TODO: reflected by equivalence implies preserved by equivalence.
 \section{Natural Transformations}
 "Natural transformations" are admittedly what made mathematicians want to study category theory in the first place. In short, they are "morphisms" between "functors", i.e.: transformations that preserve the structure of "functors".
 
@@ -122,8 +124,8 @@ Now, in order to talk about a "category" of "functors", it remains to describe t
 				\end{tikzcd}
 			\end{equation}
 		\end{marginfigure}
-		\item\label{exmp:isoprodfunccat} Similarly, we can see a "functor" $F: \mathbf{1}\coproduct \mathbf{1} \rightsquigarrow \mathbf{C}$\footnote{Recall $\mathbf{1}\coproduct \mathbf{1}$ is the "category" depicted in \eqref{diag:cat1p1}.} as a choice of two "objects" $F(\bullet_1)$ and $F(\bullet_2)$ and a "natural transformation" $\phi: F \Rightarrow G$ between two such "functors" as a choice of two "morphisms" $\phi_1 : F(\bullet_1) \rightarrow G(\bullet_1)$ and $\phi_2 : F(\bullet_2) \rightarrow G(\bullet_2)$. Therefore, we infer that $\catFunc{\mathbf{1}\coproduct \mathbf{1}}{\mathbf{C}}$ can be identified with $\mathbf{C}\cattimes \mathbf{C}$.
-		\item Let us go one level harder. A "functor" $F: \cattwo \rightsquigarrow \mathbf{C}$\footnote{Recall $\cattwo$ is the "category" depicted in \eqref{diag:cat2}.} is a choice of two "objects" $FA$ and $FB$ as well as a morphism $Ff: FA \rightarrow FB$. It can also be seen as a single choice of "morphism" $Ff$ because $FA$ and $FB$ are determined to be the "source" and "target" of $Ff$ respectively. A "natural transformation" $\phi: F \Rightarrow G$ between two such "functors" is \textit{not} simply a choice of two "morphisms" $\phi_A : FA \rightarrow GA$ and $\phi_B: FB \rightarrow GB$ because, while the "naturality" squares for $\id_A$ and $\id_B$ trivially "commute", the "naturality" square \eqref{diag:natsquarearrow} for $f$ is an additional constraint on $\phi$. Namely, it says $(\phi_A,\phi_B)$ makes a "commutative" square with $Ff$ and $Gf$, hence we can identify $\catFunc{\cattwo}{\mathbf{C}}$ with the "arrow category" $\arrowcat{\mathbf{C}}$.
+		\item\label{exmp:isoprodfunccat} Similarly, we can see a "functor" $F: \termcat\coproduct \termcat \rightsquigarrow \mathbf{C}$\footnote{Recall $\termcat\coproduct \termcat$ is the "category" depicted in \eqref{diag:cat1p1}.} as a choice of two "objects" $F(\bullet_1)$ and $F(\bullet_2)$ and a "natural transformation" $\phi: F \Rightarrow G$ between two such "functors" as a choice of two "morphisms" $\phi_1 : F(\bullet_1) \rightarrow G(\bullet_1)$ and $\phi_2 : F(\bullet_2) \rightarrow G(\bullet_2)$. Therefore, we infer that $\catFunc{\termcat\coproduct \termcat}{\mathbf{C}}$ can be identified with $\mathbf{C}\cattimes \mathbf{C}$.
+		\item\label{exmp:funct2arrow} Let us go one level harder. A "functor" $F: \cattwo \rightsquigarrow \mathbf{C}$\footnote{Recall $\cattwo$ is the "category" depicted in \eqref{diag:cat2}.} is a choice of two "objects" $FA$ and $FB$ as well as a morphism $Ff: FA \rightarrow FB$. It can also be seen as a single choice of "morphism" $Ff$ because $FA$ and $FB$ are determined to be the "source" and "target" of $Ff$ respectively. A "natural transformation" $\phi: F \Rightarrow G$ between two such "functors" is \textit{not} simply a choice of two "morphisms" $\phi_A : FA \rightarrow GA$ and $\phi_B: FB \rightarrow GB$ because, while the "naturality" squares for $\id_A$ and $\id_B$ trivially "commute", the "naturality" square \eqref{diag:natsquarearrow} for $f$ is an additional constraint on $\phi$. Namely, it says $(\phi_A,\phi_B)$ makes a "commutative" square with $Ff$ and $Gf$, hence we can identify $\catFunc{\cattwo}{\mathbf{C}}$ with the "arrow category" $\arrowcat{\mathbf{C}}$.
 		\begin{marginfigure}[-3\baselineskip]
 			\begin{equation}\label{diag:natsquarearrow}
 				\begin{tikzcd}
@@ -138,6 +140,9 @@ Now, in order to talk about a "category" of "functors", it remains to describe t
 		\end{marginfigure}
 	\end{enumerate}
 \end{exmps}
+\begin{exer}\label{exer:natural:opcatfun}\marginnote{\hyperref[soln:natural:opcatfun]{See solution.}}
+	Show that the "opposite" of $\catFunc{\mathbf{C}}{\mathbf{D}}$ is $\catFunc{\op{\mathbf{C}}}{\op{\mathbf{D}}}$.
+\end{exer}
 %TODO: maybe comma category as exercise.
 
 %TODO: limits are taken pointwise
@@ -288,7 +293,11 @@ This follows from $\NAT(\eta,HA,H'A,\phi(A))$.
 \begin{defn}[Horizontal composition]\label{horizcomp}
 	\AP In the setting described in \eqref{diag:horizcompsetting}, we define the ""horizontal composition"" of $\eta$ and $\phi$ by $\eta \horcomp \phi = \eta H' \vertcomp G\phi = G'\phi\vertcomp \eta H$.\footnote{The $\horcomp$ notation is not standard but there are no widespread symbol denoting "horizontal composition". I have mostly seen $\ast$ or plain juxtaposition. Hopefully, you will encounter papers/books clear enough that you can typecheck to find what "composition" is being used.}
 \end{defn}
-The most important part we expect from a notion of "composition" is "associativity", so let us check $\horcomp$ is "associative".
+One crucial point we have made in earlier chapters is that a notion of "composition" must satisfy "associativity" and have "identities". We will show the former right after you show the latter.
+\begin{exer}\label{exer:natural:horcompidentity}\marginnote{\hyperref[soln:natural:horcompidentity]{See solution.}}
+	Let $F,G: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $\phi: F \Rightarrow G$ be a "natural transformation". Show that $\phi \horcomp \one_{F} = \phi F$ and $\one_{G} \horcomp \phi = G\phi$. Infer that $\one_{\id_{\mathbf{C}}}$ is the "identity" at $\mathbf{C}$ for $\horcomp$.
+\end{exer}
+
 \begin{prop}
 	In the setting of \eqref{diag:assochorizcomp}, $\psi \horcomp (\eta \horcomp \phi)= (\psi \horcomp \eta)\horcomp \phi$.
 	\begin{equation}\label{diag:assochorizcomp}
@@ -483,11 +492,11 @@ The insight to extract from this argument is that two categories are "equivalent
 \end{rem}%TODO: check
 
 We will detail a couple of \textit{easy} examples of "equivalences" and briefly metion a few \textit{harder} ones.
-\begin{exmps}[Easy]
+\begin{exmps}[Easy]\label{exmps:equiveasy}
 	\begin{enumerate}
 		\itemAP Consider the "full@@CAT" "subcategory" of $\catFinSet$ consisting only of the sets $\emptyset, \{1\}, \{1,2\}, \dots, \{1,\dots,n\},\dots$, denote it $\intro*\catFinOrd$.\footnote{The name $\catFinOrd$ is an abbreviation of finite \href{https://en.wikipedia.org/wiki/Ordinal_number}{ordinals}, because we can also define $\catFinOrd$ as the "category" of finite ordinals and functions between them.} The "inclusion functor" is "fully faithful" by definition and we claim it is "essentially surjective". Indeed, any set $X \in \obj{\catFinSet}$ has a finite cardinality $n$, so $X \isoCAT \{1,\dots,n\} \in \obj{\catFinOrd}$.
 		\item In a very similar fashion, an early result in linear algebra says that any "finite dimensional" "vector space" over a "field" $k$ is "isomorphic@@VECT" to $k^n$ for some $n\in \N$. \AP Thus, the "category" whose objects are $k^n$ for all $n\in \N$ and "morphisms" are $m\times n$ "matrices" with entries in $k$,\footnote{After making a choice of "basis" for all $k^n$, an $m\times n$ matrix with entries in $k$ corresponds to a "linear map" $k^n \rightarrow k^m$.} which we denote $\intro*\catMat{k}$, is "equivalent" to the "category" of "finite dimensional" "vector spaces".
-		\itemAP A ""partial"" function $f: X \pfun Y$ is a function that may not be defined on all of $X$.\footnote{\AP In this context, a \textit{normal} function defined on all of $X$ is called ""total"".} There is "category" $\catPar$ of sets and "partial" functions where "identity morphism" and "composition" are defined straightforwardly.\footnote{You can view $\catPar$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$ (cf. Remark \ref{rem:setsubrel}), \[|\left\{ y \in Y\mid (x,y) \in R \right\}| \leq 1.\]} We can view a "partial" function $f:X \pfun Y$ as a "total" function $f':X \rightarrow Y\coproduct\terminal$ which assigns to every $x$ where $f(x)$ is undefined the value $\ast \in \terminal$. Further extending $f'$ to $[f',\id_{\terminal}]: X\coproduct\terminal \rightarrow Y\coproduct \terminal$, we can see any "partial" function as a function between "pointed" sets where the distinguished element corresponds to being undefined.
+		\itemAP\label{exmp:partialpointed} A ""partial"" function $f: X \pfun Y$ is a function that may not be defined on all of $X$.\footnote{\AP In this context, a \textit{normal} function defined on all of $X$ is called ""total"".} There is "category" $\catPar$ of sets and "partial" functions where "identity morphism" and "composition" are defined straightforwardly.\footnote{You can view $\catPar$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$ (cf. Remark \ref{rem:setsubrel}), \[|\left\{ y \in Y\mid (x,y) \in R \right\}| \leq 1.\]} We can view a "partial" function $f:X \pfun Y$ as a "total" function $f':X \rightarrow Y\coproduct\terminal$ which assigns to every $x$ where $f(x)$ is undefined the value $\ast \in \terminal$. Further extending $f'$ to $[f',\id_{\terminal}]: X\coproduct\terminal \rightarrow Y\coproduct \terminal$, we can see any "partial" function as a function between "pointed" sets where the distinguished element corresponds to being undefined.
 		
 		We claim that this yields a "fully faithful" "functor" $\catPar \rightsquigarrow \catPtd$ sending $X$ to $(X\coproduct\terminal, \ast)$ and $f: X \pfun Y$ to $[f',\id_{\terminal}]$. %TODO: FINISH.....If we think of a "pointed" set $(X,x)$ as the set $X\setminus x$ can be seen as a .%TODO: One can also see $\catPtd$ as the "category" of sets and ""partial functions"". 
 	\end{enumerate}

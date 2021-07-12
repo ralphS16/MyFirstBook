@@ -2,110 +2,111 @@
 \begin{document}
 \chapter{Monads and Algebras}\label{chap:monads}
 %TODO: Read this.
+%TODO: this chapter is exceptional because we will not spend any time on dual definitions and result. This is because of my background. For a gentle introduction to comonads: go read Paolo's notes.
 \section{POV: Category Theory}
 %Composition of adjunctions
 We will start from the concept of an "adjunction" which, as we hope was made clear in the previous chapter, is ubiquitous and powerful throughout mathematics. However, we will start with a great oversimplification; we will assume the "categories" concerned are "posetal".
 
-An "adjunction" between "posets" is more commonly called a "Galois connection".
-\begin{defn}[Galois connection]
-    Let $(P, \leq)$ and $(Q, \sqsubseteq)$ be "posets". \AP A ""Galois connection"" between them is a pair of "order-preserving" functions $L: P \rightarrow Q$ and $R: Q \rightarrow P$ satisfying for any $p \in P$ and $q \in Q$, $L(p) \sqsubseteq q \iff p \leq R(q)$. 
-\end{defn}
-We are now interested in the "composition" $R\circ L$. It is also a "monotonic" function but the results about "adjoints" we have seen yield a couple of interesting properties. First, the existence of the "unit@@ADJ" $\eta: \id_P \Rightarrow RL$ means that for any $p \in P$, there is $\eta_p : p \rightarrow RL(p)$, so $RL$ is "extensive".\footnote{i.e.: $\forall p\in P, p\leq RL(p)$.} Second, the existence of the "counit" $\varepsilon: RL \Rightarrow \id_P$ means that for any $p \in P$, there is $R(\varepsilon_{L(p)}) : RLRL(p) \rightarrow RL(p)$ and $RL(\eta_p): RL(p) \rightarrow RLRL(p)$, so $RL$ is "idempotent" (i.e.: $\forall p \in P, RL(p) = RLRL(p)$). We say that $RL$ is a "closure operator".
-%Closure operator
-\begin{defn}[Closure operator]
-    \AP Let $(P, \leq)$ be a "poset", a ""closure operator"" on $P$ is a "monotone" "extensive" and "idempotent" function $c: P \rightarrow P$.
-\end{defn}
-\begin{exmp}
-    We can give a very simple example hinting at the origins of the terminology. Consider the real numbers $\R$ with the standard "topology".\footnote{This is the "topology" induced by the standard "metric" $d(x,y) := |x-y|$.} We know that $(\mP(\R), \subseteq)$ is a "poset" and we can define $c: \mP(\R) \rightarrow \mP(\R)$ sending $U\subseteq \R$ to its "closure" $c(U)$ in the topological sense as in $c(U)$ is the set of "limit points" of $U$. Then, you probably have seen that for any $U,V\subseteq \R$, $U\subseteq V \implies c(U) \subseteq c(V)$, $U \subseteq c(U)$ and $c(U) = c(c(U))$, thus operation of "closure" is a "closure operator".
-\end{exmp}
+An "adjunction" between "posets" $(P, \leq)$ and $(Q, \sqsubseteq)$ is a pair of "order-preserving" functions $L: P \rightarrow Q$ and $R: Q \rightarrow P$ satisfying for any $p \in P$ and $q \in Q$, $L(p) \sqsubseteq q \iff p \leq R(q)$. You might recognize this as a "Galois connection" from Chapter \ref{chap:prelim}, this explains the notation $L\adjoint R$ we introduced back then.
 
-We will generalize this discussion to arbitrary categories now. Let $L:\begin{tikzcd}[cramped,sep=small]
-	{\mathbf{C}} & {\mathbf{D}}
-	\arrow[from=1-1, to=1-2, shift left=1]
-	\arrow[from=1-2, to=1-1, shift left=1]
-\end{tikzcd}:R$ be an "adjoint pair" of "functors", we have two "natural transformations" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ and $R\varepsilon L : RLRL \Rightarrow RL$. Recall these may interact well together via the "zig-zag identities" that we reformulate in \eqref{diag-zigzagL} and \eqref{diag-zigzagR} and we add to those the "commutativity" diagram \eqref{diag-multadj} in the definition of $\varepsilon \diamond \varepsilon$.\\
-\begin{minipage}{0.33\textwidth}
-    \begin{equation}\label{diag-zigzagL}% https://q.uiver.app/?q=WzAsMyxbMCwwLCJMIl0sWzEsMCwiTFJMIl0sWzEsMSwiTCJdLFswLDEsIkxcXGV0YSIsMCx7ImxldmVsIjoyfV0sWzEsMiwiXFx2YXJlcHNpbG9uIEwiLDAseyJsZXZlbCI6Mn1dLFswLDIsIlxcb25lX0wiLDIseyJsZXZlbCI6Mn1dXQ==
+Let us derive again the properties of the composite $R \circ L$ using what we know about "adjoints".\footnote{Recall that we showed $R \circ L$ was a "closure operator" in Proposition \ref{prop:compgaloisisclosure}.}
+
+It is of course a "monotone" function but we can derive a couple of additional properties. First, the existence of the "unit@@ADJ" $\eta: \id_P \Rightarrow RL$ means that for any $p \in P$, there is $\eta_p : p \rightarrow RL(p)$, so $RL$ is "extensive".\footnote{i.e.: $\forall p\in P, p\leq RL(p)$.} Second, the existence of the "counit@@ADJ" $\varepsilon: RL \Rightarrow \id_P$ means that for any $p \in P$, there is $R(\varepsilon_{L(p)}) : RLRL(p) \rightarrow RL(p)$ and $RL(\eta_p): RL(p) \rightarrow RLRL(p)$, so $RL$ is "idempotent" (i.e.: $\forall p \in P, RL(p) = RLRL(p)$). This means $RL$ is a "closure operator".
+
+We will generalize this discussion to arbitrary categories now. Let $\mathbf{C}: L \adjoint R : \mathbf{D}$ be an "adjoint pair", we have two "natural transformations" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ and $R\varepsilon L : RLRL \Rightarrow RL$ that interact well together due to the "triangle identities". Applying $R(\placeholder)$ to \eqref{diag:triangleftadj} and $(\placeholder)L$ to \eqref{diag:triangrightadj} yields two diagrams that we combine into \eqref{diag:unitadjmonad}. We can add to the diagram coming from $\HOR(\varepsilon,\varepsilon)$ which act on by $R(\placeholder)L$ to obtain \eqref{diag:multadjmonad}.\\
+\begin{minipage}{0.49\textwidth}
+    \begin{equation}\label{diag:unitadjmonad}
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJSTCJdLFsxLDAsIlJMUkwiXSxbMSwxLCJSTCJdLFsyLDAsIlJMIl0sWzAsMSwiUkxcXGV0YSJdLFsxLDIsIlJcXHZhcmVwc2lsb24gTCIsMV0sWzAsMiwiXFxvbmVfe1JMfSIsMl0sWzMsMSwiXFxldGEgUkwiLDJdLFszLDIsIlxcb25lX3tSTH0iXV0=
         \begin{tikzcd}
-            {L} & {LRL} \\
-            & {L}
-            \arrow[Rightarrow, "{L\eta}", from=1-1, to=1-2]
-            \arrow[Rightarrow, "{\varepsilon L}", from=1-2, to=2-2]
-            \arrow[Rightarrow, "{\one_L}"', from=1-1, to=2-2]
+            RL & RLRL & RL \\
+            & RL
+            \arrow["RL\eta", from=1-1, to=1-2]
+            \arrow["{R\varepsilon L}"{description}, from=1-2, to=2-2]
+            \arrow["{\one_{RL}}"', from=1-1, to=2-2]
+            \arrow["{\eta RL}"', from=1-3, to=1-2]
+            \arrow["{\one_{RL}}", from=1-3, to=2-2]
         \end{tikzcd}
     \end{equation}
 \end{minipage}
-\begin{minipage}{0.33\textwidth}
-    \begin{equation}\label{diag-zigzagR}% https://q.uiver.app/?q=WzAsMyxbMSwwLCJSIl0sWzAsMCwiUkxSIl0sWzAsMSwiTCJdLFswLDEsIlxcZXRhIFIiLDIseyJsZXZlbCI6Mn1dLFsxLDIsIlJcXHZhcmVwc2lsb24iLDIseyJsZXZlbCI6Mn1dLFswLDIsIlxcb25lX0wiLDAseyJsZXZlbCI6Mn1dXQ==
+\begin{minipage}{0.49\textwidth}
+    \begin{equation}\label{diag:multadjmonad}% https://q.uiver.app/?q=WzAsNCxbMCwxLCJSTFJMIl0sWzEsMSwiUkwiXSxbMCwwLCJSTFJMUkwiXSxbMSwwLCJSTFJMIl0sWzAsMSwiUlxcdmFyZXBzaWxvbiBMIiwyXSxbMiwwLCJSTFJcXHZhcmVwc2lsb24gTCIsMl0sWzIsMywiUlxcdmFyZXBzaWxvbiBMUkwiXSxbMywxLCJSXFx2YXJlcHNpbG9uIEwiXV0=
         \begin{tikzcd}
-            {RLR} & {R} \\
-            {L}
-            \arrow[Rightarrow, "{\eta R}"', from=1-2, to=1-1]
-            \arrow[Rightarrow, "{R\varepsilon}"', from=1-1, to=2-1]
-            \arrow[Rightarrow, "{\one_L}", from=1-2, to=2-1]
-        \end{tikzcd}
-    \end{equation}
-\end{minipage}
-\begin{minipage}{0.33\textwidth}
-    \begin{equation}\label{diag-multadj}% https://q.uiver.app/?q=WzAsNCxbMCwwLCJMUkxSIl0sWzEsMCwiTFIiXSxbMSwxLCJcXGlkX0QiXSxbMCwxLCJMUiJdLFswLDEsIlxcdmFyZXBzaWxvbiBMUiIsMCx7ImxldmVsIjoyfV0sWzEsMiwiXFx2YXJlcHNpbG9uIiwwLHsibGV2ZWwiOjJ9XSxbMCwzLCJMUlxcdmFyZXBzaWxvbiIsMix7ImxldmVsIjoyfV0sWzMsMiwiXFx2YXJlcHNpbG9uIiwyLHsibGV2ZWwiOjJ9XV0=
-        \begin{tikzcd}
-            {LRLR} & {LR} \\
-            {LR} & {\id_D}
-            \arrow[Rightarrow, "{\varepsilon LR}", from=1-1, to=1-2]
-            \arrow[Rightarrow, "{\varepsilon}", from=1-2, to=2-2]
-            \arrow[Rightarrow, "{LR\varepsilon}"', from=1-1, to=2-1]
-            \arrow[Rightarrow, "{\varepsilon}"', from=2-1, to=2-2]
+            RLRLRL & RLRL \\
+            RLRL & RL
+            \arrow["{R\varepsilon L}"', from=2-1, to=2-2]
+            \arrow["{RLR\varepsilon L}"', from=1-1, to=2-1]
+            \arrow["{R\varepsilon LRL}", from=1-1, to=1-2]
+            \arrow["{R\varepsilon L}", from=1-2, to=2-2]
         \end{tikzcd}
     \end{equation}
 \end{minipage}\\
-With a bit of tinkering, we can make these diagrams all about the "functor" we are interested in, namely $RL$. Indeed, if we denote $M = RL$ and $\mu = R\varepsilon L$ before acting by $R$ on the right of \eqref{diag-zigzagL}, $L$ on the left of \eqref{diag-zigzagR} and $R(\cdot)L$ on \eqref{diag-multadj}, we obtain the definition of a "monad".  
+These diagrams are precisely what is required to define a "monad".
 %Def
 \begin{defn}[Monad]
-    \AP A ""monad"" is a triple comprised of an "endofunctor" $M: \mathbf{C} \rightsquigarrow \mathbf{C}$ and two "natural transformations" $\eta: \id_{\mathbf{C}}\Rightarrow M$ and $\mu: M^2 \Rightarrow M$ called the ""unit@@MND"" and ""multiplication@@MND"" respectively that make \eqref{diag-unitmonad} and \eqref{diag-multmonad} "commute" in $[\mathbf{C},\mathbf{C}]$.\\
-    \begin{minipage}{0.48\textwidth}
-        \begin{equation}\label{diag-unitmonad}
+    \AP A ""monad"" is a triple comprised of an "endofunctor" $M: \mathbf{C} \rightsquigarrow \mathbf{C}$ and two "natural transformations" $\eta: \id_{\mathbf{C}}\Rightarrow M$ and $\mu: M^2 \Rightarrow M$ called the ""unit@@MND"" and ""multiplication@@MND"" respectively that make \eqref{diag:unitmonad} and \eqref{diag:multmonad} "commute" in $[\mathbf{C},\mathbf{C}]$.\\
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:unitmonad}% https://q.uiver.app/?q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiTV4yIl0sWzEsMSwiTSJdLFsyLDAsIk0iXSxbMCwxLCJNXFxldGEiXSxbMSwyLCJcXG11IiwxXSxbMCwyLCJcXG9uZV97TX0iLDJdLFszLDEsIlxcZXRhIE0iLDJdLFszLDIsIlxcb25lX3tNfSJdXQ==
             \begin{tikzcd}
-                M \arrow[rd, Rightarrow, "\one_M"'] \arrow[r, Rightarrow, "M\eta"] & M^2 \arrow[d, Rightarrow, "\mu"] & M \arrow[ld, Rightarrow, "\one_M"] \arrow[l, Rightarrow, "\eta M"'] \\ & M &
+                M & {M^2} & M \\
+                & M
+                \arrow["M\eta", from=1-1, to=1-2]
+                \arrow["\mu"{description}, from=1-2, to=2-2]
+                \arrow["{\one_{M}}"', from=1-1, to=2-2]
+                \arrow["{\eta M}"', from=1-3, to=1-2]
+                \arrow["{\one_{M}}", from=1-3, to=2-2]
             \end{tikzcd}
         \end{equation}
     \end{minipage}
-    \begin{minipage}{0.48\textwidth}
-        \begin{equation}\label{diag-multmonad}
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:multmonad}% https://q.uiver.app/?q=WzAsNCxbMCwxLCJNXjIiXSxbMSwxLCJNIl0sWzAsMCwiTV4zIl0sWzEsMCwiTV4yIl0sWzAsMSwiXFxtdSIsMl0sWzIsMCwiTVxcbXUiLDJdLFsyLDMsIlxcbXUgTSJdLFszLDEsIlxcbXUiXV0=
             \begin{tikzcd}
-                M^3 \arrow[d, Rightarrow, "\mu M"'] \arrow[r, Rightarrow, "M\mu"] & M^2 \arrow[d, Rightarrow, "\mu"] \\
-                M^2 \arrow[r, Rightarrow, "\mu"'] & M
+                {M^3} & {M^2} \\
+                {M^2} & M
+                \arrow["\mu"', from=2-1, to=2-2]
+                \arrow["M\mu"', from=1-1, to=2-1]
+                \arrow["{\mu M}", from=1-1, to=1-2]
+                \arrow["\mu", from=1-2, to=2-2]
             \end{tikzcd}
         \end{equation}
-    \end{minipage}
+    \end{minipage}\\
 \end{defn}
-\begin{exmps}\label{exmp-monads}
-    Our discussion above tells us that any "adjoint pair" $L\dashv R$ corresponds to a "monad" $(RL, \eta, R\varepsilon L)$, so all the examples of "adjunctions" you have seen correspond to suitable examples of "monads". For instance, all "closure operators" are "monads". Here, we describe three simple yet very useful examples and let you ponder on the "adjunctions" they might or might not originate from.
+\begin{exmps}\label{exmp:monadsfromadjunctions}
+    %TODO: more details on examples from adjunctions,.
+    Our discussion above tells us that any "adjoint pair" $L\adjoint R$ corresponds to a "monad" $(RL, \eta, R\varepsilon L)$, so all the examples of "adjunctions" you have seen correspond to suitable examples of "monads". For instance, all "closure operators" are "monads". Here are more examples described from "adjunctions" in Chapter \ref{chap:adjoints}.
     \begin{enumerate}
-        \item Suppose $\mathbf{C}$ has (binary) "coproducts" and a "terminal" "object" $\terminal$, then $(\cdot + \terminal): \mathbf{C} \rightsquigarrow \mathbf{C}$ is a "monad". We write $\inl^{X+Y}$ (resp. $\inr^{X+Y}$) for the "coprojection" of $X$ (resp. $Y$) into $X+Y$. First, note that for a "morphism" $f: X \rightarrow Y$, \[f+\terminal = [\inl^{Y+\terminal} \circ f, \inr^{Y+\terminal}]: X+ \terminal \rightarrow Y + \terminal.\]
-        The "components" of the "unit@@MND" are given by the "coprojections", i.e.: $\eta_X = \inl^{X+\terminal} : X \rightarrow X+ \terminal$, and the "components" of the "multiplication@@MND" are \[\mu_X = [\inl^{X+\terminal}, \inr^{X+\terminal}, \inr^{X+\terminal}]: X+ \terminal + \terminal \rightarrow X + \terminal.\]
-        Checking that \eqref{diag-unitmonad} "commutes", we have for any $X \in \mathbf{C}$:%TODO: justifications
+        \item The "adjunction" $\catSet: \freemon{(\placeholder)}\adjoint U: \catMon$ yields the "free monoid" "monad" abusively denoted $\freemon{(\placeholder)}: \catSet \rightsquigarrow \catSet$ sending a set $A$ to the underlying set of the "free monoid" on $A$. The "unit@@MND" sends $a\in A$ to the word $a \in \freemon{A}$ by inclusion and the "multiplication@@MND" sends a finite word over finite words over $A$ to the concatenation of the words.\footnote{e.g.: it sends $(\mathtt{a}\mathtt{a})(\mathtt{a}\mathtt{b})(\mathtt{b}\mathtt{b})$ to $\mathtt{aaabbb}$.}
+        \item Similarly to the previous example, there is "monad" $k[\placeholder]$ on $\catSet$ sending $A$ to the underlying set of the "vector space" $k[A]$.\footnote{We leave you to figure out the "unit@@MND" and "multiplication@@MND" depending on your preferred way to construct $k[A]$ (either as polynomials over variables in $A$ or functions from $A$ to $k$).}%TODO: describe unit and multiplication depending on how you define $k[A]$.
+        \item %TODO: exponential and product.
+        \item Both "adjunctions" with the "forgetful" "functor" $\catTop \rightsquigarrow \catSet$ induce the identity "monad".
+    \end{enumerate}
+\end{exmps}
+\begin{exmps}\label{exmp:monads} Here, we describe three simple yet very useful examples and let you ponder on the "adjunctions" they might or might not originate from.%TODO: superscript for unit and multiplication
+    \begin{enumerate}
+        \item Suppose $\mathbf{C}$ has (binary) "coproducts" and a "terminal" "object" $\terminal$, then $(\placeholder\coproduct\terminal): \mathbf{C} \rightsquigarrow \mathbf{C}$ is a "monad".\footnote{\AP It is called the ""maybe monad"". It is a generalization of the "maybe functor" defined in Exercise \ref{exer:limits:maybefunctor} and you may want to generalize the "adjunction" described in Example \ref{exmp:maybefunctoradj} to this setting before going to the next section.} We write $\intro*\inl^{X+Y}$ (resp. $\intro*\inr^{X+Y}$) for the "coprojection" of $X$ (resp. $Y$) into $X+Y$.\footnote{These notations are very common in the community of programming language research, they stand for \textit{injection left} (resp. \textit{right}). We may omit the superscript in case it is too cumbersome.} First, note that for a "morphism" $f: X \rightarrow Y$, \[f\coproduct\terminal = [\inl^{Y\coproduct\terminal} \circ f, \inr^{Y\coproduct\terminal}]: X+ \terminal \rightarrow Y + \terminal.\]
+        The "components" of the "unit@@MND" are given by the "coprojections", i.e.: $\eta_X = \inl^{X\coproduct\terminal} : X \rightarrow X+ \terminal$, and the "components" of the "multiplication@@MND" are \[\mu_X = [\inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}]: X+ \terminal + \terminal \rightarrow X + \terminal.\]
+        Checking that \eqref{diag:unitmonad} "commutes", we have for any $X \in \mathbf{C}$:%TODO: justifications
         \begin{align*}
-            \mu_X \circ (\eta_X+\terminal) &= [\mu_X \circ \inl^{(X+\terminal)+\terminal} \circ \eta_X, \mu_X \circ \inr^{(X+\terminal)+\terminal}]\\
-            &= [[\inl^{X+\terminal}, \inr^{X+\terminal}] \circ \inl^{X+\terminal}, \inr^{X+\terminal}]\\
-            &= [\inl^{X+\terminal}, \inr^{X+\terminal}]\\
-            &= \id_{X+\terminal}\\
-            &= [\inl^{X+\terminal}, \inr^{X+\terminal}]\\
-            &= \mu_X \circ \inl^{(X+\terminal)+\terminal}\\
-            &= \mu_X \circ \eta_{X+\terminal}
+            \mu_X \circ (\eta_X\coproduct\terminal) &= [\mu_X \circ \inl^{(X\coproduct\terminal)\coproduct\terminal} \circ \eta_X, \mu_X \circ \inr^{(X\coproduct\terminal)\coproduct\terminal}]\\
+            &= [[\inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}] \circ \inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}]\\
+            &= [\inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}]\\
+            &= \id_{X\coproduct\terminal}\\
+            &= [\inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}]\\
+            &= \mu_X \circ \inl^{(X\coproduct\terminal)\coproduct\terminal}\\
+            &= \mu_X \circ \eta_{X\coproduct\terminal}
         \end{align*}
-        For \eqref{diag-multmonad}, we have for any $X\in \mathbf{C}$: %TODO: justifications.
+        For \eqref{diag:multmonad}, we have for any $X\in \mathbf{C}$: %TODO: justifications.
         \begin{align*}
-            \mu_X \circ (\mu_X+\terminal) &= [\mu_X \circ \inl^{(X+\terminal)+\terminal} \circ \mu_X, \mu_X \circ \inr^{(X+\terminal)+\terminal}]\\
-            &= [[\inl^{X+\terminal}, \inr^{X+\terminal}] \circ \mu_X, \inr^{X+\terminal}]\\
-            &= [[\inl^{X+\terminal}, \inr^{X+\terminal}, \inr^{X+\terminal}], \inr^{X+\terminal}]\\
-            &= [\mu_X, \inr^{X+\terminal}]\\
-            &= [[\inl^{X+\terminal}, \inr^{X+\terminal}], \inr^{X+\terminal}, \inr^{X+\terminal}]\\
-            &= [\mu_X \circ \inl^{(X+\terminal)+\terminal}, \mu_X \circ \inr^{(X+\terminal)+\terminal}, \mu_X \circ \inr^{(X+\terminal)+\terminal}]\\
-            &= \mu_X \circ \mu_{X+\terminal}
+            \mu_X \circ (\mu_X\coproduct\terminal) &= [\mu_X \circ \inl^{(X\coproduct\terminal)\coproduct\terminal} \circ \mu_X, \mu_X \circ \inr^{(X\coproduct\terminal)\coproduct\terminal}]\\
+            &= [[\inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}] \circ \mu_X, \inr^{X\coproduct\terminal}]\\
+            &= [[\inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}], \inr^{X\coproduct\terminal}]\\
+            &= [\mu_X, \inr^{X\coproduct\terminal}]\\
+            &= [[\inl^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}], \inr^{X\coproduct\terminal}, \inr^{X\coproduct\terminal}]\\
+            &= [\mu_X \circ \inl^{(X\coproduct\terminal)\coproduct\terminal}, \mu_X \circ \inr^{(X\coproduct\terminal)\coproduct\terminal}, \mu_X \circ \inr^{(X\coproduct\terminal)\coproduct\terminal}]\\
+            &= \mu_X \circ \mu_{X\coproduct\terminal}
         \end{align*}
-        \item The "covariant" "powerset" "functor" $\mP:\catSet\rightsquigarrow \catSet$ is a monad with the following unit and multiplication:
+        \item The "covariant" "powerset" "functor" $\mP:\catSet\rightsquigarrow \catSet$ is a "monad" with the following "unit@@MND" and "multiplication@@MND":
         \[ \eta_X: X \rightarrow \mP(X) = x \mapsto \{x\} \text{ and } \mu_X: \mP(\mP(X)) \rightarrow \mP(X) = F \mapsto \bigcup_{s \in F} s.\]
-        Checking that \eqref{diag-unitmonad}, we have for any $S \subseteq \mP(X)$,
+        Checking that \eqref{diag:unitmonad} "commutes", we have for any $S \subseteq \mP(X)$:
         \begin{align*}
             \mu_X(\mP(\eta_X)(S)) &= \mu_X\left( \{\{x\} \mid x \in S\} \right)\\
             &= \bigcup_{x \in S} \{x\}\\
@@ -114,7 +115,7 @@ With a bit of tinkering, we can make these diagrams all about the "functor" we a
             &= \mu_X(\{S\})\\
             &= \mu_X(\eta_{\mP(X)}(S))
         \end{align*}
-        Checking that \eqref{diag-multmonad} commutes, we have for any $\mathcal{F} \in \mP(\mP(\mP(X))$,
+        For \eqref{diag:multmonad}, we have for any $\mathcal{F} \in \mP(\mP(\mP(X))$:
         \begin{align*}
             \mu_X(\mu_{\mP(X)}(\mathcal{F})) &= \mu_X\left( \bigcup_{F \in \mathcal{F}} F \right)\\
             &= \bigcup_{\substack{s\in \mP(X)\\\exists F \in \mathcal{F}, s \in F}} s\\
@@ -123,7 +124,8 @@ With a bit of tinkering, we can make these diagrams all about the "functor" we a
             &= \mu_X\left( \left\{ \bigcup_{s \in F} s \mid F \in \mathcal{F}\right\} \right)\\
             &= \mu_X(\mP(\mu_X)(\mathcal{F}))
         \end{align*}
-        \item\label{exmp-distmonad} The functor $\mathcal{D}: \catSet \rightarrow \catSet$ sends a set $X$ to the set of finitely supported distributions on $X$, i.e.:
+        \item\label{exmp:distmonad}%TODO:continue this put the definition of the functor in first chapter.
+        The functor $\mathcal{D}: \catSet \rightarrow \catSet$ sends a set $X$ to the set of finitely supported distributions on $X$, i.e.:
         \[\mathcal{D}(X) := \{\varphi \in [0,1]^X \mid \sum_{x \in X} \varphi(x) = 1 \text{ and } \varphi(x) \neq 0 \text{ for finitely many $x$'s}\}.\]
         It sends a function $f: X \rightarrow Y$ to the function between distributions \[\lambda \varphi^{\mathcal{D}(X)}. \lambda y^{Y}. \varphi(f^{-1}(y)).\]
         More verbosely, the weight of $\mathcal{D}(f)(\varphi)$ at point $y$ is equal to the total weight of $\varphi$ on the preimage of $y$ under $f$. It is a monad with unit $\eta_X = x \mapsto \delta_x$, where $\delta_x$ is the Dirac distribution at $x$ (all the weight is at $x$), and multiplication 
@@ -133,74 +135,146 @@ With a bit of tinkering, we can make these diagrams all about the "functor" we a
 \end{exmps}
 
 %Monad -> adjunctions
-After looking long enough for adjunctions giving rise to the monads in Example \ref{exmp-monads}, two questions dare to be asked. Does every monad arise from an adjunction? If yes, is that adjunction unique?
+After looking long enough for "adjunctions" giving rise to the "monads" in Examples \ref{exmp:monads}, two questions dare to be asked. Does every "monad" arise from an "adjunction" in the same way as above? If yes, is that "adjunction" unique?
 
-The second question might not be as natural to novices in category theory but it is almost as important as the first one. Indeed, uniqueness is a very strong property and if every monad had a unique corresponding adjunction, one might expect it to be fairly easy to find. This is part of the beauty of category theory. We are working with very little data $M$, $\eta$ and $\mu$ so if it completely determined an adjunction $L$, $R$ and $\Hom(L(-), -) \cong \Hom(-,R(-))$, it could not do so in a very convoluted way merely because there is not that many ways to manipulated the original data.
+The second question might not be as natural to novices in category theory but it is almost as important as the first one. Indeed, uniqueness is a very strong property and if every "monad" had a unique corresponding "adjunction", one might expect it to be fairly easy to find. This is part of the beauty of category theory. We are working with very little data $M$, $\eta$ and $\mu$ so if it completely determined an "adjunction" $L \adjoint R$ with its "unit@@ADJ" and "counit@@ADJ" and the "natural isomorphism" $\Hom(L\placeholder,\placeholder) \isoCAT \Hom(\placeholder,R\placeholder)$, it could not do so in a very convoluted way merely because there is not that many ways to manipulate the original data.
 
-In any case, we will respectively give a positive and negative answer to these questions. Fortunately, while we might not benefit from the power of uniqueness, there are two special adjunctions arising from a monad whose descriptions are fairly straightforward. In the order we present them, the first is due to Kleisli and the second to Eilenberg and Moore. In the rest of this section, $(M, \eta, \mu)$ will be a monad on a category $\mathbf{C}$.
-\subsection{Kleisli Category $\mathbf{C}_M$}
-An intuitive way to think about monads is through \textit{generalized elements}. Given an object $A \in \mathbf{C}_0$, we can view $MA$ as extending $A$ with more general or structured elements built from $A$.
+%TODO: next best thing to uniqueness is universality.
+In any case, we will respectively give a positive and negative answer to these questions. Fortunately, while we might not benefit from the power of uniqueness, there are two special "adjunctions" arising from a "monad" whose descriptions are fairly straightforward. In the order we present them, the first is due to Kleisli and the second to Eilenberg and Moore. In the rest of this section, $(M, \eta, \mu)$ will be a "monad" on a "category" $\mathbf{C}$.
+\subsection{Kleisli Category $\KL{\mathbf{C}}{M}$}
+\AP An intuitive way to think about "monads" is through the idea of ""generalized elements"".\footnote{This is not a formal term.} Given an object $A \in \obj{\mathbf{C}}$, we can view $MA$ as extending $A$ with more \textit{general} or \textit{structured} elements built from $A$.
 
-In this picture, the morphisms $\eta_A: A \rightarrow MA$ give a way to understand anything inside $A$ trivially as a general element of $A$. The morphisms $\mu_A : M^2A \rightarrow MA$ imply that higher order structures can collapsed so that generalized elements over generalized elements of $A$ are generalized elements of $A$. The functoriality of $M$ implies that the new structures in $MA$ are somewhat independent of $A$. Indeed, for every morphisms $f: A \rightarrow B$, there is a morphism $Mf: MA \rightarrow MB$ which, by naturality of $\eta$ ($Mf(\eta_A(-)) = \eta_B(f(-))$), acts just like $f$ on the trivial generalization of elements in $A$. Commutativity of \eqref{diag-unitmonad} says that the trivial generalization (there are two ways to do it) of a generalized element is indeed trivial as after collapsing via $\mu$, we end up with what we started with. Finally, the associativity of $\mu$ (i.e.: commutativity of \eqref{diag-multmonad}) corresponds to the fact that in higher order of generalizations, one can collapse the structure at every level in any order and end up with the same thing.
+In this picture, the "morphisms" $\eta_A: A \rightarrow MA$ give a way to understand anything inside $A$ trivially as a "general element" of $A$. The "morphisms" $\mu_A : M^2A \rightarrow MA$ imply that higher order structures can be collapsed so that "generalized elements" over "generalized elements" of $A$ are "generalized elements" of $A$. The "functoriality" of $M$ implies that the new structures in $MA$ are somewhat independent of $A$. Indeed, for every "morphisms" $f: A \rightarrow B$, there is a "morphism" $Mf: MA \rightarrow MB$ which, by "naturality" of $\eta$ ($Mf(\eta_A) = \eta_B(f)$), acts just like $f$ on the trivial generalization of elements in $A$. "Commutativity" of \eqref{diag:unitmonad} says that the trivial generalization\footnote{There are two ways to do it corresponding to the L.H.S. and R.H.S. of \eqref{diag:unitmonad}.} of a "generalized element" is indeed trivial, namely, after collapsing via $\mu$, we end up with what we started with. Finally, the associativity of $\mu$ (i.e.: "commutativity" of \eqref{diag:multmonad}) corresponds to the fact that in higher order of generalizations, one can collapse the structure at every level in any order and end up with the same thing.
 
-Now, we can also consider \textit{generalized morphisms}. Let us say we were given an ill-defined morphism $f: A \rightarrow B$ that sends some of the stuff in $A$ outside of $B$. One way to fix this might be to consider general elements of $B$ and see $f$ as a morphism $A \rightarrow MB$. We will call such morphisms \textbf{Kleisli morphisms} and write $f:A \rightarrow MB$ or $f: A \nrightarrow B$.
+Now, we can also consider \textbf{"generalized morphisms"}. Let us say we were given an ill-defined "morphism" $f: A \rightarrow B$ that sends some of the stuff in $A$ outside of $B$. One way to fix this might be to consider "general elements" of $B$ and see $f$ as a "morphism" $A \rightarrow MB$. \AP We will call such "morphisms" ""Kleisli morphisms"" and write $f: A \kmor B$ for $f:A \rightarrow MB$.\footnote{Another common notation for "Kleisli morphisms" is $f: A \rightsquigarrow B$ but this clashes with our notation for "functors".}
 
-With an arbitrary functor $F$, you might have a hard time to come up with a way to compose them Kleisli morphisms $A \rightarrow FB$ and $B \rightarrow FC$ or define the identity Kleisli morphism $A \rightarrow FA$, but the data of a monad lets you do just that. We end up with the category $\mathbf{C}_M$.
-\begin{defn}[$\mathbf{C}_M$]
-    Let $\mathbf{C}$ be a category and $(M,\eta, \mu)$ a monad on $\mathbf{C}$. The \textbf{Kleisli category} of $M$, denoted $\mathbf{C}_M$ has objects $\mathbf{C}_0$ and morphisms $f: A \rightarrow MB \in \mathbf{C}_1$. The identity for $A$ is $\eta_A:A \rightarrow MA$ and composition is given by \[g \circ_M f = \mu_C \circ Mg \circ f: A \nrightarrow C,\] where $f: A \nrightarrow B$ and $g: B \nrightarrow C$.
+With an arbitrary functor $F$, you might have a hard time to come up with a way to "compose" two Kleisli morphisms $A \rightarrow FB$ and $B \rightarrow FC$ or even define the "identity" "Kleisli morphism" $A \rightarrow FA$, but the data of a "monad" lets you do just that. Indeed, given $f: A \kmor B$ and $g: B \kmor C$, while $g$ is not "composable" with $f$, $Mg$ is so we have $Mg \circ f : A \rightarrow MMC$ and it suffices to apply the multiplication $\mu_C$ to obtain $\mu_C \circ Mg \circ f : A \kmor C$. \AP We denote $g \klcomp{M} f := \mu_C \circ Mg \circ f$ and call it the ""Kleisli composition"". Also, for any $A \in \obj{\mathbf{C}}$,the "component" of the "unit@@MND" at $A$ yields "Kleisli morphism" $\eta_A: A \kmor A$. Let us check that $\klcomp{M}$ is associative and that $\eta_A$ behaves like the "identity" with respect to $\klcomp{M}$.
+
+Let $f: A \kmor B$, $g: B \kmor C$ and $h: C \kmor D$ be "Kleisli morphisms", the "compositions" $h \klcomp{M} (g \klcomp{M} f)$ and $(h \klcomp{M} g) \klcomp{M} f$ are respectively the bottom and top "path" of the following "commutative" diagram, so we conclude that $\klcomp{M}$ is associative.\marginnote[4\baselineskip]{Showing \eqref{diag:kleislicompassoc} "commutes":\begin{enumerate}[(a)]
+    \item Trivial.
+    \item $\NAT(\mu,C,MD,h)$.
+    \item "Components" of \eqref{diag:multmonad} at $D$.
+\end{enumerate}}
+\begin{equation}\label{diag:kleislicompassoc}
+    % https://q.uiver.app/?q=WzAsMTAsWzAsMCwiQSJdLFswLDEsIk1CIl0sWzAsMiwiTU1DIl0sWzAsNCwiTUMiXSxbMSw0LCJNTUQiXSxbMiw0LCJNRCJdLFsyLDAsIk1CIl0sWzIsMSwiTU1DIl0sWzIsMiwiTU1NRCJdLFsyLDMsIk1NRCJdLFswLDEsImYiXSxbMSwyLCJNZyJdLFsyLDMsIlxcbXVfQyJdLFszLDQsIk1oIiwyXSxbNCw1LCJcXG11X0QiLDJdLFswLDYsImYiXSxbNiw3LCJNZyIsMl0sWzcsOCwiTU1oIiwyXSxbOCw5LCJNXFxtdV9EIiwxXSxbOSw1LCJcXG11X0QiXSxbNiw5LCJNKGggXFxrbGNvbXAgZykiLDAseyJjdXJ2ZSI6LTV9XSxbMCwzLCJnIFxca2xjb21wIGYiLDIseyJjdXJ2ZSI6M31dLFs4LDQsIlxcbXVfe01EfSIsMl0sWzIsOCwiTU1oIl0sWzE1LDIzLCJcXHRleHR7KGEpfSIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyMywxMywiXFx0ZXh0eyhiKX0iLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMjIsNSwiXFx0ZXh0eyhjKX0iLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+        \begin{tikzcd}
+            A && MB \\
+            MB && MMC \\
+            MMC && MMMD \\
+            && MMD \\
+            MC & MMD & MD
+            \arrow["f", from=1-1, to=2-1]
+            \arrow["Mg", from=2-1, to=3-1]
+            \arrow["{\mu_C}", from=3-1, to=5-1]
+            \arrow[""{name=0, anchor=center, inner sep=0}, "Mh"', from=5-1, to=5-2]
+            \arrow["{\mu_D}"', from=5-2, to=5-3]
+            \arrow[""{name=1, anchor=center, inner sep=0}, "f", from=1-1, to=1-3]
+            \arrow["Mg"', from=1-3, to=2-3]
+            \arrow["MMh"', from=2-3, to=3-3]
+            \arrow["{M\mu_D}"{description}, from=3-3, to=4-3]
+            \arrow["{\mu_D}", from=4-3, to=5-3]
+            \arrow["{M(h \klcomp{M} g)}", curve={height=-30pt}, from=1-3, to=4-3]
+            \arrow["{g \klcomp{M} f}"', curve={height=22pt}, from=1-1, to=5-1]
+            \arrow[""{name=2, anchor=center, inner sep=0}, "{\mu_{MD}}"', from=3-3, to=5-2]
+            \arrow[""{name=3, anchor=center, inner sep=0}, "MMh", from=3-1, to=3-3]
+            \arrow["{\text{(a)}}"{description}, Rightarrow, draw=none, from=1, to=3]
+            \arrow["{\text{(b)}}"{description}, Rightarrow, draw=none, from=3, to=0]
+            \arrow["{\text{(c)}}"{description}, Rightarrow, draw=none, from=2, to=5-3]
+        \end{tikzcd}
+\end{equation}
+We show that $\eta_B \klcomp{M} f = f$ and $f \klcomp{M} \eta_A = f$ with the following derivations.\\%TODO: better formatting?
+\begin{minipage}{0.49\textwidth}
+    \begin{align*}
+        \eta_B \klcomp{M} f &= \mu_B \circ M\eta_B \circ f\\
+        \text{by L.H.S. of \eqref{diag:unitmonad}} &= \id_{MB} \circ f\\
+        &= f
+    \end{align*}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}\begin{align*}
+    f \klcomp{M} \eta_A&= \mu_B \circ Mf \circ \eta_A\\
+    \text{by } \NAT(\eta,A,MB,f)&= \mu_B \circ \eta_{MB} \circ f \\
+    \text{by R.H.S. of \eqref{diag:unitmonad}}&= \id_{MB} \circ f\\
+    &= f
+\end{align*}
+\end{minipage}\\
+This leads to the definition of the "category" $\KL{\mathbf{C}}{M}$.\footnote{Notice that we had to use all the data from the "monad": the "naturality" of $\eta$ and $\mu$, the "commutativity" of both diagrams \eqref{diag:unitmonad} and \eqref{diag:multmonad} as well as "functoriality" of $M$ (the latter was used implicitly).}
+\begin{defn}[$\KL{\mathbf{C}}{M}$]
+    Let $\mathbf{C}$ be a "category" and $(M,\eta, \mu)$ a "monad" on $\mathbf{C}$. \AP The ""Kleisli category"" of $M$, denoted $\KL{\mathbf{C}}{M}$\footnote{Some authors denote it $\mathrm{Kl}(M)$.}, has the same "objects" as $\mathbf{C}$ and the "morphisms" in $\Hom_{\KL{\mathbf{C}}{M}}(A,B)$ are the elements of $\Hom_{\mathbf{C}}(A,MB)$. The "identity" for $A \in \obj{\mathbf{C}}$ is $\eta_A:A \rightarrow MA$ and "composition" is $\klcomp{M}$.
 \end{defn}
-Checking that this is indeed a category is left as an exercise and you should remark that it requires using all the properties $M$, $\eta$ and $\mu$ satisfy.
+\begin{exmps}
+    We describe the "Kleisli category" for the "monads" in Examples \ref{exmp:monads}.
+    \begin{enumerate}
+        \item By identifying a "Kleisli morphism" $f: A \kmor B$ with a "partial" function $A \pfun B$ as we did in Example \ref{exmps:equiveasy}.\ref{exmp:partialpointed}, we can show that $\KL{\catSet}{\placeholder\coproduct\terminal} \isoCAT \catPar$.
+        %TODO: kleisli of maybe monad on set is partial functions.
+        \item In $\KL{\catSet}{\mP}$, "objects" are sets and "morphisms" are functions $r: X \rightarrow \mP(Y)$. Viewing the latter as a relation $R\subseteq X\times Y$ defined by $(x,y) \in R \Leftrightarrow y \in r(x)$, we can verify that "composition" of relations corresponds to "Kleisli composition" in $\KL{\catSet}{\mP}$.\footnote{"Composition" of relations was defined in Example \ref{exmp:catRel}.}
+        
+        Let $r: X \rightarrow \mP(Y)$ and $s: Y \rightarrow \mP(Z)$ be "Kleisli morphisms", $R$, $S$ and $SR$ be the relations corresponding to $r$, $s$ and $s \klcomp{\mP} r$. We need to show $SR = S \circ R$. Fix $x \in X$, we have 
+        \[(s\klcomp{\mP} r)(x) = (\mu^{\mP}_Z \circ \mP(s) \circ r)(x) = \bigcup \mP(s)(r(x)) = \left\{ z \in Z \mid \exists y \in r(x), z \in s(y) \right\}.\]
+        Since $y \in r(x) \Leftrightarrow (x,y) \in R$ and $z \in s(y) \Leftrightarrow (y,z) \in S$, we conclude that \[(x,z) \in SR \Leftrightarrow z \in (s\klcomp{\mP} r)(x) \Leftrightarrow (x,z) \in S \circ R.\]
+        After a bit more administrative arguments, one finds that $\KL{\catSet}{\mP} \isoCAT \catRel$.
+        \item %TODO: kleisli of distributions is markov kernels, kind of probabilistic relations.
+    \end{enumerate}
+\end{exmps}
+Since we can view any "object" of $\mathbf{C}$ as an "object" of $\KL{\mathbf{C}}{M}$, we may wonder if we can do the same with "morphisms" to obtain a "functor" $\mathbf{C} \rightsquigarrow \KL{\mathbf{C}}{M}$. The key idea is to view $f:A \rightarrow B$ as a "generalized morphism" by trivially generalizing its target, that is, by "post-composing" with $\eta_B$. We claim that $\KLF{M}: \mathbf{C} \rightsquigarrow \KL{\mathbf{C}}{M}$ acting as identity on "objects" and "post-composing" by "components" of $\eta$ on "morphisms" is a "functor".\footnote{Explicitly, for any $A \in \obj{\mathbf{C}}$, $\KLF{M}(A) = A$ and for any $f: A \rightarrow B$, $\KLF{M}(f) = \eta_B \circ f$.} Indeed, $\KLF{M}(\id_A) = \eta_A$ is the "identity" on $A$ in $\KL{\mathbf{C}}{M}$ and \begin{align*}
+    \KLF{M}(g \circ f) &= \eta_C \circ g \circ f\\
+    &= Mg \circ \eta_B \circ f&&\NAT(\eta,B,C,g)\\
+    &= Mg \circ \mu_B \circ M(\eta_B) \circ \eta_B \circ f&&\text{by \eqref{diag:unitmonad}}\\
+    &= \mu_C \circ MMg \circ M(\eta_B) \circ \eta_B \circ f &&\NAT(\mu,B,C,g)\\
+    &= \mu_C \circ M(\eta_C) \circ Mg \circ \eta_B \circ f &&M\NAT(\eta,B,C,g)\\
+    &= \KLF{M}(g) \klcomp{M} \KLF{M}(f).&&\text{def. of $\klcomp{M}$}
+\end{align*}
 
-As we have constructed $\mathbf{C}_M$ with objects and morphisms in $\mathbf{C}$, we would like to describe a forgetful functor $U_M: \mathbf{C}_M \rightsquigarrow \mathbf{C}$. A first guess to send objects $A$ to themselves will fail when it is time to defining the action of $U_M$ on morphisms for $f: A \nrightarrow B$ can send some stuff into generalized elements of $B$, and we have no way to get this back into $B$. Instead, we need to generalize everything before going into $\mathbf{C}$, namely, $U_M(A) = MA$ and $U_Mf = \mu_B \circ Mf : MA \rightarrow MB$.
-
-We can check that for any $A$, $U_M(\eta_A) = \mu_A \circ M(\eta_A) \stackrel{\eqref{diag-unitmonad}}{=} \id_A$ and for any for any $f: A \nrightarrow B$ and $g: B \nrightarrow C$,
+We will now construct a "right adjoint" $\KLU{M}: \KL{\mathbf{C}}{M} \rightsquigarrow \mathbf{C}$ to $\KLF{M}$. Given $A$ and $B$ "objects" of both $\mathbf{C}$ and $\KL{\mathbf{C}}{M}$, the "Kleisli morphisms" from $\KLF{M}A$ to $B$ are precisely the "morphisms" in $\mathbf{C}$ from $A$ to $MB$, thus we infer that the identity function is an "isomorphism@@CAT" $\Hom_{\KL{\mathbf{C}}{M}}(\KLF{M}A,B) \isoCAT \Hom_{\mathbf{C}}(A,MB)$. This implies $\KLU{M}$ sends $B$ to $MB$ and we can define $\KLU{M}$ on "morphisms" by imposing the "naturality" of the aforementioned "isomorphism@@CAT". Given $g: A \kmor B$, starting with $\eta_A$ on the top left of \eqref{diag:def\KLU{M}morph}, we find that $\KLU{M}g \circ \eta_A = g$ which implies $\KLU{M}g = \mu_B \circ Mg$.\footnote{This implication is subtle. While it is true that we do not yet know if another $f$ satisfies $f \circ \eta_A = g$. Once we know (in a few moments) defining $\KLU{M}g = \mu_B \circ Mg$ yields an "adjunction" $\KLF{M} \adjoint \KLU{M}$ whose "unit@@ADJ" is $\eta$, we know that $\eta_A$ is "universal" and uniqueness of $\KLU{M}g$ follows.}
+%TODO: maybe this is faster: This implication is not straightforward. Suppose $g = f \circ \eta_A$, then apply $M$ and "post-compose" by $\mu_B$ to obtain \begin{align*}
+    % \mu_B \circ Mg &= \mu_B \circ Mf \circ M\eta_A\\
+    % &= \mu_B \circ 
+\begin{equation}\label{diag:def\KLU{M}morph}
+    % https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsTUEpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0N9X019KEEsQSkiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q31fTX0oQSxCKSJdLFsxLDEsIlxcSG9tX3tcXG1hdGhiZntDfX0oQSxNQikiXSxbMSwwLCJcXGlkIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzEsMiwiZyBcXGtsY29tcHtNfSAoLSkiLDJdLFswLDMsIlVfTWcgXFxjaXJjICgtKSJdLFsyLDMsIlxcaWQiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XV0=
+    \begin{tikzcd}
+        {\Hom_{\mathbf{C}_M}(A,A)} & {\Hom_{\mathbf{C}}(A,MA)} \\
+        {\Hom_{\mathbf{C}_M}(A,B)} & {\Hom_{\mathbf{C}}(A,MB)}
+        \arrow["\id", tail reversed, from=1-1, to=1-2]
+        \arrow["{g \klcomp{M} (-)}"', from=1-1, to=2-1]
+        \arrow["{\KLU{M}g \circ (-)}", from=1-2, to=2-2]
+        \arrow["\id"', tail reversed, from=2-1, to=2-2]
+    \end{tikzcd}
+\end{equation}
+As a sanity check (and for a bit of practice), let us verify $\KLU{M}$ is a "functor". For any $A \in \obj{{\KL{\mathbf{C}}{M}}}$, $\KLU{M}(\eta_A) = \mu_A \circ M(\eta_A) = \id_A$ by the L.H.S. of \eqref{diag:unitmonad} and for any for any $f: A \kmor B$ and $g: B \kmor C$,
 \begin{align*}
-    U_M(g \circ_M f) &= U_M(\mu_C \circ Mg\circ f)\\
+    \KLU{M}(g \klcomp{M} f) &= \KLU{M}(\mu_C \circ Mg\circ f)\\
     &= \mu_C \circ M(\mu_C \circ Mg \circ f)\\
     &= \mu_C \circ M(\mu_C) \circ MMg \circ Mf\\
-    &= \mu_C \circ \mu_{MC} \circ MMg \circ Mf &&\text{by \eqref{diag-multmonad}}\\
+    &= \mu_C \circ \mu_{MC} \circ MMg \circ Mf &&\text{by \eqref{diag:multmonad}}\\
     &= \mu_C \circ Mg \circ \mu_B \circ Mf &&\text{by naturality of $\mu$}\\
-    &= U_M(g) \circ U_M(f).
-\end{align*}
-We conclude that $U_M$ is a functor.
-
-In the opposite direction, we want a functor $F_M: \mathbf{C} \rightsquigarrow \mathbf{C}_M$. This time, we send $A$ to itself because we can make any morphism $f: A \rightarrow B$ generalized by post-composing with $\eta_B$, namely $F_M(A) = A$ and $F_M(f) = \eta_B \circ f$ for any $f: A \rightarrow B$. For functoriality, $F_M(\id_A)$ is trivial as $\eta_A$ is the identity on $A$ in $\mathbf{C}_M$ and \begin{align*}
-    F_M(g \circ f) &= \eta_C \circ g \circ f\\
-    &= Mg \circ \eta_B \circ f&&\text{by naturality of $\eta$}\\
-    &= Mg \circ \mu_B \circ M(\eta_B) \circ \eta_B \circ f&&\text{by \eqref{diag-unitmonad}}\\
-    &= \mu_C \circ MMg \circ M(\eta_B) \circ \eta_B \circ f &&\text{by naturality of $\mu$}\\
-    &= \mu_C \circ M(\eta_C) \circ Mg \circ \eta_B \circ f &&\text{by naturality of $\eta$}\\
-    &= F_M(g) \circ_M F_M(f)
+    &= \KLU{M}(g) \circ \KLU{M}(f).
 \end{align*}
 
-Before checking that this is indeed an adjunction, we need to make sure it composes to $M$, that is $U_MF_M = M$. On objects, it is clear. On a morphism $f: A \rightarrow B$, we have 
-\[U_M(F_M(f)) = U_M(\eta_B \circ f) = \mu_B \circ M(\eta_B) \circ Mf \stackrel{\eqref{diag-unitmonad}}{=} Mf.\]
-Let us now verify that $F_M \dashv U_M$.
-Let $A, B \in \mathbf{C}_0$ (we view $B$ as an object of $\mathbf{C}_M$), we need to exhibit a natural isomorphism $\Hom_{\mathbf{C}_M}(F_MA,B) \cong \Hom_{\mathbf{C}}(A,U_MB)$. The isomorphism is clear as $U_MB = MB$, $F_MA = A$ and a morphism $A \rightarrow MB$ is precisely a Kleisli morphism $A \nrightarrow B$, we will denote it $\id$. For the naturality, we need to show the following square commutes for any $f: A' \rightarrow A$ and $g: B \nrightarrow B'$.
-\begin{equation}\label{diag-adjF_MU_M}
-    % https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsTUIpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0N9X019KEEsQikiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q31fTX0oQScsQicpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0N9fShBJyxNQicpIl0sWzEsMCwiXFxpZCJdLFsxLDIsImcgXFxjaXJjICgtKVxcY2lyY19NIEZfTWYiLDJdLFswLDMsIlVfTWcgXFxjaXJjICgtKVxcY2lyYyBmIl0sWzIsMywiXFxpZCIsMl1d
+Let us now verify that $\KLF{M} \adjoint \KLU{M}$. Let $A, B \in \obj{\mathbf{C}}$ (we view $B$ as an object of $\KL{\mathbf{C}}{M}$), we saw that the identity function is an "isomorphism@@CAT" $\Hom_{\KL{\mathbf{C}}{M}}(\KLF{M}A,B) \isoCAT \Hom_{\mathbf{C}}(A,\KLU{M}B)$ and we now check it is "natural". We need to show \eqref{diag:adj\KLF{M}\KLU{M}} "commutes" for any $f: A' \rightarrow A$ and $g: B \kmor B'$. It follows from this derivation starting with $k: A \kmor B$ in the top left.
+\begin{align*}
+    g \klcomp{M} k \klcomp{M} \KLF{M}f &= \mu_{B'} \circ M(g) \circ \mu_B \circ M(k) \circ \eta_{A} \circ f\\
+    &= \mu_{B'} \circ M(g) \circ \mu_B \circ \eta_{MB} \circ k \circ f &&\text{by naturality of $\eta$}\\
+    &= \mu_{B'} \circ M(g) \circ \id_{MB} \circ k \circ f&&\text{by \eqref{diag:unitmonad}}\\
+    &= \mu_{B'} \circ M(g) \circ k \circ f\\
+    &= \KLU{M}g \circ k \circ f
+\end{align*}\begin{marginfigure}[-20\baselineskip]\begin{equation}\label{diag:adj\KLF{M}\KLU{M}}
+    % https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsTUIpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0N9X019KEEsQikiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q31fTX0oQScsQicpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0N9fShBJyxNQicpIl0sWzEsMCwiXFxpZCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFsxLDIsImcgXFxjaXJjICgtKVxca2xjb21we019IEZfTWYiLDJdLFswLDMsIlVfTWcgXFxjaXJjICgtKVxcY2lyYyBmIl0sWzIsMywiXFxpZCIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dXQ==
     \begin{tikzcd}
         {\Hom_{\mathbf{C}_M}(A,B)} & {\Hom_{\mathbf{C}}(A,MB)} \\
         {\Hom_{\mathbf{C}_M}(A',B')} & {\Hom_{\mathbf{C}}(A',MB')}
-        \arrow["{\id}", from=1-1, to=1-2]
-        \arrow["{g \circ_M (-)\circ_M F_Mf}"', from=1-1, to=2-1]
-        \arrow["{U_Mg \circ (-)\circ f}", from=1-2, to=2-2]
-        \arrow["{\id}"', from=2-1, to=2-2]
+        \arrow["\id", tail reversed, from=1-1, to=1-2]
+        \arrow["{g \circ (-)\klcomp{M} \KLF{M}f}"', from=1-1, to=2-1]
+        \arrow["{\KLU{M}g \circ (-)\circ f}", from=1-2, to=2-2]
+        \arrow["\id"', tail reversed, from=2-1, to=2-2]
     \end{tikzcd}
-\end{equation}
-It follows from the following derivation starting with a morphism $k: A \rightarrow MB$.
-\begin{align*}
-    g \circ_M k \circ_M F_Mf &= \mu_{B'} \circ M(g) \circ \mu_B \circ M(k) \circ \eta_{A} \circ f\\
-    &= \mu_{B'} \circ M(g) \circ \mu_B \circ \eta_{MB} \circ k \circ f &&\text{by naturality of $\eta$}\\
-    &= \mu_{B'} \circ M(g) \circ \id_{MB} \circ k \circ f&&\text{by \eqref{diag-unitmonad}}\\
-    &= \mu_{B'} \circ M(g) \circ k \circ f\\
-    &= U_Mg \circ k \circ f
-\end{align*}
+\end{equation}\end{marginfigure}
+Finally, in order to achieve our initial goal of finding an "adjunction" that induces the original "monad", we need to make sure the "monad" arising from $\KLF{M} \adjoint \KLU{M}$ is $(M,\eta,\mu)$. First, we check that $\KLU{M}\KLF{M} = M$. On "objects", it is clear. On a "morphism" $f: A \rightarrow B$, we have 
+\[\KLU{M}(\KLF{M}(f)) = \KLU{M}(\eta_B \circ f) = \mu_B \circ M(\eta_B) \circ Mf \stackrel{\eqref{diag:unitmonad}}{=} Mf.\]
+Next, as $\eta_A$ is the image of the "identity" on $A$ in $\KL{\mathbf{C}}{M}$ under the "natural isomorphism""component", the "unit@@ADJ" of the "adjunction" is the "unit@MND" of the "monad". The "counit@@ADJ" of the "adjunction" at $A$ is $\varepsilon_A = \id_{MA}$, thus $(\KLU{M}\varepsilon \KLF{M})_A = \KLU{M}(\id_{\KLF{M} A}) = \mu_A \circ M(\id_{MA}) = \mu_A$.
 
-Recall that we claimed $(F_M,U_M)$ was special in some way and that this was the (informal) reason why it was relatively easy to find, the next proposition will make this precise.
-\begin{defn}[$\mathrm{Adj}_M$]
-    Let $\mathbf{C}$ be a category and $(M,\eta, \mu)$ a monad on $\mathbf{C}$. The category of adjunctions inducing $M$ is denoted $\mathrm{Adj}_M$. Its objects are adjoint pairs $(L,R)$ with $R\circ L = M$ whose unit is $\eta$ and whose counit $\varepsilon$ satisfies $R\varepsilon L = \mu$. Its morphisms $(L,R) \rightarrow (L',R')$ are functors $K$ satisfying $K\circ L = L'$ and $R'\circ K = R$ as in \eqref{diag-morphadj}.
-    \begin{equation}\label{diag-morphadj}
+Recall that we claimed $\KLF{M} \adjoint \KLU{M}$ was special in some way and that this was the (informal) reason why it was relatively easy to find, the next proposition will make this precise.
+\begin{defn}[$\Adj{M}$]
+    Let $\mathbf{C}$ be a "category" and $(M,\eta, \mu)$ a "monad" on $\mathbf{C}$. The ""category of adjunctions inducing"" $M$ is denoted $\Adj{M}$. Its "objects" are "adjoint pairs" $L\adjoint R$ with "unit@@ADJ" $\eta$ and "counit@@ADJ" $\varepsilon$ sastisfying $R\circ L = M$ $R\varepsilon L = \mu$. Its morphisms $L\adjoint R \rightarrow L'\adjoint R')$ are "functors" $K$ satisfying $K\circ L = L'$ and $R'\circ K = R$ as in \eqref{diag:morphadj}.
+    \begin{equation}\label{diag:morphadj}
         % https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXG1hdGhiZntEfSJdLFsyLDAsIlxcbWF0aGJme0R9JyJdLFsxLDEsIlxcbWF0aGJme0N9Il0sWzAsMSwiSyJdLFsyLDAsIkwiLDAseyJvZmZzZXQiOi0yfV0sWzIsMSwiTCciLDAseyJvZmZzZXQiOi0yfV0sWzAsMiwiUiIsMCx7Im9mZnNldCI6LTF9XSxbMSwyLCJSJyIsMCx7Im9mZnNldCI6LTJ9XSxbNCw2LCIiLDAseyJsZXZlbCI6MSwic3R5bGUiOnsibmFtZSI6ImFkanVuY3Rpb24ifX1dLFs1LDcsIiIsMix7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV1d
         \begin{tikzcd}
             {\mathbf{D}} && {\mathbf{D}'} \\
@@ -210,197 +284,229 @@ Recall that we claimed $(F_M,U_M)$ was special in some way and that this was the
             \arrow["{L'}"{name=1}, from=2-2, to=1-3, shift left=2]
             \arrow["{R}"{name=2}, from=1-1, to=2-2, shift left=2]
             \arrow["{R'}"{name=3}, from=1-3, to=2-2, shift left=2]
-            \arrow["\dashv"{rotate=50}, from=0, to=2, phantom]
-            \arrow["\dashv"{rotate=-50}, from=1, to=3, phantom]
+            \arrow["\adjoint"{rotate=50}, from=0, to=2, phantom]
+            \arrow["\adjoint"{rotate=-50}, from=1, to=3, phantom]
         \end{tikzcd}
     \end{equation}
 \end{defn}
-Let us first check that $(F_M,U_M)$ induces $(M, \eta, \mu)$, we already know that $U_MF_M = M$, but it remains to find the unit and counit of this adjunction. We will need to use the correspondence between the definitions of adjoint pairs seen in the last lecture. Recall that the natural isomorphism $\Hom_{\mathbf{C}_M}(F_M-,-) \cong \Hom_{\mathbf{C}}(-,U_M-)$ is simply the identity function between these two sets. Hence, the unit of the adjunction is $\mathbf{C}_0 \ni A \mapsto \id(u_{\mathbf{C}_M}(F_MA)) = \eta_A$ and the counit is $(\mathbf{C}_M)_0 \ni A \mapsto \id(u_{\mathbf{C}}(U_MA)) =: \varepsilon_A$. Note that $\varepsilon_A$ has type $MA \nrightarrow A$. We check that $U_M(\varepsilon_{F_MA}) = \mu_A$:
-\[U_M(\varepsilon_{F_MA}) = \mu_A \circ \varepsilon_{F_MA} = \mu_A \circ u_{\mathbf{C}}(MA) = \mu_A.\]
-\begin{prop}\label{prop-initKleisli}
-    The adjunction $(F_M,U_M)$ is initial in $\mathrm{Adj}_M$.
+We can restate the end result of the discussion above as $\KLF{M} \adjoint \KLU{M}$ being an "object" of $\Adj{M}$. It is special because it is "initial".
+\begin{prop}\label{prop:initKleisli}
+    The "adjunction" $\KLF{M}\adjoint \KLU{M}$ is "initial" in $\Adj{M}$.
 \end{prop}
 \begin{proof}
-    Let $\mathbf{C}:L \dashv R: \mathbf{D} \in \mathrm{Adj}_M$ with unit $\eta$ and counit $\varepsilon$, we claim there is a unique functor $K:\mathbf{C}_M \rightsquigarrow  \mathbf{D}$ satisfying $K\circ F_M = L$ and $R \circ K = U_M$ as in \eqref{diag-initC_M}.
-    \begin{equation}\label{diag-initC_M}
+    Let $\mathbf{C}:L \adjoint R: \mathbf{D} \in \Adj{M}$ with "unit@@ADJ" $\eta$ and "counit@@ADJ" $\varepsilon$, we claim there is a unique "functor" $K:\KL{\mathbf{C}}{M} \rightsquigarrow  \mathbf{D}$ satisfying $K\circ \KLF{M} = L$ and $R \circ K = \KLU{M}$ as in \eqref{diag:initC_M}.\begin{marginfigure}\begin{equation}\label{diag:initC_M}
         \begin{tikzcd}
-            {\mathbf{C}_M} && {\mathbf{D}} \\
+            {\KL{\mathbf{C}}{M}} && {\mathbf{D}} \\
             & {\mathbf{C}}
             \arrow["{K}", dashed, from=1-1, to=1-3]
-            \arrow["{F_M}"{name=0}, from=2-2, to=1-1, shift left=2]
+            \arrow["{\KLF{M}}"{name=0}, from=2-2, to=1-1, shift left=2]
             \arrow["{L}"{name=1}, from=2-2, to=1-3, shift left=2]
-            \arrow["{U_M}"{name=2}, from=1-1, to=2-2, shift left=2]
+            \arrow["{\KLU{M}}"{name=2}, from=1-1, to=2-2, shift left=2]
             \arrow["{R}"{name=3}, from=1-3, to=2-2, shift left=2]
-            \arrow["\dashv"{rotate=50}, from=0, to=2, phantom]
-            \arrow["\dashv"{rotate=-50}, from=1, to=3, phantom]
+            \arrow["\adjoint"{rotate=50}, from=0, to=2, phantom]
+            \arrow["\adjoint"{rotate=-50}, from=1, to=3, phantom]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}    
+    On "objects", $K$ is determined by $KA = K\KLF{M}A = LA$. To a "morphism" $f: A \kmor B$, we need to assign a "morphism" in $Kf \in \Hom_{\mathbf{D}}(LA, LB)$ such that $RKf = \KLU{M}f = \mu_B \circ Mf = R\varepsilon_{LB} \circ RLf$. It is clear that $Kf = \varepsilon_{LB} \circ Lf$ is a candidate but to show it is unique, we consider the following "naturality" square coming from the "adjunction" $L \adjoint R$.
+    \begin{equation}\label{diag:uniqueKinitialadj}
+            % https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsUkxBKSJdLFswLDAsIlxcSG9tX3tcXG1hdGhiZntEfX0oTEEsTEEpIl0sWzAsMiwiXFxIb21fe1xcbWF0aGJme0R9fShMQSxMQikiXSxbMSwyLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsUkxCKSJdLFsxLDAsIlJcXHBsYWNlaG9sZGVyIFxcY2lyYyBcXGV0YV9BIl0sWzMsMiwiXFx2YXJlcHNpbG9uX3tMQn0gXFxjaXJjIExcXHBsYWNlaG9sZGVyIl0sWzEsMiwiS2YgXFxjaXJjICgtKSIsMl0sWzAsMywiUktmIFxcY2lyYyAoLSkiXV0=
+        \begin{tikzcd}
+            {\Hom_{\mathbf{D}}(LA,LA)} & {\Hom_{\mathbf{C}}(A,RLA)} \\
+            \\
+            {\Hom_{\mathbf{D}}(LA,LB)} & {\Hom_{\mathbf{C}}(A,RLB)}
+            \arrow["{R\placeholder \circ \eta_A}", from=1-1, to=1-2]
+            \arrow["{\varepsilon_{LB} \circ L\placeholder}", from=3-2, to=3-1]
+            \arrow["{Kf \circ (-)}"', from=1-1, to=3-1]
+            \arrow["{RKf \circ (-)}", from=1-2, to=3-2]
         \end{tikzcd}
     \end{equation}
-    On objects, $K$ is determined by $KA = KF_MA = LA$. To a morphism $f: A \nrightarrow B$, we need to assign a morphism in $Kf \in \Hom_{\mathbf{D}}(LA, LB)$. Denote $\Phi_{A,B}: \Hom_{\mathbf{C}_M}(F_MA,B) \cong \Hom_{\mathbf{C}}(A,U_MB)$ and $\Psi_{A,B}: \Hom_{\mathbf{D}}(LA,B) \cong \Hom_{\mathbf{C}}(A,RB)$ be given by the adjunctions $F_M \dashv U_M$ and $L \dashv R$ respectively. Using the fact that $RK = U_M$, we obtain the following commutative diagram.
-    % https://q.uiver.app/?q=WzAsOCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q31fTX0oRl9NQSxBKSJdLFsxLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oQSxVX01BKSJdLFsyLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oQSxSTEEpIl0sWzMsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMQSxMQSkiXSxbMywyLCJcXEhvbV97XFxtYXRoYmZ7RH19KExBLExCKSJdLFsyLDIsIlxcSG9tX3tcXG1hdGhiZntDfX0oQSxSTEIpIl0sWzEsMiwiXFxIb21fe1xcbWF0aGJme0N9fShBLFVfTUIpIl0sWzAsMiwiXFxIb21fe1xcbWF0aGJme0N9X019KEZfTUEsQikiXSxbMCwxLCJcXFBoaV97QSxBfSJdLFsxLDJdLFszLDIsIlxcUHNpX3tBLExBfSIsMl0sWzQsNSwiXFxQc2lfe0EsTEJ9Il0sWzYsNV0sWzcsNiwiXFxQaGlfe0EsQn0iLDJdLFswLDcsImZcXGNpcmMgKC0pIiwxXSxbMyw0LCJLZiBcXGNpcmMgKC0pIiwxXSxbMSw2LCJVX01mIFxcY2lyYyAoLSkiLDFdLFsyLDUsIlJLZiBcXGNpcmMgKC0pIiwxXV0=
-    \[\begin{tikzcd}
-        {\Hom_{\mathbf{C}_M}(F_MA,A)} & {\Hom_{\mathbf{C}}(A,U_MA)} & {\Hom_{\mathbf{C}}(A,RLA)} & {\Hom_{\mathbf{D}}(LA,LA)} \\
-        \\
-        {\Hom_{\mathbf{C}_M}(F_MA,B)} & {\Hom_{\mathbf{C}}(A,U_MB)} & {\Hom_{\mathbf{C}}(A,RLB)} & {\Hom_{\mathbf{D}}(LA,LB)}
-        \arrow["{\Phi_{A,A}}", from=1-1, to=1-2]
-        \arrow[from=1-2, equals, to=1-3]
-        \arrow["{\Psi_{A,LA}}"', from=1-4, to=1-3]
-        \arrow["{\Psi_{A,LB}}", from=3-4, to=3-3]
-        \arrow[from=3-2, equals, to=3-3]
-        \arrow["{\Phi_{A,B}}"', from=3-1, to=3-2]
-        \arrow["{f\circ_M (-)}" description, from=1-1, to=3-1]
-        \arrow["{Kf \circ (-)}" description, from=1-4, to=3-4]
-        \arrow["{U_Mf \circ (-)}" description, from=1-2, to=3-2]
-        \arrow["{RKf \circ (-)}" description, from=1-3, to=3-3]
-    \end{tikzcd}\]
-    Because these adjunctions both have the same unit, we have $\Phi_{A,A}(u_{\mathbf{C}_M}(F_MA)) = \eta_A = \Psi_{A,A}(u_{\mathbf{D}}(LA))$. Therefore, if we start with $\eta_A \in \Hom_{\mathbf{C}_M}(F_MA,A)$ and follow the diagram, we infer that $Kf = \Psi_{A,LB}^{-1}(\Phi_{A,B}(f))$. Using the fact that $\Phi_{A,B}(f) = f$ and $\Psi_{A,LB}^{-1}(f) = \varepsilon_{LB} \circ Lf$ (follow the proof of the Yoneda lemma), we end up with $Kf = \varepsilon_{LB} \circ Lf$ and we can verify it is indeed functorial.
-    \[K(u_{\mathbf{C}_M}(A)) = K(\eta_A) = \varepsilon_{LB} \circ L(\eta_A) \stackrel{\text{zig-zag}}{=} \id_A \]
+    Starting with $\id_{LA}$ in the top left and reaching the bottom left, we find
     \begin{align*}
-        K(g \circ_M f) &= K(\mu_C \circ RLg\circ f)\\
+        Kf &= \varepsilon_{LB} \circ LRKf \circ L\eta_A\\
+        &= \varepsilon_{LB} \circ LR\varepsilon_{LB} \circ LRLf \circ L\eta_A&&\text{hypothesis on $RKf$}\\
+        &= \varepsilon_{LB} \circ LR\varepsilon_{LB} \circ L\eta_{RLB} \circ Lf &&\NAT(\eta,A,RLB,f)\\
+        &= \varepsilon_{LB} \circ \varepsilon_{LRLB} \circ L\eta_{RLB} \circ Lf&&\HOR(\varepsilon,\varepsilon)L\\
+        &= \varepsilon_{LB} \circ \varepsilon_{LMB} \circ L\eta_{MB} \circ Lf&&RL = M\\
+        &= \varepsilon_{LB} \circ \id_{MB} \circ Lf&&\text{"triangle identity"}\\
+        &= \varepsilon_{LB} \circ Lf
+    \end{align*}
+    To finish the proof, let us verify $K$ is "functorial".
+    \[K(\idu_{\KL{\mathbf{C}}{M}}(A)) = K(\eta_A) = \varepsilon_{LB} \circ L(\eta_A) \stackrel{\eqref{diag:triangleftadj}}{=} \id_A \]
+    \begin{align*}
+        K(g \klcomp{M} f) &= K(\mu_C \circ RLg\circ f)\\
         &= \varepsilon_{LC} \circ L(\mu_C) \circ LRLg\circ Lf\\
         &= \varepsilon_{LC} \circ LR\varepsilon_{LC} \circ LRLg \circ Lf &&\text{by hypothesis on $\varepsilon$}\\
-        &= \varepsilon_{LC} \circ \varepsilon_{LRLC} \circ LRLg \circ Lf&&\text{by naturality of $\varepsilon$}\\
-        &= \varepsilon_{LC} \circ Lg \circ \varepsilon_{LB} \circ Lf&&\text{by naturality of $\varepsilon$}\\
-        &= Kg \circ Kf\\
+        &= \varepsilon_{LC} \circ \varepsilon_{LRLC} \circ LRLg \circ Lf&&\HOR(\varepsilon,\varepsilon)L\\
+        &= \varepsilon_{LC} \circ Lg \circ \varepsilon_{LB} \circ Lf&&\NAT(\varepsilon,LB,LRLC,Lg)\\
+        &= Kg \circ Kf
     \end{align*}
 \end{proof}
-\subsection{Eilenberg-Moore Category $\mathbf{C}^M$}
+\begin{exer}\label{exer:monads:adjmorphcommmute}\marginnote{\hyperref[soln:monads:adjmorphcommmute]{See solution.}}
+    Let $K: L\adjoint R \rightarrow L'\adjoint R'$ be a "morphism" in $\Adj{M}$, $\varepsilon$ and $\varepsilon'$ be the "counits@@ADJ" of the "source" and "target" respectively. Show that $K\varepsilon = \varepsilon'K$.
+\end{exer}
+\subsection{Eilenberg--Moore Category $\EM{\mathbf{C}}{M}$}
 For the second solution to the problem of finding an adjunction inducing a given monad, we look at the more structural side of monads.
-%Eilenberg-Moore
+%Eilenberg--Moore
 %TODO: motivational paragraph.
 \begin{defn}[$M$--algebra]
-    Let $(M,\eta, \mu)$ be a monad, an \textbf{Eilenberg-Moore algebra} for $M$ or simply $M$--\textbf{algebra} is a pair $(A, \alpha)$ consisting of an object $A \in \mathbf{C}_0$ and morphism $\alpha : MA \rightarrow A$ such that \eqref{diag-algunit} and \eqref{diag-algmult} commute.\\
+    Let $(M,\eta, \mu)$ be a "monad", an ""Eilenberg--Moore algebra"" for $M$ or simply $M$"--algebra@@MND" is a pair $(A, \alpha)$ consisting of an "object" $A \in \obj{\mathbf{C}}$ and a "morphism" $\alpha : MA \rightarrow A$ such that \eqref{diag:algunit} and \eqref{diag:algmult} "commute".\\
     \begin{minipage}{0.48\textwidth}
-        \begin{equation}\label{diag-algunit}
+        \begin{equation}\label{diag:algunit}
             \begin{tikzcd}
                 A \arrow[rd, "\id_A"'] \arrow[r, "\eta_A"] & MA \arrow[d, "\alpha"] \\ & A
             \end{tikzcd}
         \end{equation}
     \end{minipage}
     \begin{minipage}{0.48\textwidth}
-        \begin{equation}\label{diag-algmult}
+        \begin{equation}\label{diag:algmult}
             \begin{tikzcd}
-                M^2A \arrow[d, "M(\alpha)"'] \arrow[r, "\mu_A"] & MA \arrow[d, "\alpha"] \\
+                M^2A \arrow[d, "M\alpha"'] \arrow[r, "\mu_A"] & MA \arrow[d, "\alpha"] \\
                 MA \arrow[r, "\alpha"']  & A  
                 \end{tikzcd}
         \end{equation}
     \end{minipage}
+    We will often denote an $M$"--algebra@@MND" using only its underlying "object" or its underlying "morphism".
 \end{defn}
-We will often denote an $M$--algebra using only its underlying set or morphism.
-\begin{defn}[$M$--algebra homomorphism]
-    Given two $M$--algebras $(A, \alpha)$ and $(B, \beta)$, an $M$--algebra homomorphism $f: (A, \alpha) \rightarrow (B, \beta)$ is a morphism $h:A \rightarrow B$ making \eqref{diag-alghom} commute.
-    \begin{equation}\label{diag-alghom}
+
+\begin{defn}[Homomorphism]
+    Let $(M,\eta,\mu)$ be a "monad" and $(A, \alpha)$ and $(B, \beta)$ be two $M$"--algebras@@MND". An $M$"--algebra@@MND" ""homomorphism@@MND"" or simply $M$"--homomorphism@@MND" from $(A, \alpha)$ to $(B, \beta)$ is a "morphism" $h:A \rightarrow B$ making \eqref{diag:alghom} "commute".
+    \begin{equation}\label{diag:alghom}
         \begin{tikzcd}
             MA \arrow[d, "\alpha"'] \arrow[r, "Mh"] & MB \arrow[d, "\beta"] \\
             A \arrow[r, "h"'] & B
         \end{tikzcd}
     \end{equation}
 \end{defn}
-For a monad $M$, the category of $M$--algebras is called the \textbf{Eilenberg-Moore} category of $M$ and denoted $\mathbf{C}^M$, composition and identities are induced by the composition and identities in $\mathbf{C}$. Again, since $\mathbf{C}^M$ was built from objects and morphisms in $\mathbf{C}$, there is an obvious candidate for a forgetful functor $U^M: \mathbf{C}^M \rightsquigarrow \mathbf{C}$ sending an $M$--algebra $(A,\alpha)$ to its underlying object $A$ and a homomorphism to its underlying morphism. Next, we need a left adjoint to $U^M$, $F^M: \mathbf{C} \rightsquigarrow \mathbf{C}^M$. Since we want $U^MF^M = M$ to hold, $F^M$ must send $A\in \mathbf{C}_0$ to an $M$--algebra over $MA$ and $h \in \mathbf{C}_1$ to $Mh$. There is only one choice given to us by the data of $M$, that is, $F^MA= (MA, \mu_A)$ and it turns out naturality of $\mu_A$ yields 
+After checking that the "composition" of two $M$"--homomorphisms@@MND" is an $M$"--homomorphism@@MND" and $\id_A$ is an $M$"--homomorphism@@MND" from $(A,\alpha)$ to itself whenever $\alpha$ is an $M$"--algebra@@MND", \AP we get a "category" of $M$"--algebras@@MND" and $M$"--homomorphism@@MND" called the ""Eilenberg--Moore category"" of $M$ and denoted $\EM{\mathbf{C}}{M}$.
+
+Since $\EM{\mathbf{C}}{M}$ was built from "objects" and "morphisms" in $\mathbf{C}$, there is an obvious "forgetful" "functor" $\EMU{M}: \EM{\mathbf{C}}{M} \rightsquigarrow \mathbf{C}$ sending an $M$"--algebra@@MND" $(A,\alpha)$ to its underlying "object" $A$ and an $M$--"homomorphism" to its underlying "morphism". We will now find a "left adjoint" $\EMF{M}: \mathbf{C} \rightsquigarrow \EM{\mathbf{C}}{M}$ to $\EMU{M}$. Since we want this "adjunction" to induce the "monad" $M$, we require that $\EMU{M}\EMF{M} = M$. It means $\EMF{M}$ must send $A\in \obj{\mathbf{C}}$ to an $M$"--algebra@@MND" on $MA$ and $h \in \mor{\mathbf{C}}$ to $Mh$. There is straightforward choice given to us by the data of $M$, that is, $\EMF{M}A= (MA, \mu_A: MMA \rightarrow MA)$ and it turns out "naturality" of $\mu$ yields "commutativity" of
 \begin{equation}
     \begin{tikzcd}
         M^2A \arrow[d, "\mu_A"'] \arrow[r, "M^2h"] & M^2B \arrow[d, "\mu_B"] \\
         MA \arrow[r, "Mh"'] & MB
     \end{tikzcd},
 \end{equation}
-which implies $Mh$ is indeed an $M$--algbera homomorphism. Let us now show that $F^M \dashv U^M$ with unit $\eta$ and counit $\varepsilon$ satisfying $U^M\varepsilon F^M = \mu$.
+which implies $Mh$ is indeed an $M$"--homomorphism@@MND". Because $M$ is a "functor", we immediately obtain that $\EMF{M}$ is a "functor". We now show that $\EMF{M} \adjoint \EMU{M}$ with "unit@@ADJ" $\eta$ and "counit@@ADJ" $\varepsilon$ satisfying $\EMU{M}\varepsilon \EMF{M} = \mu$.
 
-We want to exhibit an isomorphism $\Hom_{\mathbf{C}^M}(\mu_A, \beta) \cong \Hom_{\mathbf{C}}(A,B)$ natural in $A$ and $\beta: MB \rightarrow B$. In the forward direction, we send $h:MA \rightarrow B$ to $h \circ \eta_A: A \rightarrow B$ which ensures the unit of this adjunction is $\eta$. In the backwards direction, we send $h:A \rightarrow B$ to $\beta \circ Mh$ which is a homomorphism by the following diagram where (a) commutes by naturality of $\mu$ and (b) by $\beta$ being an $M$--algebra.
-\begin{equation}
-    % https://q.uiver.app/?q=WzAsNixbMCwwLCJNXjJBIl0sWzEsMCwiTV4yQiJdLFsyLDAsIk1CIl0sWzIsMSwiQiJdLFsxLDEsIk1CIl0sWzAsMSwiTUEiXSxbMCwxLCJNXjJmIl0sWzEsMiwiTVxcYmV0YSJdLFsyLDMsIlxcYmV0YSJdLFsxLDQsIlxcbXVfQiJdLFs0LDMsIlxcYmV0YSIsMV0sWzAsNSwiXFxtdV9BIiwyXSxbNSw0LCJNZiIsMl0sWzAsNCwiXFx0ZXh0eygxKX0iLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwzLCJcXHRleHR7KDIpfSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
-\begin{tikzcd}
-	{M^2A} & {M^2B} & {MB} \\
-	{MA} & {MB} & {B}
-	\arrow["{M^2h}", from=1-1, to=1-2]
-	\arrow["{M\beta}", from=1-2, to=1-3]
-	\arrow["{\beta}", from=1-3, to=2-3]
-	\arrow["{\mu_B}", from=1-2, to=2-2]
-	\arrow["{\beta}" description, from=2-2, to=2-3]
-	\arrow["{\mu_A}"', from=1-1, to=2-1]
-	\arrow["{Mh}"', from=2-1, to=2-2]
-	\arrow["{\text{(a)}}" description, from=1-1, to=2-2, phantom, no head]
-	\arrow["{\text{(b)}}" description, from=1-2, to=2-3, phantom, no head]
-\end{tikzcd}
-\end{equation}
-One can easily check that these operations are inverses of each other. Next, we turn to naturality. Let $f: A' \rightarrow A\in \mathbf{C}_1$ and $g: (B,\beta) \rightarrow (B',\beta')\in \mathbf{C}^M_1$, we claim that \eqref{diag-natEMadj} commutes.
-\begin{equation}\label{diag-natEMadj}
-    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q31eTX0oXFxtdV9BLFxcYmV0YSkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsQikiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEnLEInKSJdLFswLDEsIlxcSG9tX3tcXG1hdGhiZntDfV5NfShcXG11X3tBJ30sIFxcYmV0YScpIl0sWzAsMSwiXFxzaW0iXSxbMSwyLCJoIFxcY2lyYyAoLSlcXGNpcmMgZiJdLFswLDMsImhcXGNpcmMgKC0pXFxjaXJjIE1mIiwyXSxbMywyLCJcXHNpbSJdXQ==
-    \begin{tikzcd}
-        {\Hom_{\mathbf{C}^M}(\mu_A,\beta)} & {\Hom_{\mathbf{C}}(A,B)} \\
-        {\Hom_{\mathbf{C}^M}(\mu_{A'}, \beta')} & {\Hom_{\mathbf{C}}(A',B')}
-        \arrow["{(-) \circ \eta_A}", from=1-1, to=1-2]
-        \arrow["{g \circ (-)\circ f}", from=1-2, to=2-2]
-        \arrow["{g\circ (-)\circ Mf}"', from=1-1, to=2-1]
-        \arrow["{(-) \circ \eta_{A'}}"', from=2-1, to=2-2]
-    \end{tikzcd}
-\end{equation}
-Starting with a homomorphism $h: (MA, \mu_A) \rightarrow (B, \beta)$ in the top-left object, we need to show $g \circ h \circ Mf \circ \eta_{A'} = g \circ h\circ \eta_{A} \circ f$ which holds by naturality of $\eta$.
+Let us define the "counit@@ADJ" and verify the "triangle identities". For an $M$"--algebra@@MND" $\alpha: MA \rightarrow A$, we want an $M$"--homomorphism@@MND" $\varepsilon_{\alpha}: \EMF{M}\EMU{M}A = (MA,\mu_A) \rightarrow (A,\alpha)$. Again, we have a straightforward choice since $\alpha$, being an $M$"--algebra@@MND", satisfies $\alpha \circ \mu_A = \alpha \circ M\alpha$, hence we can set $\varepsilon_{\alpha} = \alpha$. The following derivations show the "triangle identities" hold.
+\begin{gather*}
+    \varepsilon_{\EMF{M}A} \circ \EMF{M}\eta_{A} = \varepsilon_{\mu_A} \circ M\eta_A = \mu_A \circ M\eta_A = \id_{MA} = \id_{\EMF{M}A}\\
+    \EMU{M}\varepsilon_{\alpha} \circ \eta_{\EMU{M}(A,\alpha)} = \alpha \circ \eta_A = \id_A = \id_{\EMU{M}(A,\alpha)}
+\end{gather*}
+Lastly, we verify 
+\[\EMU{M}(\varepsilon_{\EMF{M}A}) = \EMU{M}(\varepsilon_{\mu_A}) = \EMU{M}(\mu_A) =\mu_A,\]
+and we conclude $\EMF{M} \adjoint \EMU{M}$ is an "object" of $\Adj{M}$.
 
-We find the counit of this adjunction is $\varepsilon_\alpha = \alpha: (MA, \mu_A) \rightarrow (A,\alpha)$ which is a homomorphism because \eqref{diag-algmult} commutes and we verify 
-\[U^M(\varepsilon_{F^MA}) = U^M(\varepsilon_{\mu_A}) = U^M(\mu_A) =\mu_A.\]
-Dually to Proposition \ref{prop-initKleisli}, we show that this adjunction is special in a precise way.
-\begin{prop}\label{prop-termEM}
-    The adjunction $(F^M,U^M)$ is terminal in $\mathrm{Adj}_M$.
+"Dually@@CAT" to Proposition \ref{prop:initKleisli}, we show that this "adjunction" is special in a precise way.
+\begin{prop}\label{prop:termEM}
+    The adjunction $(\EMF{M},\EMU{M})$ is terminal in $\Adj{M}$.
 \end{prop}
 \begin{proof}
-    Let $\mathbf{C}:L \dashv R: \mathbf{D} \in \mathrm{Adj}_M$ with unit $\eta$ and counit $\varepsilon$, we claim there is a unique functor $K:\mathbf{D} \rightsquigarrow \mathbf{C}^M $ satisfying $K\circ L = F^M$ and $U^M \circ K = R$ as in \eqref{diag-termC-M}.
-    \begin{equation}\label{diag-termC-M}
+    Let $\mathbf{C}:L \adjoint R: \mathbf{D} \in \Adj{M}$ with "unit@@ADJ" $\eta$ and "counit@@ADJ" $\varepsilon$, we claim there is a unique "functor" $K:\mathbf{D} \rightsquigarrow \EM{\mathbf{C}}{M} $ satisfying $K\circ L = \EMF{M}$ and $\EMU{M} \circ K = R$ as in \eqref{diag:termC-M}.
+    \begin{equation}\label{diag:termC-M}
         \begin{tikzcd}
-            {\mathbf{D}} && {\mathbf{C}^M} \\
+            {\mathbf{D}} && {\EM{\mathbf{C}}{M}} \\
             & {\mathbf{C}}
             \arrow["{K}", dashed, from=1-1, to=1-3]
             \arrow["{L}"{name=0}, from=2-2, to=1-1, shift left=2]
-            \arrow["{F^M}"{name=1}, from=2-2, to=1-3, shift left=2]
+            \arrow["{\EMF{M}}"{name=1}, from=2-2, to=1-3, shift left=2]
             \arrow["{R}"{name=2}, from=1-1, to=2-2, shift left=2]
-            \arrow["{U^M}"{name=3}, from=1-3, to=2-2, shift left=2]
-            \arrow["\dashv"{rotate=50}, from=0, to=2, phantom]
-            \arrow["\dashv"{rotate=-50}, from=1, to=3, phantom]
+            \arrow["{\EMU{M}}"{name=3}, from=1-3, to=2-2, shift left=2]
+            \arrow["\adjoint"{rotate=50}, from=0, to=2, phantom]
+            \arrow["\adjoint"{rotate=-50}, from=1, to=3, phantom]
         \end{tikzcd}
     \end{equation}
-    As before, we can determine $K$ by the equation $U^MK = R$ which means it sends $A \in \mathbf{D}_0$ to an algebra on $RA$ and $f: A \rightarrow B \in \mathbf{D}_1$ to an algebra homomorphism $Rf: KA \rightarrow KB$. The only missing piece of this puzzle is the algebra structure on $KA$. The only clue we have is the fact that $Rf$ is a homomorphism so is $KA = \alpha$ and $KB = \beta$, then \eqref{diag-homKEM} commutes.
-    \begin{equation}\label{diag-homKEM}
-    \begin{tikzcd}
-        {MRA} & {MRB} \\
-        {RA} & {RB}
-        \arrow["{MRf}", from=1-1, to=1-2]
-        \arrow["{\beta}", from=1-2, to=2-2]
-        \arrow["{\alpha}"', from=1-1, to=2-1]
-        \arrow["{Rf}"', from=2-1, to=2-2]
-    \end{tikzcd}
-    \end{equation}
-    Replacing $M$ with $RL$, we recognize this as the naturality diagram for $\varepsilon$ acted on by $R(\cdot)$. Hence, we find $KA = (RA, R\varepsilon_A)$ is a suitable candidate after showing it is indeed an $M$--algebra. For the unit diagram, we have $R\varepsilon_A \circ \eta_A = \id_A$ by a zig-zag identity. For the multiplication diagram, we have 
-    \[R\varepsilon_A \circ \mu_A = R\varepsilon_A \circ R\varepsilon_{LA} = R(\varepsilon_A \circ \varepsilon_{LA}) = R(\varepsilon_A \circ LR(\varepsilon_A)) = R\varepsilon_A \circ MR\varepsilon_A.\]
+    As before, we can determine $K$ by the equation $\EMU{M}K = R$ which means it sends $A \in \obj{\mathbf{D}}$ to an $M$"--algebra@@MND" on $RA$ and $f: A \rightarrow B \in \mor{\mathbf{D}}$ to an $M$"--homomorphism@@MND" $Rf: KA \rightarrow KB$. The only missing piece of this puzzle is the "algebra@@MND" structure on $KA$. We have two clues. First, $Rf$ is an $M$"--homomorphism@@MND", i.e.: denoting $KA = (RA,\alpha_A)$ and $KB = (RB,\alpha_B)$, we must ensure \eqref{diag:homKEM} "commutes". Second, $(KA,\alpha_A)$ is an $M$"--algebra@@MND", so \eqref{diag:KEMunitalg} and \eqref{diag:KEMmultalg} "commute".\\
+    \begin{minipage}{0.33\textwidth}
+        \begin{equation}\label{diag:homKEM}
+            \begin{tikzcd}
+                {MRA} & {MRB} \\
+                {RA} & {RB}
+                \arrow["{MRf}", from=1-1, to=1-2]
+                \arrow["{\alpha_B}", from=1-2, to=2-2]
+                \arrow["{\alpha_A}"', from=1-1, to=2-1]
+                \arrow["{Rf}"', from=2-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}
+    \begin{minipage}{0.30\textwidth}
+        \begin{equation}\label{diag:KEMunitalg}
+            % https://q.uiver.app/?q=WzAsMyxbMCwwLCJSQSJdLFsxLDAsIk1SQSJdLFsxLDEsIlJBIl0sWzAsMSwiXFxldGFfe1JBfSJdLFsxLDIsIlxcYWxwaGFfQSJdLFswLDIsIlxcaWRfe1JBfSIsMl1d
+        \begin{tikzcd}
+            RA & MRA \\
+            & RA
+            \arrow["{\eta_{RA}}", from=1-1, to=1-2]
+            \arrow["{\alpha_A}", from=1-2, to=2-2]
+            \arrow["{\id_{RA}}"', from=1-1, to=2-2]
+        \end{tikzcd}
+        \end{equation}
+    \end{minipage}\begin{minipage}{0.36\textwidth}
+        \begin{equation}\label{diag:KEMmultalg}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJNTVJBIl0sWzAsMSwiTVJBIl0sWzEsMSwiUkEiXSxbMSwwLCJNUkEiXSxbMSwyLCJcXGFscGhhX0EiLDJdLFszLDIsIlxcYWxwaGFfQSJdLFswLDEsIk1cXGFscGhhX0EiLDJdLFswLDMsIlxcbXVfQSJdXQ==
+        \begin{tikzcd}
+            MMRA & MRA \\
+            MRA & RA
+            \arrow["{\alpha_A}"', from=2-1, to=2-2]
+            \arrow["{\alpha_A}", from=1-2, to=2-2]
+            \arrow["{M\alpha_A}"', from=1-1, to=2-1]
+            \arrow["{\mu_A}", from=1-1, to=1-2]
+        \end{tikzcd}
+        \end{equation}
+    \end{minipage}\\
+    Replacing $M$ with $RL$, we recognize the first diagram as a "naturality" square showing $\alpha$ is a "natural transformation" $RLR \Rightarrow R$ and the two other diagrams yield
+    \[\alpha \vertcomp \eta R = \one_R \quad \text{and} \quad \alpha \vertcomp RL\alpha = \alpha \vertcomp \mu.\]  
+    Moreover, we can see that $\alpha_A = R\varepsilon_A$ makes \eqref{diag:KEMunitalg} "commute" by a "triangle identity". This candidate also makes \eqref{diag:homKEM} "commute" because $R\varepsilon_A$ is a "natural transformation" and \eqref{diag:KEMmultalg} "commute" because 
+    \begin{align*}
+        R\varepsilon_A \circ \mu_A &= R\varepsilon_A \circ R\varepsilon_{LA} &&R\varepsilon L = \mu\\
+        &= R(\varepsilon_A \circ \varepsilon_{LA})&&\text{"functoriality" of $R$}\\
+        &= R(\varepsilon_A \circ LR(\varepsilon_A))&&\HOR(\varepsilon,\varepsilon)\\
+        &= R\varepsilon_A \circ MR\varepsilon_A &&RL = M.
+    \end{align*}
     
-    As $K$ acts like $R$ on morphisms, it is obviously functorial. We leave the proof that $K$ is unique as an exercise as the argument should be somewhat similar to what we have done in the dual proposition. %TODO: fix this at some point, probably show that K commutes with the natural isomorphisms way before.
+    To verify uniqueness, recall that the "counit@@ADJ" of the "adjunction" $\EMF{M} \adjoint \EMU{M}$ sends an $M$"--algebra@@MND" $(X,x)$ to the $M$"--homomorphism@@MND" $x: (MX,\mu_X) \rightarrow (X,x)$. Thus, $\alpha_A$ is the result of applying the "counit@@ADJ" to $KA$ and by Exercise \ref{exer:monads:adjmorphcommmute}, we have $\alpha_A = K\varepsilon_A = R\varepsilon_A$. As $K$ acts like $R$ on "morphisms", it is obviously "functorial".
 \end{proof}
-
-
-
-In summary, you can keep in mind the following diagram.
-\begin{equation}\label{diag-inittermAdjM}
+The following picture summarizes the last two sections.
+\begin{equation}\label{diag:inittermAdjM}
     % https://q.uiver.app/?q=WzAsNCxbMCwyLCJcXG1hdGhiZntDfV9NIl0sWzIsMiwiXFxtYXRoYmZ7Q30iXSxbMiwwLCJcXG1hdGhiZntEfSJdLFs0LDIsIlxcbWF0aGJme0N9Xk0iXSxbMCwxLCJVX00iLDAseyJvZmZzZXQiOi0yfV0sWzIsMSwiUiIsMCx7Im9mZnNldCI6LTJ9XSxbMSwzLCJVXk0iLDAseyJvZmZzZXQiOi0yfV0sWzEsMiwiTCIsMCx7Im9mZnNldCI6LTJ9XSxbMSwwLCJGX00iLDAseyJvZmZzZXQiOi0yfV0sWzMsMSwiRl9NIiwwLHsib2Zmc2V0IjotMn1dLFswLDIsIiIsMSx7Im9mZnNldCI6MSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzIsMywiIiwxLHsib2Zmc2V0IjoxLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNiw5LCIiLDAseyJsZXZlbCI6MSwic3R5bGUiOnsibmFtZSI6ImFkanVuY3Rpb24ifX1dLFs4LDQsIiIsMix7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV0sWzcsNSwiIiwwLHsibGV2ZWwiOjEsInN0eWxlIjp7Im5hbWUiOiJhZGp1bmN0aW9uIn19XV0=
     \begin{tikzcd}
         && {\mathbf{D}} \\
         \\
-        {\mathbf{C}_M} && {\mathbf{C}} && {\mathbf{C}^M}
-        \arrow["{U_M}"{name=0}, from=3-1, to=3-3, shift left=2]
+        {\KL{\mathbf{C}}{M}} && {\mathbf{C}} && {\EM{\mathbf{C}}{M}}
+        \arrow["{\KLU{M}}"{name=0}, from=3-1, to=3-3, shift left=2]
         \arrow["{R}"{name=1}, from=1-3, to=3-3, shift left=2]
-        \arrow["{F^M}"{name=2}, from=3-3, to=3-5, shift left=2]
+        \arrow["{\EMF{M}}"{name=2}, from=3-3, to=3-5, shift left=2]
         \arrow["{L}"{name=3}, from=3-3, to=1-3, shift left=2]
-        \arrow["{F_M}"{name=4}, from=3-3, to=3-1, shift left=2]
-        \arrow["{U^M}"{name=5}, from=3-5, to=3-3, shift left=2]
+        \arrow["{\KLF{M}}"{name=4}, from=3-3, to=3-1, shift left=2]
+        \arrow["{\EMU{M}}"{name=5}, from=3-5, to=3-3, shift left=2]
         \arrow[from=3-1, to=1-3, shift right=1, dashed]
         \arrow[from=1-3, to=3-5, shift right=1, dashed]
-        \arrow["\dashv"{rotate=-90}, from=2, to=5, phantom]
-        \arrow["\dashv"{rotate=90}, from=4, to=0, phantom]
-        \arrow["\dashv"{rotate=0}, from=3, to=1, phantom]
+        \arrow["\adjoint"{rotate=-90}, from=2, to=5, phantom]
+        \arrow["\adjoint"{rotate=90}, from=4, to=0, phantom]
+        \arrow["\adjoint"{rotate=0}, from=3, to=1, phantom]
     \end{tikzcd}
 \end{equation}
-One last thing we want to mention is the embedding of the Kleisli category inside the Eilenberg-Moore category. After a bit more work, we can infer from the discussion above that the unique morphism of adjunctions $K: \mathbf{C}_M \rightsquigarrow \mathbf{C}^M$ is a fully faithful functor sending an object $A$ in $\mathbf{C}_M$ to the algebra $(MA,\mu_A)$, called the \textbf{free algebra} on $A$, and a Kleisli morphism $f: A \nrightarrow B$ to the homomorphism $\mu_B \circ Mf: (A,\mu_A) \rightarrow (B,\mu_B)$.
-\section{POV: Universal Algebra}
-In this section, we will highlight the link between algebraic structures as you have encountered them in other classes with the Eilenberg-Moore algebras discussed above. We will only work over the category $\catSet$. We start by developing an example.
+
+With the following two results, one can see the "Kleisli category" inside the "Eilenberg--Moore category" as the "full@@CAT" "subcategory" of "free algebras".
+\begin{exer}\label{exer:monads:comparisonkem}\marginnote{\hyperref[soln:monads:comparisonkem]{See solution.}}
+    Show that the unique "morphism" $\KLF{M} \adjoint \KLU{M} \rightarrow \EMF{M} \adjoint \EMU{M}$ is the "functor" $\KL{\mathbf{C}}{M} \rightsquigarrow \EM{\mathbf{C}}{M}$ sending $A\in \obj{\mathbf{C}}$ to $(MA,\mu_A)$ and $f: A \kmor B$ to $\mu_B \circ Mf$.
+\end{exer}
+\begin{prop}
+    The "functor" $\KL{\mathbf{C}}{M} \rightsquigarrow \EM{\mathbf{C}}{M}$ of Exercise \ref{exer:monads:comparisonkem} is "fully faithful".
+\end{prop}
+\begin{proof}
+    \textbf{Full:} Suppose $g: MA \rightarrow MB$ is such that $g \circ \mu_A = \mu_B \circ Mg$, then 
+    \[\mu_B \circ M(g \circ \eta_A) = \mu_B \circ Mg \circ M\eta_A = g \circ \mu_A \circ M\eta_A = g,\]
+    so $g$ is the image of $g \circ \eta_A$ in $\KL{\mathbf{C}}{M}$.
+
+    \textbf{Faithful:} Suppose $\mu_B \circ Mg = \mu_B \circ Mf$, then "pre-composing" with $\eta_A$, we find that $f = f \klcomp{M} \eta_A = g \klcomp{M} \eta_A = g$.
+\end{proof}
+
+\section{POV: Universal Algebra}%TODO: here!!
+In this section, we will highlight the link between algebraic structures as you have encountered them in other classes with the "Eilenberg--Moore algebras" discussed above. We will only work over the "category" $\catSet$.\footnote{The ideas of universal algebra have be developed in other settings like enriched categories.} We start by developing an example.%TODO: extend footnote
 %EM(P) = Semilattices
-\begin{exmp}[$\mPne$]\label{exmp-pnesem}
-    Consider the non-empty finite powerset functor $\mPne$ sending $X$ to $\{S \in \mP(X) \mid S \text{ is finite and non-empty}\}$. The same unit and multiplication defined for $\mP$ make $\mPne$ into a monad. A $\mPne$--algebra is a function $\alpha : \mPne(A) \rightarrow A$ satisfying the equations $\alpha\{a\} = a$ and $\alpha(\mPne(\alpha)(S)) = \alpha(\bigcup S)$. From this, we can extract a binary operation $\oplus_{\alpha}: A \times A \rightarrow A$ by defining $x \oplus_{\alpha} y = \alpha\{x,y\}$. This operation is clearly commutative and idempotent, i.e.: $x \oplus_{\alpha} y = y \oplus_{\alpha} y$ and $x \oplus_{\alpha} x = x$, but it is also associative by the following derivation.
+\begin{exmp}[$\mPne$]\label{exmp:pnesem}
+    Consider the non-empty finite "powerset" "functor" $\intro*\mPne$ sending $X$ to $\{S \in \mP(X) \mid S \text{ is finite and non-empty}\}$. The same "unit@@MND" and "multiplication@@MND" as defined for $\mP$ make $\mPne$ into a "monad".\footnote{It is easy to see as the $\eta$ and $\mu$ restrict to finite and non-empty.}%TODO:better writing.
+    A $\mPne$"--algebra@@MND" is a function $\alpha : \mPne(A) \rightarrow A$ satisfying the equations $\alpha\{a\} = a$ and $\alpha(\mPne(\alpha)(S)) = \alpha(\bigcup S)$. From this, we can extract a binary operation $\oplus_{\alpha}: A \times A \rightarrow A$ by defining $x \oplus_{\alpha} y = \alpha\{x,y\}$. This operation is clearly commutative and idempotent,\footnote{ i.e.: $x \oplus_{\alpha} y = y \oplus_{\alpha} y$ and $x \oplus_{\alpha} x = x$.} but it is also associative by the following derivation.
         \begin{align*}
             (x\oplus_{\alpha} y) \oplus_{\alpha} z &= \alpha\{x,y\} \oplus_{\alpha} z\\
             &= \alpha\{\alpha\{x,y\},z\}\\
@@ -409,9 +515,9 @@ In this section, we will highlight the link between algebraic structures as you 
             &= \alpha\{\mu_A\{\{x,y\}, \{z\}\}\}\\
             &= \alpha\{x,y,z\}.
         \end{align*}
-    Since a $\mPne$--algebra homomorphism $h:(A, \alpha) \rightarrow (B, \beta)$ commutes with $\alpha$ and $\beta$ it also commutes with $\oplus_{\alpha}$ and $\oplus_{\beta}$.
+    Since a $\mPne$"--homomorphism@@MND" $h:(A, \alpha) \rightarrow (B, \beta)$ commutes with $\alpha$ and $\beta$ it also commutes with $\oplus_{\alpha}$ and $\oplus_{\beta}$.\footnote{i.e.: $h(a\oplus_{\alpha}a') = h(a) \oplus_{\beta} h(a')$.}
 
-    Conversely, if $(A, \oplus)$ is an idempotent, associative and commutative binary operation on $A$, we can define $\alpha_{\oplus}$ on non-empty finite sets of $A$ by iterating $\oplus$. Namely, 
+    Conversely, if $\oplus$ is an idempotent, associative and commutative binary operation on $A$, we can define $\alpha_{\oplus}$ on non-empty finite sets of $A$ by iterating $\oplus$. Namely, 
     \[\alpha_{\oplus}\{x\} = x \oplus x \quad \text{and}\quad \alpha_{\oplus}\{x_1, \dots, x_n\} = x_1 \oplus x_2 \oplus \cdots \oplus x_n. \]
     It is well-defined by associativity and commutativity and we can check that it is the inverse of the operation described in the previous paragraph. That is to say, we can check that $\alpha_{\oplus_{\alpha}} = \alpha$ and $\oplus_{\alpha_{\oplus}} = \oplus$. For the former, it is clear for singleton sets and for any $n > 1$, we have the following derivation.
     \begin{align*}
@@ -426,79 +532,86 @@ In this section, we will highlight the link between algebraic structures as you 
     For the latter, we have 
     \[x \oplus_{\alpha_{\oplus}} y = \alpha_{\oplus}\{x,y\} = x \oplus y.\]
 \end{exmp}
-A set equipped with an idempotent, commutative and associative binary operation is called a \textbf{(join/meet)-semilattice} and we have shown above that $\mPne$--algebras are in correspondence with semilattices. Through the introduction of basic notions in universal algebra, we will explain how this correspondence is functorial and generalize the core idea behind it.
+\AP A set equipped with an idempotent, commutative and associative binary operation is called a ""semilattice""\footnote{A "semilattice" can also be called a sup-semilattice, join-semilattice, inf-semilattice or meet-semilattice. This is because a "semilattice" can also be defined as a "poset" where all "supremums"/"joins" (resp. , "infimums"/"meets") exist.} and we have shown above that $\mPne$"--algebras@@MND" are in correspondence with "semilattices". Through the introduction of basic notions in universal algebra, we will explain how this correspondence is "functorial" and generalize the core idea behind it.
 %Universal algebra
 \begin{defn}[Algebraic theory]
-    An \textbf{algebraic signature} is a set $\Sigma$ of operation symbols along with arities in $\N$, we denote $f:n \in \Sigma$ for an $n$--ary operation $f$ in $\Sigma$. Given a set $X$, one constructs the set of $\Sigma$--\textbf{terms} with variables in $X$, denoted $T_{\Sigma}(X)$ by iterating operations symbols:
+    \AP An ""algebraic signature""\footnote{Also called algebraic similarity type.} is a set $\Sigma$ of operation symbols along with ""arities"" in $\N$, we denote $f\arity n \in \Sigma$ for an $n$--ary operation symbol $f$ in $\Sigma$. Given a set $X$, one constructs the set of $\Sigma$""--terms"" with variables in $X$, denoted $\terms{\Sigma}(X)$ by iterating operations symbols:
     \begin{align*}
-        \forall x \in X, &\ x \in T_{\Sigma}(X)\\
-        \forall t_1, \dots, t_n \in T_{\Sigma}(X), f:n \in \Sigma, &\ f(t_1, \dots, t_n) \in T_{\Sigma}(X).
+        \forall x \in X, &\ x \in \terms{\Sigma}(X)\\
+        \forall t_1, \dots, t_n \in \terms{\Sigma}(X), f\arity n \in \Sigma, &\ f(t_1, \dots, t_n) \in \terms{\Sigma}(X).
     \end{align*}
-    An \textbf{equation} (sometimes \textbf{axiom}) $E$ over $\Sigma$ is a pair of $\Sigma$--terms over a set of dummy variables. We will call the tuple $(\Sigma, E)$ an \textbf{algebraic theory}.
+    An ""equation""\footnote{Also called axiom.} $E$ over $\Sigma$ is a pair of $\Sigma$"--terms" over a set of dummy variables which we usually denote with an equality sign (e.g.: $s = t$ for $s,t \in \terms{\Sigma}(X)$ and $X$ is the set of dummy variables). We will call the tuple $(\Sigma, E)$ an ""algebraic theory"".%TODO: explain dummy variables.
 \end{defn}
+\begin{exmp}
+    The "algebraic theory" of "semilattices" contains a single binary operation $\Sigma_{\intro*\thslat} = \{\oplus : 2\}$ and the following equations in $E_{\thslat}$:\footnote{It will be made clear why this is the "theory" of "semilattices" shortly.}
+    \begin{align*}
+        x \oplus x &= x &&\text{$I$: idempotence}\\
+        x \oplus y &= y \oplus x &&\text{$C$: commutativity}\\
+        (x\oplus y) \oplus z &= x\oplus (y \oplus z). &&\text{$A$: associativity}
+    \end{align*}
+    Let $X = \{x,y,z\}$, the set of $\Sigma$"--terms" contains infinitely many "terms", e.g.: $x\oplus y$, $x \oplus (y \oplus z)$, $(x \oplus x) \oplus (y \oplus z) \oplus (z \oplus x)$, etc.\footnote{The parentheses are here to denote the order in which the operation symbols was applied. While in "semilattices", the operation $\oplus$ satisfies the equations making the parentheses and order irrelevant, when describing "terms" over the "signature", we cannot remove them.}
+\end{exmp}
 \begin{defn}[$(\Sigma, E)$--algebras]
-    Given a signature $\Sigma$ and a set of equations $E$ over this signature, a $(\Sigma, E)$--\textbf{algebra} is a set $A$ along with operations $f^A: A^n \rightarrow A$ for all $f:n \in \Sigma$ such that the pair of terms in $E$ are always equal when the operation symbols and dummy variables are instantiated in $A$. We usually denote $\Sigma^A$ for the set operations $f^A$.
+    Given an "algebraic theory" $(\Sigma,E)$, a $(\Sigma, E)$""--algebra@@UALG"" is a set $A$ along with operations $f^A: A^n \rightarrow A$ for all $f\arity n \in \Sigma$ such that the pairs of "terms" in $E$ are always equal when the operation symbols and dummy variables are instantiated in $A$.\footnote{The operation symbol $f$ is always instantiated by $f^A$ and a dummy variable can be instantiated by any element of $A$. For instance, suppose $(A,f^A, g^A)$ is a $(\Sigma,E)$"--algebra@@UALG" and $f(x,g(y)) = g(y)$ is an "equation" in $E$, then for any $a, b\in A$, $f^A(a,g^A(b)) = g^A(b)$.} We usually denote $\Sigma^A$ for the set operations $f^A$.
 \end{defn}
 \begin{exmps}\label{exmps-algebras}
-    As is suggested by the terminology, the common algebraic structures can be define with simple algebraic theories.
+    As is suggested by the terminology, the common algebraic structures can be defined with simple "algebraic theories".
     \begin{enumerate}
-        \item We can define a monoid as an algebra for the signature $\{\cdot : 2, 1: 0\}$ and the equations $x\cdot(y\cdot z) = (x\cdot y)\cdot z$, $1\cdot x = x$, $x\cdot 1 = x$.
-        \item Adding the unary operation $(-)^{-1}$ and the equations $x\cdot x^{-1} = 1$ and $x^{-1} \cdot x = 1$, we obtain the theory of groups.
-        \item Adding the equation $x\cdot y = y \cdot x$ yields the theory of abelian groups.
-        \item With the signature $\{+ : 2, \cdot : 2, 1:0, 0:0\}$, we can add the abelian group equations for the operation $+$ (identity is $0$), the monoid equations for $\cdot$ (identity is $1$) and the distributivity equation $x\cdot (y+z) = (x\cdot y) + (x\cdot z)$ and thus obtain the theory of rings.
+        \item We can define a "monoid" as an "algebra@@UALG" for the "signature" $\{\cdot : 2, 1: 0\}$ and the "equations" $x\cdot(y\cdot z) = (x\cdot y)\cdot z$, $1\cdot x = x$, $x\cdot 1 = x$. We will say that this is the "algebraic theory" of "monoids".
+        \item Adding the unary operation $(-)^{-1}$ and the "equations" $x\cdot x^{-1} = 1$ and $x^{-1} \cdot x = 1$, we obtain the "theory" of "groups".
+        \item Adding the "equation" $x\cdot y = y \cdot x$ yields the "theory" of "abelian" "groups".
+        \item With the signature $\{+ : 2, \cdot : 2, 1:0, 0:0\}$, we can add the "abelian" "group" "equations" for the operation $+$ (identity is $0$), the "monoid" "equations" for $\cdot$ (identity is $1$) and the distributivity "equation" $x\cdot (y+z) = (x\cdot y) + (x\cdot z)$ and thus obtain the "theory" of "rings".
+        \item The theory of "semilattices" has this named because a $(\Sigma_{\thslat},E_{\thslat})$"--algebra@@UALG" is a "semilattice".
     \end{enumerate}
 \end{exmps}
-We also have homomorphisms.
+We also have "homomorphisms@@UALG" between $(\Sigma,E)$"--algebras@@UALG".
 \begin{defn}[$(\Sigma, E)$--algebra homomorphisms]
-    Given two $(\Sigma, E)$--algebras $A$ and $B$, a \textbf{homomorphism} between them is a map $h: A \rightarrow B$ commuting with all operations in $\Sigma$, that is $\forall f:n \in \Sigma, h\circ f^A = f^B \circ h^n$.
+    \AP Given two $(\Sigma, E)$"--algebras@@UALG" $A$ and $B$, a ""homomorphism@@UALG"" between them is a map $h: A \rightarrow B$ commuting with all operations in $\Sigma$, that is $\forall f\arity n \in \Sigma, h\circ f^A = f^B \circ h^n$.\footnote{We write $h^n$ for componentwise application of the map $h$ to vectors in $A^n$, i.e.: $h^n(a_1,\dots,a_n) = (h(a_1),\dots,h(a_n))$.}
 \end{defn}
-The category of $(\Sigma,E)$--algebras and their homomorphisms (with the obvious composition and identities) is denoted $\Alg(\Sigma,E)$.
-\begin{exmp}[$\Sigma_{\textsf{S}}, E_{\textsf{S}}$]
-    Recall in Example \ref{exmp-pnesem} that $\mPne$--algebras correspond to semilattices. Formally, the theory of semilattices has a single binary operation $\Sigma_{\textsf{S}} = \{\oplus : 2\}$ satisfying the following equations in $E_{\textsf{S}}$:
-    \begin{align*}
-        x \oplus x &= x &&\text{$I$}\\
-        x \oplus y &= y \oplus x &&\text{$C$}\\
-        (x\oplus y) \oplus z &= x\oplus (y \oplus z). &&\text{$A$}
-    \end{align*}
-    Up to a couple of missing functoriality arguments, we have shown that the categories $\catSet^{\mPne}$ and $\Alg(\Sigma_{\textsf{S}}, E_{\textsf{S}})$ are isomorphic. We say that $(\Sigma_{\textsf{S}}, E_{\textsf{S}})$ is an \textbf{algebraic presentation} of the monad $\mPne$.
+The category of $(\Sigma,E)$"--algebras@@UALG" and their "homomorphisms@@UALG" (with the obvious composition and identities) is denoted $\intro*\Alg(\Sigma,E)$.
+\begin{exmp}[$\Sigma_{\thslat}, E_{\thslat}$]
+    Recall from Example \ref{exmp:pnesem} that $\mPne$"--algebras@@MND" correspond to "semilattices". Up to a couple of missing "functoriality" arguments, we have shown that the "categories" $\EM{\catSet}{\mPne}$ and $\Alg(\Sigma_{\thslat}, E_{\thslat})$ are "isomorphic@@CAT". \AP We say that $(\Sigma_{\thslat}, E_{\thslat})$ is an ""algebraic presentation"" of the "monad" $\mPne$ or that the "theory" of "semilattices" "presents" the "monad" $\mPne$.
 \end{exmp}
-%Term Monad
-It turns out all algebraic theories present at least one monad.
+It turns out all "algebraic theories" "present" at least one "monad".
 \begin{defn}[Term monad]
-    Let $(\Sigma, E)$ be an algebraic theory, one can assign to any set $X$, the set $T_{\Sigma,E}(X)$ of terms in $T_{\Sigma}(X)$ modulo the equations in $E$. This can be extended to functions $f: X \rightarrow Y$, by variable substitution, i.e.: $T_{\Sigma}(f)$ acts on a term $t$ by replacing all occurrences of $x \in X$ by $f(x) \in Y$ and $T_{\Sigma,E}(f)$ acts on equivalence classes by $[t] \mapsto [T_{\Sigma}(f)(t)]$. We obtain a functor $T_{\Sigma, E}$ on which we can put a monad structure.
+    Let $(\Sigma, E)$ be an "algebraic theory", one can assign to any set $X$, the set $\terms{\Sigma,E}(X)$ of "terms" in $\terms{\Sigma}(X)$ modulo the "equations" in $E$.\footnote{Let us not waste time here to make this more formal as there is a lot to say that is not relevant to the rest of this story. We say that two "terms" $s$ and $t$ are equal modulo $E$ if we can rewrite $s$ using the "equations" in $E$ and obtain $t$. The informal notion of \textit{rewriting} is good enough for us (we hope you got a sense of what rewriting means when learning about high school algebra).}%TODO: resources malbos course and string diagram rewriting.
+    This can be extended to functions $f: X \rightarrow Y$, by variable substitution, i.e.: $\terms{\Sigma}(f)$ acts on a "term" $t$ by replacing all occurrences of $x \in X$ with $f(x) \in Y$ and $\terms{\Sigma,E}(f)$ acts on equivalence classes by $[t] \mapsto [\terms{\Sigma}(f)(t)]$. We obtain a functor $\terms{\Sigma, E}$ on which we can put a "monad" structure.
 
-    The unit map is obvious because any element of $X$ is a $\Sigma$--term, thus $\eta_X : X \rightarrow T_{\Sigma, E}(X)$ maps $x$ to the equivalence class containing the term $x$. The multiplication map is derived from the fact that applying operations in $\Sigma$ to $\Sigma$--terms yields $\Sigma$--terms. More explicitly, $\mu_X$ is a flattening operation defined recursively by
+    The "unit@@MND" is obvious because any element of $X$ is a $\Sigma$"--term", thus $\eta_X : X \rightarrow \terms{\Sigma, E}(X)$ maps $x$ to the equivalence class containing the "term" $x$. The "multiplication@@MND" is derived from the fact that applying operations in $\Sigma$ to $\Sigma$"--terms" yields $\Sigma$"--terms". More explicitly, $\mu_X$ is a \textit{flattening} operation defined recursively by
     \begin{align*}
-        \forall t \in T_{\Sigma}(X), &\mu_X([[t]]) = [t]\\
-        \forall f:n \in \Sigma, t_1, \dots, t_n \in T_{\Sigma}T_{\Sigma, E}(X), &\mu_X([f(t_1, \dots, t_n)]) = [f(\mu_X([t_1]), \dots, \mu_X([t_n]))]
+        \forall t \in \terms{\Sigma}(X), &\mu_X([[t]]) = [t]\\
+        \forall f\arity n \in \Sigma, t_1, \dots, t_n \in \terms{\Sigma}\terms{\Sigma, E}(X), &\mu_X([f(t_1, \dots, t_n)]) = [f(\mu_X([t_1]), \dots, \mu_X([t_n]))]
     \end{align*}
-    One can show that $\catSet^{T_{\Sigma,E}}$ is the category of $(\Sigma,E)$ algebras.
+    One can show that $\EM{\catSet}{\terms{\Sigma,E}}$ is the "category" of $(\Sigma,E)$"--algebras@@UALG".
 \end{defn}
-Unfortunately, the terms monads are not very simple to work with and it is often desirable to find other simpler monads which are presented by the same theory or conversely to find an algebraic presentation for a given monad.
+Unfortunately, the "term" "monads" are not very simple to work with\footnote{In fact, you might have realized we chose to not even bother.} and it is often desirable to find other simpler "monads" which are "presented" by the same "theory" or conversely to find an "algebraic presentation" for a given "monad".
 
 %More examples
 \begin{exmps}
-    \begin{enumerate}
-\item The algebraic theory for presenting $\mathcal D$ is called the theory of \textbf{convex algebras} and is denoted $(\Sigma_{\textsf{CA}}, E_{\textsf{CA}})$, it consists of a binary operation $+_p : 2$ for any $p \in (0,1)$ which is meant to represent a choice between the two terms in the operation, the left one being chosen with probability $p$ and the second one with probability $1-p$. There are three equations in the theory that morally ensure that terms representing the same choice are equal.
+    \begin{enumerate}%TODO: give motivation for name convex.
+\item \AP The "algebraic theory" "presenting" $\mathcal{D}$ is called the "theory" of ""convex algebras"" and is denoted $(\Sigma_{\thca}, E_{\thca})$, it consists of a binary operation $+_p : 2$ for any $p \in (0,1)$ which is meant to represent a choice between the two terms in the operation, the left one being chosen with probability $p$ and the second one with probability $1-p$. There are three "equations" in the "theory" that morally ensure that "terms" representing the same probabilistic choice are equal.\footnote{For $x \in [0,1]$, we denote $\overline{x}:=1-x$.}
         \begin{align*}
-            x +_p x &= x &&\mbox{$I_p$: idempotence}\\
-            x +_p y &= y +_{\overline{p}} x &&\mbox{$C_P$: skew-commutativity}\\
-            (x+_q y) +_p z &= x+_{pq} (y +_{\frac{p \overline{q}}{\overline{pq}}} z) &&\mbox{$A_p$: skew-associativity}
+            x +_p x &= x &&\text{$I_p$: idempotence}\\
+            x +_p y &= y +_{\overline{p}} x &&\text{$C_P$: skew-commutativity}\\
+            (x+_q y) +_p z &= x+_{pq} (y +_{\frac{p \overline{q}}{\overline{pq}}} z) &&\text{$A_p$: skew-associativity}
         \end{align*}
-        These equations are necessary for every distribution in $\mathcal{D}X$ to correspond uniquely to an equivalence class in $T_{\Sigma_\textsf{CA}, E_{\textsf{CA}}}(X)$.
+        These equations are necessary for every distribution in $\mathcal{D}X$ to correspond uniquely to an equivalence class in $\terms{\Sigma_{\thca}, E_{\thca}}(X)$.
 
-        \item The monad $(\cdot +\terminal)$ is particular because it is really simple and combines very well with other monads.
-        \begin{prop}\label{prop-Mp1}
-            For any monad $M$, there is a monad structure on the composition $M(\cdot+\terminal)$. Moreover, if $M$ is presented by $(\Sigma, E)$ the monad $M(\cdot+\terminal)$ is presented by $(\Sigma \cup \{* : 0\}, E)$, that is, the new theory only has an additional constant which is neutral with respect to the equations.
+        \item The "monad" $(\placeholder\coproduct\terminal)$ is particular because it is really simple and combines very well with other "monads".
+        \begin{prop}\label{prop:Mp1}
+            For any "monad" $M$, there is a "monad" structure on the "composition" $M(\placeholder\coproduct\terminal)$. Moreover, if $M$ is "presented" by $(\Sigma, E)$ the "monad" $M(\placeholder\coproduct\terminal)$ is "presented" by $(\Sigma \cup \{* : 0\}, E)$, that is, the new "theory" only has an additional constant\footnote{A $0$--ary opeartion is more commonly called a constant.} which is neutral with respect to the operation symbols.
         \end{prop}
-        We often qualify theories with an added constant as \textbf{pointed}. For instance, the theories presented by $\mPne(\cdot+\terminal)$ and $\mathcal D(\cdot+\terminal)$ are those of \textbf{pointed semilattices} (\textsf{PS}) and \textbf{pointed convex algebras} (\textsf{PCA}) respectively. 
+        \begin{proof}
+            Postponed to Exercise \ref{exer:monads:monadpointed}.
+        \end{proof}
+        We often qualify theories with an added constant as \textbf{pointed}. For instance, the theories presented by $\mPne(\placeholder\coproduct\terminal)$ and $\mathcal{D}(\placeholder\coproduct\terminal)$ are those of \textbf{pointed semilattices} and \textbf{pointed convex algebras} respectively. 
     \end{enumerate}
 \end{exmps}
 %Quickly: Lawvere Theories
 \begin{rem}[Lawvere's way]
-    There is another way to do universal algebra \textit{more categorically} still very much linked to monads: Lawvere theories. Algebras over a Lawvere theory are defined more abstractly using the categorical language and, on this account, they enjoy straightforward generalization through enrichment or lifting to higher order categories.
+    There is another way to do universal algebra \textit{more categorically} still very much linked to "monads": \href{https://en.wikipedia.org/wiki/Lawvere_theory}{Lawvere theories}. Algebras over a Lawvere theory\footnote{They are called models of the theory.} are defined more abstractly using the categorical language and, on this account, they enjoy straightforward generalization through enrichment or lifting to higher order categories.
 \end{rem}
-\section{POV: Computer Programs}
+\section{POV: Computer Programs}%TODO:here!!!
 %Moggi's idea
 In this section, we will develop on an original idea by Eugenio Moggi that monads are suitable models for a general notion of \textit{computation}. In the sequel, we will use the terms \textit{type} and \textit{set} interchangeably.
 
@@ -518,9 +631,9 @@ Now, a monad $M$ is a description of computational types that is general, namely
 \begin{exmps}
     Here, we list more examples commonly used in computer science.
 
-    \textbf{List monad}: For any set $X$, let $L(X)$ denote the set of all finite lists whose elements are chosen in $X$. This is a functor that sends a function $f:X \rightarrow Y$ to its extension on lists $L(f): L(X) \rightarrow L(Y)$ which applies $f$ to all elements on the list (in lots of programming languages, one writes $L(f) := \textsf{map}(f,-)$).Then, we can put a monad structure on $L$. The unit maps send an element $x \in X$ to the list containing only that element: $\eta_X = x \mapsto [x]$. The multiplication maps concatenate all the lists in a lists of lists: $\mu_X = [\ell_1, \dots, \ell_n] \mapsto \ell_1\ell_2\cdots \ell_n$. It is easy to check diagrams \eqref{diag-unitmonad} to \eqref{diag-multmonad} commute.
+    \textbf{List monad}: For any set $X$, let $L(X)$ denote the set of all finite lists whose elements are chosen in $X$. This is a functor that sends a function $f:X \rightarrow Y$ to its extension on lists $L(f): L(X) \rightarrow L(Y)$ which applies $f$ to all elements on the list (in lots of programming languages, one writes $L(f) := \textsf{map}(f,-)$).Then, we can put a monad structure on $L$. The unit maps send an element $x \in X$ to the list containing only that element: $\eta_X = x \mapsto [x]$. The multiplication maps concatenate all the lists in a lists of lists: $\mu_X = [\ell_1, \dots, \ell_n] \mapsto \ell_1\ell_2\cdots \ell_n$. It is easy to check diagrams \eqref{diag:unitmonad} to \eqref{diag:multmonad} commute.
 
-    \textbf{Termination:} In order to model computations that might terminate with no output, the monad $(\cdot +\terminal)$ is often used. For any type $X$, the type $X+\terminal$ has all the values of type $X$ and an additional termination value denoted $*$. The behavior of the unit and multiplication of the monad can be interpreted as the fact that the stage of the computation that leads to a termination is irrelevant. This monad is also known as the Maybe monad.
+    \textbf{Termination:} In order to model computations that might terminate with no output, the monad $(\placeholder\coproduct\terminal)$ is often used. For any type $X$, the type $X\coproduct\terminal$ has all the values of type $X$ and an additional termination value denoted $*$. The behavior of the unit and multiplication of the monad can be interpreted as the fact that the stage of the computation that leads to a termination is irrelevant. This monad is also known as the Maybe monad.
 
     \textbf{Non-deterministic choice:} The model for nondeterministic choice is given by the monad $\mPne$. The elements of $S \in \mPne(X)$ are seen as the possible outcomes of a nondeterministic choice. The unit is basically viewing a deterministic choice as a nondeterministic choice. The multiplication reduces the number of choices without changing the behavior. For instance, consider a process that nondeterministically chooses between two boxes containing two coins each and then chooses a coin in the box. By simply observing the final choice, we would not be able to distinguish it from a process that nondeterministically chooses between the four coins from the start.
 
@@ -531,26 +644,26 @@ Now, a monad $M$ is a description of computational types that is general, namely
 %Distributive laws
 This view sheds light on one important features of monads we have not yet explored. If $M$ and $\widehat{M}$ are monads describing computational effects, it is natural to ask for a way to combine them. Indeed, it does not seem too ambitious to have a model for programs which, for instance, make nondeterministic choices and also might terminate with no output. It turns out there is a very useful tool to deal with this at the level of monads.
 \begin{defn}[Monad distributive law] %TODO: restate.
-    Let $(M, \eta, \mu)$ and $(\widehat{M}, \widehat{\eta}, \widehat{\mu})$ be two monads on $\mathbf{C}$, a natural transformation $\lambda: M \widehat{M}\Rightarrow \widehat{M}M$ is called a \textbf{monad distributive law of $M$ over  $\widehat{M}$} if it makes \eqref{diag-mondistlaw1}, \eqref{diag-mondistlaw2} commute.
-    \begin{equation}\label{diag-mondistlaw1}
+    Let $(M, \eta, \mu)$ and $(\widehat{M}, \widehat{\eta}, \widehat{\mu})$ be two monads on $\mathbf{C}$, a natural transformation $\lambda: M \widehat{M}\Rightarrow \widehat{M}M$ is called a \textbf{monad distributive law of $M$ over  $\widehat{M}$} if it makes \eqref{diag:mondistlaw1}, \eqref{diag:mondistlaw2} commute.
+    \begin{equation}\label{diag:mondistlaw1}
         \begin{tikzcd}
             M \arrow[rd, "\widehat{\eta}M"', Rightarrow] \arrow[r, "M\widehat{\eta}", Rightarrow] & M\widehat{M} \arrow[d, "\lambda", Rightarrow] & \widehat{M} \arrow[l, "\eta \widehat{M}"', Rightarrow] \arrow[ld, "\widehat{M}\eta", Rightarrow] \\ & \widehat{M}M &
         \end{tikzcd}
     \end{equation}
-    \begin{equation}\label{diag-mondistlaw2}
+    \begin{equation}\label{diag:mondistlaw2}
         \begin{tikzcd}
             MM\widehat{M} \arrow[d, "M\lambda"', Rightarrow] \arrow[rr, "\mu \widehat{M}", Rightarrow] & & M\widehat{M} \arrow[d, "\lambda", Rightarrow] & & M\widehat{M}\widehat{M} \arrow[d, "\lambda \widehat{M}", Rightarrow] \arrow[ll, "M\widehat{\mu}"', Rightarrow] \\
             M\widehat{M}M \arrow[r, "\lambda M"', Rightarrow]   & \widehat{M}MM \arrow[r, "\widehat{M}\mu"', Rightarrow] & \widehat{M}M & \widehat{M}\widehat{M}M \arrow[l, "\widehat{\mu}M", Rightarrow] & \widehat{M}M\widehat{M} \arrow[l, "\widehat{M}\lambda", Rightarrow]
         \end{tikzcd}
     \end{equation}
 \end{defn}
-\begin{prop}\label{prop-composemonad}
+\begin{prop}\label{prop:composemonad}
 If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law, then the composite $\overline{M} = \widehat{M}M$ is a monad with unit $\overline{\eta} = \widehat{\eta} \diamond \eta$ and multiplication $\overline{\mu} = (\widehat{\mu} \diamond \mu) \cdot \widehat{M}\lambda M$.
 \end{prop}
 \begin{proof}
-    We have to show that the following instances of \eqref{diag-unitmonad} and \eqref{diag-multmonad} commute.\\
+    We have to show that the following instances of \eqref{diag:unitmonad} and \eqref{diag:multmonad} commute.\\
     \begin{minipage}{0.5\textwidth}
-        \begin{equation}\label{diag-unitcomposite}
+        \begin{equation}\label{diag:unitcomposite}
             \begin{tikzcd}
                 \overline{M} \arrow[rrdd, "\one_{\overline{M}}"', Rightarrow] \arrow[rr, "\overline{M}(\widehat{\eta}\diamond \eta)", Rightarrow] &  & \overline{M}^2 \arrow[d, "\widehat{M}\lambda M", Rightarrow]   &  & \overline{M} \arrow[lldd, "\one_{\overline{M}}", Rightarrow] \arrow[ll, "(\widehat{\eta}\diamond \eta)\overline{M}"', Rightarrow] \\  &  & \widehat{M}^2M^2 \arrow[d, "\widehat{\mu} \diamond \mu", Rightarrow] &  &  \\
                 &  & \overline{M} & &  
@@ -558,7 +671,7 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
         \end{equation}
     \end{minipage}
     \begin{minipage}{0.5\textwidth}
-        \begin{equation}\label{diag-multcomposite}
+        \begin{equation}\label{diag:multcomposite}
             \begin{tikzcd}
                 \overline{M}^3 \arrow[d, "\widehat{M}\lambda M\overline{M}"', Rightarrow] \arrow[r, "\overline{M}\widehat{M}\lambda M", Rightarrow] & \overline{M}\widehat{M}^2M^2 \arrow[r, "\overline{M}(\widehat{\mu}\diamond \mu)", Rightarrow] & \overline{M}^2 \arrow[d, "\widehat{M}\lambda M", Rightarrow] \\
                 \widehat{M}^2M^2\overline{M} \arrow[d, "(\widehat{\mu}\diamond \mu)\overline{M}"', Rightarrow] &   & \widehat{M}^2M^2 \arrow[d, "\widehat{\mu}\diamond \mu", Rightarrow] \\
@@ -567,7 +680,7 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
         \end{equation}
     \end{minipage}\\
     %TODO: make this into diagrams.
-    For the left part of \eqref{diag-unitcomposite}, we have the following diagram, the justifications of each part is given below with what diagram has to be considered and what functors should be applied to it (recall that acting on the diagrams does not affect commutativity). The notation \eqref{diag-unitmonad}.L (resp. .R) means only the left (resp. right) part of the diagram is considered.
+    For the left part of \eqref{diag:unitcomposite}, we have the following diagram, the justifications of each part is given below with what diagram has to be considered and what functors should be applied to it (recall that acting on the diagrams does not affect commutativity). The notation \eqref{diag:unitmonad}.L (resp. .R) means only the left (resp. right) part of the diagram is considered.
     \begin{equation}
  \begin{tikzcd}
  \overline{M} \arrow[rrrrrr, "\overline{M}(\widehat{\eta}\diamond \eta)", Rightarrow, bend left] \arrow[rrr, "\overline{M}\widehat{\eta}"] \arrow[rrrdd, "\overline{M}\widehat{\eta}"'] \arrow[rrrrrrddd, "\widehat{M}\widehat{\eta}M"', bend right=40] \arrow[rrrrrrdddd, "\one_{\overline{M}} = \one_{\widehat{M}}M"', Rightarrow, bend right=49] & {} \arrow[rrdd,  phantom, near start, "\text{(a)}"] & & \overline{M}\widehat{M} \arrow[rrr, "\overline{M}\widehat{M}\eta"] \arrow[rrd, "\overline{M}\eta\widehat{M}"'] \arrow[dd, "\widehat{M}\one_M\widehat{M}"'] & & {} \arrow[d,  phantom, "\text{(c)}"] & \overline{M}^2 \arrow[dd, "\widehat{M}\lambda M", Rightarrow] \\
@@ -579,26 +692,26 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
     \end{equation}
     \begin{enumerate}[(a)]
         \item $\widehat{M}\one_M \widehat{M}$ is the identity transformation.
-        \item Act on \eqref{diag-unitmonad}.L with $\widehat{M}$ on the left and right.
-        \item Act on \eqref{diag-mondistlaw1}.R with $\overline{M}$ on the left.
-        \item Act on \eqref{diag-mondistlaw2}.L with $\widehat{M}$ on the left.
-        \item Act on \eqref{diag-mondistlaw1}.L with $\widehat{M}$ on the left.
-        \item Act on \eqref{diag-unitmonad} with $M$ on the right.
+        \item Act on \eqref{diag:unitmonad}.L with $\widehat{M}$ on the left and right.
+        \item Act on \eqref{diag:mondistlaw1}.R with $\overline{M}$ on the left.
+        \item Act on \eqref{diag:mondistlaw2}.L with $\widehat{M}$ on the left.
+        \item Act on \eqref{diag:mondistlaw1}.L with $\widehat{M}$ on the left.
+        \item Act on \eqref{diag:unitmonad} with $M$ on the right.
     \end{enumerate}
     %TODO: color important parts.
     Without a diagram, the derivation is this (we use $;$ to denote the opposite of $\circ$, i.e.: composition in the order read on the diagram):
     \begin{align*}
         \overline{M}(\widehat{\eta} \diamond \eta);\widehat{M}\lambda M; \widehat{\mu}\diamond \mu &= \overline{M}\widehat{\eta}; \overline{M} \widehat{M}\eta; \widehat{M}\lambda M; \widehat{M}^2\mu;\widehat{\mu}M &&\mbox{def of $\diamond$}\\
-        &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M}; \overline{M}\lambda;\widehat{M}\lambda M; \widehat{M}\widehat{M}\mu;\widehat{\mu}M &&\mbox{$\overline{M}$\eqref{diag-mondistlaw1}.R}\\
-        &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M};\widehat{M}\mu \widehat{M} ; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag-mondistlaw2}.L}\\
-        &= \overline{M}\widehat{\eta}; \widehat{M}\one_M \widehat{M}; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag-unitmonad}.L$\widehat{M}$}\\
+        &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M}; \overline{M}\lambda;\widehat{M}\lambda M; \widehat{M}\widehat{M}\mu;\widehat{\mu}M &&\mbox{$\overline{M}$\eqref{diag:mondistlaw1}.R}\\
+        &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M};\widehat{M}\mu \widehat{M} ; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag:mondistlaw2}.L}\\
+        &= \overline{M}\widehat{\eta}; \widehat{M}\one_M \widehat{M}; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag:unitmonad}.L$\widehat{M}$}\\
         &= \overline{M}\widehat{\eta}; \widehat{M}\lambda;\widehat{\mu}M\\
-        &= \widehat{M}\widehat{\eta}M;\widehat{\mu}M&&\mbox{$\widehat{M}$\eqref{diag-mondistlaw1}.R}\\
-        &= \one_{\widehat{M}}M = \one_{\overline{M}}&&\mbox{\eqref{diag-unitmonad}.L$M$}\\
+        &= \widehat{M}\widehat{\eta}M;\widehat{\mu}M&&\mbox{$\widehat{M}$\eqref{diag:mondistlaw1}.R}\\
+        &= \one_{\widehat{M}}M = \one_{\overline{M}}&&\mbox{\eqref{diag:unitmonad}.L$M$}\\
     \end{align*}%diagram is stored below in comments.
-    For the right part of \eqref{diag-unitcomposite}, the derivation is very similar.
+    For the right part of \eqref{diag:unitcomposite}, the derivation is very similar.
     
-    For \eqref{diag-multcomposite}, we do the same thing.
+    For \eqref{diag:multcomposite}, we do the same thing.
     \begin{center}
         \begin{tikzpicture}[baseline= (a).base]
             \node[scale=.7] (a) at (0,0){
@@ -613,21 +726,21 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
             };
         \end{tikzpicture}
     \end{center}
-    % \begin{equation}\label{diag-provingmultcomposite}
+    % \begin{equation}\label{diag:provingmultcomposite}
     
     % \end{equation}
     \begin{multicols}{2}
         \begin{enumerate}[(a)]
             \item Def of $\widehat{M}\lambda \diamond \lambda M$.
             \item Def of $\widehat{M}\lambda \widehat{M}\diamond \mu$.
-            \item Apply $\widehat{M}(\cdot)M$ to \eqref{diag-mondistlaw2}.R.
+            \item Apply $\widehat{M}(\cdot)M$ to \eqref{diag:mondistlaw2}.R.
             \item Def of $\widehat{\mu}\diamond M\lambda M$.
             \item Def of $\widehat{\mu}\diamond \lambda M^2$.
             \item Def of $\widehat{M}^2\lambda \diamond \mu$.
-            \item Apply $(\cdot)M^2$ to associativity of $\widehat{\mu}$ \eqref{diag-multmonad}.
-            \item Apply $\widehat{M}(\cdot)M$ to \eqref{diag-mondistlaw2}.L.
+            \item Apply $(\cdot)M^2$ to associativity of $\widehat{\mu}$ \eqref{diag:multmonad}.
+            \item Apply $\widehat{M}(\cdot)M$ to \eqref{diag:mondistlaw2}.L.
             \item Def of $\widehat{\mu}\widehat{M} \diamond \mu M$.
-            \item Apply $\widehat{M}^3$ to associativity of $\mu$ \eqref{diag-multmonad}.
+            \item Apply $\widehat{M}^3$ to associativity of $\mu$ \eqref{diag:multmonad}.
             \item Def of $\widehat{\mu}\widehat{M} \diamond \mu$.
             \item Same as (k): Def of $\widehat{\mu}\widehat{M} \diamond \mu$.
             \item Def of $\widehat{\mu} \diamond \mu$.
@@ -635,17 +748,20 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
     \end{multicols}
 \end{proof}
 \begin{cor}\label{cor-Mp1monad}
-    If $\mathbf{C}$ has (binary) coproducts and a terminal object $\terminal$ and $M$ is a monad, then $M(\cdot + \terminal)$ is also monad.
+    If $\mathbf{C}$ has (binary) coproducts and a terminal object $\terminal$ and $M$ is a monad, then $M(\placeholder\coproduct\terminal)$ is also monad.
 \end{cor}
 \begin{proof}
-    We will exhibit a monad distributive law of $M$ over $(\cdot + \terminal)$. We claim \[\iota_X : MX+\terminal \rightarrow M(X+1) = [M(\inl^{X+\terminal}), \eta_{X+\terminal} \circ \inr^{X+\terminal}]\]
-    is a monad distributive law $\iota: (\cdot + \terminal)M \Rightarrow M(\cdot +\terminal)$. Then, it follows by Proposition \ref{prop-composemonad}.
+    We will exhibit a monad distributive law of $M$ over $(\placeholder\coproduct\terminal)$. We claim \[\iota_X : MX\coproduct\terminal \rightarrow M(X+1) = [M(\inl^{X\coproduct\terminal}), \eta_{X\coproduct\terminal} \circ \inr^{X\coproduct\terminal}]\]
+    is a monad distributive law $\iota: (\placeholder\coproduct\terminal)M \Rightarrow M(\placeholder\coproduct\terminal)$. Then, it follows by Proposition \ref{prop:composemonad}.
 \end{proof}
+\begin{exer}\label{exer:monads:monadpointed}\marginnote{\hyperref[soln:monads:monadpointed]{See solution.}}
+    Show Proposition \ref{prop:Mp1} with the monad structure on $M(\placeholder\coproduct\terminal)$ given in Corollary \ref{cor-Mp1monad}.% Show that if a monad $M$ on $\catSet$ is "presented" by $(\Sigma,E)$, then the "monad" on $M(\placeholder\coprdouct\terminal)$ given above is "presented" by the same "theory" with an additional constant.
+\end{exer}
 %Examples TODO: monoid and ring via term monads.
-\begin{exmp}[Rings]
-    Consider the term monads for the theory of monoids and abelian groups $T_{\textbf{Mon}}$ and $T_{\textbf{Ab}}$. You can check that they are the monads induced by the free-forgetful adjunctions between \textbf{Mon} and $\catSet$ and \textbf{Ab} and $\catSet$. Also, $T_{\textbf{Mon}}$ is the same thing as the list monad. Call the binary operation of $T_{\textbf{Mon}}$ and $T_{\textbf{Ab}}$ the product and sum respectively.
+\begin{exmp}[Rings]%TODO: mention that 0 \neq 1 is not required. and put footnote when defining rings in prelim.
+    Consider the term monads for the theory of monoids and abelian groups $\terms{\catMon}$ and $\terms{\catAb}$. You can check that they are the monads induced by the free-forgetful adjunctions between $\catMon$ and $\catSet$ and $\catAb$ and $\catSet$. Also, $\terms{\catMon}$ is the same thing as the list monad. Call the binary operation of $\terms{\catMon}$ and $\terms{\catAb}$ the product and sum respectively.
     
-    Then, by identifying products of sums (elements of $T_{\textbf{Mon}}T_{\textbf{Ab}}X$) with sums of products (elements of $T_{\textbf{Ab}}T_{\textbf{Mon}}X$) by \emph{distributing} the product over the sum as we are used to do with, say, real numbers, we obtain a monad distributive law of $T_{\textbf{Mon}}$ over $T_{\textbf{Ab}}$. The resulting composite monad $T_{\textbf{Ab}}T_{\textbf{Mon}}$ is the term monad for the theory of rings. The term distributive law comes from this example.
+    Then, by identifying products of sums (elements of $\terms{\catMon}\terms{\catAb}X$) with sums of products (elements of $\terms{\catAb}\terms{\catMon}X$) by \emph{distributing} the product over the sum as we are used to do with, say, real numbers, we obtain a monad distributive law of $\terms{\catMon}$ over $\terms{\catAb}$. The resulting composite monad $\terms{\catAb}\terms{\catMon}$ is the term monad for the theory of rings. The term distributive law comes from this example.
 \end{exmp}
 \begin{rem}
     It is not always possible to combine monads in such a natural way. For instance, it was shown that no distributive law exist between $\mPne$ and $\mathcal D$ and even that no monad structure can exist on $\mPne \mathcal D$ or $\mathcal D \mPne$. Thus, modelling combined probabilistic and nondeterministic effects has been quite a hard endeavor and is still an active area of research I discovered in an internship with Matteo Mio and Valeria Vignudelli at ENS de Lyon last summer.
@@ -654,9 +770,9 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
 If you are looking for more applications of this perspective on monads and especially if you enjoyed the assignment on Brzozowski's algorithm, I suggest you look into the paper \textit{Generalizing Determinization From Automata to Coalgebras} available at \url{https://arxiv.org/abs/1302.1046}.
 \section{Exercises}
 \begin{enumerate}
-    \item Show that the triple $(\mathcal{D}, \eta, \mu)$ described in Example \ref{exmp-monads}.\ref{exmp-distmonad} is a monad.
+    \item Show that the triple $(\mathcal{D}, \eta, \mu)$ described in Example \ref{exmp:monads}.\ref{exmp:distmonad} is a monad.
     \item Show that the Kleisli category of the powerset monad is the category \textbf{Rel} of relations.
     \item Show that $\iota$ defined in the proof of Corollary \ref{cor-Mp1monad} is a monad distributive law.
-    \item Show Proposition \ref{prop-Mp1} with the monad structure on $M(\cdot+\terminal)$ given in Corollary \ref{cor-Mp1monad}.
+    \item Show Proposition \ref{prop:Mp1} with the monad structure on $M(\placeholder\coproduct\terminal)$ given in Corollary \ref{cor-Mp1monad}.
 \end{enumerate}
 \end{document}

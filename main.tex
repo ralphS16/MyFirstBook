@@ -1,7 +1,7 @@
 \documentclass[justified]{tufte-book} % A4 paper and 11pt font size
-%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype} TODO: reactivate microtype
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
-\usepackage{mathpazo} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage{mathpazo} %Mathpazon fonts
 \usepackage[english]{babel} % English language/hyphenation
 \usepackage{amsmath,amsfonts,amsthm, amssymb} % Math packages
 \usepackage{pgf,tikz}
@@ -200,11 +200,30 @@
 \newrobustcmd{\Power}{\kl[power object]{\mathfrak{P}}}
 \newrobustcmd{\Sub}{\kl[subobject]{\mathrm{Sub}}}
 \newrobustcmd{\Quot}{\kl[quotient object]{\mathrm{Quot}}}
-%OLD STUFF
-\DeclareMathOperator{\Alg}{Alg}
-\newcommand{\inl}{\textsf{inl}}
-\newcommand{\inr}{\textsf{inr}}
-\newcommand{\mPne}{\mathcal{P}_{\text{ne}}}
+\newrobustcmd{\inl}{\kl[inl]{\mathsf{inl}}}
+\newrobustcmd{\inr}{\kl[inr]{\mathsf{inr}}}
+\newrobustcmd{\KL}[2]{#1_{#2}} %TODO: knowledge and intros.
+\newrobustcmd{\EM}[2]{#1^{#2}}
+\newrobustcmd{\klcomp}[1]{\kl[klcomp]{\circ}_{#1}}
+\newrobustcmd{\KLF}[1]{F_{#1}}
+\newrobustcmd{\KLU}[1]{U_{#1}}
+\newrobustcmd{\EMF}[1]{F^{#1}}
+\newrobustcmd{\EMU}[1]{U^{#1}}
+\newrobustcmd{\Adj}[1]{\kl[Adjcat]{\mathrm{Adj}}_{#1}}
+\newrobustcmd{\kmor}{\mathrel{\kl[Kleisli morphism]{\nrightarrow}}}
+\newrobustcmd{\mPne}{\kl[mPne]{\mathcal{P}_{\kern-0.1em\mathrm{ne}}}}
+\newrobustcmd{\terms}[1]{\kl[terms]{T}_{#1}}
+\newrobustcmd{\arity}{\mathrel{\kl[arity]{:}}}
+\newrobustcmd{\thslat}{\kl[thslat]{\mathsf{S}}}
+\newrobustcmd{\thca}{\kl[thca]{\mathsf{CA}}}
+\newrobustcmd{\Alg}{\kl[UALG]{\mathrm{Alg}}}
+\newrobustcmd{\pair}[1]{\kl[pair]{\langle} #1 \kl[pair]{\rangle}}
+\newrobustcmd{\copair}[1]{\kl[copair]{[} #1 \kl[copair]{]}}
+\newrobustcmd{\idarr}{\kl[idarr]{\mathsf{id}}}
+\newrobustcmd{\sourcearr}{\kl[sourcearr]{\mathsf{s}}}
+\newrobustcmd{\targetarr}{\kl[targetarr]{\mathsf{t}}}
+\newrobustcmd{\constFunc}[1]{\kl[constant functor]{\Delta}(#1)}
+
 \renewcommand{\succ}{\textsf{succ}}
 \newcommand{\Str}{\textsf{Str}}
 \newcommand{\head}{\textsf{head}}
@@ -235,6 +254,7 @@
 \newrobustcmd{\catPtd}{\kl[pointed]{\mathbf{Set}_{\ast}}}
 \newrobustcmd{\catPar}{\kl[partial]{\mathbf{Par}}}
 \newrobustcmd{\catMat}[1]{\kl[Mat]{\mathbf{Mat}}\kern-2pt\left( #1 \right)}
+\newrobustcmd{\catSimplex}{\kl[simplex category]{\mathbf{\Delta}}}
 %Known Symbols
 
 \newrobustcmd{\R}{\kl[real numbers]{\mathbb{R}}}
@@ -257,8 +277,25 @@
 %TODO: -- inside names
 %TODO: put emphasis on principle of equivalence and mention evil.
 %TODO: theorems should not be in italic.
-%TODO: three kinds of exercises : NOW, EXP and REQ.
+%TODO: three and a half kinds of exercises : NOW, NOW*, EXP and LEM.
+%TODO: ---- My goal for NOW exers is that noone gets stuck on those, I apologize in advance if that happens to you. They are basically tautologies, i.e.: I state a result that can be proven only by looking back at the definitions, often combining multiple definitions.
+% NOW* are very easy as well but not tautologies.
+% EXP are fun exercises for getting a bit of experience with the notions
+% LEM are exercises whose result will be required for later.
+% not consistent, just for fun
 %TODO: how you view an object in CT depends on what you want to do with it (e.g.: different ways to see Natural numbers)
+%TODO: say that you will use functoriality implicitly a lot of the times. as in F(g ci f) = Fg ci Ff
+%TODO: when giving links to external notions, also give a reference in Emily's book.
+%TODO: explain that dual corollary is as strong as the prop or theorem. We often do not explain the duality argument but do in the important cases.
+%TODO: i don't think i am gonna say "is equal to" when isomorphic and not equal but I might say "is the".
+%TODO: check ie, i.e., eg, e.g., cf, c.f. Put commas after instead of colons
+%TODO: check footnote before or after commas and points.
+%TODO: there are lots of things in the margin: simple precisions, harder precisions, diagrams that are less important, remarks, etc.
+%TODO: only one downside. My favorite textbook is now written by myself.
+%TODO: at the start of each chapter, put a reason why I love category theory that is related to the chapter.
+%TODO: I don't want to spend too much time motivating category theory because I am pretty sure that in a couple of years I will have changed enough to do so. So I hope that you have read a bit about the motivation behind category theory before stumbling upon this book. O/w, go read [ref].
+%TODO: talk about paving diagrams as being a softer version of diagram chasing because there is no need to use universal properties. So diagram paving is a subset of diagram chasing.
+%TODO: When I first tried to learn category theory, I realized there was a blatant gap in the market of category theory textbooks: there was no book made for me. For this reason, I had to look at multiple textbooks in order to learn at my own pace. This book conveniently fills this gap.
 \tableofcontents
 \subfile{0Prelim.tex}
 \subfile{1CatFunc.tex}
@@ -269,6 +306,6 @@
 \subfile{6Yoneda.tex}
 \subfile{7Adjoints.tex}
 \subfile{8Monads.tex}
-\subfile{BCoalgebra.tex}
+%\subfile{BCoalgebra.tex}
 \subfile{Solutions.tex}
 \end{document}

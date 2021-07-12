@@ -54,14 +54,14 @@ Next, there is a couple of "functors" that are key to understand the philosophy 
 \begin{exmp}[$\Hom$ "functors"]\label{exmp:homfunctor}
 	Let $\mathbf{C}$ be a "locally small" "category" and $A \in \obj{\mathbf{C}}$ one of its "objects".\footnote{We need "local smallness" to have "functors" into $\catSet$.} We define the "covariant" and "contravariant" $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$.
 	\begin{enumerate}
-		\item The "covariant" "functor" $\Hom_{\mathbf{C}}(A,\placeholder): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom--set" $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(A,f): \Hom_{\mathbf{C}}(A,B) \rightarrow \Hom_{\mathbf{C}}(A,B') = g \mapsto f\circ g.\]
+		\item The "covariant" "functor" $\Hom_{\mathbf{C}}(A,\placeholder): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom-set" $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(A,f): \Hom_{\mathbf{C}}(A,B) \rightarrow \Hom_{\mathbf{C}}(A,B') = g \mapsto f\circ g.\]
 		\AP This function is called ""post-composition by"" $f$ and is denoted $f \circ (\placeholder)$.\footnote{Some authors denote $f \circ (\placeholder)$ as $f^*$, we prefer to keep this notation for later (see "pullbacks").} Let us show $\Hom_{\mathbf{C}}(A, \placeholder)$ is a "covariant" "functor".
 		\begin{enumerate}[i.]
 			\item For any $f \in \mor{\mathbf{C}}$, it is clear from the definitions that \[\Hom_{\mathbf{C}}(A,\source(f)) = \source(\Hom_{\mathbf{C}}(A,f)) \text{ and } \Hom_{\mathbf{C}}(A,\target(f)) = \target(\Hom_{\mathbf{C}}(A,f)).\]
 			\item For any $(f_1,f_2) \in \mathbf{C}_2$, we claim that \[\Hom_{\mathbf{C}}(A,f_1\circ f_2) = \Hom_{\mathbf{C}}(A,f_1)\circ \Hom_{\mathbf{C}}(A,f_2).\] In the L.H.S., an element $g \in \Hom_{\mathbf{C}}(A,\source(f_1\circ f_2))$ is mapped to $(f_1 \circ f_2) \circ g$ and in the R.H.S., an element $g \in \Hom_{\mathbf{C}}(A,\source(f_2)$ is mapped to $f_1\circ (f_2 \circ g)$. Since $\source(f_1 \circ f_2) = \source(f_2)$ and "composition" is "associative", we conclude that the two maps are the same.
 			\item For any $B \in \obj{\mathbf{C}}$, the "post-composition" by $\idu_{\mathbf{C}}(B)$ is defined to be the identity,\footnote{Namely, for any $f: A \rightarrow B$, $\idu_{\mathbf{C}}(B) \circ f = f$.} hence \eqref{diag:func3} also commutes.
 		\end{enumerate}
-		\item The "contravariant functor" $\Hom_{\mathbf{C}}(\placeholder,A): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom--set" $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(f,A): \Hom_{\mathbf{C}}(B',A) \rightarrow \Hom_{\mathbf{C}}(B,A) = g \mapsto g\circ f.\]
+		\item The "contravariant functor" $\Hom_{\mathbf{C}}(\placeholder,A): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom-set" $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(f,A): \Hom_{\mathbf{C}}(B',A) \rightarrow \Hom_{\mathbf{C}}(B,A) = g \mapsto g\circ f.\]
 		\AP This function is called ""pre-composition by"" $f$ and is denoted $(\placeholder) \circ f$.\footnote{Some authors denote $(\placeholder) \circ f$ as $f_*$, we prefer to keep this notation for later (see "pushouts").} Let us show $\Hom_{\mathbf{C}}(\placeholder,A)$ is a "contravariant functor".%TODO: explain variance as sub or superscript.
 		\begin{enumerate}[i.]
 			\item For any $f \in \mor{\mathbf{C}}$, it is clear from the definitions that \[\Hom_{\mathbf{C}}(\source(f),A) = \target(\Hom_{\mathbf{C}}(f,A))\text{ and } \Hom_{\mathbf{C}}(\target(f),A) = \source(\Hom_{\mathbf{C}}(f,A)).\]
@@ -96,7 +96,7 @@ In the rest of this book, we choose to work with "functors" of type $\op{\mathbf
 	%TODO: example of dual vector space
 \end{enumerate}
 \end{exmps}
-\begin{exer}[\NOW]%TODO:solve
+\begin{exer}\label{exer:duality:oppositefunc}\marginnote{\hyperref[soln:duality:oppositefunc]{See solution.}}
 	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor", show that its "dual" $\op{F}$ defined by $\op{A} \mapsto \op{(FA)}$ on "objects" and $\op{f} \mapsto \op{(Ff)}$ on "morphisms" is a "functor" $\op{\mathbf{C}} \rightsquigarrow \op{\mathbf{D}}$. 
 \end{exer}
 \marginnote{\begin{rem}\label{rem:hombifunctor}
@@ -189,7 +189,7 @@ Conversely, an "epimorphism" is not necessarily surjective. For example, the inc
 \end{exmp}
 %TODO: example in cat: monic -> embedding. epic -> ?
 %TODO: exercise about alternative definition with Hom(-,f) is injective, etc. Say that it can be useful for enriched categories ?
-\begin{defn}[Isomorphism]
+\begin{defn}[Isomorphism]\label{defn:isomorphism}
 	\AP Let $\mathbf{C}$ be a "category", a "morphism" $f:A\rightarrow B$ is said to be an ""isomorphism@@CAT"" if there exists a "morphism" $f^{-1}: B\rightarrow A$ such that $f\circ f^{-1} = \id_B$ and $f^{-1}\circ f = \id_A$.\footnote{\AP Then $f^{-1}$ is called the ""inverse"" of $f$. One can check that if $f'$ is the "left inverse" of $f$ and $f''$ is its "right inverse", then $f' = f'' = f^{-1}$.}
 \end{defn}
 As you might expect from the terminology, in general, we will not distinguish between "isomorphic@@CAT" "objects" in a "category" because all the properties we care about will hold for one if and only if it holds for the other.
@@ -228,16 +228,15 @@ An "object" is "initial" in a "category" $\mathbf{C}$ if and only if it is "term
 	Let $X$ be a set, there is a unique function from the empty set into $X$, it is the empty function.\footnote{Recall (or learn here) that a function $f: A \rightarrow B$ is defined via subset of $f \subseteq A \times B$ that satisfies $\forall a \in A, \exists! b\in B, (a,b) \in f$. When $A$ is empty, $A \times B$ is empty and the unique subset of $\emptyset \subseteq A\times B$ satisfies the condition vacuously. In passing, when $B$ is empty but $A$ is not, the unique subset of $A \times B$ does not satisfy the condition.} We infer that the emptyset is the "initial" "object" in $\catSet$, hence the notation $\emptyset$. For the "terminal" "object", we observe that there is a unique function $X \rightarrow \{\ast\}$ sending all elements of $X$ to $\ast$, thus $\{\ast\}$ is "terminal" in $\catSet$.
 \end{exmp}
 In this example, we could have chosen any singleton to show it is "terminal". However, that choice is irrelevant to a good category theorician since, as any two singletons are "isomorphic@@CAT" (because they have the same cardinality), any two "terminal" "objects" are "isomorphic".
-\begin{prop}
+\begin{prop}\label{prop:initialunique}
 	Let $\mathbf{C}$ be a "category" and $A,B\in \obj{\mathbf{C}}$ be "initial", then $A \isoCAT B$.
 \end{prop}
 \begin{proof}
 	Let $f$ be the single element in $\Hom_{\mathbf{C}}(A,B)$ and $f'$ be the single element in $\Hom_{\mathbf{C}}(B,A)$. Since the "identity" "morphisms" are the only elements of $\Hom_{\mathbf{C}}(A,A)$ and $\Hom_{\mathbf{C}}(B,B)$, $f' \circ f$ and $f\circ f'$, belonging to these sets, must be the "identities". In other words $f$ and $f'$ are "inverses", thus $A \isoCAT B$. 
 \end{proof}
-The "dual@@CAT" result follows.
-\begin{prop}
-	Let $\mathbf{C}$ be a "category" and $A,B \in \obj{\mathbf{C}}$ be "terminal", then $A \isoCAT B$.
-\end{prop}
+\begin{cor}["Dual@@CAT"]\label{cor:terminalunique}
+	Let $\mathbf{C}$ be a "category" and $A,B\in \obj{\mathbf{C}}$ be "terminal", then $A \isoCAT B$.
+\end{cor}
 Moreover, "initial" (resp. "terminal") "objects" are unique up to \textit{unique} "isomorphisms@@CAT".%TODO: Note that the uniqueness of isomorphism is stronger than a simple isomorphism (try to give more intuition about this with an example)
 \begin{exer}
 	Show that in $\catCat$, the "initial" "object" is the empty "category" (no "objects" and no "morphisms") and the "terminal" "object" is $\termcat$ (hence the notation).\footnote{\textbf{Hint}: the unique functor $\termmorph:\mathbf{C} \rightarrow \termcat$ is the "constant functor" at the "object" $\bullet \in \obj{\termcat}$.}
@@ -245,6 +244,15 @@ Moreover, "initial" (resp. "terminal") "objects" are unique up to \textit{unique
 \begin{exmp}[$\catGrp$]
 	Similarly to $\catSet$, the "trivial group" with one element is "terminal" in $\catGrp$. Moreover, note that there are no empty "group" (because there is no identity element), but any "group homomorphism" from $\{1\}$ into a "group" $G$ must send $1$ to $1_G$, which completely determines the "homomorphism@GRP". Therefore, the "trivial group" is also "initial" in $\catGrp$, it is the "zero" "object".
 \end{exmp}
+\begin{exer}\label{exer:duality:terminalinitial}\marginnote{\hyperref[soln:duality:terminalinitial]{See solution.}}
+	Find a "category" with only two "objects" $X$ and $Y$ such that
+	\begin{enumerate}[(a)]
+		\item $X$ is "initial" but not "terminal" and $Y$ is "terminal" but not "initial".
+		\item $X$ is "initial" but not "terminal" and $Y$ neither "terminal" nor "initial".
+		\item $X$ is "terminal" but not "initial" and $Y$ is neither "terminal" nor "initial".
+		\item $X$ is "initial" and "terminal" and $Y$ is neither "terminal" nor "initial".
+	\end{enumerate} 
+\end{exer}
 \begin{exmps}
 	Here are more examples of "categories" where "initial" and "terminal" "objects" may or may not exist.
 	\begin{enumerate}
@@ -261,7 +269,7 @@ Moreover, "initial" (resp. "terminal") "objects" are unique up to \textit{unique
 		$\nexists$ "terminal", $\exists$ "initial":\footnote{Of course, you could take the opposite of $(\N, \geq)$, that is $(\N, \leq)$, but that is not fun.} The "category" \textbf{FinGrpInj} where the "objects" are finite "groups" and the "morphisms" are injective "homomorphisms@@GRP" only contains an "initial" "object" $\{1\}$. Indeed, an injective "homomorphism@@GRP" $G \hookrightarrow H$ can be seen as "subgroup" of $H$ "isomorphic@@GRP" to $G$. The "trivial" "group" $\{1\}$ can only be "isomorphic@@GRP" to the "subgroup" $\{1_H\}$ as any other element has degree more than $1$, so $\{1\}$ is "initial". Moreover, a "group" $G$ cannot be "terminal" as $G \times (\Z/2\Z)$ cannot be "isomorphic@@GRP" to any "subgroup" of $G$.
 		\item $\nexists$ "terminal", $\nexists$ "initial": Let $G$ be a non "trivial" "group", the "delooping" of $G$ has no "terminal" and no "initial" "objects". The "category" $\deloop{G}$ has a single "object" $\deloopobject$ with $\Hom_{\deloop{G}}(\deloopobject, \deloopobject) = G$, so $\deloopobject$ cannot be "initial" nor "terminal" when $|G| > 1$.
 		
-		For a more interesting example, consider the "category" $\catField$. Its underlying "oriented graph" is disconnected\footnote{There are "objects" with no "morphisms" between them.} because there are no "field homomorphisms" between "fields" of different "characteristic". Therefore, $\catField$ has no "initial" nor "terminal" "objects".
+		For a more interesting example, consider the "category" $\catField$. Its underlying "directed graph" is disconnected\footnote{There are "objects" with no "morphisms" between them.} because there are no "field homomorphisms" between "fields" of different "characteristic". Therefore, $\catField$ has no "initial" nor "terminal" "objects".
 		\item $\exists$ "terminal", $\exists$ "initial": Let $X$ be a non-empty "topological space" where $\tau$ is the collection of "open sets".\footnote{Recall that it must contain $\emptyset$ and $X$.} The "category" of "open sets" $\catOpens(X)$ satisfies
 		\[\Hom_{\catOpens(X)}(U,V) = \begin{cases}\{i_{U,V}\} & U \subseteq V\\ \emptyset & U \not\subseteq V\end{cases}\]
 		Since the empty set is contained in every "open set", it is an "initial" "object". Since the full set $X$ contains every "open set", it is a "terminal" "object". No other set can be "initial" as it cannot be contained in $\emptyset$ nor be "terminal" as it cannot contain $X$. Moreover, note that the two objects are not "isomorphic@@CAT" because $X \not\subseteq \emptyset$.
@@ -350,7 +358,7 @@ It follows easily from this definition that "functors" "preserve" "commutative" 
 	\AP Let $\mathbf{C}$ be a "category", a ""subobject"" of $X \in \obj{\mathbf{C}}$ is an equivalence class of the relation $\sim$ defined above. We will often abusively refer to a "subobject" simply with a "monomorphism" $Y \hookrightarrow X$. The "collection" of "subobjects" of $X$ is denoted $\Sub_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Sub_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""well-powered"".
 \end{defn}
 \begin{exmp}[$\catSet$]
-	Let $X \in \obj{\catSet}$, "subobjects" of $X$ correspond to subsets of $X$.\footnote{The notation $\Sub_{\catSet}(X)$ is perfect!} Indeed, any subset $I \subseteq X$ has an inclusion function $i: I \hookrightarrow X$ which is injective, hence "monic". For the other direction, note that if $j: J \hookrightarrow X$ is in the same equivalence class as $i$ in $\Sub_{\catSet}(X)$, there is a bijection $f: I \rightarrow J$ such that $i = j \circ f$, hence the image of $j$ is $I\subseteq X$. We conclude that the correspondence between $\Sub_{\catSet}(X)$ and $\mPcov(X)$ sends $[i]$ to the image of $i$ and $I\subseteq X$ to the inclusion $i: I \hookrightarrow X$.
+	Let $X \in \obj{\catSet}$, "subobjects" of $X$ correspond to subsets of $X$.\footnote{The notation $\Sub_{\catSet}(X)$ is perfect!} Indeed, any subset $I \subseteq X$ has an inclusion function $i: I \hookrightarrow X$ which is injective, hence "monic". For the other direction, note that if $j: J \hookrightarrow X$ is in the same equivalence class as $i$ in $\Sub_{\catSet}(X)$, there is a bijection $f: I \rightarrow J$ such that $i = j \circ f$, hence the image of $j$ is $I\subseteq X$. We conclude that the correspondence between $\Sub_{\catSet}(X)$ and $\mPcov(X)$ sends $[i]$ to the image of $i$ and $I\subseteq X$ to the equivalence class of the inclusion $i: I \hookrightarrow X$.
 \end{exmp}
 \begin{exer}\label{exer:duality:posetsubobj}\marginnote[\baselineskip]{\hyperref[soln:duality:posetsubobj]{See solution.}}
 	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, we define the relation $\leq$ on $\Sub_{\mathbf{C}}(X)$ by 
@@ -363,4 +371,5 @@ We can use "duality@@CAT" to obtain (for free) the notion of "quotient objects".
 	\AP A ""quotient object"" (or simply "quotient@@CAT") of $X$ is an equivalence class of the relation $\sim$ defined above.\footnote{We will often abusively refer to a "quotient" simply with an "epimorphism" $X \twoheadrightarrow Y$.} The "collection" of "quotients@@CAT" of $X$ is denoted $\Quot_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Quot_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""co-well-powered"". There is a "partial order" $\leq$ on $\Quot_{\mathbf{C}}(X)$ defined by 
 	\[[q] \leq [q'] \Leftrightarrow \exists \text{ "morphism" } k,  q = k \circ q'.\]
 \end{defn}
+%TODO: diagram paving.
 \end{document}

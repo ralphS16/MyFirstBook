@@ -25,11 +25,11 @@
     |   category
     |   categories
     |   Category
-\knowledge{notion,index=oriented graph}
-    |   oriented graph
-    |   oriented graphs
-    |   graph@OG
-    |   graphs@OG
+\knowledge{notion,index=directed graph}
+    |   directed graph
+    |   directed graphs
+    |   graph@DG
+    |   graphs@DG
 \knowledge{notion}
     |   object
     |   objects
@@ -75,12 +75,20 @@
     |   termcat
 \knowledge{notion}
     |   cattwo
+    |   interval category
+    |   walking arrow
 \knowledge{notion}
     |   source
     |   sources
 \knowledge{notion}
     |   target
     |   targets
+\knowledge{notion}
+    |   sourcearr
+\knowledge{notion}
+    |   targetarr
+\knowledge{notion}
+    |   idarr
 \knowledge{notion}
     |   Hom
 \knowledge{notion}
@@ -91,8 +99,8 @@
 \knowledge{notion}
     |   large
 \knowledge{notion}
-    |   hom--set
-    |   hom--sets
+    |   hom-set
+    |   hom-sets
 \knowledge{notion}
     |   commutative
     |   Commutative diagram
@@ -115,6 +123,8 @@
     |   preorder
     |   preorders
 \knowledge{notion}
+    |   thin
+\knowledge{notion}
     |   join
     |   supremum
     |   joins
@@ -123,6 +133,9 @@
 \knowledge{notion}
     |   complete lattice
     |   complete lattices
+\knowledge{notion}
+    |   semilattice
+    |   semilattices
 \knowledge{notion}
     |   meet
     |   infimum
@@ -271,10 +284,20 @@
     |   action@MON
     |   monoid action
 \knowledge{notion}
+    |   group action
+    |   action@GRP
+\knowledge{notion}
+    |   --set
+\knowledge{notion}
     |   mset
 \knowledge{notion}
     |   idempotent
+    |   idempotents
     |   idempotence 
+\knowledge{notion}
+    |   split idempotent
+    |   split idempotents
+    |   split idempotence 
 \knowledge{notion}
     |   pre-fixpoint
     |   pre-fixpoints
@@ -350,10 +373,14 @@
     |   subcategories
 \knowledge{notion}
     |   full@CAT
+    |   full subcategory
+    |   full subcategories
 \knowledge{notion}
     |   wide
 \knowledge{notion}
     |   concrete
+    |   concrete category
+    |   concrete categories
 \knowledge{notion}
     |   diagonal relation
     |   diagonal@REL
@@ -387,12 +414,17 @@
     |   fully faithful
     |   full faithfulness
 \knowledge{notion}
+    |   powerset
     |   powerset functor
 \knowledge{notion}
     |   forgetful
+    |   forgetful functor
+    |   forgetful functors
     |   forgetfulness
 \knowledge{notion}
     |   free@FUNC
+\knowledge{notion}
+    |   center
 \knowledge{notion}
     |   composition@FUNC
 \knowledge{notion}
@@ -505,6 +537,10 @@
     |   binary products
     |   bproduct
 \knowledge{notion}
+    |   pair
+\knowledge{notion}
+    |   copair
+\knowledge{notion}
     |   projection
     |   projections
 \knowledge{notion}
@@ -528,6 +564,9 @@
     |   limit
     |   limits
 \knowledge{notion}
+    |   limit cone
+    |   limit cones
+\knowledge{notion}
     |   colimit
     |   colimits
 \knowledge{notion}
@@ -540,8 +579,18 @@
     |   equalizer
     |   equalizers
 \knowledge{notion}
+    |   equalize
+    |   equalizes
+    |   equalizing
+    |   equalized
+\knowledge{notion}
     |   coequalizer
     |   coequalizers
+\knowledge{notion}
+    |   coequalize
+    |   coequalizing
+    |   coequalizes
+    |   coequalized
 \knowledge{notion}
     |   span
     |   spans
@@ -760,6 +809,9 @@
 \knowledge{notion}
     |   multiplication@MND
 \knowledge{notion}
+    |   endomorphism
+    |   endomorphisms
+\knowledge{notion}
     |   endofunctor
     |   endofunctors
 \knowledge{notion}
@@ -812,6 +864,20 @@
 \knowledge{notion}
     |   maybe functor
 \knowledge{notion}
+    |   maybe monad
+\knowledge{notion}
+    |   inl
+\knowledge{notion}
+    |   inr
+\knowledge{notion}
+    |   mPne
+\knowledge{notion}
+    |   Kleisli morphism
+    |   Kleisli morphisms
+\knowledge{notion}
+    |   Kleisli category
+    |   Kleisli categories
+\knowledge{notion}
     |   skeleton
     |   skeletons
     |   skeletal
@@ -844,8 +910,78 @@
     |   apush
 \knowledge{notion}
     |   pasting lemma
+\knowledge{notion}
+    |   generalized element
+    |   generalized elements
+    |   generalized morphism
+    |   generalized morphisms
+\knowledge{notion}
+    |   Adjcat
+    |   category of adjunctions inducing
+\knowledge{notion}
+    |   Eilenberg--Moore algebra
+    |   Eilenberg--Moore algebras
+    |   --algebra@MND
+    |   --algebras@MND
+    |   algebra@MND
+\knowledge{notion}
+    |   homomorphism@MND
+    |   homomorphisms@MND
+    |   --homomorphism@MND
+    |   --homomorphisms@MND
+\knowledge{notion}
+    |   Eilenberg--Moore category
+    |   Eilenberg--Moore categories
+\knowledge{notion}
+    |   klcomp
+    |   Kleisli composition
+\knowledge{notion}
+    |   algebraic signature
+    |   signature
+\knowledge{notion}
+    |   arity
+    |   arities
+\knowledge{notion}
+    |   term
+    |   terms
+    |   --term
+    |   --terms
+\knowledge{notion}
+    |   equation
+    |   equations
+\knowledge{notion}
+    |   algebraic theory
+    |   algebraic theories
+    |   theory
+    |   theories
+\knowledge{notion}
+    |   --algebra@UALG
+    |   --algebras@UALG
+    |   algebra@UALG
+\knowledge{notion}
+    |   homomorphism@UALG
+    |   homomorphisms@UALG
+    |   --homomorphism@UALG
+    |   --homomorphisms@UALG
+\knowledge{notion}
+    |   algebraic presentation
+    |   algebraic presentations
+    |   present
+    |   presenting
+    |   presents
+    |   presented
+\knowledge{notion}
+    |   UALG
+\knowledge{notion}
+    |   thslat
+\knowledge{notion}
+    |   thca
+    |   convex algebras
+    |   convex algebra
 
-%Categories:
+
+
+%Categories
 \knowledge{notion}
     |   Set
 \knowledge{notion}
@@ -880,3 +1016,5 @@
     |   Cat
 \knowledge{notion}
     |   Mat
+\knowledge{notion}
+    |   simplex category

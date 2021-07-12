@@ -31,6 +31,42 @@
         \item If $f$ and $g$ are "isomorphisms@@CAT", then it is easy to check that $f^{-1} \circ g^{-1}$ is the "inverse" of $g \circ f$, implying $g \circ f$ is an "isomorphism@@CAT".
     \end{itemize}
 \end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:duality:terminalinitial}]\label{soln:duality:terminalinitial}
+    We draw the "categories" with all the "morphisms" and we let you infer the "composition"\footnote{The "categories" (a) and (b) have a uniquely determined "composition". For (c) and (d), "composing" the non-identity "endomorphism" with itself can yield either itself or $\id_Y$.} and show that they fit the requirement (by counting "morphisms").\\
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation*}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0QBfU9TXfIRQBGclVqMWbAJrdxMKAHN4RUADMAThAC2SMiBwQ91BhAhoiwgBxk1jODHEM6AIxgMACvzwE2GrIoAFjgg1PTMrIggADrRWFAA+pw86lq6iKIGRhkmZhYiNqR2DA5Oru5e2D5CIP5BIWGSkTFxibIpIJo6xllIwlwUXEA
+            \begin{tikzcd}
+            X \arrow["\id_X"', loop, distance=2em, in=125, out=55] \arrow[r] & Y \arrow["\id_Y"', loop, distance=2em, in=125, out=55]
+            \end{tikzcd}
+            \tag{a}
+        \end{equation*}
+    \end{minipage}\begin{minipage}{0.49\textwidth}
+        \begin{equation*}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0QBfU9TXfIRQBGclVqMWbAJrdxMKAHN4RUADMAThAC2SMiBwQ91BhAhoiwgBxk1jODHEM6AIxgMACvzwE2GrIoAFjgg1PTMrIggADrRWFAA+pw86lq6iKIGRhkmZhYiNqR2DA5Oru5e2D5CIP5BIWGSkTFxibIpIJo6xllImW5gUEgAzPpwgVhqIRkdXemZhj0DQ4ij1OOT08KzaX3Ui4hjE1NIALT9MIMjxFwUXEA
+            \begin{tikzcd}
+            X \arrow["\id_X"', loop, distance=2em, in=125, out=55] \arrow[r, bend left, shift right] & Y \arrow["\id_Y"', loop, distance=2em, in=125, out=55] \arrow[l, bend left, shift right] \arrow[l, bend left, shift left]
+            \end{tikzcd}
+            \tag{b}
+        \end{equation*}
+    \end{minipage}\\\begin{minipage}{0.49\textwidth}
+        \begin{equation*}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0QBfU9TXfIRQBGclVqMWbAJrdxMKAHN4RUADMAThAC2SMiBwQ91BhAhoiwgBxk1jODHEM6AIxgMACvzwE2GrIoAFjgg1PTMrIggADrRWFAA+pw86lq6iKIGRhkmZhYiNqR2DA5Oru5e2D5CIP5BIWGSkTFxibIpIJo6SJmGxiBwgVhqIYjEHV3pvdmZpuZEtvaOJuWe3oJ+AcFyXEA
+            \begin{tikzcd}
+            X \arrow["\id_X"', loop, distance=2em, in=125, out=55] & Y \arrow["\id_Y"', loop, distance=2em, in=125, out=55] \arrow[l] \arrow[loop, distance=2em, in=305, out=235]
+            \end{tikzcd}
+            \tag{c}
+        \end{equation*}
+    \end{minipage}\begin{minipage}{0.49\textwidth}
+        \begin{equation*}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0QBfU9TXfIRQBGclVqMWbAJrdxMKAHN4RUADMAThAC2SMiBwQ91BhAhoiwgBxk1jODHEM6AIxgMACvzwE2GrIoAFjgg1PTMrIggADrRWFAA+pw86lq6iKIGRhkmZhYiNqR2DA5Oru5e2D5CIP5BIWGSkTFxibIpIJo6SJmGxiBwgVhqITkgbmBQSADMxB1d6b3ZmabmRLb2jiblnt6CfgHB3Lydaf19Y4PDo5kTU4izXBRcQA
+            \begin{tikzcd}
+            X \arrow["\id_X"', loop, distance=2em, in=125, out=55] \arrow[r, bend left, shift right] & Y \arrow["\id_Y"', loop, distance=2em, in=125, out=55] \arrow[l, bend left, shift right] \arrow[loop, distance=2em, in=305, out=235]
+            \end{tikzcd}
+            \tag{d}
+        \end{equation*}
+    \end{minipage}
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:duality:preserving}]\label{soln:duality:preservingexer:duality:preserving}
     \begin{enumerate}
         \item Let $f:A \rightarrow B$ be the only non-identity "morphism" in $\cattwo$, it is a "monomorphism" vacuously because there is only one "morphism" with "target" $A$ ($\id_A$). Now, for any "morphism" $m: X \rightarrow Y \in \mor{\mathbf{C}}$, we can define $F: \cattwo \rightsquigarrow \mathbf{C}$ by $FA = X$, $FB = Y$ and $Ff = m$ and it will be a "functor". Thus, choosing $m$ that is not "monic" yields the required example.
@@ -67,6 +103,20 @@
     \textbf{Transitivity:} If $m\leq n$ and $n\leq o$, then there exist "morphisms" $k: Y \rightarrow Z$ and $k': W \rightarrow Z$ satisfying $m = n \circ k$ and $n = o \circ k'$. Therefore, we have $m =  o \circ k' \circ k$ which implies $m \leq o$.
 \end{proof}
 \section{Solutions to Chapter \ref{chap:limits}}
+\begin{proof}[Solution to Exercise \ref{exer:limits:prodcommute}]\label{soln:limits:prodcommute}
+    As we have said that "binary products" are unique up to "isomorphism@@CAT", it is enough to show that $A\product B$ satisfies the same "universal property" as $B \product A$. Let $\projection_A$ and $\projection_B$ be the "projections" of $A \product B$, we claim that $\begin{tikzcd}[cramped, sep=small]
+        B & {A\product B} & A
+        \arrow["{\projection_B}"', from=1-2, to=1-1]
+        \arrow["{\projection_A}", from=1-2, to=1-3]
+    \end{tikzcd}$ is the "product@bproduct" of $B$ and $A$. Indeed, for any $\begin{tikzcd}[cramped, sep=small]
+        B & {X} & A
+        \arrow["{p_B}"', from=1-2, to=1-1]
+        \arrow["{p_A}", from=1-2, to=1-3]
+    \end{tikzcd}$, we use the original "universal property" of $A \product B$ to find a unique "mediating morphism" $!:X \rightarrow A \product B$ such that $\projection_B \circ {!} = p_B$ and $\projection_A \circ {!} = p_A$.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:limits:termneutralprod}]\label{soln:limits:termneutralprod}
+    
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:limits:functionproduct}]\label{soln:limits:functionproduct}
     The existence and uniqueness of $\Product_{i \in I} f_i$ is given by the "universal property" of the "product" $\Product_{i \in I} Y_i$ with for each $j \in I$, the "morphism" $f_j \circ \projection_j: \Product_{i \in I} X_i \rightarrow Y_j$.
 \end{proof}
@@ -247,6 +297,36 @@
 
     For "functoriality" of $\Sub_{\mathbf{C}}$, we need to show $\pull{\id}{m} = m$ and $\pull{g}{\pull{f}{m}} = \pull{f \circ g}{m}$. The first equality follows from Exercise \ref{exer:limits:isopullback} and the second from the "pasting lemma".
 \end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:universal:arrowcatfunctors}]\label{soln:universal:arrowcatfunctors}
+    \begin{enumerate}
+        \item On "morphisms", $\id$ sends $f: X \rightarrow Y$ to the "commutative" square $f: \id_X \rightarrow \id_Y$ depicted in \eqref{diag:commsquareimmageid}. Since the "identity" of $\id_X \in \obj{\arrowcat{\mathbf{C}}}$ is $\id_X:\id_X \rightarrow \id_X$ and the "composition" of "commutative" squares is done by "composing" the left part and right part independently, we conclude that $\id(f \circ g) = f \circ g = \id(f) \circ \id(g)$. Thus, $\id$ is a "functor".\begin{marginfigure}[-2\baselineskip]\begin{equation}\label{diag:commsquareimageid}
+            \begin{tikzcd}
+                X & X \\
+                {Y} & {Y}
+                \arrow["{f}"', from=1-1, to=2-1]
+                \arrow["\id_X", from=1-1, to=1-2]
+                \arrow["{f}", from=1-2, to=2-2]
+                \arrow["\id_Y"', from=2-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}\end{marginfigure}
+        \item On "morphisms", $\source$ sends a "commutative" square $\phi: f \rightarrow g$ to the "morphism" $\source(f) \rightarrow \source(g)$ in the square, we denote it $\source(\phi)$. In other words, we send a "commutative" square to its left part. Again, since the "composition" in $\arrowcat{\mathbf{C}}$ is done independently on the left and right part, we find that $\source(\phi \circ \psi) = \source(\phi) \circ \source(\psi)$, thus $\source$ is a "functor" (see \eqref{diag:sourcetargetfunctors} for a visual aid).\begin{marginfigure}\begin{equation}\label{diag:sourcetargetfunctors}
+            % https://q.uiver.app/?q=WzAsNixbMCwwLCJcXGJ1bGxldCJdLFsxLDAsIlxcYnVsbGV0Il0sWzAsMSwiXFxidWxsZXQiXSxbMSwxLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzEsMiwiXFxidWxsZXQiXSxbMCwxLCJmIl0sWzIsMywiZyJdLFs0LDUsImgiLDJdLFswLDIsIlxcc291cmNlKFxccHNpKSIsMl0sWzIsNCwiXFxzb3VyY2UoXFxwaGkpIiwyXSxbMSwzLCJcXHRhcmdldChcXHBzaSkiXSxbMyw1LCJcXHRhcmdldChcXHBoaSkiXV0=
+            \begin{tikzcd}
+                \bullet & \bullet \\
+                \bullet & \bullet \\
+                \bullet & \bullet
+                \arrow["f", from=1-1, to=1-2]
+                \arrow["g", from=2-1, to=2-2]
+                \arrow["h"', from=3-1, to=3-2]
+                \arrow["{\source(\psi)}"', from=1-1, to=2-1]
+                \arrow["{\source(\phi)}"', from=2-1, to=3-1]
+                \arrow["{\target(\psi)}", from=1-2, to=2-2]
+                \arrow["{\target(\phi)}", from=2-2, to=3-2]
+            \end{tikzcd}
+        \end{equation}\end{marginfigure}
+        \item On "morphisms", $\target$ sends a "commutative" square $\phi: f \rightarrow g$ to the "morphism" $\target(f) \rightarrow \target(g)$ in the square, we denote it $\target(\phi)$. With a similar argument to the second point, we conclude that $\target$ is a "functor".
+    \end{enumerate}
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:universal:termslice}]\label{soln:universal:termslice}
     The "terminal" "object" of $\slice{\mathbf{C}}{X}$ is the "identity morphism" $\id_X : X \rightarrow X$. For any "object" of the "slice category" $f:A \rightarrow X$, we have the "commutative" triangle \eqref{diag:soltermslice} with $!=f$. Uniqueness of $!$ follows from $\id_X \circ ! = f \implies ! = f$.\begin{marginfigure}
         \begin{equation}\label{diag:soltermslice}
@@ -316,6 +396,34 @@
     \[\phi^{-1}_Y \circ G(f) = \phi^{-1}_Y \circ \phi_Y \circ F(f) \circ \phi_X^{-1} = F(f) \circ \phi_X^{-1}\]
     yields the "naturality" of $\phi^{-1}$.
 \end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:natural:opcatfunc}]\label{soln:natural:opcatfunc}
+    We have already seen in Exercise \ref{exer:duality:oppositefunc} that we can take the "dual" of a "functor" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ to obtain a "functor" $\op{F}: \op{\mathbf{C}} \rightsquigarrow \op{\mathbf{D}}$. It remains to check that a "natural transformation" $F \Rightarrow G$ can be identified with a "natural transformation" $\op{G} \Rightarrow \op{F}$. This follows from observing that the "naturality" square \eqref{diag:natsquarenotop} in $\mathbf{D}$ corresponds to the "naturality" square \eqref{diag:natsquareop} in $\op{\mathbf{D}}$.\footnote{i.e.: \eqref{diag:natsquarenotop} "commutes" if and only if \eqref{diag:natsquareop} "commutes".}\\
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:natsquarenotop}
+            \begin{tikzcd}
+                FX & GX \\
+                FY & GY
+                \arrow["Ff"', from=1-1, to=2-1]
+                \arrow["Gf", from=1-2, to=2-2]
+                \arrow["{\phi_X}", from=1-1, to=1-2]
+                \arrow["{\phi_Y}"', from=2-1, to=2-2]
+            \end{tikzcd}
+        \end{equation}
+    \end{minipage}
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation}\label{diag:natsquareop}
+            % https://q.uiver.app/?q=WzAsNCxbMSwxLCJcXG9we0Z9WCJdLFsxLDAsIlxcb3B7Rn1ZIl0sWzAsMSwiXFxvcHtHfVgiXSxbMCwwLCJcXG9we0d9WSJdLFsxLDAsIlxcb3B7Rn1mIl0sWzMsMiwiXFxvcHtHfWYiLDJdLFsyLDAsIlxccGhpX1giLDJdLFszLDEsIlxccGhpX1kiXV0=
+        \begin{tikzcd}
+            {\op{G}Y} & {\op{F}Y} \\
+            {\op{G}X} & {\op{F}X}
+            \arrow["{\op{F}f}", from=1-2, to=2-2]
+            \arrow["{\op{G}f}"', from=1-1, to=2-1]
+            \arrow["{\phi_X}"', from=2-1, to=2-2]
+            \arrow["{\phi_Y}", from=1-1, to=1-2]
+        \end{tikzcd}
+        \end{equation}
+    \end{minipage}
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:natural:compositionisfunc}]\label{soln:natural:compositionisfunc}%TODO: and say how you use it in other exercises.
     On "morphisms", this "functor" must send a pair of "natural transformations" $\eta: F \Rightarrow F'$ and $\phi: G \Rightarrow G'$ to a "natural transformation" $FG \Rightarrow F'G'$. This is exactly what "horizontal composition" does.
     
@@ -384,6 +492,83 @@
     \end{equation}\end{marginfigure}
 \end{proof}
 \section{Solutions to Chapter \ref{chap:adjoints}}
+\begin{proof}[Solution to Exercise \ref{exer:adjoints:chainadjCarrow}]\label{soln:adjointsexer:adjoints:chainadjCarrow}
+    We will proceed by defining the "units@@ADJ" and "counits@@ADJ" because, as you will see, they are practically given and then we will verify they satisfy the "triangle identities". We denote $(\phi_X,\phi_Y)$ for a "commutative" square with $\sourcearr(\phi_X,\phi_Y) = \phi_X$ and $\targetarr(\phi_X,\phi_Y) = \phi_Y$
+
+    ($\targetarr \adjoint \idarr$) The "component" of the "unit@@ADJ" at $f \in \obj{\arrowcat{\mathbf{C}}}$ is a "commutative" square from $f$ to $\idarr(\targetarr(f)) = \id_{\target(f)}$. You should convince yourself that \eqref{diag:unittargetadj} is the only such square that is guaranteed to exist no matter what $\mathbf{C}$ is, we have $\eta_f = (f,\id_{\target(f)})$. The "component" of the "counit@@ADJ" at $X \in \obj{\mathbf{C}}$ is a "morphism" from $\target(\id_X) = X$ to $X$. Again, the only possible choice is $\varepsilon_X = \id_X$. We check in the following derivations that the "triangle identities" hold.
+    \begin{gather*}
+        \varepsilon_{\targetarr(f)} \circ \targetarr(\eta_f) = \id_{\target(f)} \circ \id_{\target(f)} = \id_{\targetarr(f)}\\
+        \idarr(\varepsilon_X) \circ \eta_{\idarr(X)} = (\id_X,\id_X) \circ (\id_X,\id_X) = (\id_X,\id_X) = \id_{\idarr(X)}.
+    \end{gather*}
+    \begin{marginfigure}[-16\baselineskip]\begin{equation}\label{diag:unittargetadj}
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXHNvdXJjZShmKSJdLFswLDEsIlxcdGFyZ2V0KGYpIl0sWzEsMCwiXFx0YXJnZXQoZikiXSxbMSwxLCJcXHRhcmdldChmKSJdLFswLDEsImYiLDJdLFsyLDMsIlxcaWRfe1xcdGFyZ2V0KGYpfSJdLFsxLDMsIlxcaWRfe1xcdGFyZ2V0KGYpfSIsMl0sWzAsMiwiZiJdXQ==
+        \begin{tikzcd}
+            {\source(f)} & {\target(f)} \\
+            {\target(f)} & {\target(f)}
+            \arrow["f"', from=1-1, to=2-1]
+            \arrow["{\id_{\target(f)}}", from=1-2, to=2-2]
+            \arrow["{\id_{\target(f)}}"', from=2-1, to=2-2]
+            \arrow["f", from=1-1, to=1-2]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+
+    ($\idarr \adjoint \sourcearr$) The "component" of the "unit@@ADJ" at $X \in \obj{\mathbf{C}}$ is a "morphism" from $X$ to $\sourcearr(\idarr(X))= X$, thus $\eta_X = \id_X$. The "component" of the "counit@@ADJ" at $f \in \obj{\arrowcat{\mathbf{C}}}$ is a "commutative" square from $\idarr(\sourcearr(f)) = \id_{\source(f)}$ to $f$. Again, there is only once choice: $\varepsilon_f = (\id_{\source(f)},f)$ depicted in \eqref{diag:counitsourceadj}. The following derivations show the "triangle identities" hold.
+    \begin{gather*}
+        \varepsilon_{\idarr(X)} \circ \idarr(\eta_X) = (\id_X,\id_X) \circ (\id_X,\id_X) = (\id_X,\id_X) = \id_{\idarr(X)}\\
+        \sourcearr(\varepsilon_f) \circ \eta_{\sourcearr(f)} = \id_{\source(f)} \circ \id_{\source(f)} = \id_{\sourcearr(f)}.
+    \end{gather*}
+    \begin{marginfigure}[-12\baselineskip]\begin{equation}\label{diag:counitsourceadj}
+        % https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXHNvdXJjZShmKSJdLFswLDAsIlxcc291cmNlKGYpIl0sWzEsMSwiXFx0YXJnZXQoZikiXSxbMSwwLCJcXHNvdXJjZShmKSJdLFsxLDAsIlxcaWRfe1xcc291cmNlKGYpfSIsMl0sWzMsMiwiZiJdLFsxLDMsIlxcaWRfe1xcc291cmNlKGYpfSJdLFswLDIsImYiLDJdXQ==
+        \begin{tikzcd}
+            {\source(f)} & {\source(f)} \\
+            {\source(f)} & {\target(f)}
+            \arrow["{\id_{\source(f)}}"', from=1-1, to=2-1]
+            \arrow["f", from=1-2, to=2-2]
+            \arrow["{\id_{\source(f)}}", from=1-1, to=1-2]
+            \arrow["f"', from=2-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+    ($\mathsf{?}\adjoint \targetarr$) If $\targetarr$ has a "left adjoint" $\mathsf{?}$, then there is a "isomorphism@@CAT" $\Hom_{\arrowcat{\mathbf{C}}}(\mathsf{?}X, f) \isoCAT \Hom_{\mathbf{C}}(X,\target(f))$ that is "natural" in $X$ and $f$.
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:adjoints:alllimitspreserved}]\label{soln:adjoints:alllimitspreserved}
+    Using Theorem \ref{thm:limitadj}, Theorem \ref{thm:adjcomp} and Proposition \ref{prop:adjcompisadj}, we can obtain two chains of "adjunctions".
+    \[% https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXG1hdGhiZntDfSJdLFsxLDAsIlxcbWF0aGJme0R9Il0sWzIsMCwiXFxjYXRGdW5je1xcbWF0aGJme0p9fXtcXG1hdGhiZntEfX0iXSxbMCwxLCJMIiwwLHsib2Zmc2V0IjotMn1dLFsxLDIsIlxcZ2RpYWdGdW5jX3tcXG1hdGhiZntEfX1ee1xcbWF0aGJme0p9fSIsMCx7Im9mZnNldCI6LTJ9XSxbMiwxLCJcXGxpbV97XFxtYXRoYmZ7Sn19IiwwLHsib2Zmc2V0IjotMn1dLFsxLDAsIlIiLDAseyJvZmZzZXQiOi0yfV0sWzMsNiwiIiwwLHsibGV2ZWwiOjEsInN0eWxlIjp7Im5hbWUiOiJhZGp1bmN0aW9uIn19XSxbNCw1LCIiLDAseyJsZXZlbCI6MSwic3R5bGUiOnsibmFtZSI6ImFkanVuY3Rpb24ifX1dXQ==
+    \begin{tikzcd}
+        {\mathbf{C}} & {\mathbf{D}} & {\catFunc{\mathbf{J}}{\mathbf{D}}}
+        \arrow[""{name=0, anchor=center, inner sep=0}, "L", shift left=2, from=1-1, to=1-2]
+        \arrow[""{name=1, anchor=center, inner sep=0}, "{\gdiagFunc_{\mathbf{D}}^{\mathbf{J}}}", shift left=2, from=1-2, to=1-3]
+        \arrow[""{name=2, anchor=center, inner sep=0}, "{\lim_{\mathbf{J}}}", shift left=2, from=1-3, to=1-2]
+        \arrow[""{name=3, anchor=center, inner sep=0}, "R", shift left=2, from=1-2, to=1-1]
+        \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=0, to=3]
+        \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=1, to=2]
+    \end{tikzcd}\hspace{4em}
+    % https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXG1hdGhiZntDfSJdLFsxLDAsIlxcY2F0RnVuY3tcXG1hdGhiZntKfX17XFxtYXRoYmZ7Q319Il0sWzIsMCwiXFxjYXRGdW5je1xcbWF0aGJme0p9fXtcXG1hdGhiZntEfX0iXSxbMCwxLCJcXGdkaWFnRnVuY197XFxtYXRoYmZ7Q319XntcXG1hdGhiZntKfX0iLDAseyJvZmZzZXQiOi0yfV0sWzEsMiwiTFxccGxhY2Vob2xkZXIiLDAseyJvZmZzZXQiOi0yfV0sWzIsMSwiUlxccGxhY2Vob2xkZXIiLDAseyJvZmZzZXQiOi0yfV0sWzEsMCwiXFxsaW1fe1xcbWF0aGJme0p9fSIsMCx7Im9mZnNldCI6LTJ9XSxbMyw2LCIiLDAseyJsZXZlbCI6MSwic3R5bGUiOnsibmFtZSI6ImFkanVuY3Rpb24ifX1dLFs0LDUsIiIsMCx7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV1d
+    \begin{tikzcd}
+        {\mathbf{C}} & {\catFunc{\mathbf{J}}{\mathbf{C}}} & {\catFunc{\mathbf{J}}{\mathbf{D}}}
+        \arrow[""{name=0, anchor=center, inner sep=0}, "{\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}}", shift left=2, from=1-1, to=1-2]
+        \arrow[""{name=1, anchor=center, inner sep=0}, "L\placeholder", shift left=2, from=1-2, to=1-3]
+        \arrow[""{name=2, anchor=center, inner sep=0}, "R\placeholder", shift left=2, from=1-3, to=1-2]
+        \arrow[""{name=3, anchor=center, inner sep=0}, "{\lim_{\mathbf{J}}}", shift left=2, from=1-2, to=1-1]
+        \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=0, to=3]
+        \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=1, to=2]
+    \end{tikzcd}\]
+    Then, observing that both "composite" "left adjoints" are equal,\footnote{Both $\gdiagFunc_{\mathbf{D}}^{\mathbf{J}} \circ L$ and $L\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$ send $X \in \obj{\mathbf{C}}$ to the "constant functor" at $LX$.} we conclude by Corollary \ref{cor:rightadjunique} that $R\lim_{\mathbf{J}} \isoCAT \lim_{\mathbf{J}}(R\placeholder)$. %TODO: explain the end.
+\end{proof}
 \section{Solutions to Chapter \ref{chap:monads}}
+\begin{proof}[Solution to Exercise \ref{exer:monad:adjmorphcommute}]\label{soln:monad:adjmorphcommute}
+    By the "universal property" of $\eta'$ and one of the "triangle identities", $\varepsilon'_{KA}$ is the unique "morphism" such that $R'\varepsilon'_{KA} \circ \eta'_{R'KA} = \id_{R'KA}$ (see \eqref{diag:univetavareps}).\begin{marginfigure}\begin{equation}\label{diag:univetavareps}
+        % https://q.uiver.app/?q=WzAsNyxbMSwwLCJSJ0wnUidLQSJdLFswLDAsIlInS0EiXSxbMSwxLCJSJ0tBIl0sWzMsMSwiS0EiXSxbMywwLCJMJ1InS0EiXSxbMiwwXSxbNCwwXSxbMSwwLCJcXGV0YSdfe1InS0F9Il0sWzEsMiwiXFxpZF97UidLQX0iLDJdLFs0LDMsIlxcdmFyZXBzaWxvbidfe0tBfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFswLDIsIlInXFx2YXJlcHNpbG9uJ197S0F9IiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzksMTAsIlIiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjozMH0sImxldmVsIjoxfV1d
+        \begin{tikzcd}
+            {R'KA} & {R'L'R'KA} & {} & {L'R'KA} & {} \\
+            & {R'KA} && KA
+            \arrow["{\eta'_{R'KA}}", from=1-1, to=1-2]
+            \arrow["{\id_{R'KA}}"', from=1-1, to=2-2]
+            \arrow[""{name=0, anchor=center, inner sep=0}, "{\varepsilon'_{KA}}", dashed, from=1-4, to=2-4]
+            \arrow[""{name=1, anchor=center, inner sep=0}, "{R'\varepsilon'_{KA}}", dashed, from=1-2, to=2-2]
+            \arrow["R"'{pos=0.4}, shorten <=8pt, shorten >=24pt, from=0, to=1]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+    We claim that $K\varepsilon_A$ also fits in the place of $\varepsilon'_{KA}$ in \eqref{diag:univetavareps} which means they are equal by uniqueness. We need to show $R'K\varepsilon_A \circ \eta'_{R'KA} = \id_{R'KA}$. Recalling that $\eta' = \eta$ and $R'K = R$, we rewrite the equality as $R\varepsilon_A \circ \eta_{RA} = \id_{RA}$ which holds by a "triangle identity".
+\end{proof}
 \section{Solutions to Chapter \ref{chap:coalgebra}}
 \end{document}

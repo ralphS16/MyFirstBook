@@ -46,7 +46,7 @@ Here we recall definitions, examples and results you may have seen in classes on
     Let $M$ be a "monoid" and $S$ a set, \AP an (left) ""action@@MON"" of $M$ on $S$ is an operation $\actmon : M \times S \rightarrow S$ satisfying for all $x,y \in M$ and $s \in S$\marginnote{\AP The data $(M,S,\actmon)$ will also be called an $M$""--set@mset"" and we may refer to it abusively with $S$.}
     \[(x\cdot y)\actmon s = x \actmon (y\act s) \quad \text{ and } \quad 1_M \actmon s = s.\]
     \AP Any "monoid action" has a ""permutation representation@@MON"" defined to be the map \[\sigma_{\actmon}: M \rightarrow \Perm_S = x \mapsto (s \mapsto x \actmon s).\]
-    Conversely, a map $\sigma: M \rightarrow \Perm_S$ that satisfies $\sigma(1_M) = \id_S$ and $\sigma(xy)= \sigma(x) \circ \sigma(y)$ for any $x,y \in M$ gives rise to a "monoid action" $\actmon_\sigma$ defined by $x \actmon_\sigma s = \sigma(x)(s)$.\footnote{These are inverse operations, i.e.:\[\sigma_{\actmon_{\sigma}} = \sigma \quad \text{ and } \quad \actmon_{\sigma_{\actmon}} = \actmon.\]}
+    Conversely, a map $\sigma: M \rightarrow \Perm_S$ that satisfies $\sigma(1_M) = \mathrm{id}_S$ and $\sigma(xy)= \sigma(x) \circ \sigma(y)$ for any $x,y \in M$ gives rise to a "monoid action" $\actmon_\sigma$ defined by $x \actmon_\sigma s = \sigma(x)(s)$.\footnote{These are inverse operations, i.e.:\[\sigma_{\actmon_{\sigma}} = \sigma \quad \text{ and } \quad \actmon_{\sigma_{\actmon}} = \actmon.\]}
 \end{defn}
 \begin{exmp}
     Any "monoid" $M$ has a canonical "left action@@MON" on itself defined by $x \actmon m = xm$ for all $x,m\in M$.
@@ -78,8 +78,9 @@ Here we recall definitions, examples and results you may have seen in classes on
     \AP The ""kernel@@GRP"" of a "homomorphism@@GRP" $f: G \rightarrow H$ is the preimage of $1_H$: $\kergrp(f) := f^{-1}(1_H)$. For any "homomorphism@@GRP" $f$, $\kergrp(f)$ is a "subgroup" of $G$.\footnote{Similarly, the image of a "homomorphism@@GRP" is also a "subgroup".}
 \end{defn}
 \begin{defn}[Group action]
-    Let $G$ be a "group" and $S$ a set, \AP an (left) ""action@@GRP"" of $G$ on $S$ is a (left) "monoid action" of $G$ on $S$.
+    Let $G$ be a "group" and $S$ a set, \AP an (left) ""action@@GRP"" of $G$ on $S$ is a (left) "monoid action" of $G$ on $S$. \AP A set $S$ equipped with "action" of $G$ is called a $G$""--set"".
 \end{defn}
+%TODO: define orbits as maximal subsets that are stable under the action.
 \begin{exmp}
     Any "group" $G$ has a canonical "left action@@GRP" on itself defined by $x \actmon m = xm$ for all $x,m\in G$.
 \end{exmp}
@@ -178,7 +179,7 @@ You might be wondering about possible "posets" where all "infimums" exist but no
     \begin{enumerate}
         \item "monotone",
         \itemAP ""extensive"" ($\forall x \in A, x \leq c(x)$), and
-        \itemAP ""idempotent"" ($\forall x \in A, c(x) = c(c(x))$).\footnote{We will use this definition of "idempotence" in other contexts.}
+        \itemAP ""idempotent"" ($\forall x \in A, c(x) = c(c(x))$).\footnote{We will use this definition of "idempotence" in other contexts.}%TODO: give a Knowledge context.
     \end{enumerate} 
 \end{defn}
 \begin{exmp}%TODO: change a's to x's or vice-versa
@@ -199,19 +200,25 @@ You might be wondering about possible "posets" where all "infimums" exist but no
 \begin{exmp}
 	%TODO: Implication and wedge in a Heyting algebra.
 \end{exmp}
-\begin{lem}
+\begin{prop}\label{prop:compgaloisisclosure}
 	Let $l \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ be a "Galois connection", then $r\circ l: A\rightarrow A$ is a "closure operator".
-\end{lem}
+\end{prop}
 \begin{proof}
 	Because $r$ and $l$ are "monotone", $r\circ l$ is clearly "monotone". Also, for any $a \in A$, $l(a) \sqsubseteq l(a)$ implying $a \leq r(l(a))$, so $r\circ l$ is "extensive".
 	
 	Now, in order to prove $r\circ l$ is "idempotent", it is enough to show that\footnote{The $\leq$ inequality follows by "extensiveness".} \[r(l(a)) \geq r(l(r(l(a)))).\]
 	Observe that since $r(b) \leq r(b)$ for any $b\in B$, we have $l(r(b)) \leq b$, thus in particular, with $b = l(a)$, we have $l(r(l(a))) \leq l(a)$. Applying $r$ which is "monotone" yields the desired inequality.
 \end{proof}
+\begin{prop}
+	Let $l \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ and $l' \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ be "Galois connections", then $l = l'$.
+\end{prop}
+\begin{prop}
+	Let $l \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ and $l \mathbin{\kl[Galois connection]{\dashv}} r':A \rightarrow B$ be "Galois connections", then $r = r'$.
+\end{prop}
 \section{Topology}
 In this section, we introduce the basic terminology of "topological spaces". Again we go a bit further than needed to help readers that first lear about "topology" here. We end this section by recalling some definitions about "metric spaces". 
 \begin{defn}\label{defn:topspace}
-	\AP A ""topological space"" is a pair $(X, \topo)$, where $X$ is a set and $\topo\subseteq \mP(X)$ is closed under arbitrary unions and finite intersections\footnote{For any family of "open sets" $\{U_i\}_{i \in I}\subseteq \topo$,\[\bigcup_{i \in I} U_i \in \topo,\] and if $I$ is finite,\[\bigcup_{i \in I} U_i \in \topo.\]} whose elements are called ""open sets"" of $X$. We call $\topo$ a \textbf{"topology"} on $X$.
+	\AP A ""topological space"" is a pair $(X, \topo)$, where $X$ is a set and $\topo\subseteq \mP(X)$ is closed under arbitrary unions and finite intersections\footnote{For any family of "open sets" $\{U_i\}_{i \in I}\subseteq \topo$,\[\bigcup_{i \in I} U_i \in \topo,\] and if $I$ is finite,\[\bigcap_{i \in I} U_i \in \topo.\]} whose elements are called ""open sets"" of $X$. We call $\topo$ a \textbf{"topology"} on $X$.
 	
 	\AP The ""complement"" of an "open set" $U$, denoted $U^\comple$, is said to be ""closed"".\footnote{Observe that both the empty set and the whole "space@@TOP" are "open" and "closed" (sometimes referred to as \textbf{clopen}) because 
 	\[\emptyset = \bigcup_{U \in \emptyset} U \text{ and } X = \bigcap_{U \in \emptyset} U \text { and } \emptyset = X^\comple.\]}

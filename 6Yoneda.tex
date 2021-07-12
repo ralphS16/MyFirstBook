@@ -1,11 +1,12 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
+%TODO: why I love category theory: % ---- Chap Yoneda: in CT, 99% of the time, you know what to do. Compared to other disciplines where it is harder to find the right method. e.g.: combinatorics: it is practically impossible to find the right way to see your problem. Most of the time (100% of the time in this book) if you don't know what to do, just go back and read the definitions of each part of the problem and try again. This chapter has difficult proofs but a lot of the time, you don't have that many choice. In fact, in the proof of Yoneda, a most important result, stating the result is 99% of the proof done.
 \chapter{Yoneda Lemma}\label{chap:yoneda}
-
+%TODO: try to talk about representing elements and rephrase yoneda lemma like nat trans is completely determined by representing element and choice of image and of representing element.
 \section{Representable Functors}
 Throughout, let $\mathbf{C}$ be a "locally small" "category". Recall that for an "object" $A \in \obj{\mathbf{C}}$, there are two $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$. The "covariant" one, $\Hom_{\mathbf{C}}(A, \placeholder)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to $f \circ (\placeholder)$. The "contravariant" one, $\Hom_{\mathbf{C}}(\placeholder,A)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f: B\rightarrow B'$ to $(\placeholder) \circ f$. In order to lighten the notation, we denote these functors $\Hombis^A$ and $\Hombis_A$ respectively.\footnote{It might seem like this contradicts the notation used so far because $\Hombis^A$ is "covariant" and $\Hombis_A$ "contravariant". However, this is not their \textit{variance} in the parameter $A$, and we will show that in fact, the \textit{variance} in $A$ are opposites.}%TODO: write better.
 
-Although these "functors" are sometimes interesting on their own, their full power is unleashed when they are related to other "functors" through "natural transformations". For instance, some of these $\Hom$ "functors" can be described in simpler terms.
+Although these "functors" are sometimes interesting on their own, their full power is unleashed when they are related to other "functors" through "natural transformations". Before doing that, let us investigate how nice $\Hom$ "functors" are. For instance, many $\Hom$ "functors" can be described in simpler terms.
 \begin{exmps}\label{exmp:covrep}
 	\begin{enumerate}
 		\item[]
@@ -22,10 +23,11 @@ Although these "functors" are sometimes interesting on their own, their full pow
 		\item A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $0$ to the "identity@@GRP" and $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$ and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
 		\item The "terminal" "object" in $\catCat$ is the "category" $\termcat$ with a single "object" $\bullet$ and no "morphism" other than the "identity". Observe that for any "category" $\mathbf{C}$, a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object". Therefore, the same argument will show that $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$, where $\obj{(\placeholder)}$ sends a "category" to its set\footnote{Recall that $\catCat$ only contains "small" "categories".} of "objects" and a "functor" to its action restricted on "objects".
 		
-	 	In order to obtain a similar way to extract "morphisms", consider the category $\cattwo$ with two "objects" and a single "morphism" between them. One obtains a "natural isomorphism" $\Hombis^{\cattwo} \isoCAT (\placeholder)_1$.
+	 	In order to obtain a similar way to extract "morphisms", consider the category $\cattwo$ with two "objects" and a single "morphism" between them. One obtains a "natural isomorphism" $\Hombis^{\cattwo} \isoCAT (\placeholder)_1$.\footnote{You can prove this as we did for $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$ or use Example \ref{exmp:simplefunccat}.\ref{exmp:funct2arrow}.}
 	\end{enumerate}
 \end{exmps}
-These examples suggest that "functors" that are "naturally isomorphic" to $\Hom$ "functors" have nice properties, they are said to be "representable".
+These examples suggest that "functors" that are "naturally isomorphic" to $\Hom$ "functors" have nice properties,\footnote{In fact, we already know that the $\Hom$ 
+"functors" are "continuous" (Theorem \ref{thm:homcont} and Corollary \ref{cor:cohomcont}).} they are said to be "representable". %TODO: write beter.
 
 \begin{defn}[Representable functor]
 	\AP A "covariant" functor $F: \mathbf{C} \rightsquigarrow \catSet$ is ""representable"" if there is an "object" $X \in \obj{\mathbf{C}}$ such that $F$ is "naturally isomorphic" to $\Hom_{\mathbf{C}}(X,\placeholder)$. If $F$ is "contravariant", then it is "representable" if it is "naturally isomorphic" to $\Hom_{\mathbf{C}}(\placeholder,X)$.

@@ -239,6 +239,14 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
         \end{tikzcd}
     \end{equation}\end{marginfigure}
 \end{defn}%TODO: add example?
+\begin{exer}\label{exer:universal:arrowcatfunctors}\marginnote{\hyperref[soln:universal:arrowcatfunctors]{See solution.}}
+    Let $\mathbf{C}$ be a "category" (note the change of font to distinguish the "functors" from their action).
+    \begin{enumerate}
+        \item Show that $\intro*\idarr:\mathbf{C} \rightsquigarrow \arrowcat{\mathbf{C}}$ sending $X \in \obj{\mathbf{C}}$ to $\id_X$ is "functorial".
+        \item Show that $\intro*\sourcearr:\arrowcat{\mathbf{C}} \rightsquigarrow \mathbf{C}$ sending $f \in \obj{\arrowcat{\mathbf{C}}}$ to $\source(f)$ is "functorial".
+        \item Show that $\intro*\targetarr:\arrowcat{\mathbf{C}} \rightsquigarrow \mathbf{C}$ sending $f \in \obj{\arrowcat{\mathbf{C}}}$ to $\target(f)$ is "functorial".
+    \end{enumerate}
+\end{exer}
 \begin{defn}[Slice category]
     In the setting of Definition \ref{defn:comma}, if $F = \id_{\mathbf{C}}$ and $G= X: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $G(\bullet) = X \in \obj{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{X}$ is called the ""slice category"" over $X$ and denoted $\slice{\mathbf{C}}{X}$.\footnote{Some authors call this "category" $\mathbf{C}$ over $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "target" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
     \begin{equation}\label{diag:slice}
@@ -260,6 +268,12 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
 \begin{exer}\label{exer:universal:termslice}\marginnote{\hyperref[soln:universal:termslice]{See solution.}}
     Show that for any "category" $\mathbf{C}$ and "object" $X \in \obj{\mathbf{C}}$, the "slice category" $\slice{\mathbf{C}}{X}$ has a "terminal" "object". State and prove the "dual@@CAT" statement.
 \end{exer}
+\begin{exer}\label{exer:universal:productslice}\marginnote{\hyperref[soln:universal:productslice]{See solution.}}
+    Show that the "product" of $f:A \rightarrow X$ and $g: B \rightarrow X$ in $\slice{\mathbf{C}}{X}$ exists if and only if the "pullback" of $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & X & B \arrow[l, "g"'] \end{tikzcd}$ exists in $\mathbf{C}$. State and prove the "dual@@CAT" statement.
+\end{exer}
+% \begin{cor}["Dual@@CAT"]
+%     The "coproduct" of $f:X \rightarrow A$ and $g: X \rightarrow A$ in $\coslice{\mathbf{C}}{X}$ exists if and only if the "pushout" of $\begin{tikzcd}[cramped, sep=small] A & \arrow[l, "f"'] X \arrow[r, "g"] & B \end{tikzcd}$ exists in $\mathbf{C}$.
+% \end{cor}
 Back to "universal properties".
 \begin{defn}[Universal morphism]
     If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a functor and $X \in \obj{\mathbf{C}}$. \AP A ""universal morphism"" from $X$ to $F$ is an "initial" "object" in $\comcat{X}{F}$. Namely, it is a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is unique "commutative" triangle as in \eqref{diag:univmorph}.
@@ -303,7 +317,7 @@ Back to "universal properties".
 \begin{defn}[Universal property]
     \AP A ""universal property"" is the property of being a "universal morphism". %TODO: meh
 \end{defn}
-\begin{exmps}
+\begin{exmps}\label{exmps:allup}
     Here we translate all the examples of this chapter into the general language.
     \begin{enumerate}
         \item The "free monoid" on a set $A$ is the "universal morphism" from $A$ to the "forgetful functor" $\catMon \rightsquigarrow \catSet$.
