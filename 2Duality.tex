@@ -1,13 +1,14 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
+%TODO: start motivation with contravariant powerset .
 \chapter{Duality}\label{chap:duality}
-The concept of duality is ubiquitous throughout mathematics. It can relate two perspectives of the same object as for "dual@@VECT" "vector spaces", two complementary optimization problems such as a maximization and a minimization linear program and even two seemingly unrelated fields like topology and logic (\href{https://en.wikipedia.org/wiki/Stone_duality}{Stone duality}). While this vague principle of duality is the behind many groundbreaking results, the duality in question here is categorical "duality@@CAT" and it is a bit more precise.%TODO: ref.
+The concept of duality is ubiquitous throughout mathematics. It can relate two perspectives of the same object as for "dual@@VECT" "vector spaces", two complementary optimization problems such as a maximization and a minimization linear program and even two seemingly unrelated fields like topology and logic (\href{https://en.wikipedia.org/wiki/Stone_duality}{Stone duality}). While this vague principle of duality is behind many groundbreaking results, the duality in question here is categorical "duality@@CAT" and it is a bit more precise.%TODO: ref.
 
 Informally, there is nothing more to say than ``Take all the diagrams in a definition/theorem, reverse the arrows and reap the benefits of the "dual@@CAT" concept/result.''\footnote{In my opinion, this is already a very good reason to learn category theory because we can basically get twice as much math as before by framing things with a categorical language.} The more formal version will follow after we first exhibit the principle in action.
 
-Recall that, intuitively, a "functor" is a structure preserving transformation between "categories". A simple example we have seen was "functors" between "posets" that were "order-preserving" functions. However, as a consequence, one might conclude that "order-reversing" functions impair the structure of a "poset", which feels arbitrary. The same happens between "deloopings" of "groups" because "anti-homomorphisms"\footnote{\AP An ""anti-homomorphism"" $f: G \rightarrow H$ is a function satisfying $f(gg') = f(g')f(g)$ and $f(1_G) = f(1_H)$.} cannot arise as "functors" between such "categories".
+Recall that, intuitively, a "functor" is a structure preserving transformation between "categories". A simple example we have seen was "functors" between "posets" that were "order-preserving" functions. However, as a consequence, one might conclude that "order-reversing" functions impair the structure of a "poset", which feels arbitrary. The same happens between "deloopings" of "groups" because "anti-homomorphisms"\footnote{\AP An ""anti-homomorphism"" $f: G \rightarrow H$ is a function satisfying $f(gg') = f(g')f(g)$ and $f(1_G) = f(1_H)$.} cannot arise as "functors" between such "categories". %TODO: say that this structure is robust to the reversing operations.
 
-There are two options to remedy this discrepancy between intuition and formalism; both have "duality@@CAT" as an underlying principle.
+There are two options to remedy this discrepancy between intuition and formalism; both have "duality@@CAT" as an underlying principle. In this chapter, we will describe the two options, dismiss one of them and showcase the strength of "duality@@CAT" while exploring more basic category theory.
 \section{Contravariant Functors}
 By modifying Definition \ref{defn:func} to require that $F(f)$ goes in the opposite direction, we obtain a "contravariant functor". \AP Incidentally, what we defined as a "functor" before is also called a ""covariant"" "functor".
 \begin{defn}[Contravariant functor]\label{defn:contrafunc}
@@ -49,17 +50,17 @@ By modifying Definition \ref{defn:func} to require that $F(f)$ goes in the oppos
 	\end{enumerate}
 \end{exmps}
 Next, there is a couple of "functors" that are key to understand the philosophy put forward by category theory.\footnote{We will talk more about it when covering the "Yoneda lemma" in Chapter \ref{chap:Yoneda}.}
-\begin{exmp}[$\Hom$ "functors"]\label{exmp:homfunctor}
-	\AP Let $\mathbf{C}$ be a "locally small" "category" and $A \in \obj{\mathbf{C}}$ one of its "objects".\footnote{We need "local smallness" so that each $\Hom_{\mathbf{C}}(A,B)$ is a set and the "functors" land in $\catSet$.} We define the "covariant" and "contravariant" $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$.
+\begin{exmp}[Hom functors]\label{exmp:homfunctor}
+	\AP Let $\mathbf{C}$ be a "locally small" "category" and $A \in \obj{\mathbf{C}}$ one of its "objects".\footnote{We need "local smallness" so that each $\Hom_{\mathbf{C}}(A,B)$ is a set and the "functors" land in $\catSet$.} We define the "covariant" and "contravariant" ""Hom functors"" from $\mathbf{C}$ to $\catSet$.
 	\begin{enumerate}
-		\item The "covariant" "functor" $\Hom_{\mathbf{C}}(A,\placeholder): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom-set" $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(A,f): \Hom_{\mathbf{C}}(A,B) \rightarrow \Hom_{\mathbf{C}}(A,B') = g \mapsto f\circ g.\]
+		\item The "covariant" "Hom functor" $\Hom_{\mathbf{C}}(A,\placeholder): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom-set" $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(A,f): \Hom_{\mathbf{C}}(A,B) \rightarrow \Hom_{\mathbf{C}}(A,B') = g \mapsto f\circ g.\]
 		\AP This function is called ""post-composition by"" $f$ and is denoted $f \circ (\placeholder)$.\footnote{Some authors denote $f \circ (\placeholder)$ as $f^*$, we prefer to keep this notation for later (see "pullbacks").} Let us show $\Hom_{\mathbf{C}}(A, \placeholder)$ is a "covariant" "functor".
 		\begin{enumerate}[i.]
 			\item For any $f \in \mor{\mathbf{C}}$, it is clear from the definition that \[\Hom_{\mathbf{C}}(A,\source(f)) = \source(f \circ (\placeholder)) \text{ and } \Hom_{\mathbf{C}}(A,\target(f)) = \target(f \circ (\placeholder)).\]
 			\item For any $(f_1,f_2) \in \mathbf{C}_2$, we claim that \[\Hom_{\mathbf{C}}(A,f_1\circ f_2) = \Hom_{\mathbf{C}}(A,f_1)\circ \Hom_{\mathbf{C}}(A,f_2).\] In the L.H.S., an element $g \in \Hom_{\mathbf{C}}(A,\source(f_1\circ f_2))$ is mapped to $(f_1 \circ f_2) \circ g$ and in the R.H.S., an element $g \in \Hom_{\mathbf{C}}(A,\source(f_2))$ is mapped to $f_1\circ (f_2 \circ g)$. Since $\source(f_1 \circ f_2) = \source(f_2)$ and "composition" is "associative", we conclude that the two maps are the same.
 			\item For any $B \in \obj{\mathbf{C}}$, the "post-composition" by $\idu_{\mathbf{C}}(B)$ is defined to be the identity,\footnote{Namely, for any $f: A \rightarrow B$, $\idu_{\mathbf{C}}(B) \circ f = f$.} hence \eqref{diag:func3} also commutes.
 		\end{enumerate}
-		\item The "contravariant functor" $\Hom_{\mathbf{C}}(\placeholder,A): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom-set" $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(f,A): \Hom_{\mathbf{C}}(B',A) \rightarrow \Hom_{\mathbf{C}}(B,A) = g \mapsto g\circ f.\]
+		\item The "contravariant" "Hom functor" $\Hom_{\mathbf{C}}(\placeholder,A): \mathbf{C} \rightsquigarrow \catSet$ sends an "object" $B\in \obj{\mathbf{C}}$ to the "hom-set" $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f:B\rightarrow B'$ to the function \[\Hom_{\mathbf{C}}(f,A): \Hom_{\mathbf{C}}(B',A) \rightarrow \Hom_{\mathbf{C}}(B,A) = g \mapsto g\circ f.\]
 		\AP This function is called ""pre-composition by"" $f$ and is denoted $(\placeholder) \circ f$.\footnote{Some authors denote $(\placeholder) \circ f$ as $f_*$, we prefer to keep this notation for later (see "pushouts").} Let us show $\Hom_{\mathbf{C}}(\placeholder,A)$ is a "contravariant functor".
 		\begin{enumerate}[i.]
 			\item For any $f \in \mor{\mathbf{C}}$, it is clear from the definition that \[\Hom_{\mathbf{C}}(\source(f),A) = \target((\placeholder) \circ f))\text{ and } \Hom_{\mathbf{C}}(\target(f),A) = \source((\placeholder) \circ f).\]
@@ -67,6 +68,11 @@ Next, there is a couple of "functors" that are key to understand the philosophy 
 			\item For any $B \in \obj{\mathbf{C}}$, "pre-composition" by $\idu_{\mathbf{C}}(B)$ is defined to be the identity,\footnote{Namely, for any $f: B \rightarrow A$, $f \circ \idu_{\mathbf{C}}(B) = f$.} hence \eqref{diag:contrafunc3} also commutes.
 		\end{enumerate}
 	\end{enumerate}
+\end{exmp}
+Right now, we only give one example of a "contravariant" "Hom functor", but we will study them more in depth in Chapter \ref{chap:yoneda}.
+\begin{exmp}["Dual vector space"]
+	In the "category" $\catVect{k}$, there is a special "object" $k$,\footnote{We know it is special because we know some linear algebra. Still, $k$ has some interesting categorical properties that we will not cover here.} let us see what the "contravariant functor" $\Hom_{\catVect{k}}(\placeholder, k)$ does. It assigns to any "vector space" $V$, the set of "linear maps" $V \rightarrow k$, that is the carrier set of the "dual space" $\dual{V}$. It assigns to "linear maps" $T: V \rightarrow W$, the function \[\Hom_{\catVect{k}}(W,k) \ni \phi \mapsto \phi \circ T \in \Hom_{\catVect{k}}(V,k).\]
+	We know that $\Hom_{\catVect{k}}(V,k) = \dual{V}$ can be seen as a "vector space" and it is easy to check that "pre-composition" by $T$ is a "linear map" $\dual{W} \rightarrow \dual{V}$. Therefore, we find that the assignment $V \mapsto \dual{V} = \Hom_{\catVect{k}}(\placeholder,k)$ is a "contravariant functor" $\catVect{k} \rightsquigarrow \catVect{k}$.
 \end{exmp}
 We will not dwell too long on "contravariant functors" as we will see right away how they can be avoided, but first, let us give a reason why we want to avoid them.
 \begin{exer}\label{exer:duality:composecontra}\marginnote{\hyperref[soln:duality:composecontra]{See solution.}}
@@ -332,10 +338,10 @@ In the next chapter, we will start heavily using diagrams, so before going furth
 \end{rem}
 Since "diagrams" are defined as "functors", they interact well with other "functors". Actually, if $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ is a "diagram" of "shape" $\mathbf{J}$ in $\mathbf{C}$ and $G: \mathbf{C}\rightsquigarrow \mathbf{D}$ is a "functor", then $G\circ F$ is a "diagram" of "shape" $\mathbf{J}$ in $\mathbf{D}$. Some "functors" interact even more nicely with "diagrams".
 \begin{defn}
-	Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $P$ a property\footnote{This is intentionally a vague term. In Chapter \ref{chap:limits}, we will have a more formal but less general definition of "preserving" and "reflecting".} of "diagrams" in $\mathbf{C}$.
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $P$ a property\footnote{This is intentionally a vague term. In Chapter \ref{chap:limits}, we will have a more formal but less general definition of "preserving" and "reflecting".} of "diagrams".
 	\begin{itemize}
-		\itemAP[-] We say that $F$ ""preserves"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$. If $D$ has property $P$, then $F \circ D$ has property $P$.
-		\itemAP[-] We say that $F$ ""reflects"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$. If $F \circ D$ has property $P$, then $D$ has property $P$.
+		\itemAP[-] We say that $F$ ""preserves"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $D$ has property $P$, then $F \circ D$ has property $P$.
+		\itemAP[-] We say that $F$ ""reflects"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $F \circ D$ has property $P$, then $D$ has property $P$.
 	\end{itemize}
 \end{defn}
 \begin{warn}

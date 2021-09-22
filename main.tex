@@ -121,8 +121,9 @@
 \newrobustcmd{\deloopobject}{\kl[deloopobject]{\ast}}
 \newrobustcmd{\act}{\mathbin{\kl(GRP)[action]{\star}}}
 \newrobustcmd{\actmon}{\mathbin{\kl(MON)[action]{\star}}}
-\newrobustcmd{\postcomp}[1]{\kl[post-composition]{#1_{*}}}
+\newrobustcmd{\postcomp}[1]{\kl[post-composition]{#1_{*}}} %TODO: they are not used right?
 \newrobustcmd{\precomp}[1]{\kl[pre-composition]{{\kern0pt#1}^{*}}}
+\newrobustcmd{\dual}[1]{#1^{\kl(VECT)[dual]{*}}}
 \newrobustcmd{\op}[1]{{\kern0pt#1}^{\kl[opposite]{\mathrm{op}}}}
 \newrobustcmd{\isoCAT}{\mathrel{\kl(CAT)[isomorphic]{\cong}}}
 \newrobustcmd{\isoMON}{\mathrel{\kl(MON)[isomorphic]{\cong}}}

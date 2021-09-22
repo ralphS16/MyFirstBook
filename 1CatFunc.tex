@@ -383,8 +383,17 @@ While bijectivity is very strong to compare sets --- it morally says that the el
 		
 		\item Let $(X, \leq)$ and $(Y, \sqsubseteq)$ be "posets", and $F:X\rightsquigarrow Y$ be a functor between their "posetal" "categories". For any $a, b \in X$, if $a\leq b$, then $\Hom_X(a,b)$ contains a single element, thus $\Hom_Y(F(a), F(b))$ must contain a "morphism" as well,\footnote{The image of the element in $\Hom_X(a,b)$ under $F$.} or equivalently $F(a) \sqsubseteq F(b)$. This shows that $F_0$ is an "order-preserving" function on the "posets".
 		
-		Conversely, any "order-preserving" function between $X$ and $Y$ will correspond to a unique "functor" as there is only one "morphism" in all the "hom-sets".\footnote{Given $f:(X,\leq) \rightarrow (Y,\sqsubseteq)$ "order-preserving", the corresponding "functor" between the "posetal" "categories" of $X$ and $Y$ acts like $f$ of the "objects" and sends a "morphism" $a \rightarrow b$ to the unique morphism $f(a) \rightarrow f(b)$ which exists because $a\leq b \implies f(a) \sqsubseteq f(b)$.}
-				
+		Conversely, any "order-preserving" function between $X$ and $Y$ will correspond to a unique "functor" as there is only one "morphism" in all the "hom-sets".\footnote{Given $f:(X,\leq) \rightarrow (Y,\sqsubseteq)$ "order-preserving", the corresponding "functor" between the "posetal" "categories" of $X$ and $Y$ acts like $f$ of the "objects" and sends a "morphism" $a \rightarrow b$ to the unique "morphism" $f(a) \rightarrow f(b)$ which exists because $a\leq b \implies f(a) \sqsubseteq f(b)$.}
+		\begin{exer}\label{exer:catfunc:imagefunctors}\marginnote{\hyperref[soln:catfunc:imagefunctors]{See solution.}}
+			Let $A$ and $B$ be two sets, their "powersets" can be seen as "posets" with the "order" $\subseteq$. Thus, we can view $\mP(A)$ and $\mP(B)$ as "posetal" "categories".
+			\begin{itemize}
+				\item[-] Draw (using points and arrows) the "category" corresponding to $\mP(\{0,1,2\})$.
+				\item[-] Show that the image and preimage functions defined below are "functors" between these "categories".\footnote{i.e.: they are "order-preserving" functions.}
+				\begin{align*}
+				f: \mP(A) \rightarrow \mP(B)&= S \mapsto \{f(a) \mid a \in S\}\\ f^{-1}: \mP(B) \rightarrow \mP(A) &= S \mapsto \{a \in A \mid f(a) \in S\}
+				\end{align*}
+			\end{itemize}
+		\end{exer}
 		\item Let $G$ and $H$ be "groups" and $\deloop{G}$ and $\deloop{H}$ be their respective "deloopings", then the "functors" $F: \deloop{G} \rightsquigarrow \deloop{H}$ are exactly the "group homomorphisms" from $G$ to $H$.\footnote{Similarly for the "deloopings" of "monoids".} Let $F:\deloop{G} \rightsquigarrow \deloop{H}$ be a "functor", the action of $F$ on "objects" is trivial since there is only one "object" in both "categories". On "morphisms", $F_1$ is a function from $G$ to $H$ which preserves "composition" and the "identity morphism" which, by definition, are the "group" multiplication and identity respectively. Thus, $F_1$ is a "group homomorphism".
 		
 		Given a "homomorphism@@GRP" $f: G \rightarrow H$, the reverse reasoning shows we obtain a "functor" $\deloop{G} \rightsquigarrow \deloop{H}$ by acting trivially on "objects" and with $f$ on "morphisms".
