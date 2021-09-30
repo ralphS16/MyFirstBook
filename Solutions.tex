@@ -19,8 +19,59 @@
 \begin{proof}[Solution to Exercise \ref{exer:catfunc:funccomponent}]\label{soln:catfunc:funccomponent}
     Let us show the three properties of "functoriality".
     \begin{enumerate}[i.]
-        \item For any $(f,g): (X,Y) \rightarrow (X',Y')$%TODO: do this exercise.
+        \item For any $(f,g): (X,X') \rightarrow (Y,Y')$, by hypothesis, we have the following "commutative" square showing $F(f,g)$ has the right "source" and "target".
+        \begin{equation*}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGKFgsWSkiXSxbMCwxLCJGKFgnLFkpIl0sWzEsMSwiRihYJyxZJykiXSxbMSwwLCJGKFgsWScpIl0sWzAsMSwiRihmLFxcaWRfWSkiLDJdLFsxLDIsIkYoXFxpZF97WCd9LGcpIiwyXSxbMywyLCJGKGYsXFxpZF97WSd9KSJdLFswLDMsIkYoXFxpZF9YLGcpIl0sWzAsMiwiRihmLGcpIiwxXV0=
+        \begin{tikzcd}
+        {F(X,X')} & {F(X,Y')} \\
+        {F(Y,X')} & {F(Y,Y')}
+        \arrow["{F(f,\id_{X'})}"', from=1-1, to=2-1]
+        \arrow["{F(\id_{Y},g)}"', from=2-1, to=2-2]
+        \arrow["{F(f,\id_{Y'})}", from=1-2, to=2-2]
+        \arrow["{F(\id_X,g)}", from=1-1, to=1-2]
+        \arrow["{F(f,g)}"{description}, from=1-1, to=2-2]
+        \end{tikzcd}
+        \end{equation*}
+        \item Let us have two "morphisms" $(f,g): (X,X') \rightarrow (Y,Y')$ and $(f',g'): (Y,Y') \rightarrow (Z,Z')$ in $\mathbf{C} \cattimes \mathbf{C}'$. The hypothesis on $F(\placeholder, \placeholder)$ gives the four "commutative" squares below and the "functoriality" of $F$ in each component gives the "commutativity" of the parts denoted by $*$.
+        \begin{equation*}
+            % https://q.uiver.app/?q=WzAsOSxbMCw0LCJGKFosWCcpIl0sWzIsNCwiRihaLFknKSJdLFs0LDAsIkYoWCxaJykiXSxbNCwyLCJGKFksWicpIl0sWzQsNCwiRihaLFonKSJdLFswLDAsIkYoWCxYJykiXSxbMCwyLCJGKFksWCcpIl0sWzIsMCwiRihYLFknKSJdLFsyLDIsIkYoWSxZJykiXSxbMCwxLCJGKFxcaWRfWixnKSIsMV0sWzIsMywiRihmLFxcaWRfe1onfSkiLDFdLFszLDQsIkYoZicsXFxpZF97Wid9KSIsMV0sWzEsNCwiRihcXGlkX1osZycpIiwxXSxbNSw2LCJGKGYsXFxpZF97WCd9KSIsMV0sWzUsNywiRihcXGlkX1gsZykiLDFdLFs3LDgsIkYoZixcXGlkX3tZJ30pIiwxXSxbNiw4LCJGKFxcaWRfWSxnKSIsMV0sWzgsMSwiRihmJyxcXGlkX3tZJ30pIiwxXSxbNiwwLCJGKGYnLFxcaWRfe1gnfSkiLDFdLFs4LDMsIkYoXFxpZF9ZLGcnKSIsMV0sWzcsMiwiRihcXGlkX1gsZycpIiwxXSxbNSw4LCJGKGYsZykiLDFdLFs3LDMsIkYoZixnJykiLDFdLFs2LDEsIkYoZicsZykiLDFdLFs4LDQsIkYoZicsZycpIiwxXSxbNSwwLCJGKGYnXFxjaXJjIGYsXFxpZF97WCd9KSIsMix7Im9mZnNldCI6MSwiY3VydmUiOjV9XSxbNSwyLCJGKFxcaWRfWCxnJ1xcY2lyYyBnKSIsMCx7ImN1cnZlIjotNX1dLFsyLDQsIkYoZidcXGNpcmMgZixcXGlkX3taJ30pIiwwLHsib2Zmc2V0IjotMSwiY3VydmUiOi01fV0sWzAsNCwiRihcXGlkX1osZydcXGNpcmMgZykiLDIseyJjdXJ2ZSI6NX1dLFsyNiw3LCIqIiwxLHsibGFiZWxfcG9zaXRpb24iOjcwLCJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwyOCwiKiIsMSx7ImxhYmVsX3Bvc2l0aW9uIjozMCwic2hvcnRlbiI6eyJ0YXJnZXQiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzMsMjcsIioiLDEseyJsYWJlbF9wb3NpdGlvbiI6MzAsInNob3J0ZW4iOnsidGFyZ2V0IjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyNSw2LCIqIiwxLHsibGFiZWxfcG9zaXRpb24iOjcwLCJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\begin{tikzcd}
+	{F(X,X')} && {F(X,Y')} && {F(X,Z')} \\
+	\\
+	{F(Y,X')} && {F(Y,Y')} && {F(Y,Z')} \\
+	\\
+	{F(Z,X')} && {F(Z,Y')} && {F(Z,Z')}
+	\arrow["{F(\id_Z,g)}"{description}, from=5-1, to=5-3]
+	\arrow["{F(f,\id_{Z'})}"{description}, from=1-5, to=3-5]
+	\arrow["{F(f',\id_{Z'})}"{description}, from=3-5, to=5-5]
+	\arrow["{F(\id_Z,g')}"{description}, from=5-3, to=5-5]
+	\arrow["{F(f,\id_{X'})}"{description}, from=1-1, to=3-1]
+	\arrow["{F(\id_X,g)}"{description}, from=1-1, to=1-3]
+	\arrow["{F(f,\id_{Y'})}"{description}, from=1-3, to=3-3]
+	\arrow["{F(\id_Y,g)}"{description}, from=3-1, to=3-3]
+	\arrow["{F(f',\id_{Y'})}"{description}, from=3-3, to=5-3]
+	\arrow["{F(f',\id_{X'})}"{description}, from=3-1, to=5-1]
+	\arrow["{F(\id_Y,g')}"{description}, from=3-3, to=3-5]
+	\arrow["{F(\id_X,g')}"{description}, from=1-3, to=1-5]
+	\arrow["{F(f,g)}"{description}, from=1-1, to=3-3]
+	\arrow["{F(f,g')}"{description}, from=1-3, to=3-5]
+	\arrow["{F(f',g)}"{description}, from=3-1, to=5-3]
+	\arrow["{F(f',g')}"{description}, from=3-3, to=5-5]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{F(f'\circ f,\id_{X'})}"', shift right=1, curve={height=30pt}, from=1-1, to=5-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{F(\id_X,g'\circ g)}", curve={height=-30pt}, from=1-1, to=1-5]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "{F(f'\circ f,\id_{Z'})}", shift left=1, curve={height=-30pt}, from=1-5, to=5-5]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "{F(\id_Z,g'\circ g)}"', curve={height=30pt}, from=5-1, to=5-5]
+	\arrow["{*}"{description, pos=0.7}, Rightarrow, draw=none, from=1, to=1-3]
+	\arrow["{*}"{description, pos=0.3}, Rightarrow, draw=none, from=5-3, to=3]
+	\arrow["{*}"{description, pos=0.3}, Rightarrow, draw=none, from=3-5, to=2]
+	\arrow["{*}"{description, pos=0.7}, Rightarrow, draw=none, from=0, to=3-1]
+\end{tikzcd}
+        \end{equation*}
+        We conclude from the "commutativity" of the whole diagram that $F(f',g') \circ F(f,g) = F(f'\circ f, g' \circ g)$.
+        \item For any $(A,B) \in \obj{(\mathbf{C} \cattimes \mathbf{C}')}$, the "functoriality" of either component yields
+    \[F(\id_{(A,B)}) = F(\id_A,\id_B) = \id_{F(A,B)}.\]
     \end{enumerate}
+    
 \end{proof}
 \section{Solutions to Chapter \ref{chap:duality}}
 \begin{proof}[Solution to Exercise \ref{exer:duality:composemor}]\label{soln:duality:composemor}
