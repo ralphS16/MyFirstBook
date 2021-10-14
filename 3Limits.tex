@@ -10,7 +10,7 @@ The unifying power of categorical abstraction is arguably its biggest benefit. I
 
 The next two chapters concern one particular instance of this power, that is, the use of "universal properties" to define mathematical constructions. This chapter will cover "limits" and "colimits" which are specific cases of "universal" constructions. The term \textit{"universal"} is somewhat delicate to define, therefore, we postpone its definition to next chapter and for a while, I recommend you try to recognize \textit{"universality"} as the thing that all definitions of "(co)@colimits""limits" given below have in common.
 
-The first section presents several examples; each of its subsection is dedicated to one kind of "limit" or "colimit" of which a detailed example in $\catSet$ is given along with a couple of interesting examples in other "categories". It is not straightforward to build intuition about all kinds of "(co)@colimits""limits" due to their innumerable applications. For now, I think it is fine if you are comfortable with the intuition in $\catSet$ as it transposes well to "concrete" "categories", but if you persist in learning category theory, you will get to see examples with other flavors. The second section gives a formal framework to talk about all the examples previously explored as well as a few general results. In the sequel, $\mathbf{C}$ denotes a "category".
+The first section presents several examples; each of its subsection is dedicated to one kind of "limit" or "colimit" of which a detailed example in $\catSet$ is given along with a couple of interesting examples in other "categories". It is not straightforward to build intuition about all kinds of "(co)@colimits""limits" due to their innumerable applications. For now, I think it is fine if you are comfortable with the intuition in $\catSet$ as it transposes well to "concrete" "categories", but if you persist in learning category theory, you will get to see examples with other flavors. The second section gives a formal framework to talk about all the examples previously explored as well as a few general results. In the sequel, $\mathbf{C}$ denotes a "category". %TODO: see if last sentence is used.
 
 \section{Examples}
 Before giving the definition of "(co)@colimit""limits" which is very abstract, we present a lot of examples of how they are used. These are very interesting on their own because they show you how many things mathematicians care about in different contexts can be seen as the same abstract construction. Still, keep in mind that, after adding another level of abstraction, we will bring all these examples together as instances of "(co)@colimit""limits".
@@ -28,10 +28,10 @@ However, this does not have a nice categorical analog because it requires pickin
     What is \textit{unique}\footnote{Always up to "isomorphism@@CAT" of course.} about $S\times T$ with the projections $\pi_1$ and $\pi_2$?
 \end{quest}
 \begin{proof}[Answer]
-For one, $\pi_1$ and $\pi_2$ are surjective and while they are not injective, they have an invertible-like property. Namely, given $s \in S$ and $t \in T$, the pair $(s, t)$ is completely determined from $\pi_1^{-1}(s) \cap \pi_2^{-1}(t)$.
+For one, $\pi_1$ and $\pi_2$ are surjective, and while they are not injective, they have an invertible-like property. Namely, given $s \in S$ and $t \in T$, the pair $(s, t)$ is completely determined from $\pi_1^{-1}(s) \cap \pi_2^{-1}(t)$.
 \end{proof}
 
-Again, in order to discharge the references to specific elements, another point of view is needed. Let $X$ be a set of \textit{choices} of pairs, an element $x \in X$ chooses elements in $S$ and $T$ via functions $c_1 : X \rightarrow S$ and $c_2: X \rightarrow T$ (similar to the projections). Now, the \textit{almost-inverse} defined above yields a function
+Again, in order to get rid of the references to specific elements, another point of view is needed. Let $X$ be a set of \textit{choices} of pairs, an element $x \in X$ chooses elements in $S$ and $T$ via functions $c_1 : X \rightarrow S$ and $c_2: X \rightarrow T$ (similar to the projections). Now, the \textit{almost-inverse} defined above yields a function
 \[!:X \rightarrow S\times T = x \mapsto \pi^{-1}(c_1(x)) \cap \pi^{-1}(c_2(x)).\]
 This function maps $x \in X$ to an element in $S\times T$ that makes the same choice as $x$, and it is the only one that does so. Categorically, $!$ is the unique "morphism" in $\Hom_{\mathbf{C}}(X, S\times T)$ satisfying $\pi_i\circ {!} = c_i$ for $i =1,2$. Later, we will see that this property completely determines $S\times T$. For now, enjoy the power we gain from generalizing this idea.
 \begin{defn}[Binary product]\label{defn:binprod}
@@ -419,6 +419,40 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
         \end{tikzcd}
     \end{equation}
 \end{exer}
+\begin{exer}\label{exer:limits:pullbackisos}\marginnote{\hyperref[soln:limits:pullbackisos]{See solution.}}
+    Supposing \eqref{diag:pullbackisoleft} "commutes", show that if the right square is a "pullback" and $i$ and $j$ are "isomosphisms@@CAT", then the rectangle is a "pullback".
+    \begin{equation}\label{diag:pullbackisoleft}
+        % https://q.uiver.app/?q=WzAsNixbMiwxLCJDIl0sWzEsMSwiQSJdLFsyLDAsIkIiXSxbMSwwLCJBXFxwdWxsYmFja3tDfSBCIl0sWzAsMCwiWCJdLFswLDEsIlkiXSxbMSwwLCJmIiwyXSxbMiwwLCJnIl0sWzMsMSwicF9BIiwyXSxbMywyLCJwX0IiXSxbMywwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbMyw0LCJpIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzEsNSwiaiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFs0LDVdXQ==
+        \begin{tikzcd}
+            X & {A\pullback{C} B} & B \\
+            Y & A & C
+            \arrow["f"', from=2-2, to=2-3]
+            \arrow["g", from=1-3, to=2-3]
+            \arrow["{p_A}"', from=1-2, to=2-2]
+            \arrow["{p_B}", from=1-2, to=1-3]
+            \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-2, to=2-3]
+            \arrow["i"', tail reversed, from=1-2, to=1-1]
+            \arrow["j", tail reversed, from=2-2, to=2-1]
+            \arrow[from=1-1, to=2-1]
+        \end{tikzcd}
+    \end{equation}
+    Supposing \eqref{diag:pullbackisoright} "commutes", show that if the left square is a "pullback" and $i$ and $j$ are "isomorphisms@@CAT", then the rectangle is a "pullback".
+    \begin{equation}\label{diag:pullbackisoright}
+        % https://q.uiver.app/?q=WzAsNixbMSwxLCJDIl0sWzAsMSwiQSJdLFsxLDAsIkIiXSxbMCwwLCJBXFxwdWxsYmFja3tDfSBCIl0sWzIsMCwiWCJdLFsyLDEsIlkiXSxbMSwwLCJmIiwyXSxbMiwwLCJnIl0sWzMsMSwicF9BIiwyXSxbMywyLCJwX0IiXSxbMywwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbNCw1XSxbMiw0LCJpIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzAsNSwiaiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dXQ==
+        \begin{tikzcd}
+            {A\pullback{C} B} & B & X \\
+            A & C & Y
+            \arrow["f"', from=2-1, to=2-2]
+            \arrow["g", from=1-2, to=2-2]
+            \arrow["{p_A}"', from=1-1, to=2-1]
+            \arrow["{p_B}", from=1-1, to=1-2]
+            \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+            \arrow[from=1-3, to=2-3]
+            \arrow["i", tail reversed, from=1-2, to=1-3]
+            \arrow["j"', tail reversed, from=2-2, to=2-3]
+        \end{tikzcd}
+    \end{equation}
+\end{exer}
 \subsection{Pushout}
 \begin{defn}[Span]
     \AP A ""span"" in $\mathbf{C}$ comprises three "objects" $A,B,C$ and two "morphisms" $f$ and $g$ as in \eqref{diag:span}.
@@ -458,7 +492,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
 \begin{exer}\label{exer:limits:pushoutcoeq}\marginnote{\hyperref[soln:limits:pushoutcoeq]{See solution.}}
     Show that if \eqref{diag:pushoutcoeq} is a "pushout" square, then $d$ is the "coequalizer" of $f$ and $g$.
     \begin{equation}\label{diag:pushoutcoeq}
-        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzAsMSwiQiJdLFsxLDAsIkIiXSxbMSwxLCJEIl0sWzAsMSwiZiIsMl0sWzAsMiwiZyJdLFsyLDMsImQiXSxbMSwzLCJkIiwyXSxbMCwzLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzAsMSwiQiJdLFsxLDAsIkIiXSxbMSwxLCJEIl0sWzAsMSwiZiIsMl0sWzAsMiwiZyJdLFsyLDMsImQiXSxbMSwzLCJkIiwyXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
         \begin{tikzcd}
             A & B \\
             B & D
@@ -466,7 +500,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
             \arrow["g", from=1-1, to=1-2]
             \arrow["d", from=1-2, to=2-2]
             \arrow["d"', from=2-1, to=2-2]
-            \arrow["\pushoutd"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+            \arrow["\pushoutd"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
         \end{tikzcd}
     \end{equation}
 \end{exer}
@@ -531,7 +565,7 @@ Next, the fact that the "morphism" $!$ keeps everything "commutative" can be gen
         We infer from this "diagram" that the image of $p$ is contained in the set of fixed points.\footnote{For any $x \in P$, we have $g\cdot p(x) = p(x)$.} Therefore, $p$ factors uniquely through the inclusion $\mathsf{Fix}(S) \hookrightarrow S$. We conclude that the "coned" formed by $\mathsf{Fix}(S) \hookrightarrow S$ is the "limit cone".
         \item Let $x$ denote an indeterminate variable and $k$ be a "field", $k[x]$ denotes the "ring" of polynomials over $x$.\footnote{In Chapter \ref{chap:yoneda}, we will describe a nice categorical definition of $k[x]$, but, for now, let us assume you know what polynomials are and how they can be added and multiplied together. You can skip this example if you are not familiar with "rings".} We will show that $k\llbracket x\rrbracket$, the "ring" of \href{https://en.wikipedia.org/wiki/Formal_power_series#Ring_structure}{\textbf{formal power series}} over $x$, can be defined as a "limit". %TODO: define k[x] somewhere. say that we assume you know what k[[x]] is. Maybe define them in the preliminaries.
         
-        Let $I = \langle x \rangle$ be the "ideal" "generated@@RING" by $x$, it contains all the polynomials with no constant terms. In the sequel, we view elements of $k[x]/I^n$ as polynomials with degree at most $n-1$.\footnote{More accurately, $k[x]/I^n$ contains equivalence classes of polynomials, but their representatives are exactly the polynomials of degree at most $n-1$.} The following three key properties are satisfied (we leave the proof to the interested readers).
+        Let $I = \langle x \rangle$ be the "ideal" "generated@@RING" by $x$, it contains all the polynomials with no constant terms, and denote $I^n = \langle x^n\rangle$. In the sequel, we view elements of $k[x]/I^n$ as polynomials with degree at most $n-1$.\footnote{More accurately, $k[x]/I^n$ contains equivalence classes of polynomials, but their representatives are exactly the polynomials of degree at most $n-1$. Since $I^0 = k[x]$, the "quotien@@RING" $k[x]/I^0$ is the trivial ring, i.e.: the "zero object" in $\catRing$.} The following three key properties are satisfied (we leave the proof to the interested readers).
         \begin{enumerate}[a)]
             \item For any $n \leq m \in \N$ and $p \in k[x]/I^m$, forgetting about all terms in $p$ of degree at least $n$ yields a "ring homomorphism" $\pi_{m,n}: k[x]/I^m \rightarrow k[x]/I^n$.\footnote{Note that $\pi_{m,m}$ is the identity.}
             \item For any $n \in \N$, we can do the same thing for power series to obtain a "homomorphism@@RING" $\pi_{\infty,n}: k\llbracket x \rrbracket \rightarrow k[x]/I^n$.
@@ -540,7 +574,7 @@ Next, the fact that the "morphism" $!$ keeps everything "commutative" can be gen
         Consider the "posetal" "category" $(\N, \geq)$, a) and c) imply that $F(n) := k[x]/I^n$ and $F(m\geq n) := \pi_{m,n}$ defines a "functor" $F: (\N, \geq) \rightarrow \catRing$. This is the "diagram" represented in \eqref{diag:formalseriessystem}.
         \begin{equation}\label{diag:formalseriessystem}
             \begin{tikzcd}
-                \cdots \arrow[r] & {k[x]/I^n} \arrow[r, "{\pi_{n,n-1}}"] & \cdots \arrow[r] & {k[x]/I^2} \arrow[r, "{\pi_{2,1}}"] & {k[x]/I} \arrow[r, "{\pi_{1,0}}"] & {k[x]}
+                \cdots \arrow[r] & {k[x]/I^n} \arrow[r, "{\pi_{n,n-1}}"] & \cdots \arrow[r] & {k[x]/I^2} \arrow[r, "{\pi_{2,1}}"] & {k[x]/I} \arrow[r, "{\pi_{1,0}}"] & {k[x]/I^0 = \zero}
             \end{tikzcd}
         \end{equation}
         Now, using b) and c), we see that $k\llbracket x \rrbracket$ along with $\{\pi_{\infty,n}\}_{n\in \N}$ is a "cone" over the "diagram" $F$. It is in fact the "terminal" "cone". Let $\{p_n: R \rightarrow k[x]/I^n\}_{n\in\N}$ be another "cone" over $F$ and $!:R \rightarrow k\llbracket x \rrbracket$ a "morphism" of "cones". By "commutativity", for any $m\leq n$, the coefficients for $x^m$ of $!(r)$ and $p_n(r)$ must agree. Now, by "commutativity" of the "cone" $\{p_n\}_{n\in\N}$, $p_n(r)$ and $p_{n-1}(r)$ have the same coefficients except for $x^n$, thus we can compactly define $!$ by
@@ -632,7 +666,7 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
 %TODO: preserve, reflect, create plus examples. Example about preservation with absolute limits and colimits: e.g.: split idempotents.
 %TODO: say that when we talk about preservation and reflection now, we use the limit definition because it is more formal but everything should probably work with informal definition. Talk about mono and epi in particular.
 \begin{exer}\label{exer:limits:hompreserveprod}\marginnote{\hyperref[soln:limits:hompreserveprod]{See solution.}}
-    Fix $A \in \obj{\mathbf{C}}$, show that the "functor" $\Hom_{\mathbf{C}}(A,\placeholder)$ "preserves" "binary products". Namely, if $X,Y \in \obj{\mathbf{C}}$, then \[\Hom_{\mathbf{C}}(A,X\product Y) \isoCAT \Hom_{\mathbf{C}}(A,X)\times \Hom_{\mathbf{C}}(A,Y).\]
+    Fix $A \in \obj{\mathbf{C}}$, show that the "functor" $\Hom_{\mathbf{C}}(A,\placeholder)$ "preserves" "binary products". Namely, if $X,Y \in \obj{\mathbf{C}}$ and $X\times Y$ exists, then \[\Hom_{\mathbf{C}}(A,X\product Y) \isoCAT \Hom_{\mathbf{C}}(A,X)\times \Hom_{\mathbf{C}}(A,Y).\]
 \end{exer}
 \begin{cor}["Dual@@CAT"]
     Fix $A \in \obj{\mathbf{C}}$, show the "functor" $\Hom_{\mathbf{C}}(\placeholder,A)$ "preserves" binary "coproducts".
@@ -781,19 +815,19 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
     Suppose that a "category" $\mathbf{C}$ has all "products" and "equalizers" then $\mathbf{C}$ has all "limits", i.e.: $\mathbf{C}$ is "complete". %TODO: talk about the axiom of choice
 \end{thm}
 \begin{proof}
-    Let $F: J\rightsquigarrow \mathbf{C}$ be a "diagram", we will show that the "limit" of $F$ is obtained from the "equalizer" of two "morphisms"\footnote{Recall that $\source$ and $\target$ denote the "sources" and "targets" of "morphisms".}
-    \[u_1, u_2: \Product_{X \in J_0} F(X) \rightarrow \Product_{a \in J_1} F(\target(a)),\]
+    Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a "diagram", we will show that the "limit" of $F$ is obtained from the "equalizer" of two "morphisms"\footnote{Recall that $\source$ and $\target$ denote the "sources" and "targets" of "morphisms".}
+    \[u_1, u_2: \Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}} F(\target(a)),\]
     which are defined below. The "equalizer" and the "products" it involves exist by hypothesis.
     
-    Recall that for any $X \in J_0$ and $a \in J_1$, we have two canonical "projections" \[\projection_X:\Product_{X \in J_0}F(X)\rightarrow F(X) \quad \text{ and }\quad \projection_a:\Product_{a \in J_1} F(\target(a)) \rightarrow F(\target(a)).\]
-    The first family of "projections" makes $\Product_{X \in J_0}$ into a "cone" over $\{F(\target(a)) \mid a \in J_1\}$ with "projections" $\projection_{\target(a)}$. Hence, there is a unique "morphism" $u_1:\Product_{X \in J_0} F(X) \rightarrow \Product_{a \in J_1}F(\target(a))$ that satisfies $\projection_a \circ u_1 = \projection_{\target(a)}$. What is more, there is another way to "project" from $\Product_{X \in J_0}$ to $F(\target(a))$, namely, via $F(a) \circ \projection_{\source(a)}$, thus we get a unique "morphism" $u_2:\Product_{X \in J_0} F(X) \rightarrow \Product_{a \in J_1}F(\target(a))$ that satisfies $\projection_a \circ u_2 = F(a) \circ \projection_{\source(a)}$. The situation is summarized in \eqref{diag:twocones}.
+    Recall that for any $X \in \obj{\mathbf{J}}$ and $a \in \mor{\mathbf{J}}$, we have two canonical "projections" \[\projection_X:\Product_{X \in \obj{\mathbf{J}}}F(X)\rightarrow F(X) \quad \text{ and }\quad \projection_a:\Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \rightarrow F(\target(a)).\]
+    The first family of "projections" makes $\Product_{X \in \obj{\mathbf{J}}}$ into a "cone" over $\{F(\target(a)) \mid a \in \mor{\mathbf{J}}\}$ with "projections" $\projection_{\target(a)}$. Hence, there is a unique "morphism" $u_1:\Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}}F(\target(a))$ that satisfies $\projection_a \circ u_1 = \projection_{\target(a)}$. What is more, there is another way to "project" from $\Product_{X \in \obj{\mathbf{J}}}$ to $F(\target(a))$, namely, via $F(a) \circ \projection_{\source(a)}$, thus we get a unique "morphism" $u_2:\Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}}F(\target(a))$ that satisfies $\projection_a \circ u_2 = F(a) \circ \projection_{\source(a)}$. The situation is summarized in \eqref{diag:twocones}.
     \begin{equation}\label{diag:twocones}
         \begin{tikzcd}
-            \Product_{X \in J_0} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] & & \Product_{X \in J_0} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \\& \Product_{a \in J_1} F(\target(a)) \arrow[d, "\projection_{a}"] &\\ & F(\target(a)) &         
+            \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] & & \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \\& \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_{a}"] &\\ & F(\target(a)) &         
             \end{tikzcd}
     \end{equation}
     
-    Let $e:E\rightarrow \Product_{X\in J_0} F(X)$ be the "equalizer" of $u_1$ and $u_2$ and for any $X \in J_0$, let $\psi_X = \projection_X \circ e$. For any $f: Y \rightarrow Z$ in $J$, we have 
+    Let $e:E\rightarrow \Product_{X\in \obj{\mathbf{J}}} F(X)$ be the "equalizer" of $u_1$ and $u_2$ and for any $X \in \obj{\mathbf{J}}$, let $\psi_X = \projection_X \circ e$. For any $f: Y \rightarrow Z$ in $\mathbf{J}$, we have 
     \begin{align*}
         F(f) \circ \psi_Y &= F(f) \circ \projection_Y \circ e &&\mbox{(def. of $\psi_Y$)}\\ 
         &= \projection_f \circ u_2 \circ e &&\mbox{(def. of $u_2$)}\\ 
@@ -807,10 +841,10 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
             F(X) \arrow[rr, "F(f)"'] & & F(Y)
         \end{tikzcd}
     \end{equation}
-    Next, any other "cone" $\{U_X: O \rightarrow F(X)\}_{X \in J_0}$ over $F$ can also be viewed as a "cone" over the "discrete" "diagram" $\{F(\target(a))\}_{a \in J_1}$ with "projections" $\{U_{\target(a)}\}_{a \in J_1}$. Moreover, the "universality" of the "product" yields a unique "morphism" $p: O\rightarrow \Product_{X \in J_0} F(X)$ such that $\projection_X \circ p = U_X$. We claim that both $u_1 \circ p$ and $u_2 \circ p$ make \eqref{diag:conemorphisms} "commute" for all $a \in J_1$.
+    Next, any other "cone" $\{U_X: O \rightarrow F(X)\}_{X \in \obj{\mathbf{J}}}$ over $F$ can also be viewed as a "cone" over the "discrete" "diagram" $\{F(\target(a))\}_{a \in \mor{\mathbf{J}}}$ with "projections" $\{U_{\target(a)}\}_{a \in \mor{\mathbf{J}}}$. Moreover, the "universality" of the "product" yields a unique "morphism" $p: O\rightarrow \Product_{X \in \obj{\mathbf{J}}} F(X)$ such that $\projection_X \circ p = U_X$. We claim that both $u_1 \circ p$ and $u_2 \circ p$ make \eqref{diag:conemorphisms} "commute" for all $a \in \mor{\mathbf{J}}$.
     \begin{equation}\label{diag:conemorphisms}
         \begin{tikzcd}
-            O \arrow[r, "p"] \arrow[rrd, "U_{\target(a)}"'] &\Product_{X \in J_0} F(X) \arrow[r, "u_i"] & \Product_{a \in J_1} F(\target(a)) \arrow[d, "\projection_a"] \\
+            O \arrow[r, "p"] \arrow[rrd, "U_{\target(a)}"'] &\Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[r, "u_i"] & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_a"] \\
              & & F(\target(a))
             \end{tikzcd}
     \end{equation}
@@ -829,21 +863,43 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
     \end{align*}
     \end{minipage}\vspace{1em}
     \\ 
-    Hence, $u_1 \circ p = u_2 \circ p$ as they are both "morphisms" of "cone" to the "terminal" "cone" $\Product_{a \in J_1} F(\target(a))$. Now, by "universality" of the "equalizer", we get a unique "morphism" $n: O\rightarrow E$ such that $e \circ n = p$. Furthermore, for any $X \in J_0$, we have \[\psi_X \circ n = \projection_X \circ e \circ n = \projection_X \circ p = U_X,\]
+    Hence, $u_1 \circ p = u_2 \circ p$ as they are both "morphisms" of "cone" to the "terminal" "cone" $\Product_{a \in \mor{\mathbf{J}}} F(\target(a))$. Now, by "universality" of the "equalizer", we get a unique "morphism" $n: O\rightarrow E$ such that $e \circ n = p$. Furthermore, for any $X \in \obj{\mathbf{J}}$, we have \[\psi_X \circ n = \projection_X \circ e \circ n = \projection_X \circ p = U_X,\]
     so $n$ is also a "morphism" of "cones" $(O, U_X)\rightarrow (E, \psi_X)$. Since any other "morphism" of "cones" $m$ needs to satisfy $e \circ m = p$, we see that $n$ is unique and conclude that $E$ is $\lim F$.
 
     Just for fun, here is what the whole diagram would look like if it were drawn at once (on the board or on paper).
     \begin{equation*}
-        \begin{tikzcd}
-            & E \arrow[ld, "e"'] \arrow[rd, "e"] \arrow[rrr, "n", dashed] &   &   & O \arrow[ld, "U_X"] \arrow[lllddd, "U_{\target(a)}", bend left=49] \arrow[lld, "p"', dashed] \arrow[lllld, "p"', dashed] \\
-\Product_{X \in J_0} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] &  & \Product_{X \in J_0} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \arrow[r, "\projection_X"] & F(X) &  \\
-            & \Product_{a \in J_1} F(\target(a)) \arrow[d, "\projection_{a}"] &  & &\\
-            & F(\target(a))& & &     
+%         \begin{tikzcd}
+%             & E \arrow[ld, "e"'] \arrow[rd, "e"] \arrow[rrr, "n", dashed] &   &   & O \arrow[ld, "U_X"] \arrow[lllddd, "U_{\target(a)}", bend left=49] \arrow[lld, "p"', dashed] \arrow[lllld, "p"', dashed] \\
+% \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] &  & \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \arrow[r, "\projection_X"] & F(X) &  \\
+%             & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_{a}"] &  & &\\
+%             & F(\target(a))& & &     
+% \end{tikzcd}
+% https://q.uiver.app/?q=WzAsNyxbMSwwLCJFIl0sWzAsMSwiXFxQcm9kdWN0X3tYXFxpbiBKXzB9RlgiXSxbMiwxLCJcXFByb2R1Y3Rfe1hcXGluIEpfMH1GWCJdLFsxLDIsIlxcUHJvZHVjdF97YSBcXGluIEpfMX1GXFx0YXJnZXQoYSkiXSxbMSw0LCJGXFx0YXJnZXQoYSkiXSxbNCwwLCJPIl0sWzMsMSwiRlgiXSxbMCwxLCJlIiwyXSxbMCwyLCJlIl0sWzEsMiwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwzLCJ1XzEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwzLCJ1XzIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSw0LCJcXHByb2plY3Rpb25fe1xcdGFyZ2V0KGEpfSIsMix7ImN1cnZlIjoyfV0sWzIsNCwiRmEgXFxjaXJjIFxccHJvamVjdGlvbl97XFxzb3VyY2UoYSl9Il0sWzMsNCwiXFxwcm9qZWN0aW9uX3thfSJdLFs1LDAsIm4iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwxLCJwIiwxLHsibGFiZWxfcG9zaXRpb24iOjMwLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwyLCJwIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzIsNiwiXFxwcm9qZWN0aW9uX1giLDJdLFs1LDYsIlVfWCIsMV0sWzUsNCwiVV97XFx0YXJnZXQoYSl9IiwwLHsiY3VydmUiOi01fV1d
+\begin{tikzcd}
+	& E &&& O \\
+	{\Product_{X\in \obj{\mathbf{J}}}FX} && {\Product_{X\in \obj{\mathbf{J}}}FX} & FX \\
+	& {\Product_{a \in \mor{\mathbf{J}}}F\target(a)} \\
+	\\
+	& {F\target(a)}
+	\arrow["e"', from=1-2, to=2-1]
+	\arrow["e", from=1-2, to=2-3]
+	\arrow[Rightarrow, no head, from=2-1, to=2-3]
+	\arrow["{u_1}", dashed, from=2-1, to=3-2]
+	\arrow["{u_2}"', dashed, from=2-3, to=3-2]
+	\arrow["{\projection_{\target(a)}}"', curve={height=12pt}, from=2-1, to=5-2]
+	\arrow["{Fa \circ \projection_{\source(a)}}", from=2-3, to=5-2]
+	\arrow["{\projection_{a}}", from=3-2, to=5-2]
+	\arrow["n"', dashed, from=1-5, to=1-2]
+	\arrow["p"{description, pos=0.3}, dashed, from=1-5, to=2-1]
+	\arrow["p"{description}, dashed, from=1-5, to=2-3]
+	\arrow["{\projection_X}"', from=2-3, to=2-4]
+	\arrow["{U_X}"{description}, from=1-5, to=2-4]
+	\arrow["{U_{\target(a)}}", curve={height=-50pt}, from=1-5, to=5-2]
 \end{tikzcd}
     \end{equation*}
 %    \begin{equation}\label{diag:firstcone}
 %        \begin{tikzcd}
-%            \Product_{X \in J_0} F(X) \arrow[rd, "\projection_{\target(a)}"'] \arrow[rr, "u_1", dashed] &         & \Product_{a \in J_1} F(\target(a)) \arrow[ld, "\projection_{a}"] \\ & F(\target(a)) &
+%            \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rd, "\projection_{\target(a)}"'] \arrow[rr, "u_1", dashed] &         & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[ld, "\projection_{a}"] \\ & F(\target(a)) &
 %        \end{tikzcd}
 %    \end{equation}
 \end{proof}
