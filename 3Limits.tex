@@ -233,7 +233,7 @@ We briefly mentioned that a "product" (resp. "coproduct") is a "limit" (resp. "c
     \textbf{In $\catAb$, $\catRing$ or $\catVect{k}$}: For the same reason that the Cartesian product of the underlying sets is the underlying set of the "product",\footnote{We explain this in Chapter \ref{chap:adjoints}.} the construction of "equalizers" is as in $\catSet$. However, since each of these "categories" have a notion of additive inverse for "morphisms", the "equalizer" of $f$ and $g$ has a cooler name, that is, $\ker(f-g)$.\footnote{The "equalizer" of $f$ and $g$ is the subset of $A$ where $f$ and $g$ are equal, or equivalently, where $f-g$ is $0$ (when $f-g$ and $0$ are defined).}
 \end{exmps}
 \begin{defn}[Idempotents]
-    \AP A "morphism" $f: A \rightarrow A \in \mor{\mathbf{C}}$ is called ""idempotent"" when $f \circ f =f$, It is called ""split idempotent"" if there exist "morphisms" $s:E \rightarrow A$ and $r: A \rightarrow E$ such that $s \circ r = f$ and $r \circ s = 1_E$.\footnote{We can show that "split idempotents" are "idempotent" because \[f \circ f = s \circ r \circ s \circ r = s \circ \id_E \circ  r = f.\]}
+    \AP A "morphism" $f: A \rightarrow A \in \mor{\mathbf{C}}$ is called ""idempotent"" when $f \circ f =f$. It is called ""split idempotent"" if there exist "morphisms" $s:E \rightarrow A$ and $r: A \rightarrow E$ such that $s \circ r = f$ and $r \circ s = 1_E$.\footnote{We can show that "split idempotents" are "idempotent" because \[f \circ f = s \circ r \circ s \circ r = s \circ \id_E \circ  r = f.\]}
 \end{defn}
 \begin{prop}
     An "idempotent" "morphism" $f: A \rightarrow A \in \mor{\mathbf{C}}$ is "split idempotent" if and only if the "equalizer" of $f$ and $\id_A$ exists.
@@ -815,93 +815,140 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
     Suppose that a "category" $\mathbf{C}$ has all "products" and "equalizers" then $\mathbf{C}$ has all "limits", i.e.: $\mathbf{C}$ is "complete". %TODO: talk about the axiom of choice
 \end{thm}
 \begin{proof}
+
+
     Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a "diagram", we will show that the "limit" of $F$ is obtained from the "equalizer" of two "morphisms"\footnote{Recall that $\source$ and $\target$ denote the "sources" and "targets" of "morphisms".}
     \[u_1, u_2: \Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}} F(\target(a)),\]
     which are defined below. The "equalizer" and the "products" it involves exist by hypothesis.
-    
-    Recall that for any $X \in \obj{\mathbf{J}}$ and $a \in \mor{\mathbf{J}}$, we have two canonical "projections" \[\projection_X:\Product_{X \in \obj{\mathbf{J}}}F(X)\rightarrow F(X) \quad \text{ and }\quad \projection_a:\Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \rightarrow F(\target(a)).\]
-    The first family of "projections" makes $\Product_{X \in \obj{\mathbf{J}}}$ into a "cone" over $\{F(\target(a)) \mid a \in \mor{\mathbf{J}}\}$ with "projections" $\projection_{\target(a)}$. Hence, there is a unique "morphism" $u_1:\Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}}F(\target(a))$ that satisfies $\projection_a \circ u_1 = \projection_{\target(a)}$. What is more, there is another way to "project" from $\Product_{X \in \obj{\mathbf{J}}}$ to $F(\target(a))$, namely, via $F(a) \circ \projection_{\source(a)}$, thus we get a unique "morphism" $u_2:\Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}}F(\target(a))$ that satisfies $\projection_a \circ u_2 = F(a) \circ \projection_{\source(a)}$. The situation is summarized in \eqref{diag:twocones}.
-    \begin{equation}\label{diag:twocones}
+
+    First, let us try to explain the intuition behind this construction. The "limit" of $F$ is the "terminal" "cone over" $F$. In particular, it is a "cone over" $F$, namely, a family of "morphisms" $\psi_X: \lim F \rightarrow FX$ indexed by $X \in \obj{\mathbf{J}}$ such that for any $a:X \rightarrow Y \in \mor{\mathbf{J}}$, $Fa \circ \psi_X = \psi_Y$. Since $\mathbf{C}$ has "products", we can also specify the "morphisms" in the "cone" by a single "morphism" $\psi: \lim F \rightarrow \Product_{X \in \obj{\mathbf{J}}} FX$.\footnote{The family $\{\psi_X\}$ gives rise to $\psi$ by the "universal property" of the "product" and $\psi$ gives rise to the family by "post-composing" with the "projections" $\projection_X: \Product_{X \in \obj{\mathbf{J}}}FX \rightarrow FX$. \[\psi_X = \projection_X \circ \psi\]}
+
+    The additional property of the "cone" is now $\forall a: X \rightarrow Y \in \mor{\mathbf{J}}, Fa \circ \projection_X \circ \psi = \projection_Y \circ \psi$. Replacing the "objects" $X$ and $Y$ with $\source(a)$ and $\target(a)$ respectively, we obtain two families of "morphisms"
+    \[ \{Fa \circ \projection_{\source(a)}: \Product_{X \in \obj{\mathbf{J}}} FX \rightarrow F\target(a)\mid a \in \mor{\mathbf{J}}\} \quad \text{ and } \quad \{\projection_{\target(a)}: \Product_{X \in \obj{\mathbf{J}}} FX \rightarrow F\target(a) \mid a \in \mor{\mathbf{J}}\}.\]
+    The "universal property" of "products" yields two "parallel" "morphisms" $u_1,u_2 : \Product_{X \in \obj{\mathbf{J}}} FX \rightarrow \Product_{a\in \mor{\mathbf{J}}} F\target(a)$ making \eqref{diag:u1u2def} "commute".
+    \begin{equation}\label{diag:u1u2def}
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXFByb2R1Y3Rfe1ggXFxpbiBcXG9iantcXG1hdGhiZntKfX19RlgiXSxbMSwxLCJcXFByb2R1Y3Rfe2EgXFxpbiBcXG1vcntcXG1hdGhiZntKfX19RlxcdGFyZ2V0KGEpIl0sWzIsMSwiRlxcdGFyZ2V0KGEpIl0sWzAsMiwiXFxQcm9kdWN0X3tYIFxcaW4gXFxvYmp7XFxtYXRoYmZ7Sn19fUZYIl0sWzAsMSwidV8xIiwwLHsib2Zmc2V0IjotMSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMiwiXFxwcm9qZWN0aW9uX3tcXHRhcmdldChhKX0iXSxbMCwyLCJGYSBcXGNpcmMgXFxwcm9qZWN0aW9uX3tcXHNvdXJjZShhKX0iLDAseyJjdXJ2ZSI6LTR9XSxbMywyLCJcXHByb2plY3Rpb25fe1xcdGFyZ2V0KGEpfSIsMix7ImN1cnZlIjozfV0sWzMsMSwidV8yIiwyLHsib2Zmc2V0IjoxLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
         \begin{tikzcd}
-            \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] & & \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \\& \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_{a}"] &\\ & F(\target(a)) &         
-            \end{tikzcd}
-    \end{equation}
-    
-    Let $e:E\rightarrow \Product_{X\in \obj{\mathbf{J}}} F(X)$ be the "equalizer" of $u_1$ and $u_2$ and for any $X \in \obj{\mathbf{J}}$, let $\psi_X = \projection_X \circ e$. For any $f: Y \rightarrow Z$ in $\mathbf{J}$, we have 
-    \begin{align*}
-        F(f) \circ \psi_Y &= F(f) \circ \projection_Y \circ e &&\mbox{(def. of $\psi_Y$)}\\ 
-        &= \projection_f \circ u_2 \circ e &&\mbox{(def. of $u_2$)}\\ 
-        &= \projection_f \circ u_1 \circ e &&\mbox{(def. of $e$)}\\
-        &= \projection_Z \circ e = \psi_Z, &&\mbox{(def. of $u_1$ and $\psi_Z$)}
-    \end{align*}
-    so we indeed obtain a "cone" from $E$ to $F$, depicted in \eqref{diag:limitcone}.
-    \begin{equation}\label{diag:limitcone}
-        \begin{tikzcd}
-            & E \arrow[ld, "\projection_X \circ e"'] \arrow[rd, "\projection_Y \circ e"] &      \\
-            F(X) \arrow[rr, "F(f)"'] & & F(Y)
+            {\Product_{X \in \obj{\mathbf{J}}}FX} \\
+            & {\Product_{a \in \mor{\mathbf{J}}}F\target(a)} & {F\target(a)} \\
+            {\Product_{X \in \obj{\mathbf{J}}}FX}
+            \arrow["{u_1}", shift left=1, dashed, from=1-1, to=2-2]
+            \arrow["{\projection_{\target(a)}}", from=2-2, to=2-3]
+            \arrow["{Fa \circ \projection_{\source(a)}}", curve={height=-24pt}, from=1-1, to=2-3]
+            \arrow["{\projection_{\target(a)}}"', curve={height=18pt}, from=3-1, to=2-3]
+            \arrow["{u_2}"', shift right=1, dashed, from=3-1, to=2-2]
         \end{tikzcd}
     \end{equation}
-    Next, any other "cone" $\{U_X: O \rightarrow F(X)\}_{X \in \obj{\mathbf{J}}}$ over $F$ can also be viewed as a "cone" over the "discrete" "diagram" $\{F(\target(a))\}_{a \in \mor{\mathbf{J}}}$ with "projections" $\{U_{\target(a)}\}_{a \in \mor{\mathbf{J}}}$. Moreover, the "universality" of the "product" yields a unique "morphism" $p: O\rightarrow \Product_{X \in \obj{\mathbf{J}}} F(X)$ such that $\projection_X \circ p = U_X$. We claim that both $u_1 \circ p$ and $u_2 \circ p$ make \eqref{diag:conemorphisms} "commute" for all $a \in \mor{\mathbf{J}}$.
-    \begin{equation}\label{diag:conemorphisms}
-        \begin{tikzcd}
-            O \arrow[r, "p"] \arrow[rrd, "U_{\target(a)}"'] &\Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[r, "u_i"] & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_a"] \\
-             & & F(\target(a))
-            \end{tikzcd}
-    \end{equation}
-    This follows from two simple derivations.\\
-    \begin{minipage}{0.49\textwidth}
+    We find that $\psi$ "equalizes" $u_1$ and $u_2$,\footnote{We check that $u_1 \circ \psi = u_2 \circ \psi$ by "post-composing" with $\projection_{\target(a)}$ for every $a \in \mor{\mathbf{J}}$. Indeed, we have
     \begin{align*}
-        \projection_a \circ u_1 \circ p &= \projection_{\target(a)} \circ p\\
-        &= U_{\target(a)}
-    \end{align*}
-    \end{minipage}
-    \begin{minipage}{0.49\textwidth}
-    \begin{align*}
-        \projection_a \circ u_2 \circ p &= F(a) \circ \projection_{\source(a)} \circ p\\
-        &= F(a) \circ U_{\source(a)}\\
-        &= U_{\target(a)}
-    \end{align*}
-    \end{minipage}\vspace{1em}
-    \\ 
-    Hence, $u_1 \circ p = u_2 \circ p$ as they are both "morphisms" of "cone" to the "terminal" "cone" $\Product_{a \in \mor{\mathbf{J}}} F(\target(a))$. Now, by "universality" of the "equalizer", we get a unique "morphism" $n: O\rightarrow E$ such that $e \circ n = p$. Furthermore, for any $X \in \obj{\mathbf{J}}$, we have \[\psi_X \circ n = \projection_X \circ e \circ n = \projection_X \circ p = U_X,\]
-    so $n$ is also a "morphism" of "cones" $(O, U_X)\rightarrow (E, \psi_X)$. Since any other "morphism" of "cones" $m$ needs to satisfy $e \circ m = p$, we see that $n$ is unique and conclude that $E$ is $\lim F$.
+        \projection_{\target(a)} \circ u_1 \circ \psi &= Fa \circ \projection_{\source(a)} \circ \psi\\
+        &= \projection_{\target(a)} \circ \psi &&\text{(def. of $\psi$)}\\
+        &= \projection_{\target(a)} \circ u_2 \circ \psi,
+    \end{align*}and the "universal property" of $\Product_{a \in \mor{\mathbf{J}}}F\target(a)$ implies $u_1 \circ \psi = u_2 \circ \psi$.} and since we did not use the fact that $\psi$ is "terminal", we infer that any "cone over" $F$ yields a "morphism" from the "tip" to the "product" $\Product_{X \in \obj{\mathbf{J}}}FX$ that equalizes $u_1$ and $u_2$. Notice that this process can be reversed, hence any "morphism" that "equalizes" $u_1$ and $u_2$ corresponds to a "cone over" $F$.
 
-    Just for fun, here is what the whole diagram would look like if it were drawn at once (on the board or on paper).
-    \begin{equation*}
+    We are on a good track because we have shown that "cones over" $F$ are in correspondence with "cones over" the "parallel" "morphisms" $u_1$ and $u_2$. If we can show there is also a correspondence between the "morphisms" of such "cones", we will be able to conclude that the "terminal" "cone over" $u_1$ and $u_2$ (i.e.: their "equalizer") is the "terminal" "cone over" $F$ (i.e.: the "limit" of $F$).\footnote{More abstractly, we show there is an "isomorphism@@CAT" between the "categories" $\cone(F)$ and $\cone(U)$, where $U$ is the "diagram" with only two "parallel" "morphisms" sent to $u_1$ and $u_2$. One can check that "isomorphisms" of "categories" "preserve" "terminal" "objects", so the "equalizer" of $u_1$ and $u_2$ is the "limit" of $F$.} %TODO: show before that isomorphisms preserve everything.
+    \begin{marginfigure}\begin{equation}\label{diag:conemoreqmor}
+        % https://q.uiver.app/?q=WzAsNCxbMSwxLCJcXFByb2R1Y3Rfe1ggXFxpbiBcXG9iantcXG1hdGhiZntKfX19RlgiXSxbMiwxLCJcXFByb2R1Y3Rfe2EgXFxpbiBcXG1vcntcXG1hdGhiZntKfX19RlxcdGFyZ2V0KGEpIl0sWzAsMiwiQiJdLFswLDAsIkEiXSxbMCwxLCJ1XzEiLDAseyJvZmZzZXQiOi0xLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwxLCJ1XzIiLDIseyJvZmZzZXQiOjEsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDAsIlxccGhpIiwyXSxbMywwLCJcXHBzaSJdLFszLDIsImciLDJdXQ==
+        \begin{tikzcd}
+            A \\
+            & {\Product_{X \in \obj{\mathbf{J}}}FX} & {\Product_{a \in \mor{\mathbf{J}}}F\target(a)} \\
+            B
+            \arrow["{u_1}", shift left=1, dashed, from=2-2, to=2-3]
+            \arrow["{u_2}"', shift right=1, dashed, from=2-2, to=2-3]
+            \arrow["\phi"', from=3-1, to=2-2]
+            \arrow["\psi", from=1-1, to=2-2]
+            \arrow["g"', from=1-1, to=3-1]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+    Let $\{\psi_X,\phi_X: A \rightarrow FX\}_{X \in \obj{\mathbf{J}}}$ be two "cones over" $F$, $g: A \rightarrow B$ be a "morphism" of "cones", and $\psi$ and $\phi$ be the corresponding "morphism" that "equalize" $u_1$ and $u_2$. We will show that \eqref{diag:conemoreqmor} "commutes". By definition of $g$, we have $\phi_X \circ g = \psi_X$ for any $X \in \obj{\mathbf{J}}$, which we can rewrite in $\projection_X \circ \phi \circ g = \projection_X \circ \psi$. By the "universal property" of the "product" $\Product_{X \in \obj{\mathbf{J}}} FX$, we conclude that $\phi \circ g = \psi$.
+
+    Conversely, given $g$ that makes \eqref{diag:conemoreqmor}, it is clear that $g$ is a "morphism" of "cones" because for any $X \in \obj{\mathbf{J}}$, $\phi_X \circ g = \projection_X \circ \phi \circ g = \projection_X \circ \psi = \psi_X$.
+
+    In conclusion, let $\psi: L \rightarrow \Product_{X \in \obj{\mathbf{J}}}$ be the "equalizer" of $u_1$ and $u_2$, the "limit" of $F$ is the "cone" $\{\projection_X \circ \psi_X\}_{X \in \obj{\mathbf{J}}}$.
+    
+%     Recall that for any $X \in \obj{\mathbf{J}}$ and $a \in \mor{\mathbf{J}}$, we have two canonical "projections" \[\projection_X:\Product_{X \in \obj{\mathbf{J}}}F(X)\rightarrow F(X) \quad \text{ and }\quad \projection_a:\Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \rightarrow F(\target(a)).\]
+%     The first family of "projections" makes $\Product_{X \in \obj{\mathbf{J}}}$ into a "cone" over $\{F(\target(a)) \mid a \in \mor{\mathbf{J}}\}$ with "projections" $\projection_{\target(a)}$. Hence, there is a unique "morphism" $u_1:\Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}}F(\target(a))$ that satisfies $\projection_a \circ u_1 = \projection_{\target(a)}$. What is more, there is another way to "project" from $\Product_{X \in \obj{\mathbf{J}}}$ to $F(\target(a))$, namely, via $F(a) \circ \projection_{\source(a)}$, thus we get a unique "morphism" $u_2:\Product_{X \in \obj{\mathbf{J}}} F(X) \rightarrow \Product_{a \in \mor{\mathbf{J}}}F(\target(a))$ that satisfies $\projection_a \circ u_2 = F(a) \circ \projection_{\source(a)}$. The situation is summarized in \eqref{diag:twocones}.
+%     \begin{equation}\label{diag:twocones}
 %         \begin{tikzcd}
-%             & E \arrow[ld, "e"'] \arrow[rd, "e"] \arrow[rrr, "n", dashed] &   &   & O \arrow[ld, "U_X"] \arrow[lllddd, "U_{\target(a)}", bend left=49] \arrow[lld, "p"', dashed] \arrow[lllld, "p"', dashed] \\
-% \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] &  & \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \arrow[r, "\projection_X"] & F(X) &  \\
-%             & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_{a}"] &  & &\\
-%             & F(\target(a))& & &     
+%             \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] & & \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \\& \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_{a}"] &\\ & F(\target(a)) &         
+%             \end{tikzcd}
+%     \end{equation}
+    
+%     Let $e:E\rightarrow \Product_{X\in \obj{\mathbf{J}}} F(X)$ be the "equalizer" of $u_1$ and $u_2$ and for any $X \in \obj{\mathbf{J}}$, let $\psi_X = \projection_X \circ e$. For any $f: Y \rightarrow Z$ in $\mathbf{J}$, we have 
+%     \begin{align*}
+%         F(f) \circ \psi_Y &= F(f) \circ \projection_Y \circ e &&\mbox{(def. of $\psi_Y$)}\\ 
+%         &= \projection_f \circ u_2 \circ e &&\mbox{(def. of $u_2$)}\\ 
+%         &= \projection_f \circ u_1 \circ e &&\mbox{(def. of $e$)}\\
+%         &= \projection_Z \circ e = \psi_Z, &&\mbox{(def. of $u_1$ and $\psi_Z$)}
+%     \end{align*}
+%     so we indeed obtain a "cone" from $E$ to $F$, depicted in \eqref{diag:limitcone}.
+%     \begin{equation}\label{diag:limitcone}
+%         \begin{tikzcd}
+%             & E \arrow[ld, "\projection_X \circ e"'] \arrow[rd, "\projection_Y \circ e"] &      \\
+%             F(X) \arrow[rr, "F(f)"'] & & F(Y)
+%         \end{tikzcd}
+%     \end{equation}
+%     Next, any other "cone" $\{U_X: O \rightarrow F(X)\}_{X \in \obj{\mathbf{J}}}$ over $F$ can also be viewed as a "cone" over the "discrete" "diagram" $\{F(\target(a))\}_{a \in \mor{\mathbf{J}}}$ with "projections" $\{U_{\target(a)}\}_{a \in \mor{\mathbf{J}}}$. Moreover, the "universality" of the "product" yields a unique "morphism" $p: O\rightarrow \Product_{X \in \obj{\mathbf{J}}} F(X)$ such that $\projection_X \circ p = U_X$. We claim that both $u_1 \circ p$ and $u_2 \circ p$ make \eqref{diag:conemorphisms} "commute" for all $a \in \mor{\mathbf{J}}$.
+%     \begin{equation}\label{diag:conemorphisms}
+%         \begin{tikzcd}
+%             O \arrow[r, "p"] \arrow[rrd, "U_{\target(a)}"'] &\Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[r, "u_i"] & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_a"] \\
+%              & & F(\target(a))
+%             \end{tikzcd}
+%     \end{equation}
+%     This follows from two simple derivations.\\
+%     \begin{minipage}{0.49\textwidth}
+%     \begin{align*}
+%         \projection_a \circ u_1 \circ p &= \projection_{\target(a)} \circ p\\
+%         &= U_{\target(a)}
+%     \end{align*}
+%     \end{minipage}
+%     \begin{minipage}{0.49\textwidth}
+%     \begin{align*}
+%         \projection_a \circ u_2 \circ p &= F(a) \circ \projection_{\source(a)} \circ p\\
+%         &= F(a) \circ U_{\source(a)}\\
+%         &= U_{\target(a)}
+%     \end{align*}
+%     \end{minipage}\vspace{1em}
+%     \\ 
+%     Hence, $u_1 \circ p = u_2 \circ p$ as they are both "morphisms" of "cone" to the "terminal" "cone" $\Product_{a \in \mor{\mathbf{J}}} F(\target(a))$. Now, by "universality" of the "equalizer", we get a unique "morphism" $n: O\rightarrow E$ such that $e \circ n = p$. Furthermore, for any $X \in \obj{\mathbf{J}}$, we have \[\psi_X \circ n = \projection_X \circ e \circ n = \projection_X \circ p = U_X,\]
+%     so $n$ is also a "morphism" of "cones" $(O, U_X)\rightarrow (E, \psi_X)$. Since any other "morphism" of "cones" $m$ needs to satisfy $e \circ m = p$, we see that $n$ is unique and conclude that $E$ is $\lim F$.
+
+%     Just for fun, here is what the whole diagram would look like if it were drawn at once (on the board or on paper).
+%     \begin{equation*}
+% %         \begin{tikzcd}
+% %             & E \arrow[ld, "e"'] \arrow[rd, "e"] \arrow[rrr, "n", dashed] &   &   & O \arrow[ld, "U_X"] \arrow[lllddd, "U_{\target(a)}", bend left=49] \arrow[lld, "p"', dashed] \arrow[lllld, "p"', dashed] \\
+% % \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rdd, "\projection_{\target(a)}"', bend right] \arrow[rd, "u_1", dashed] \arrow[rr, equal] &  & \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[ldd, "F(a) \circ \projection_{\source(a)}", bend left] \arrow[ld, "u_2"', dashed] \arrow[r, "\projection_X"] & F(X) &  \\
+% %             & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[d, "\projection_{a}"] &  & &\\
+% %             & F(\target(a))& & &     
+% % \end{tikzcd}
+% % https://q.uiver.app/?q=WzAsNyxbMSwwLCJFIl0sWzAsMSwiXFxQcm9kdWN0X3tYXFxpbiBKXzB9RlgiXSxbMiwxLCJcXFByb2R1Y3Rfe1hcXGluIEpfMH1GWCJdLFsxLDIsIlxcUHJvZHVjdF97YSBcXGluIEpfMX1GXFx0YXJnZXQoYSkiXSxbMSw0LCJGXFx0YXJnZXQoYSkiXSxbNCwwLCJPIl0sWzMsMSwiRlgiXSxbMCwxLCJlIiwyXSxbMCwyLCJlIl0sWzEsMiwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwzLCJ1XzEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwzLCJ1XzIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSw0LCJcXHByb2plY3Rpb25fe1xcdGFyZ2V0KGEpfSIsMix7ImN1cnZlIjoyfV0sWzIsNCwiRmEgXFxjaXJjIFxccHJvamVjdGlvbl97XFxzb3VyY2UoYSl9Il0sWzMsNCwiXFxwcm9qZWN0aW9uX3thfSJdLFs1LDAsIm4iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwxLCJwIiwxLHsibGFiZWxfcG9zaXRpb24iOjMwLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwyLCJwIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzIsNiwiXFxwcm9qZWN0aW9uX1giLDJdLFs1LDYsIlVfWCIsMV0sWzUsNCwiVV97XFx0YXJnZXQoYSl9IiwwLHsiY3VydmUiOi01fV1d
+% \begin{tikzcd}
+% 	& E &&& O \\
+% 	{\Product_{X\in \obj{\mathbf{J}}}FX} && {\Product_{X\in \obj{\mathbf{J}}}FX} & FX \\
+% 	& {\Product_{a \in \mor{\mathbf{J}}}F\target(a)} \\
+% 	\\
+% 	& {F\target(a)}
+% 	\arrow["e"', from=1-2, to=2-1]
+% 	\arrow["e", from=1-2, to=2-3]
+% 	\arrow[Rightarrow, no head, from=2-1, to=2-3]
+% 	\arrow["{u_1}", dashed, from=2-1, to=3-2]
+% 	\arrow["{u_2}"', dashed, from=2-3, to=3-2]
+% 	\arrow["{\projection_{\target(a)}}"', curve={height=12pt}, from=2-1, to=5-2]
+% 	\arrow["{Fa \circ \projection_{\source(a)}}", from=2-3, to=5-2]
+% 	\arrow["{\projection_{a}}", from=3-2, to=5-2]
+% 	\arrow["n"', dashed, from=1-5, to=1-2]
+% 	\arrow["p"{description, pos=0.3}, dashed, from=1-5, to=2-1]
+% 	\arrow["p"{description}, dashed, from=1-5, to=2-3]
+% 	\arrow["{\projection_X}"', from=2-3, to=2-4]
+% 	\arrow["{U_X}"{description}, from=1-5, to=2-4]
+% 	\arrow["{U_{\target(a)}}", curve={height=-50pt}, from=1-5, to=5-2]
 % \end{tikzcd}
-% https://q.uiver.app/?q=WzAsNyxbMSwwLCJFIl0sWzAsMSwiXFxQcm9kdWN0X3tYXFxpbiBKXzB9RlgiXSxbMiwxLCJcXFByb2R1Y3Rfe1hcXGluIEpfMH1GWCJdLFsxLDIsIlxcUHJvZHVjdF97YSBcXGluIEpfMX1GXFx0YXJnZXQoYSkiXSxbMSw0LCJGXFx0YXJnZXQoYSkiXSxbNCwwLCJPIl0sWzMsMSwiRlgiXSxbMCwxLCJlIiwyXSxbMCwyLCJlIl0sWzEsMiwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwzLCJ1XzEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwzLCJ1XzIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSw0LCJcXHByb2plY3Rpb25fe1xcdGFyZ2V0KGEpfSIsMix7ImN1cnZlIjoyfV0sWzIsNCwiRmEgXFxjaXJjIFxccHJvamVjdGlvbl97XFxzb3VyY2UoYSl9Il0sWzMsNCwiXFxwcm9qZWN0aW9uX3thfSJdLFs1LDAsIm4iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwxLCJwIiwxLHsibGFiZWxfcG9zaXRpb24iOjMwLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwyLCJwIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzIsNiwiXFxwcm9qZWN0aW9uX1giLDJdLFs1LDYsIlVfWCIsMV0sWzUsNCwiVV97XFx0YXJnZXQoYSl9IiwwLHsiY3VydmUiOi01fV1d
-\begin{tikzcd}
-	& E &&& O \\
-	{\Product_{X\in \obj{\mathbf{J}}}FX} && {\Product_{X\in \obj{\mathbf{J}}}FX} & FX \\
-	& {\Product_{a \in \mor{\mathbf{J}}}F\target(a)} \\
-	\\
-	& {F\target(a)}
-	\arrow["e"', from=1-2, to=2-1]
-	\arrow["e", from=1-2, to=2-3]
-	\arrow[Rightarrow, no head, from=2-1, to=2-3]
-	\arrow["{u_1}", dashed, from=2-1, to=3-2]
-	\arrow["{u_2}"', dashed, from=2-3, to=3-2]
-	\arrow["{\projection_{\target(a)}}"', curve={height=12pt}, from=2-1, to=5-2]
-	\arrow["{Fa \circ \projection_{\source(a)}}", from=2-3, to=5-2]
-	\arrow["{\projection_{a}}", from=3-2, to=5-2]
-	\arrow["n"', dashed, from=1-5, to=1-2]
-	\arrow["p"{description, pos=0.3}, dashed, from=1-5, to=2-1]
-	\arrow["p"{description}, dashed, from=1-5, to=2-3]
-	\arrow["{\projection_X}"', from=2-3, to=2-4]
-	\arrow["{U_X}"{description}, from=1-5, to=2-4]
-	\arrow["{U_{\target(a)}}", curve={height=-50pt}, from=1-5, to=5-2]
-\end{tikzcd}
-    \end{equation*}
-%    \begin{equation}\label{diag:firstcone}
-%        \begin{tikzcd}
-%            \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rd, "\projection_{\target(a)}"'] \arrow[rr, "u_1", dashed] &         & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[ld, "\projection_{a}"] \\ & F(\target(a)) &
-%        \end{tikzcd}
-%    \end{equation}
+%     \end{equation*}
+% %    \begin{equation}\label{diag:firstcone}
+% %        \begin{tikzcd}
+% %            \Product_{X \in \obj{\mathbf{J}}} F(X) \arrow[rd, "\projection_{\target(a)}"'] \arrow[rr, "u_1", dashed] &         & \Product_{a \in \mor{\mathbf{J}}} F(\target(a)) \arrow[ld, "\projection_{a}"] \\ & F(\target(a)) &
+% %        \end{tikzcd}
+% %    \end{equation}
 \end{proof}
 \begin{rem}\label{rem:prodeqcomplete}
     The same proof yields a more general statement: For any cardinal $\kappa$, if a "category" $\mathbf{C}$ has all "products" of size less than $\kappa$ and "equalizers", then it has "limits" of any "diagram" with less than $\kappa$ "objects" and "morphisms". 
