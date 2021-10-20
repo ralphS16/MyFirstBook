@@ -343,29 +343,29 @@ In the next chapter, we will start heavily using diagrams, so before going furth
 "Diagrams" are usually represented by (partially) drawing the image of $F$. All the "diagrams" drawn up to this point define the domain of the "functor" implicitly. For instance, when considering a "commutative" square in $\mathbf{C}$, what is actually considered is the image from a "functor" with codomain $\mathbf{C}$ and domain the "category" $\mathbf{2}\product \mathbf{2}$ represented in \eqref{diag:commutesquare}.
 \end{rem}
 Since "diagrams" are defined as "functors", they interact well with other "functors". Actually, if $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ is a "diagram" of "shape" $\mathbf{J}$ in $\mathbf{C}$ and $G: \mathbf{C}\rightsquigarrow \mathbf{D}$ is a "functor", then $G\circ F$ is a "diagram" of "shape" $\mathbf{J}$ in $\mathbf{D}$. Some "functors" interact even more nicely with "diagrams".
-\begin{defn}
-	Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $P$ a property\footnote{This is intentionally a vague term. In Chapter \ref{chap:limits}, we will have a more formal but less general definition of "preserving" and "reflecting".} of "diagrams".
+\begin{defn}\label{defn:presreflprop}
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $P$ a property\footnote{This is intentionally a vague term. In Chapter \ref{chap:limits}, we will have a more formal but less general definition of "preserving@@PROP" and "reflecting@@PROP".} of "diagrams".
 	\begin{itemize}
-		\itemAP[-] We say that $F$ ""preserves"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $D$ has property $P$, then $F \circ D$ has property $P$.
-		\itemAP[-] We say that $F$ ""reflects"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $F \circ D$ has property $P$, then $D$ has property $P$.
+		\itemAP[-] We say that $F$ ""preserves@@PROP"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $D$ has property $P$, then $F \circ D$ has property $P$.
+		\itemAP[-] We say that $F$ ""reflects@@PROP"" "diagrams" with property $P$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $F \circ D$ has property $P$, then $D$ has property $P$.
 	\end{itemize}
 \end{defn}
 \begin{warn}
-	"Preserving" and "reflecting" a property $P$ are not "dual@@CAT" notions. The "dual@@CAT" of "preserving" (resp. "reflecting") $P$ is "preserving" (resp. "reflecting") the "dual@@CAT" of $P$. 
+	"Preserving@@PROP" and "reflecting@@PROP" a property $P$ are not "dual@@CAT" notions. The "dual@@CAT" of "preserving" (resp. "reflecting@@PROP") $P$ is "preserving" (resp. "reflecting@@PROP") the "dual@@CAT" of $P$. 
 \end{warn}
-It follows easily from "functoriality" that "functors" "preserve" "commutative" "diagrams". The following two exercises are a quick investigation in "preservation" and "reflection" of simple properties we have seen in this chapter.
+It follows easily from "functoriality" that "functors" "preserve@@PROP" "commutative" "diagrams". The following two exercises are a quick investigation in "preservation@@PROP" and "reflection@@PROP" of simple properties we have seen in this chapter.
 \begin{exer}\label{exer:duality:preserving}\marginnote{\hyperref[soln:duality:preserving]{See solution.}}
 	\begin{enumerate}
-        \item Find an example of "functor" which does not "preserve" "monomorphisms".\footnote{We can see a "morphism" as a "diagram" of "shape" $\cattwo$. Indeed, a "functor" $\cattwo \rightsquigarrow \mathbf{C}$ amounts to a choice of a "morphism" in $\mor{\mathbf{C}}$. Therefore, a "functor" $F$ "preserves" "monomorphisms" if whenever $f$ is "monic", $F(f)$ also is.}
-        \item Show that if $f \in \mathbf{C}_1$ is a "split monomorphism", then $F(f)$ is also a "split monomorphism", i.e.: any "functor" "preserves" "split monomorphisms".
+        \item Find an example of "functor" which does not "preserve@@PROP" "monomorphisms".\footnote{We can see a "morphism" as a "diagram" of "shape" $\cattwo$. Indeed, a "functor" $\cattwo \rightsquigarrow \mathbf{C}$ amounts to a choice of a "morphism" in $\mor{\mathbf{C}}$. Therefore, a "functor" $F$ "preserves@@PROP" "monomorphisms" if whenever $f$ is "monic", $F(f)$ also is.}
+        \item Show that if $f \in \mathbf{C}_1$ is a "split monomorphism", then $F(f)$ is also a "split monomorphism", i.e.: any "functor" "preserves@@PROP" "split monomorphisms".
         \item State and prove the "dual@@CAT" statement.
-        \item Infer that all "functors" "preserve" "isomorphisms@@CAT", in particular "functors" send "isomorphic@@CAT" "objects" to "isomorphic@@CAT" "objects".
+        \item Infer that all "functors" "preserve@@PROP" "isomorphisms@@CAT", in particular "functors" send "isomorphic@@CAT" "objects" to "isomorphic@@CAT" "objects".
     \end{enumerate}
 \end{exer}
 \begin{exer}\label{exer:duality:reflecting}\marginnote{\hyperref[soln:duality:reflecting]{See solution.}}
 	\begin{enumerate}
-		\item Find an example of "functor" which does not "reflect" "monomorphisms".\footnote{A "functor" "reflects" "monomorphisms" if whenever $Ff$ is "monic", $f$ also is.}
-		\item Show that if $F$ is "faithful", then $F$ "reflects" "monomorphisms".
+		\item Find an example of "functor" which does not "reflect@@PROP" "monomorphisms".\footnote{A "functor" "reflects" "monomorphisms" if whenever $Ff$ is "monic", $f$ also is.}
+		\item Show that if $F$ is "faithful", then $F$ "reflects@@PROP" "monomorphisms".
 		\item State and prove the "dual@@CAT" statement.
 	\end{enumerate}
 \end{exer}

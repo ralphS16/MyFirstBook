@@ -665,6 +665,19 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
 \end{rem}
 %TODO: preserve, reflect, create plus examples. Example about preservation with absolute limits and colimits: e.g.: split idempotents.
 %TODO: say that when we talk about preservation and reflection now, we use the limit definition because it is more formal but everything should probably work with informal definition. Talk about mono and epi in particular.
+Recall the definition of "preserve" and "reflect" we gave in Definition \ref{defn:presreflprop}, with the framework of "(co)@colimit""limits", we can give more formal related definitions.
+
+Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $D: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". We define a "functor" $F_D: \cone(D) \rightsquigarrow \cone(F \circ D)$ that sends a "cone" $\{\psi_X: A \rightarrow DX\}_{X\in \obj{\mathbf{J}}}$ to $\{F\psi_X : FA \rightarrow FDX\}_{X \in \obj{\mathbf{J}}}$,\footnote{The family $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is a "cone over" $F \circ D$ since $Da \circ \psi_X = \psi_Y$ implies $FDa \circ F\psi_X = F\psi_Y$ for any $a: X \rightarrow Y \in \mor{\mathbf{J}}$.} and sends a "morphism" $g:\{\psi_X\}_{X \in \obj{\mathbf{J}}} \rightarrow \{\phi_X\}_{X \in \obj{\mathbf{J}}}$ to $Fg:\{F\psi_X\}_{X \in \obj{\mathbf{J}}} \rightarrow \{F\phi_X\}_{X \in \obj{\mathbf{J}}}$.\footnote{Again, the fact that $Fg$ is a "morphism" of "cones" follows straightforwardly from \[\phi_X \circ g = \psi_X \implies F\phi_X \circ Fg = F\psi_X.\]} In simple terms, $F_D$ takes a "cone over" $D$ and applies $F$ to every "object" and "morphism" in it to obtain a "cone over" $F \circ D$. We leave you to define the very similar "functor" $F^D: \cocone(D) \rightsquigarrow \cocone(F \circ D)$.
+\begin{defn}\label{defn:presreflcreatlim}
+    Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $\mathbf{J}$ be a "category".
+    \begin{itemize}
+        \itemAP[-] We say that $F$ ""preserves@@LIM"" "limits" of "shape" $\mathbf{J}$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $D$, then $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $F \circ D$. In other words, for any $D$, $F_D$ "preserves@@PROP" (in the sense of Definition \ref{defn:presreflprop}) "terminal" "objects".\footnote{We will often be less rigorous and write something like $\lim(F \circ D) = F(\lim_{\mathbf{J}}D)$. For instance, we will say that $F$ "preserves@@LIM" "binary products" if $FX \times FY = F(X\times Y)$.}
+        \itemAP[-] We say that $F$ ""reflects@@LIM"" "limits" of "shape" $\mathbf{J}$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is a "cone over" $D$ and $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $F \circ D$, then $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is also the "limit cone" over $D$. In other words, for any $D$, $F_D$ "reflects@@PROP" (in the sense of Definition \ref{defn:presreflprop}) "terminal" "objects".
+        \itemAP[-] We say that $F$ ""creates@@LIM"" "limits" of "shape" $\mathbf{J}$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $\{\phi_X\}_{X \in \obj{\mathbf{J}}}$ is a "limit cone" over $F \circ D$, then there exists a unique "cone over" $D$ $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ such that $F\psi_X = \phi_X$ and $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is a "limit cone".
+    \end{itemize}
+    We leave to you the "dualization@@CAT" of this definition.\footnote{Replace "cone" by "cocone" and "limit" by "colimit".}
+\end{defn}
+
 \begin{exer}\label{exer:limits:hompreserveprod}\marginnote{\hyperref[soln:limits:hompreserveprod]{See solution.}}
     Fix $A \in \obj{\mathbf{C}}$, show that the "functor" $\Hom_{\mathbf{C}}(A,\placeholder)$ "preserves" "binary products". Namely, if $X,Y \in \obj{\mathbf{C}}$ and $X\times Y$ exists, then \[\Hom_{\mathbf{C}}(A,X\product Y) \isoCAT \Hom_{\mathbf{C}}(A,X)\times \Hom_{\mathbf{C}}(A,Y).\]
 \end{exer}
@@ -958,16 +971,45 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
 \end{cor}
 
 \begin{defn}
-    \AP A "functor" $\mathbf{C} \rightsquigarrow \mathbf{D}$ is said to be (""finitely@finitely continuous"") ""(co)continuous@continuous"" if it "preserves" all (finite) "(co)@colimit""limit".
+    \AP A "functor" $\mathbf{C} \rightsquigarrow \mathbf{D}$ is said to be (""finitely@finitely continuous"") ""(co)continuous@continuous"" if it "preserves@@LIM" all (finite) "(co)@colimit""limit".
 \end{defn}
 \begin{exer}\label{exer:limits:preservinglim}\marginnote{\hyperref[soln:limits:preservinglim]{See solution.}}
-    Show that a "functor" is "continuous" if and only if it "preserves" "products" and "equalizers". State and prove the "dual@@CAT" statement.
+    Show that a "functor" is "continuous" if and only if it "preserves@@LIM" "products" and "equalizers". State and prove the "dual@@CAT" statement.
 \end{exer}
 \begin{thm}\label{thm:homcont}
     Fix $A \in \obj{\mathbf{C}}$, the "functor" $\Hom_{\mathbf{C}}(A,\placeholder)$ is "continuous".
 \end{thm}
 \begin{proof}
-    %TODO:
+    We could use Exercises \ref{exer:limits:hompreserveprod} and \ref{exer:limits:preservinglim} and then show that $\Hom_{\mathbf{C}}(A,\placeholder)$ also "preserves@@LIM" "equalizers", but the direct proof is not very long and it lets us get even more familiar with "cones".
+
+    Let $D: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram" and $\{\psi_X: \lim D \rightarrow DX\}_{X \in \obj{\mathbf{J}}}$ be the "limit cone", we need to show that $\{\psi_X \circ \placeholder: \Hom_{\mathbf{C}}(A,\lim D) \rightarrow \Hom_{\mathbf{C}}(A,DX)\}_{X\in \obj{\mathbf{J}}}$ is a "limit cone".
+    \begin{marginfigure}\begin{equation}\label{diag:homcone}
+        % https://q.uiver.app/?q=WzAsMyxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsXFxsaW0gRCkiXSxbMiwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsRFgpIl0sWzIsMiwiXFxIb21fe1xcbWF0aGJme0N9fShBLERZKSJdLFswLDEsIlxccHNpX1ggXFxjaXJjIFxccGxhY2Vob2xkZXIiXSxbMSwyLCJEYSBcXGNpcmMgXFxwbGFjZWhvbGRlciJdLFswLDIsIlxccHNpX1kgXFxjaXJjIFxccGxhY2Vob2xkZXIiLDJdXQ==
+        \begin{tikzcd}[cramped,sep=small]
+            && {\Hom_{\mathbf{C}}(A,DX)} \\
+            {\Hom_{\mathbf{C}}(A,\lim D)} \\
+            && {\Hom_{\mathbf{C}}(A,DY)}
+            \arrow["{\psi_X \circ \placeholder}", from=2-1, to=1-3]
+            \arrow["{Da \circ \placeholder}", from=1-3, to=3-3]
+            \arrow["{\psi_Y \circ \placeholder}"', from=2-1, to=3-3]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+    First, for any $a: X \rightarrow Y \in \mor{\mathbf{J}}$, we have $Da \circ \psi_X = \psi_Y$, which implies \eqref{diag:homcone} "commutes". Hence, $\{\psi_X \circ \placeholder\}_{X\in \obj{\mathbf{J}}}$ is a "cone over" $\Hom_{\mathbf{C}}(A,D\placeholder)$.
+
+    Next, if $\{\phi_X: T \rightarrow \Hom_{\mathbf{C}}(A,DX)\}_{X\in \obj{\mathbf{J}}}$ is another "cone over" $\Hom_{\mathbf{C}}(A,D\placeholder)$, then observe that any $t\in T$ gives rise to a "cone over" $D$ $\{\phi_X(t) : A \rightarrow DX\}_{X\in \obj{\mathbf{J}}}$. Indeed, we have \[Df \circ \phi_X(t) = ((Df \circ \placeholder) \circ  \phi_X)(t) = \phi_Y(t).\]
+    We obtain a unique "morphism" of "cones" $g(t): A \rightarrow \lim D$ making \eqref{diag:hommorcone} "commute" for all $X \in \obj{\mathbf{J}}$. This is a function $g: T \rightarrow \Hom_{\mathbf{C}}(A,\lim D)$ that is a "morphism" of "cones" because combining \eqref{diag:hommorcone} for every $t \in T$ yields $(\psi_X \circ \placeholder) \circ g = \phi_X$.
+    \begin{marginfigure}\begin{equation}\label{diag:hommorcone}
+        % https://q.uiver.app/?q=WzAsMyxbMSwxLCJEWCJdLFswLDAsIkEiXSxbMCwyLCJcXGxpbSBEIl0sWzEsMiwiZyh0KSIsMl0sWzIsMCwiXFxwc2lfWCIsMl0sWzEsMCwiXFxwaGlfWCh0KSJdXQ==
+        \begin{tikzcd}
+            A \\
+            & DX \\
+            {\lim D}
+            \arrow["{g(t)}"', from=1-1, to=3-1]
+            \arrow["{\psi_X}"', from=3-1, to=2-2]
+            \arrow["{\phi_X(t)}", from=1-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+    If $g': T \rightarrow \Hom_{\mathbf{C}}(A,\lim D)$ is another "morphism" of "cones", then we must have that $g'(t)$ also makes \eqref{diag:hommorcone} for all $X \in \obj{\mathbf{J}}$.\footnote{We have \[\psi_X \circ g'(t) = ((\psi \circ \placeholder) \circ g)(t) = \phi_X(t).\]} Therefore, $g'(t): A \rightarrow \lim D$ is a "morphism" of "cones" and since $\lim D$ is "terminal", we conclude $g'(t) = g(t)$ and $g' = g$.
 \end{proof}
 \begin{cor}["Dual@@CAT"]\label{cor:cohomcont}%TODO: check that this is dual.
     Fix $A \in \obj{\mathbf{C}}$, the "functor" $\Hom_{\mathbf{C}}(\placeholder,A)$ is "continuous".\footnote{More concisely, the $\Hom$ "bifunctor@hombif" is "continuous" in each argument.}%TODO: why not continuous(by itself not in each argument)?
