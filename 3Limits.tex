@@ -840,13 +840,13 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
     \[ \{Fa \circ \projection_{\source(a)}: \Product_{X \in \obj{\mathbf{J}}} FX \rightarrow F\target(a)\mid a \in \mor{\mathbf{J}}\} \quad \text{ and } \quad \{\projection_{\target(a)}: \Product_{X \in \obj{\mathbf{J}}} FX \rightarrow F\target(a) \mid a \in \mor{\mathbf{J}}\}.\]
     The "universal property" of "products" yields two "parallel" "morphisms" $u_1,u_2 : \Product_{X \in \obj{\mathbf{J}}} FX \rightarrow \Product_{a\in \mor{\mathbf{J}}} F\target(a)$ making \eqref{diag:u1u2def} "commute".
     \begin{equation}\label{diag:u1u2def}
-        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXFByb2R1Y3Rfe1ggXFxpbiBcXG9iantcXG1hdGhiZntKfX19RlgiXSxbMSwxLCJcXFByb2R1Y3Rfe2EgXFxpbiBcXG1vcntcXG1hdGhiZntKfX19RlxcdGFyZ2V0KGEpIl0sWzIsMSwiRlxcdGFyZ2V0KGEpIl0sWzAsMiwiXFxQcm9kdWN0X3tYIFxcaW4gXFxvYmp7XFxtYXRoYmZ7Sn19fUZYIl0sWzAsMSwidV8xIiwwLHsib2Zmc2V0IjotMSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMiwiXFxwcm9qZWN0aW9uX3tcXHRhcmdldChhKX0iXSxbMCwyLCJGYSBcXGNpcmMgXFxwcm9qZWN0aW9uX3tcXHNvdXJjZShhKX0iLDAseyJjdXJ2ZSI6LTR9XSxbMywyLCJcXHByb2plY3Rpb25fe1xcdGFyZ2V0KGEpfSIsMix7ImN1cnZlIjozfV0sWzMsMSwidV8yIiwyLHsib2Zmc2V0IjoxLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXFByb2R1Y3Rfe1ggXFxpbiBcXG9iantcXG1hdGhiZntKfX19RlgiXSxbMSwxLCJcXFByb2R1Y3Rfe2EgXFxpbiBcXG1vcntcXG1hdGhiZntKfX19RlxcdGFyZ2V0KGEpIl0sWzIsMSwiRlxcdGFyZ2V0KGEpIl0sWzAsMiwiXFxQcm9kdWN0X3tYIFxcaW4gXFxvYmp7XFxtYXRoYmZ7Sn19fUZYIl0sWzAsMSwidV8xIiwwLHsib2Zmc2V0IjotMSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMiwiXFxwcm9qZWN0aW9uX3thfSJdLFswLDIsIkZhIFxcY2lyYyBcXHByb2plY3Rpb25fe1xcc291cmNlKGEpfSIsMCx7ImN1cnZlIjotNH1dLFszLDIsIlxccHJvamVjdGlvbl97XFx0YXJnZXQoYSl9IiwyLHsiY3VydmUiOjN9XSxbMywxLCJ1XzIiLDIseyJvZmZzZXQiOjEsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
         \begin{tikzcd}
             {\Product_{X \in \obj{\mathbf{J}}}FX} \\
             & {\Product_{a \in \mor{\mathbf{J}}}F\target(a)} & {F\target(a)} \\
             {\Product_{X \in \obj{\mathbf{J}}}FX}
             \arrow["{u_1}", shift left=1, dashed, from=1-1, to=2-2]
-            \arrow["{\projection_{\target(a)}}", from=2-2, to=2-3]
+            \arrow["{\projection_{a}}", from=2-2, to=2-3]
             \arrow["{Fa \circ \projection_{\source(a)}}", curve={height=-24pt}, from=1-1, to=2-3]
             \arrow["{\projection_{\target(a)}}"', curve={height=18pt}, from=3-1, to=2-3]
             \arrow["{u_2}"', shift right=1, dashed, from=3-1, to=2-2]
@@ -854,9 +854,9 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
     \end{equation}
     We find that $\psi$ "equalizes" $u_1$ and $u_2$,\footnote{We check that $u_1 \circ \psi = u_2 \circ \psi$ by "post-composing" with $\projection_{\target(a)}$ for every $a \in \mor{\mathbf{J}}$. Indeed, we have
     \begin{align*}
-        \projection_{\target(a)} \circ u_1 \circ \psi &= Fa \circ \projection_{\source(a)} \circ \psi\\
+        \projection_{a} \circ u_1 \circ \psi &= Fa \circ \projection_{\source(a)} \circ \psi\\
         &= \projection_{\target(a)} \circ \psi &&\text{(def. of $\psi$)}\\
-        &= \projection_{\target(a)} \circ u_2 \circ \psi,
+        &= \projection_{a} \circ u_2 \circ \psi,
     \end{align*}and the "universal property" of $\Product_{a \in \mor{\mathbf{J}}}F\target(a)$ implies $u_1 \circ \psi = u_2 \circ \psi$.} and since we did not use the fact that $\psi$ is "terminal", we infer that any "cone over" $F$ yields a "morphism" from the "tip" to the "product" $\Product_{X \in \obj{\mathbf{J}}}FX$ that equalizes $u_1$ and $u_2$. Notice that this process can be reversed, hence any "morphism" that "equalizes" $u_1$ and $u_2$ corresponds to a "cone over" $F$.
 
     We are on a good track because we have shown that "cones over" $F$ are in correspondence with "cones over" the "parallel" "morphisms" $u_1$ and $u_2$. If we can show there is also a correspondence between the "morphisms" of such "cones", we will be able to conclude that the "terminal" "cone over" $u_1$ and $u_2$ (i.e.: their "equalizer") is the "terminal" "cone over" $F$ (i.e.: the "limit" of $F$).\footnote{More abstractly, we show there is an "isomorphism@@CAT" between the "categories" $\cone(F)$ and $\cone(U)$, where $U$ is the "diagram" with only two "parallel" "morphisms" sent to $u_1$ and $u_2$. One can check that "isomorphisms" of "categories" "preserve" "terminal" "objects", so the "equalizer" of $u_1$ and $u_2$ is the "limit" of $F$.} %TODO: show before that isomorphisms preserve everything.
@@ -1009,7 +1009,7 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
             \arrow["{\phi_X(t)}", from=1-1, to=2-2]
         \end{tikzcd}
     \end{equation}\end{marginfigure}
-    If $g': T \rightarrow \Hom_{\mathbf{C}}(A,\lim D)$ is another "morphism" of "cones", then we must have that $g'(t)$ also makes \eqref{diag:hommorcone} for all $X \in \obj{\mathbf{J}}$.\footnote{We have \[\psi_X \circ g'(t) = ((\psi \circ \placeholder) \circ g)(t) = \phi_X(t).\]} Therefore, $g'(t): A \rightarrow \lim D$ is a "morphism" of "cones" and since $\lim D$ is "terminal", we conclude $g'(t) = g(t)$ and $g' = g$.
+    If $g': T \rightarrow \Hom_{\mathbf{C}}(A,\lim D)$ is another "morphism" of "cones", then we must have that $g'(t)$ also makes \eqref{diag:hommorcone} for all $X \in \obj{\mathbf{J}}$.\footnote{We have \[\psi_X \circ g'(t) = ((\psi \circ \placeholder) \circ g')(t) = \phi_X(t).\]} Therefore, $g'(t): A \rightarrow \lim D$ is a "morphism" of "cones" and since $\lim D$ is "terminal", we conclude $g'(t) = g(t)$ and $g' = g$.
 \end{proof}
 \begin{cor}["Dual@@CAT"]\label{cor:cohomcont}%TODO: check that this is dual.
     Fix $A \in \obj{\mathbf{C}}$, the "functor" $\Hom_{\mathbf{C}}(\placeholder,A)$ is "continuous".\footnote{More concisely, the $\Hom$ "bifunctor@hombif" is "continuous" in each argument.}%TODO: why not continuous(by itself not in each argument)?
