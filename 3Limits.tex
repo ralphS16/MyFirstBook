@@ -521,11 +521,11 @@ We have already formalized the first step when we defined "diagrams". For the se
 \subsection{Definitions}
 We start by formalizing "limits".
 \begin{defn}[Cone] %TODO: draw cones in the margin
-    Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a "diagram". \AP A "cone" from $X$ to $F$ is an "object" $X \in \obj{\mathbf{C}}$, called the ""tip"", along with a family of "morphisms" $\left\{ \psi_Y: X \rightarrow F(Y)\right\}$ indexed by "objects" $Y \in \obj{\mathbf{J}}$ such that for any "morphism" $f:Y \rightarrow Z$ in $\mor{\mathbf{J}}$, $F(f) \circ \psi_Y = \psi_Z$, i.e.: diagram \eqref{diag:cone} "commutes".
+    Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a "diagram". \AP A "cone" from $X$ to $F$ is an "object" $X \in \obj{\mathbf{C}}$, called the ""tip"", along with a family of "morphisms" $\left\{ \psi_Y: X \rightarrow F(Y)\right\}$ indexed by "objects" $Y \in \obj{\mathbf{J}}$ such that for any "morphism" $a:Y \rightarrow Z$ in $\mor{\mathbf{J}}$, $F(a) \circ \psi_Y = \psi_Z$, i.e.: diagram \eqref{diag:cone} "commutes".
     \begin{equation}\label{diag:cone}
         \begin{tikzcd}
             & X \arrow[ld, "\psi_Y"'] \arrow[rd, "\psi_Z"] &\\
-            F(Y)\arrow[rr, "F(f)"'] & & F(Z)
+            F(Y)\arrow[rr, "F(a)"'] & & F(Z)
         \end{tikzcd}
     \end{equation}
     Often, the terminology "cone over@cone" $F$ is used.
@@ -588,10 +588,10 @@ Next, the fact that the "morphism" $!$ keeps everything "commutative" can be gen
 \subsection{Codefinitions}
 Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I suggest you spend a bit of time trying to "dualize@@CAT" all of the previous section on your own, but it is done below for completeness.  
 \begin{defn}[Cocone]
-    Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a diagram. \AP A ""cocone"" from $F$ to $X$ is an "object" $X \in \obj{\mathbf{C}}$ along with a family of "morphisms" $\left\{ \psi_Y: F(Y) \rightarrow X \right\}$ indexed by "objects" of $Y \in \obj{\mathbf{J}}$ such that for any "morphism" $f:Y \rightarrow Z$ in $\mathbf{J}$, $\psi_Z \circ F(f) = \psi_Y$, i.e.: \eqref{diag:cocone} "commutes".
+    Let $F: \mathbf{J}\rightsquigarrow \mathbf{C}$ be a diagram. \AP A ""cocone"" from $F$ to $X$ is an "object" $X \in \obj{\mathbf{C}}$ along with a family of "morphisms" $\left\{ \psi_Y: F(Y) \rightarrow X \right\}$ indexed by "objects" of $Y \in \obj{\mathbf{J}}$ such that for any "morphism" $a:Y \rightarrow Z$ in $\mathbf{J}$, $\psi_Z \circ F(a) = \psi_Y$, i.e.: \eqref{diag:cocone} "commutes".
     \begin{equation}\label{diag:cocone}
         \begin{tikzcd}
-            F(Y) \arrow[rd, "\psi_Y"'] \arrow[rr, "F(f)"] & & F(Z) \arrow[ld, "\psi_Z"]\\
+            F(Y) \arrow[rd, "\psi_Y"'] \arrow[rr, "F(a)"] & & F(Z) \arrow[ld, "\psi_Z"]\\
             & X & 
         \end{tikzcd}
     \end{equation}
@@ -601,7 +601,7 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
     \begin{equation}\label{diag:morphcocone}
         \begin{tikzcd}
             & F(Y) \arrow[ld, "\psi_Y"'] \arrow[rd, "\phi_Y"] & \\
-            A \arrow[rr, "g"] &  & B  \\
+            A \arrow[rr, "g"'] &  & B  \\
         \end{tikzcd}
     \end{equation}
 \end{defn}
@@ -647,8 +647,8 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
     \begin{enumerate}
         \item The "limit" of a "diagram" with only one "morphism".
         \item The "colimit" of a "diagram" with only one "morphism".
-        \item The "limit" of a "cospan".
-        \item The "colimit" of a "span".
+        \item The "limit" of a "span".
+        \item The "colimit" of a "cospan".
     \end{enumerate}
 \end{exer}
 \subsection{Results}
@@ -667,6 +667,7 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
 %TODO: say that when we talk about preservation and reflection now, we use the limit definition because it is more formal but everything should probably work with informal definition. Talk about mono and epi in particular.
 Recall the definition of "preserve" and "reflect" we gave in Definition \ref{defn:presreflprop}, with the framework of "(co)@colimit""limits", we can give more formal related definitions.
 
+%TODO:put this as exercise
 Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $D: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". We define a "functor" $F_D: \cone(D) \rightsquigarrow \cone(F \circ D)$ that sends a "cone" $\{\psi_X: A \rightarrow DX\}_{X\in \obj{\mathbf{J}}}$ to $\{F\psi_X : FA \rightarrow FDX\}_{X \in \obj{\mathbf{J}}}$,\footnote{The family $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is a "cone over" $F \circ D$ since $Da \circ \psi_X = \psi_Y$ implies $FDa \circ F\psi_X = F\psi_Y$ for any $a: X \rightarrow Y \in \mor{\mathbf{J}}$.} and sends a "morphism" $g:\{\psi_X\}_{X \in \obj{\mathbf{J}}} \rightarrow \{\phi_X\}_{X \in \obj{\mathbf{J}}}$ to $Fg:\{F\psi_X\}_{X \in \obj{\mathbf{J}}} \rightarrow \{F\phi_X\}_{X \in \obj{\mathbf{J}}}$.\footnote{Again, the fact that $Fg$ is a "morphism" of "cones" follows straightforwardly from \[\phi_X \circ g = \psi_X \implies F\phi_X \circ Fg = F\psi_X.\]} In simple terms, $F_D$ takes a "cone over" $D$ and applies $F$ to every "object" and "morphism" in it to obtain a "cone over" $F \circ D$. We leave you to define the very similar "functor" $F^D: \cocone(D) \rightsquigarrow \cocone(F \circ D)$.
 \begin{defn}\label{defn:presreflcreatlim}
     Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $\mathbf{J}$ be a "category".

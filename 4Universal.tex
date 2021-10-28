@@ -140,8 +140,8 @@ This is entirely categorical, so we can define "exponential objects" as follows.
 \end{exer}
 In $\catSet$, recall that "subobjects" are subsets. Hence, letting $\Omega=\{\bot,\top\}$ there is a correspondence between $\Sub_{\catSet}(X)$ and $\Hom_{\catSet}(X,\Omega)$, it sends $I \subseteq X$ to the "characteristic" function $\charac_I: X \rightarrow \Omega$,\footnote{The "characteristic" function $\charac_I$ is defined by 
 \[\charac_I(x) = \begin{cases}
-    \top &x \in X\\\bot & x\notin X
-\end{cases}.\]} and in the other direction $f: X \rightarrow \Omega$ is sent to $f^{-1}(\top)\subseteq X$. Furthermore, recall that the preimage can be seen as a "pullback", so we can define $\charac_I$ as the unique function making \eqref{diag:pullbackcharac} into a "pullback" square. Uniqueness holds because this "pullback" implies $I = \charac_I^{-1}(\top)$.
+    \top &x \in I\\\bot & x\notin I
+\end{cases}.\]} and in the other direction $f: X \rightarrow \Omega$ is sent to $f^{-1}(\top)\subseteq X$. Furthermore, recall that the preimage can be seen as a "pullback", so we can define $\charac_I$ as the unique function making \eqref{diag:pullbackcharac} into a "pullback" square. Uniqueness holds because this "pullback" implies $I = \charac_I^{-1}(\top)$.%TODO: ref to where we said this.
 \begin{equation}\label{diag:pullbackcharac}
     % https://q.uiver.app/?q=WzAsNCxbMCwwLCJJIl0sWzAsMSwiWCJdLFsxLDEsIlxcT21lZ2EiXSxbMSwwLCJcXHRlcm1pbmFsIl0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwyLCJcXGNoYXJhY19JIiwyXSxbMCwzXSxbMywyLCJcXHRvcCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
     \begin{tikzcd}

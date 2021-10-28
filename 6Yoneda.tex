@@ -203,7 +203,7 @@ It turns out this result is not very useful.%TODO: explain why not useful.
 \begin{proof}
 	($\Rightarrow$) Let $P = X \product Y$, for any $A \in \obj{\mathbf{C}}$, there is an "isomorphism@@CAT"
 	\[\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(A,X\product Y)\]
-	which sends the pair $(f:A \rightarrow X, g: A \rightarrow Y)$ to $(f,g): A \rightarrow X\product Y$.\footnote{Recall that $(f,g)$ is the unique "morphism" satisfying $\projection_X \circ (f,g) = f$ and $\projection_Y \circ (f,g) = g$. Be careful not to confuse it with a pair of "morphisms".} In the other direction, $p: A \rightarrow X\product Y$ is sent to the pair $(\projection_X \circ p, \projection_Y \circ p)$. Let us show it is "natural" in $A$. For any $m: A' \rightarrow A$, \eqref{diag:productreprnatural} "commutes" because the top path sends the pair $(f,g)$ to the "morphism" $(f,g)$ then to $(f,g) \circ m = (f \circ m, g \circ m)$ and the bottom path sends $(f,g)$ to $(f,g) \circ (m,m) = (f \circ m, g \circ m)$ which is then sent to $(f \circ m, g \circ m)$. %TODO: change the way we display pairs of functions.
+	which sends the pair $(f:A \rightarrow X, g: A \rightarrow Y)$ to $\pair{f,g}: A \rightarrow X\product Y$.\footnote{Recall that $\pair{f,g}$ is the unique "morphism" satisfying $\projection_X \circ \pair{f,g} = f$ and $\projection_Y \circ \pair{f,g} = g$. Be careful not to confuse it with a pair of "morphisms".} In the other direction, $p: A \rightarrow X\product Y$ is sent to the pair $(\projection_X \circ p, \projection_Y \circ p)$. Let us show it is "natural" in $A$. For any $m: A' \rightarrow A$, \eqref{diag:productreprnatural} "commutes" because the top path sends the pair $(f,g)$ to the "morphism" $\pair{f,g}$ then to $\pair{f,g} \circ m = \pair{f \circ m, g \circ m}$ and the bottom path sends $(f,g)$ to $(f,g) \circ (m,m) = (f \circ m, g \circ m)$ which is then sent to $\pair{f \circ m, g \circ m}$.
 	\begin{equation}\label{diag:productreprnatural}%TODO: exercise for composition of product morphism
 		% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q31cXGNhdHRpbWVzIFxcbWF0aGJme0N9fSgoQSxBKSwoWCxZKSkiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q31cXGNhdHRpbWVzIFxcbWF0aGJme0N9fSgoQScsQScpLChYLFkpKSJdLFsxLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oQSxYXFxwcm9kdWN0IFkpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0N9fShBJyxYXFxwcm9kdWN0IFkpIl0sWzAsMiwiXFxzaW0iXSxbMCwxLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyAobSxtKSIsMl0sWzEsMywiXFxzaW0iLDJdLFsyLDMsIlxccGxhY2Vob2xkZXIgXFxjaXJjIG0iXV0=
 		\begin{tikzcd}
@@ -216,7 +216,7 @@ It turns out this result is not very useful.%TODO: explain why not useful.
 		\end{tikzcd}
 	\end{equation}
 
-	($\Leftarrow$) First, we define $\projection_X$ and $\projection_Y$ to be the pair of "morphisms" corresponding to $\id_P$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(P,P)$. Given two "morphism" $f: A \rightarrow X$ and $g: A \rightarrow Y$, the "isomorpshism@@CAT" 
+	($\Leftarrow$) First, we define $\projection_X$ and $\projection_Y$ to be the pair of "morphisms" corresponding to $\id_P$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(P,P)$. Given two "morphisms" $f: A \rightarrow X$ and $g: A \rightarrow Y$, the "isomorpshism@@CAT" 
 	\[\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(A,P)\]
 	yields a unique "morphism" $!: A \rightarrow P$. To see that $\projection_X \circ {!} = f$ and $\projection_Y \circ {!} = g$ we start with $\id_P$ in the top right of \eqref{diag:productreprnaturaltwo} which "commutes" by hypothesis.
 	\begin{marginfigure}\begin{equation}\label{diag:productreprnaturaltwo}
@@ -233,35 +233,35 @@ It turns out this result is not very useful.%TODO: explain why not useful.
 \begin{cor}["Dual@@CAT"]
 	Let $X,Y\in \obj{\mathbf{C}}$. The "coproduct" of $X$ and $Y$ exists if and only if there exists $S \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((X,Y), \diagFunc_{\mathbf{C}}(\placeholder)) \isoCAT \Hom_{\mathbf{C}}(S,\placeholder)$. The "coproduct" is $S$.\footnote{We implicitly use the fact that $\op{(\mathbf{C}\cattimes \mathbf{C})} \isoCAT \op{\mathbf{C}} \cattimes \op{\mathbf{C}}$.}
 \end{cor}
-In order to generalize these two results to arbitrary "(co)@colimits""limits", we defined the generalized version of $\diagFunc_{\mathbf{C}}$.
+In order to generalize these two results to arbitrary "(co)@colimits""limits", we define the generalized version of $\diagFunc_{\mathbf{C}}$.
 \begin{defn}[Generalized diagonal functor]
-	\AP Let $\mathbf{J}$ and $\mathbf{C}$ be "categories" the ""generalized diagonal functor"" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{J}}{\mathbf{C}}$ sends an "object" $X \in \obj{\mathbf{C}}$ to the "constant functor" at $X$ and a "morphism" $f: X \rightarrow Y \in \mor{\mathbf{C}}$ to the "natural transformation" whose components are all $f: X \rightarrow Y$.\begin{marginfigure}[-1\baselineskip]We have $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f) : X \Rightarrow Y$ because for any $j \in \mor{\mathbf{J}}$, we have \[\begin{tikzcd}
+	\AP Let $\mathbf{J}$ and $\mathbf{C}$ be "categories", the ""generalized diagonal functor"" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{J}}{\mathbf{C}}$ sends an "object" $X \in \obj{\mathbf{C}}$ to the "constant functor" at $X$ and a "morphism" $f: X \rightarrow Y \in \mor{\mathbf{C}}$ to the "natural transformation" whose components are all $f: X \rightarrow Y$.\begin{marginfigure}[-1\baselineskip]We have $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f) : X \Rightarrow Y$ because for any $a \in \mor{\mathbf{J}}$, the square below "commutes". \[\begin{tikzcd}
 		X & X \\
 		Y & Y
 		\arrow["f"', from=1-1, to=2-1]
-		\arrow["{X(j)= \id_X}", from=1-1, to=1-2]
+		\arrow["{X(a)= \id_X}", from=1-1, to=1-2]
 		\arrow["f", from=1-2, to=2-2]
-		\arrow["{Y(j)=\id_Y}"', from=2-1, to=2-2]
+		\arrow["{Y(a)=\id_Y}"', from=2-1, to=2-2]
 	\end{tikzcd}\]\end{marginfigure}
 \end{defn}
 \begin{rem}
-	This is a generalization of the "diagonal functor" $\diagFunc_{\mathbf{C}}: \mathbf{C} \rightsquigarrow \mathbf{C} \cattimes \mathbf{C}$ because with the "isomorphism@@CAT" $\catFunc{\termcat\coproduct\termcat}{\mathbf{C}} \isoCAT \mathbf{C} \cattimes \mathbf{C}$ described in Example \ref{exmp:simplefunccat}.\ref{exmp:isoprodfunccat}, we can identify $\diagFunc_{\mathbf{C}}$ with $\gdiagFunc_{\mathbf{C}}^{\termcat\coproduct\termcat}$.
+	This is a generalization of the "diagonal functor" $\diagFunc_{\mathbf{C}}: \mathbf{C} \rightsquigarrow \mathbf{C} \cattimes \mathbf{C}$ because, with the "isomorphism@@CAT" $\catFunc{\termcat\coproduct\termcat}{\mathbf{C}} \isoCAT \mathbf{C} \cattimes \mathbf{C}$ described in Example \ref{exmp:simplefunccat}.\ref{exmp:isoprodfunccat}, we can identify $\diagFunc_{\mathbf{C}}$ with $\gdiagFunc_{\mathbf{C}}^{\termcat\coproduct\termcat}$.
 \end{rem}
 \begin{prop}\label{prop:limitrepr}
 	Let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". The "limit" of $F$ exists if and only if there is an object $L \in \obj{\mathbf{C}}$ such that $\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) \isoCAT \Hom_{\mathbf{C}}(\placeholder,L)$.\footnote{Recall that 
-	\[\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) = \Nat(\placeholder,F) \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}.\]} The "tip" of the "limit" "cone" is $L$.
+	\[\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) = \Nat(\placeholder,F) \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}.\]} The "tip" of the "limit cone" is $L$.
 \end{prop}
 \begin{proof}
-	First, we note that for any $X \in \obj{\mathbf{C}}$, a "natural transformation" $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X) \Rightarrow F$ is a "cone over" $F$ with "tip" $X$. Indeed, for any $j: A \rightarrow B \in \mor{\mathbf{J}}$, the "naturality" square in \eqref{diag:natiscone} is "commutative".
+	First, we note that for any $X \in \obj{\mathbf{C}}$, a "natural transformation" $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X) \Rightarrow F$ is a "cone over" $F$ with "tip" $X$. Indeed, for any $a: A \rightarrow B \in \mor{\mathbf{J}}$, the "naturality" square in \eqref{diag:natiscone} is "commutative".
 	\begin{equation}\label{diag:natiscone}
 		% https://q.uiver.app/?q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiRkEiXSxbMSwwLCJYIl0sWzEsMSwiRkIiXSxbMCwxLCJcXHBzaV9YIiwyXSxbMCwyLCJYKGopPVxcaWRfWCJdLFsyLDMsIlxccHNpX1giXSxbMSwzLCJGKGopIiwyXV0=
 	\begin{tikzcd}
 		X & X \\
 		FA & FB
 		\arrow["{\psi_A}"', from=1-1, to=2-1]
-		\arrow["{X(j)=\id_X}", from=1-1, to=1-2]
+		\arrow["{X(a)=\id_X}", from=1-1, to=1-2]
 		\arrow["{\psi_B}", from=1-2, to=2-2]
-		\arrow["{F(j)}"', from=2-1, to=2-2]
+		\arrow["{F(a)}"', from=2-1, to=2-2]
 	\end{tikzcd}
 	\end{equation}
 	This is equivalent to $\{\psi_A: X \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$ being a "cone over" $F$. Furthermore, a "morphism" of "cones" $\phi \rightarrow \psi$ is a "morphism" $f$ between the "tips" such that $\forall A \in \obj{\mathbf{J}}, \phi_A = \psi_A \circ f$. By looking at \eqref{diag:morphconediagonal}, we see this condition is equivalent to $\phi = \psi \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$.
@@ -274,7 +274,7 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 			& FA && FB
 			\arrow["{\psi_A}"', from=2-1, to=3-2]
 			\arrow["{\psi_B}"', from=2-3, to=3-4]
-			\arrow["{F(j)}"', from=3-2, to=3-4]
+			\arrow["{F(a)}"', from=3-2, to=3-4]
 			\arrow["{\phi_A}"'{pos=0.7}, from=1-2, to=3-2]
 			\arrow["{\phi_B}", from=1-4, to=3-4]
 			\arrow["{\id_Y}"{description}, from=1-2, to=1-4]

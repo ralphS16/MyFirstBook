@@ -296,7 +296,7 @@ This follows from $\NAT(\eta,HA,H'A,\phi(A))$.
 \end{defn}
 One crucial point we have made in earlier chapters is that a notion of "composition" must satisfy "associativity" and have "identities". We will show the former right after you show the latter.
 \begin{exer}\label{exer:natural:horcompidentity}\marginnote{\hyperref[soln:natural:horcompidentity]{See solution.}}
-	Let $F,G: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $\phi: F \Rightarrow G$ be a "natural transformation". Show that $\phi \horcomp \one_{F} = \phi F$ and $\one_{G} \horcomp \phi = G\phi$. Infer that $\one_{\id_{\mathbf{C}}}$ is the "identity" at $\mathbf{C}$ for $\horcomp$.
+	Let $H: \mathbf{C}' \rightsquigarrow \mathbf{C}$, $F,F': \mathbf{C} \rightsquigarrow \mathbf{D}$ and $G: \mathbf{D} \rightsquigarrow \mathbf{D}'$ be "functors" and $\phi: F \Rightarrow F'$ be a "natural transformation". Show that $\phi \horcomp \one_{H} = \phi H$ and $\one_{G} \horcomp \phi = G\phi$. Infer that $\one_{\id_{\mathbf{C}}}$ is the "identity" at $\mathbf{C}$ for $\horcomp$.
 \end{exer}
 
 \begin{prop}
@@ -408,7 +408,7 @@ There is one last thing to conclude that $\catCat$ is a \kl[2cat]{$2$--category}
 		\item for every $A,B \in \obj{\mathbf{C}}$ a "category" $\mathbf{C}(A,B)$ with $\Hom_{\mathbf{C}}(A,B)$ as its "objects" ("composition" is denoted $\vertcomp$ and "identities" $\one$) and "morphisms" are called $2$--\textbf{morphisms},
 		\item a "category" with $\obj{\mathbf{C}}$ as its "objects", where the "morphisms" are pairs of "parallel" "morphisms" of $\mathbf{C}$ along with a $2$--morphism between them\footnote{A "morphism" in this category is also called a $2$--\textbf{cell}.} and the identity map sends $A \in \obj{\mathbf{C}}$ to the pair $(\id_A, \id_A)$ and the $2$--morphism $\one_{\id_A}$ ("composition" of $2$--cells is denoted $\horcomp$),
 	\end{itemize} 
-	such that the "interchange identity" \eqref{eqn:interid} holds.
+	such that the "interchange identity" \eqref{eqn:interid} holds.\footnote{The "interchange identity" does not come out of nowhere, it is equivalent to the composition $\diamond$ being a "functor" $\mathbf{C}(B,C) \cattimes \mathbf{C}(A,B) \rightsquigarrow \mathbf{C}(A,C)$ for every $A,B,C \in \obj{\mathbf{C}}$. We leave you to show this in the special case of the "$2$--category@2cat" of "categories" in Exercise \ref{exer:natural:compositionisfunc}.}
 \end{defn}
 We will not cover it in this book, but there are notions of "morphisms" between "$2$--categories@2cat" (called $2$--functors), between $3$--categories as well as between $n$--categories for any $n$ (even $n= \infty$!), these objects are more deeply studied in higher category theory.\footnote{Most of higher category theory drops the \textit{strict} part of our definition of $2$--category because this condition is too strong. Very briefly, they allow the properties of "composition", namely "associativity" and "identities", to hold up to "natural isomorphisms".}
 
