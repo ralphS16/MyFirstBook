@@ -258,7 +258,7 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
 \end{defn}
 \begin{defn}[Coslice category]
     In the setting of Definition \ref{defn:comma}, if $G = \id_{\mathbf{C}}$ and $F= X: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $F(\bullet) = X \in \obj{\mathbf{C}}$, then $\comcat{X}{\id_{\mathbf{C}}}$ is called the ""coslice category"" under $X$ and denoted $\coslice{X}{\mathbf{C}}$.\footnote{Some authors call this "category" $\mathbf{C}$ under $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "source" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
-    \begin{equation}\label{diag:slice}
+    \begin{equation}\label{diag:coslice}
         \begin{tikzcd}
             & X \arrow[ld] \arrow[rd] &\\
             A \arrow[rr]  & & B 
@@ -283,7 +283,7 @@ Back to "universal properties".
             F(A) \arrow[rr, dashed, "F(f)"']  & & F(B) 
         \end{tikzcd}
     \end{equation}
-    Notice that equivalently, one could say that for any $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag:univmorphalt}.
+    Notice that equivalently, one could say that for any $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag:univmorphalt}. %TODO: Detail the equivalently: uniqueness of f inside D because we defined morphisms in the comma category as coming from D (not simply being the image of F)
     \begin{equation}\label{diag:univmorphalt}
         \begin{tikzcd}
             & X & FA & {} & A & {} \\

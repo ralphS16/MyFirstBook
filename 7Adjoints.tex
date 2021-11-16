@@ -204,12 +204,12 @@ Less concisely, for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{D}}$, t
     \end{tikzcd}
 \end{equation}%TODO: special case when composition by eta and vareps and introduce transpose at this point.
 
-Our main point in the introduction to this chapter was that grouping "universal morphisms" together as we did into an "adjunction" yields a notion of \textit{global} "universal" construction. In particular, we can characterize when a "category" has all "co@colimt""limits" of shape $\mathbf{J}$.
+Our main point in the introduction to this chapter was that grouping "universal morphisms" together as we did into an "adjunction" yields a notion of \textit{global} "universal" construction. In particular, we can characterize when a "category" has all "(co)@colimt""limits" of shape $\mathbf{J}$.
 \begin{thm}\label{thm:limitadj}
     A "category" $\mathbf{C}$ has all "limits" of shape $\mathbf{J}$ if (and only if)\footnote{} the "functor" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$ has a "right adjoint".%TODO: mention axiom of choice in footnote, maybe anacategories and so on.
 \end{thm}
 \begin{proof}
-    ($\Rightarrow$) For each "diagram" $F: \mathbf{J} \rightsquigarrow \mathbf{C}$, we pick (with the axiom of choice) a "limit" $\lim_J F$ given by "completeness" and a "universal morphism" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \rightarrow F$ given by Theorem \ref{thm:limituniversal}. By our argument at the start of the chapter, we get an "adjunction" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \adjoint \lim_J$.
+    ($\Rightarrow$) For each "diagram" $F: \mathbf{J} \rightsquigarrow \mathbf{C}$, we pick (with the axiom of choice) a "limit" $\lim_{\mathbf{J}} F$ given by "completeness" and a "universal morphism" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \rightarrow F$ given by Theorem \ref{thm:limituniversal}. By our argument at the start of the chapter, we get an "adjunction" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \adjoint \lim_{\mathbf{J}}$.
 
     ($\Leftarrow$) Suppose $\mathbf{C}: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \adjoint L: \catFunc{\mathbf{J}}{\mathbf{C}}$ with "unit@@ADJ" $\eta$ and let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". By definiton, $\eta_F: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}L(F) \rightarrow F$ is a "universal morphism" from $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$ to $F$. Thus, by Theorem \ref{thm:limituniversal}, $L(F)$ is the "limit" of $F$.
 \end{proof}
@@ -499,7 +499,7 @@ Let us now turn to the many great properties of "adjoint" "functors".
     "Right adjoints" are "continuous".
 \end{thm}
 \begin{proof}
-    Let $\mathbf{C}: L \adjoint R : \mathbf{D}$ be an "adjunction" and $F: \mathbf{J} \rightsquigarrow \mathbf{D}$ be a "diagram" in $\mathbf{D}$ whose "limit cone" is $\left\{ \ell_X : \lim F \rightarrow FX \right\}_{X \in \obj{\mathbf{J}}}$. We claim that $\left\{ R\ell_X: R\lim_F \rightarrow RFX \right\}_{\obj{\mathbf{J}}}$ is the "limit cone" of $R \circ F$. For any other "cone" making \eqref{diag:coneradjcont} "commute" for any $f: X \rightarrow Y \in \mor{\mathbf{J}}$, we can apply "transposition" to the $c_X$'s to obtain \eqref{diag:coneradjconttransposed} which "commutes" by \eqref{eqn:transposeeqns1}.\footnote{In \eqref{eqn:transposeeqns1}, putting $g:= Ff$ and $f:= c_X$, we obtain\[\transpose{c_Y} = \transpose{(RFf \circ c_X)} = Ff \circ \transpose{c_X}.\]}\\
+    Let $\mathbf{C}: L \adjoint R : \mathbf{D}$ be an "adjunction" and $F: \mathbf{J} \rightsquigarrow \mathbf{D}$ be a "diagram" in $\mathbf{D}$ whose "limit cone" is $\left\{ \ell_X : \lim F \rightarrow FX \right\}_{X \in \obj{\mathbf{J}}}$. We claim that $\left\{ R\ell_X: R\lim F \rightarrow RFX \right\}_{\obj{\mathbf{J}}}$ is the "limit cone" of $R \circ F$. For any other "cone" making \eqref{diag:coneradjcont} "commute" for any $f: X \rightarrow Y \in \mor{\mathbf{J}}$, we can apply "transposition" to the $c_X$'s to obtain \eqref{diag:coneradjconttransposed} which "commutes" by \eqref{eqn:transposeeqns1}.\footnote{In \eqref{eqn:transposeeqns1}, putting $g:= Ff$ and $f:= c_X$, we obtain\[\transpose{c_Y} = \transpose{(RFf \circ c_X)} = Ff \circ \transpose{c_X}.\]}\\
     \begin{minipage}{0.49\textwidth}
         \begin{equation}\label{diag:coneradjcont}
             % https://q.uiver.app/?q=WzAsNCxbMSwxLCJSXFxsaW0gRiJdLFswLDIsIlJGWCJdLFsyLDIsIlJGWSJdLFsxLDAsIkMiXSxbMCwxLCJSXFxlbGxfWCIsMl0sWzEsMiwiUkZmIiwyXSxbMCwyLCJSXFxlbGxfWSJdLFszLDEsImNfWCIsMix7ImN1cnZlIjoyfV0sWzMsMiwiY19ZIiwwLHsiY3VydmUiOi0yfV1d

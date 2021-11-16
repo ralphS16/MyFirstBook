@@ -233,7 +233,7 @@ We briefly mentioned that a "product" (resp. "coproduct") is a "limit" (resp. "c
     \textbf{In $\catAb$, $\catRing$ or $\catVect{k}$}: For the same reason that the Cartesian product of the underlying sets is the underlying set of the "product",\footnote{We explain this in Chapter \ref{chap:adjoints}.} the construction of "equalizers" is as in $\catSet$. However, since each of these "categories" have a notion of additive inverse for "morphisms", the "equalizer" of $f$ and $g$ has a cooler name, that is, $\ker(f-g)$.\footnote{The "equalizer" of $f$ and $g$ is the subset of $A$ where $f$ and $g$ are equal, or equivalently, where $f-g$ is $0$ (when $f-g$ and $0$ are defined).}
 \end{exmps}
 \begin{defn}[Idempotents]
-    \AP A "morphism" $f: A \rightarrow A \in \mor{\mathbf{C}}$ is called ""idempotent"" when $f \circ f =f$. It is called ""split idempotent"" if there exist "morphisms" $s:E \rightarrow A$ and $r: A \rightarrow E$ such that $s \circ r = f$ and $r \circ s = 1_E$.\footnote{We can show that "split idempotents" are "idempotent" because \[f \circ f = s \circ r \circ s \circ r = s \circ \id_E \circ  r = f.\]}
+    \AP A "morphism" $f: A \rightarrow A \in \mor{\mathbf{C}}$ is called ""idempotent"" when $f \circ f =f$. It is called ""split idempotent"" if there exist "morphisms" $s:E \rightarrow A$ and $r: A \rightarrow E$ such that $s \circ r = f$ and $r \circ s = \id_E$.\footnote{We can show that "split idempotents" are "idempotent" because \[f \circ f = s \circ r \circ s \circ r = s \circ \id_E \circ  r = f.\]}
 \end{defn}
 \begin{prop}
     An "idempotent" "morphism" $f: A \rightarrow A \in \mor{\mathbf{C}}$ is "split idempotent" if and only if the "equalizer" of $f$ and $\id_A$ exists.
@@ -749,6 +749,31 @@ We show four results in increasing order of complexity to demonstrate "diagram c
     The "pushout" of an "epimorphism" is an "epimorphism".
 \end{cor}
 
+\begin{prop}
+    Let $\{f_i, g_i : X_i \rightarrow Y_i\}_{i\in I}$ be a familiy of "parallel" "morphisms" in $\mathbf{C}$ such that for any $i \in I$, \eqref{diag:prodequalizerhyp} is an "equalizer", then \eqref{diag:prodequalizer} is an "equalizer". %Show that the "product of morphisms" $\Product_{i \in I} e_i: \Product_{i \in I} E_i \rightarrow \Product_{i \in I} X_i$ is the "equalizer" of $\Product_{i\in I} f_i$ and $\Product_{i \in I} g_i$.
+    \begin{marginfigure}\begin{equation}\label{diag:prodequalizerhyp}
+        % https://q.uiver.app/?q=WzAsMyxbMCwwLCJFX2kiXSxbMSwwLCJYX2kiXSxbMiwwLCJZX2kiXSxbMCwxLCJlX2kiXSxbMSwyLCJnX2kiLDIseyJvZmZzZXQiOjF9XSxbMSwyLCJmX2kiLDAseyJvZmZzZXQiOi0xfV1d
+    \begin{tikzcd}
+        {E_i} & {X_i} & {Y_i}
+        \arrow["{e_i}", from=1-1, to=1-2]
+        \arrow["{g_i}"', shift right=1, from=1-2, to=1-3]
+        \arrow["{f_i}", shift left=1, from=1-2, to=1-3]
+    \end{tikzcd}
+    \end{equation}\end{marginfigure}
+    \begin{equation}\label{diag:prodequalizer}
+        % https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXFByb2R1Y3Rfe2lcXGluIEl9RV9pIl0sWzEsMCwiXFxQcm9kdWN0X3tpXFxpbiBJfVhfaSJdLFsyLDAsIlxcUHJvZHVjdF97aVxcaW4gSX1ZX2kiXSxbMCwxLCJcXFByb2R1Y3Rfe2lcXGluIEl9ZV9pIl0sWzEsMiwiXFxQcm9kdWN0X3tpXFxpbiBJfWdfaSIsMix7Im9mZnNldCI6MX1dLFsxLDIsIlxcUHJvZHVjdF97aVxcaW4gSX1mX2kiLDAseyJvZmZzZXQiOi0xfV1d
+        \begin{tikzcd}
+            {\Product_{i\in I}E_i} & {\Product_{i\in I}X_i} & {\Product_{i\in I}Y_i}
+            \arrow["{\Product_{i\in I}e_i}", from=1-1, to=1-2]
+            \arrow["{\Product_{i\in I}g_i}"', shift right=1, from=1-2, to=1-3]
+            \arrow["{\Product_{i\in I}f_i}", shift left=1, from=1-2, to=1-3]
+        \end{tikzcd}
+    \end{equation}
+\end{prop}%TODO: proof
+\begin{cor}["Dual@@CAT"]
+    %TODO:
+\end{cor}
+%TODO: is the above a more general fact ? Limits commute with limits ?
 \begin{thm}[Pasting Lemma]\label{lem:pasting}
     Consider diagram \eqref{diag:pasting}, where the right square is a "pullback". This result is called the ""pasting lemma"".
     \begin{equation}\label{diag:pasting}
