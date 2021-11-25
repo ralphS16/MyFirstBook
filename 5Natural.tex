@@ -35,7 +35,7 @@ For the general case, let $F,G: \mathbf{C}\rightsquigarrow \mathbf{D}$ be "funct
 \end{center}
 Thus, a "morphism" between $F$ and $G$ should fit in this picture by sending diagram \eqref{diag:funcF} to diagram \eqref{diag:funcG} in a "commutative" way.
 \begin{defn}[Natural transformation]\label{defnattran}
-	\AP Let $F,G : \mathbf{C} \rightsquigarrow \mathbf{D}$ be two ("covariant") "functors", a "natural transformation" $\phi: F \Rightarrow G$ is a map $\phi: \obj{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ that satisfies $\phi(A) \in \Hom_{\mathbf{D}}(F(A), G(A))$ for all $A \in \obj{\mathbf{C}}$ and makes \eqref{diag:nattrans} "commute" for any $f \in \Hom_{\mathbf{C}}(A,B)$:\footnote{When doing proofs relying on "naturality" (i.e.: the property of being "natural"), we will use \eqref{diag:nattrans} where we instantiate $\phi$, $F$, $G$, $A$, $B$ and $f$ with the "natural transformation", "functors", "objects" and "morphism" that is needed in the proof. In order to make this instantiation less painful, we will use the shorthand $\intro*\NAT(\phi,A,B,f)$ and instantiate the parameters (we can omit $F$ and $G$ because they should be known from the context).}
+	\AP Let $F,G : \mathbf{C} \rightsquigarrow \mathbf{D}$ be two ("covariant") "functors", a ""natural transformation"" $\phi: F \Rightarrow G$ is a map $\phi: \obj{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ that satisfies $\phi(A) \in \Hom_{\mathbf{D}}(F(A), G(A))$ for all $A \in \obj{\mathbf{C}}$ and makes \eqref{diag:nattrans} "commute" for any $f \in \Hom_{\mathbf{C}}(A,B)$:\footnote{When doing proofs relying on "naturality" (i.e.: the property of being "natural"), we will use \eqref{diag:nattrans} where we instantiate $\phi$, $F$, $G$, $A$, $B$ and $f$ with the "natural transformation", "functors", "objects" and "morphism" that is needed in the proof. In order to make this instantiation less painful, we will use the shorthand $\intro*\NAT(\phi,A,B,f)$ and instantiate the parameters (we can omit $F$ and $G$ because they should be known from the context).}
 	\begin{equation}\label{diag:nattrans}
 	\begin{tikzcd}
 	F(A) \arrow[d, "F(f)"'] \arrow[r, "\phi(A)"] & G(A) \arrow[d, "G(f)"] \\
@@ -406,13 +406,94 @@ There is one last thing to conclude that $\catCat$ is a \kl[2cat]{$2$--category}
 	\begin{itemize}
 		\item a "category" $\mathbf{C}$,
 		\item for every $A,B \in \obj{\mathbf{C}}$ a "category" $\mathbf{C}(A,B)$ with $\Hom_{\mathbf{C}}(A,B)$ as its "objects" ("composition" is denoted $\vertcomp$ and "identities" $\one$) and "morphisms" are called $2$--\textbf{morphisms},
-		\item a "category" with $\obj{\mathbf{C}}$ as its "objects", where the "morphisms" are pairs of "parallel" "morphisms" of $\mathbf{C}$ along with a $2$--morphism between them\footnote{A "morphism" in this category is also called a $2$--\textbf{cell}.} and the identity map sends $A \in \obj{\mathbf{C}}$ to the pair $(\id_A, \id_A)$ and the $2$--morphism $\one_{\id_A}$ ("composition" of $2$--cells is denoted $\horcomp$),
+		\item a "category" with $\obj{\mathbf{C}}$ as its "objects", where the "morphisms" are pairs of "parallel" "morphisms" of $\mathbf{C}$ along with a $2$--morphism between them. A "morphism" in this "category" is also called a $2$""--cell"". The identity $2$"--cell" at $A \in \obj{\mathbf{C}}$ is the pair $(\id_A, \id_A)$ and the $2$--morphism $\one_{\id_A}$ and "composition" of $2$"--cells" is denoted $\horcomp$),
 	\end{itemize} 
-	such that the "interchange identity" \eqref{eqn:interid} holds.\footnote{The "interchange identity" does not come out of nowhere, it is equivalent to the composition $\diamond$ being a "functor" $\mathbf{C}(B,C) \cattimes \mathbf{C}(A,B) \rightsquigarrow \mathbf{C}(A,C)$ for every $A,B,C \in \obj{\mathbf{C}}$. We leave you to show this in the special case of the "$2$--category@2cat" of "categories" in Exercise \ref{exer:natural:compositionisfunc}.}
+	such that the "interchange identity" \eqref{eqn:interid} holds.\footnote{The "interchange identity" does not come out of nowhere, it is equivalent to the "composition" $\circ$ being a "functor" $\mathbf{C}(B,C) \cattimes \mathbf{C}(A,B) \rightsquigarrow \mathbf{C}(A,C)$ that acts on $2$--morphisms by $\diamond$ for every $A,B,C \in \obj{\mathbf{C}}$. We leave you to show this in the special case of the "$2$--category@2cat" of "categories" in Exercise \ref{exer:natural:compositionisfunc}.}
 \end{defn}
-We will not cover it in this book, but there are notions of "morphisms" between "$2$--categories@2cat" (called $2$--functors), between $3$--categories as well as between $n$--categories for any $n$ (even $n= \infty$!), these objects are more deeply studied in higher category theory.\footnote{Most of higher category theory drops the \textit{strict} part of our definition of $2$--category because this condition is too strong. Very briefly, they allow the properties of "composition", namely "associativity" and "identities", to hold up to "natural isomorphisms".}
+This book is not the place to further study $2$"--categories@2cat", but we can say a few interesting things about them. There are notions of "morphisms" between "$2$--categories@2cat" (called $2$--functors) and morphisms between them (called $2$--natural transformations). The latter can be composed in three different ways (analog to "vertical@vertical composition" and "horizontal composition" for $2$--morphisms) and all possible compositions interact well together. In particular,\footnote{There several so-called coherence axioms that describe how all "compositions" interact, but we state only one of them.} there is a unique $2$--natural transformation that is the composition of all $2$--natural transformations in \eqref{diag:3comp} (there are multiple ways to obtain it, depending on what compositions you do in what order, but as in the "interchange identity", we require them to lead to the same $2$--natural transformation).
+\begin{equation}\label{diag:3comp}%TODO: display Rrightarrows.
+	% https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXGJ1bGxldCJdLFszLDAsIlxcYnVsbGV0Il0sWzYsMCwiXFxidWxsZXQiXSxbMCwxXSxbMCwxLCIiLDIseyJvZmZzZXQiOi0yLCJjdXJ2ZSI6LTV9XSxbMSwyLCIiLDAseyJvZmZzZXQiOi0yLCJjdXJ2ZSI6LTV9XSxbMSwyXSxbMCwxLCIiLDAseyJvZmZzZXQiOjIsImN1cnZlIjo1fV0sWzEsMiwiIiwwLHsib2Zmc2V0IjoyLCJjdXJ2ZSI6NX1dLFs0LDMsIiIsMix7Im9mZnNldCI6NSwic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs0LDMsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbNSw2LCIiLDAseyJvZmZzZXQiOjUsInNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbNSw2LCIiLDIseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzMsNywiIiwwLHsib2Zmc2V0Ijo1LCJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzMsNywiIiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs2LDgsIiIsMCx7Im9mZnNldCI6NSwic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs2LDgsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbNCwzLCIiLDIseyJvZmZzZXQiOi01LCJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzMsNywiIiwwLHsib2Zmc2V0IjotNSwic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs1LDYsIiIsMCx7Im9mZnNldCI6LTUsInNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbNiw4LCIiLDAseyJvZmZzZXQiOi01LCJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzksMTAsIiIsMix7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbMTEsMTIsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbMTMsMTQsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbMTUsMTYsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbMTAsMTcsIiIsMix7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbMTYsMjAsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbMTIsMTksIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbMTQsMTgsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XV0=
+\begin{tikzcd}
+	\bullet &&& \bullet &&& \bullet
+	\arrow[""{name=0, anchor=center, inner sep=0}, from=1-1, to=1-4]
+	\arrow[""{name=1, anchor=center, inner sep=0}, shift left=2, curve={height=-30pt}, from=1-1, to=1-4]
+	\arrow[""{name=2, anchor=center, inner sep=0}, shift left=2, curve={height=-30pt}, from=1-4, to=1-7]
+	\arrow[""{name=3, anchor=center, inner sep=0}, from=1-4, to=1-7]
+	\arrow[""{name=4, anchor=center, inner sep=0}, shift right=2, curve={height=30pt}, from=1-1, to=1-4]
+	\arrow[""{name=5, anchor=center, inner sep=0}, shift right=2, curve={height=30pt}, from=1-4, to=1-7]
+	\arrow[""{name=6, anchor=center, inner sep=0}, shift right=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=1, to=0]
+	\arrow[""{name=7, anchor=center, inner sep=0}, shorten <=5pt, shorten >=5pt, Rightarrow, from=1, to=0]
+	\arrow[""{name=8, anchor=center, inner sep=0}, shift right=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=2, to=3]
+	\arrow[""{name=9, anchor=center, inner sep=0}, shorten <=5pt, shorten >=5pt, Rightarrow, from=2, to=3]
+	\arrow[""{name=10, anchor=center, inner sep=0}, shift right=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=0, to=4]
+	\arrow[""{name=11, anchor=center, inner sep=0}, shorten <=5pt, shorten >=5pt, Rightarrow, from=0, to=4]
+	\arrow[""{name=12, anchor=center, inner sep=0}, shift right=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=3, to=5]
+	\arrow[""{name=13, anchor=center, inner sep=0}, shorten <=5pt, shorten >=5pt, Rightarrow, from=3, to=5]
+	\arrow[""{name=14, anchor=center, inner sep=0}, shift left=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=1, to=0]
+	\arrow[""{name=15, anchor=center, inner sep=0}, shift left=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=0, to=4]
+	\arrow[""{name=16, anchor=center, inner sep=0}, shift left=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=2, to=3]
+	\arrow[""{name=17, anchor=center, inner sep=0}, shift left=5, shorten <=5pt, shorten >=5pt, Rightarrow, from=3, to=5]
+	\arrow[shorten <=2pt, shorten >=2pt, from=6, to=7]
+	\arrow[shorten <=2pt, shorten >=2pt, from=8, to=9]
+	\arrow[shorten <=2pt, shorten >=2pt, from=10, to=11]
+	\arrow[shorten <=2pt, shorten >=2pt, from=12, to=13]
+	\arrow[shorten <=2pt, shorten >=2pt, from=7, to=14]
+	\arrow[shorten <=2pt, shorten >=2pt, from=13, to=17]
+	\arrow[shorten <=2pt, shorten >=2pt, from=9, to=16]
+	\arrow[shorten <=2pt, shorten >=2pt, from=11, to=15]
+\end{tikzcd}
+\end{equation}
+The "category" of $2$"--categories@2cat" with $2$--functors and $2$--natural transformations is now an instance of a $3$--category. The field of \textit{higher category theory} studies the generalizations of this to $n$--categories for any $n$ (even $n= \infty$!). However, most of higher category theory drops the \textit{strict} part of our definition of $2$--category because this condition is too strong. Very briefly, they allow the properties of "composition", namely "associativity" and "identities", to hold up to "natural isomorphisms".
 
-\begin{exer}[\NOW]\label{exer:natural:compositionisfunc}\marginnote[1\baselineskip]{\hyperref[soln:natural:equivequiv]{See solution.}}
+There is a relatively simple way to define strict $n$--categories using \textit{enriched category theory}.\footnote{I hope you can indulge this continued digression. Higher categories and enriched categories are not an indispensible tool in mathematics as I believe categories are to some extent. Still, I think these two little teasers might inspire some readers.} The definition of a "locally small" "category" can be seen as entirely taking place in the "category" $\catSet$. From this point of view, a "locally small" "category" is a "collection" $\obj{\mathbf{C}}$ of "objects" equipped with
+\begin{itemize}
+	\item a set $\Hom_{\mathbf{C}}(A,B) \in \obj{\catSet}$ for every $A,B \in \obj{\mathbf{C}}$,
+	\item a function $\circ_{A,B,C}\in \Hom_{\catSet}\left( \Hom_{\mathbf{C}}(B,C) \times \Hom_{\mathbf{C}}(A,B), \Hom_{\mathbf{C}}(A,C) \right)$ for every $A,B,C \in \obj{\mathbf{C}}$,
+	\item and a function $\id_A \in \Hom_{\catSet}\left( \terminal,\Hom_{\mathbf{C}}(A,A) \right)$,
+\end{itemize}
+with conditions that can be stated as "commutative diagrams" in $\catSet$. "Commutativity" of \eqref{diag:idcompenriched} and \eqref{diag:idcompenrichedbis} means that the identity morphisms are neutral with respect to "composition" and "commutativity" of \eqref{diag:assoccompenriched} means "composition" is associative.
+\begin{equation}\label{diag:idcompenriched}
+	% https://q.uiver.app/?q=WzAsMyxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsQykgXFx0aW1lcyBcXEhvbV97XFxtYXRoYmZ7Q319KEIsQikiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsQykiXSxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsQykgXFx0aW1lcyBcXHRlcm1pbmFsIl0sWzAsMSwiXFxjaXJjX3tCLEIsQ30iXSxbMiwwLCJcXGlkIFxcdGltZXMgXFxpZF9CIl0sWzIsMSwiXFxwcm9qZWN0aW9uX3tcXEhvbV97XFxtYXRoYmZ7Q319KEIsQyl9IiwyXV0=
+\begin{tikzcd}
+	{\Hom_{\mathbf{C}}(B,C) \times \terminal} & {\Hom_{\mathbf{C}}(B,C) \times \Hom_{\mathbf{C}}(B,B)} \\
+	& {\Hom_{\mathbf{C}}(B,C)}
+	\arrow["{\circ_{B,B,C}}", from=1-2, to=2-2]
+	\arrow["{\id \times \id_B}", from=1-1, to=1-2]
+	\arrow["{\projection_{\Hom_{\mathbf{C}}(B,C)}}"', from=1-1, to=2-2]
+\end{tikzcd}
+\end{equation}
+\begin{equation}\label{diag:idcompenrichedbis}
+	% https://q.uiver.app/?q=WzAsMyxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsQilcXHRpbWVzIFxcdGVybWluYWwiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsQikiXSxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsQikgXFx0aW1lcyBcXEhvbV97XFxtYXRoYmZ7Q319KEEsQikiXSxbMCwxLCJcXHByb2plY3Rpb25fe1xcSG9tX3tcXG1hdGhiZntDfX0oQSxCKX0iXSxbMiwxLCJcXGNpcmNfe0EsQixCfSIsMl0sWzAsMiwiXFxpZF9CIFxcdGltZXMgXFxpZCIsMl1d
+\begin{tikzcd}
+	{\Hom_{\mathbf{C}}(B,B) \times \Hom_{\mathbf{C}}(A,B)} & {\Hom_{\mathbf{C}}(A,B)\times \terminal} \\
+	{\Hom_{\mathbf{C}}(A,B)}
+	\arrow["{\projection_{\Hom_{\mathbf{C}}(A,B)}}", from=1-2, to=2-1]
+	\arrow["{\circ_{A,B,B}}"', from=1-1, to=2-1]
+	\arrow["{\id_B \times \id}"', from=1-2, to=1-1]
+\end{tikzcd}
+\end{equation}
+\begin{equation}\label{diag:assoccompenriched}
+	% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEMsRCkgXFx0aW1lcyBcXEhvbV97XFxtYXRoYmZ7Q319KEIsQykgXFx0aW1lcyBcXEhvbV97XFxtYXRoYmZ7Q319KEEsQikiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEMsRCkgXFx0aW1lcyBcXEhvbV97XFxtYXRoYmZ7Q319KEEsQykiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEEsRCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsRCkgXFx0aW1lcyBcXEhvbV97XFxtYXRoYmZ7Q319KEEsQikiXSxbMCwxLCJcXGlkIFxcdGltZXMgXFxjaXJjX3tBLEIsQ30iLDJdLFsxLDIsIlxcY2lyY197QSxDLER9IiwyXSxbMCwzLCJcXGNpcmNfe0IsQyxEfSBcXHRpbWVzIFxcaWQiXSxbMywyLCJcXGNpcmNfe0EsQixEfSJdXQ==
+\begin{tikzcd}
+	{\Hom_{\mathbf{C}}(C,D) \times \Hom_{\mathbf{C}}(B,C) \times \Hom_{\mathbf{C}}(A,B)} & {\Hom_{\mathbf{C}}(B,D) \times \Hom_{\mathbf{C}}(A,B)} \\
+	{\Hom_{\mathbf{C}}(C,D) \times \Hom_{\mathbf{C}}(A,C)} & {\Hom_{\mathbf{C}}(A,D)}
+	\arrow["{\id \times \circ_{A,B,C}}"', from=1-1, to=2-1]
+	\arrow["{\circ_{A,C,D}}"', from=2-1, to=2-2]
+	\arrow["{\circ_{B,C,D} \times \id}", from=1-1, to=1-2]
+	\arrow["{\circ_{A,B,D}}", from=1-2, to=2-2]
+\end{tikzcd}
+\end{equation}
+It turns out we can abstract the properties of $\terminal$ and $\times$ that ensure we can do category theory: we say that $(\catSet, \times, \terminal)$ is a \href{https://ncatlab.org/nlab/show/monoidal+category}{\textbf{monoidal category}}.\footnote{\AP The specific properties are not too relevant for us right now, but know that $\times$ and $\terminal$ are called the ""tensor@@ENR"" and ""unit@@ENR"" of the monoidal category.} \AP Now, ""enriched category theory"" is done by replacing $\catSet$ with another "category" that has a monoidal structure.
+\begin{exmps}
+	\begin{enumerate}
+		\item The "category" $\termcat$ is a monoidal category with the "tensor@@ENR" and "unit@@ENR" being trivial (there is only one "object", so there is no choice). A "category" "enriched" in $\termcat$ is simply a "collection" $\obj{\mathbf{C}}$ because there is no choice when defining $\Hom_{\mathbf{C}}(A,B) \in \obj{\termcat}$, $\circ_{A,B,C} \in \mor{\termcat}$ and $\id_A \in \mor{\termcat}$.
+		\item %TODO: Ab-enriched, not the same as abelian.
+		\item The "category" $\catCat$ of "small" "categories" is monoidal with the "tensor@@ENR" being $\cattimes$ and the "unit@@ENR" being $\termcat$. A "category" "enriched" in $\catCat$ is a "strict $2$--category@2cat". For instance, the $2$"--category@2cat" of "categories" is a collection $\obj{\catCat}$ of "objects", a "category" $\catCat(\mathbf{C},\mathbf{D}) = \catFunc{\mathbf{C}}{\mathbf{D}}$ for every $\mathbf{C},\mathbf{D} \in \obj{\catCat}$, a functor $\id_{\mathbf{C}}: \termcat \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{C}}$ that picks the "identity functor" and, as you will show in Exercise \ref{exer:natural:compositionisfunc}, a "morphism" \[\circ_{\mathbf{C},\mathbf{D},\mathbf{E}}\in \Hom_{\catCat}(\catFunc{\mathbf{D}}{\mathbf{E}} \times \catFunc{\mathbf{C}}{\mathbf{D}},\catFunc{\mathbf{C}}{\mathbf{E}}).\]
+		The diagrams corresponding to \eqref{diag:idcompenriched}, \eqref{diag:idcompenrichedbis}, and \eqref{diag:assoccompenriched} (now they live in $\catCat$) "commute" by results we have shown in this chapter.
+		\item Generalizing the previous item, a strict $n$--category is a "category" "enriched" in the "category" of "strict" $(n-1)$--categories.
+	\end{enumerate}
+\end{exmps}
+\begin{exer}[\NOW]\label{exer:natural:compositionisfunc}\marginnote[1\baselineskip]{\hyperref[soln:natural:compositionisfunc]{See solution.}}
 	Show that there is a "functor" $\catFunc{\mathbf{D}}{\mathbf{E}} \cattimes \catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{E}}$ whose action on "objects" is $(F,G) \mapsto F\circ G$.
 \end{exer}%TODO: explain the implications for commutative diagrams of natural transformations and how you will use it.
 %TODO: req exercises: Composing with a constant yields a functor that preserves isomorphisms for use when saying limits are taken pointwise [C x D, E] = [D x C, E]
@@ -494,7 +575,7 @@ Recall that an isomorphism of "categories" is an "isomorphism@@CAT" in the "cate
 		The last step (I promise) of this proof is to show that $\Curry{\placeholder}$ and $\Uncurry{\placeholder}$ are inverses of each other. The mindless computations below suffice.
 		\begin{gather*}
 			\Curry{\Uncurry{F}}(X)(Y) = \Uncurry{F}(X,Y) = F(X)(Y)\\
-			\Curry{\Uncurry{F}}(f)(Y) = \Uncurry{F}(f,Y) = F(f)_Y
+			\Curry{\Uncurry{F}}(f)_Y = \Uncurry{F}(f,Y) = F(f)_Y
 		\end{gather*}
 		\begin{gather*}
 			\Uncurry{\Curry{F}}(X,Y) = \Curry{F}(X)(Y) = F(X,Y)\\
@@ -506,6 +587,7 @@ Although there are other interesting instances of "isomorphic@@CAT" "categories"
 \begin{defn}[Equivalence]
 	\AP A "functor" $F:\mathbf{C}\rightsquigarrow \mathbf{D}$ is an ""equivalence"" of "categories" if there exists a "functor" $G:\mathbf{D}\rightsquigarrow \mathbf{C}$ such that $F\circ G\isoCAT \id_{\mathbf{D}}$ and $G\circ F \isoCAT \id_{\mathbf{C}}$.\footnote{Recall that $\isoCAT$ between "functors" stands for "natural isomorphisms".} \AP This is clearly symmetric, so we say two "categories" $\mathbf{C}$ and $\mathbf{D}$ are ""equivalent"", denoted $\mathbf{C} \eqCat \mathbf{D}$, if there is an "equivalence" between them. \AP Moreover, we say that $G$ is a ""quasi-inverse"" of $F$ and vice-versa.
 \end{defn}
+%TODO: put components as subscripts and add a tiny bit more explainations.
 In order to gain more intuition on how "equivalences" equate two "categories", let us observe what properties this forces on the "functor" $F$. For any "morphism" $f \in \Hom_{\mathbf{C}}(A,B)$, the following square "commutes" where $\phi(A)$ and $\phi(B)$ are "isomorphisms@@CAT".\footnote{"Naturality" of $\phi$ only gives us $GF(f) \circ \phi(A) = \phi(B) \circ f$, but by "composing" with $\phi(A)^{-1}$ or $\phi(B)^{-1}$, we obtain the "commutativity" of all of \eqref{diag:bijfromequiv}. In particular, we have $GF(f) = \phi(B) \circ f \circ \phi(A)^{-1}$.}
 \begin{equation}\label{diag:bijfromequiv}
 % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzAsMSwiR0YoQSkiXSxbMSwxLCJHRihCKSJdLFsxLDAsIkIiXSxbMCwxLCJcXHBoaShBKSJdLFsxLDIsIkdGKGYpIiwyXSxbMCwzLCJmIl0sWzMsMiwiXFxwaGkoQikiLDJdLFsyLDMsIlxccGhpKEIpXnstMX0iLDIseyJvZmZzZXQiOjJ9XSxbMSwwLCJcXHBoaShBKV57LTF9IiwwLHsib2Zmc2V0IjotMn1dXQ==
@@ -565,9 +647,9 @@ The insight to extract from this argument is that two categories are "equivalent
 \begin{rem} We used the axiom of choice to construct the "quasi-inverse" of $F$.
 \end{rem}%TODO: check
 
-We will detail a couple of \textit{easy} examples of "equivalences" and briefly metion a few \textit{harder} ones.
+We will detail a couple of \textit{easy} examples of "equivalences" and briefly metion a few \textit{harder} ones. Of course, all the "isomorphisms@@CAT" of "categories" we saw earlier are examples of "equivalences" where the "natural isomorphisms" are identities.
 \begin{exmps}[Easy]\label{exmps:equiveasy}
-	\begin{enumerate}
+	\begin{enumerate}%TODO: weird behaviour of knowledge.
 		\itemAP Consider the "full@@CAT" "subcategory" of $\catFinSet$ consisting only of the sets $\emptyset, \{1\}, \{1,2\}, \dots, \{1,\dots,n\},\dots$, denote it $\intro*\catFinOrd$.\footnote{The name $\catFinOrd$ is an abbreviation of finite \href{https://en.wikipedia.org/wiki/Ordinal_number}{ordinals}, because we can also define $\catFinOrd$ as the "category" of finite ordinals and functions between them.} The "inclusion functor" is "fully faithful" by definition and we claim it is "essentially surjective". Indeed, any set $X \in \obj{\catFinSet}$ has a finite cardinality $n$, so $X \isoCAT \{1,\dots,n\} \in \obj{\catFinOrd}$.
 		\item In a very similar fashion, an early result in linear algebra says that any "finite dimensional" "vector space" over a "field" $k$ is "isomorphic@@VECT" to $k^n$ for some $n\in \N$. \AP Thus, the "category" whose objects are $k^n$ for all $n\in \N$ and "morphisms" are $m\times n$ "matrices" with entries in $k$,\footnote{After making a choice of "basis" for all $k^n$, an $m\times n$ matrix with entries in $k$ corresponds to a "linear map" $k^n \rightarrow k^m$.} which we denote $\intro*\catMat{k}$, is "equivalent" to the "category" of "finite dimensional" "vector spaces".
 		\itemAP\label{exmp:partialpointed} A ""partial"" function $f: X \pfun Y$ is a function that may not be defined on all of $X$.\footnote{\AP In this context, a \textit{normal} function defined on all of $X$ is called ""total"".} There is "category" $\catPar$ of sets and "partial" functions where "identity morphism" and "composition" are defined straightforwardly.\footnote{You can view $\catPar$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$ (cf. Remark \ref{rem:setsubrel}), \[|\left\{ y \in Y\mid (x,y) \in R \right\}| \leq 1.\]} We can view a "partial" function $f:X \pfun Y$ as a "total" function $f':X \rightarrow Y\coproduct\terminal$ which assigns to every $x$ where $f(x)$ is undefined the value $\ast \in \terminal$. Further extending $f'$ to $[f',\id_{\terminal}]: X\coproduct\terminal \rightarrow Y\coproduct \terminal$, we can see any "partial" function as a function between "pointed" sets where the distinguished element corresponds to being undefined.
@@ -580,10 +662,10 @@ The first two examples and many other simple examples of "equivalences" are exam
 \begin{defn}[Skeleton]
 	\AP A "category" is called ""skeletal"" if there it contains no two "isomorphic@@CAT" "objects". A \textbf{"skeleton"} of a "category" is an "equivalent" "skeletal" "category".
 \end{defn}
-\begin{exmps}
+\begin{exmps}%TODO: posets are skeletal.
 	We have shown that $\catFinOrd \eqCat \catFinSet$ and $\catMat{k} \eqCat\catFDVect{k}$ and we leave to you the easy task to check that these are examples of "skeletons".\footnote{Namely, you should show that no two sets in $\catFinOrd$ are "isomorphic@@CAT" and no two spaces in $\catMat{k}$ are "isomorphic@@CAT".}
 \end{exmps}
-A "category" always has a "skeleton" if you assume the axiom of choice and the next result justifies say \textit{the} "skeleton" of a "category". 
+A "category" always has a "skeleton" if you assume the axiom of choice and the next result justifies us calling it \textit{the} "skeleton" of a "category". 
 \begin{exer}\label{exer:natural:skeleton}\marginnote{\hyperref[soln:natural:skeleton]{See solution.}}
 	Show that all "skeletons" of a "category" are "isomorphic@@CAT".
 \end{exer}
@@ -600,7 +682,7 @@ Here are other more interesting examples of "equivalent" "categories".
 			\arrow["f", from=1-2, to=2-2]
 		\end{tikzcd}
 	\end{equation}\end{marginfigure}
-	($\Rightarrow$) For any $f: X \rightarrow Y \in \mor{\mathbf{C}}$, by hypothesis, there exists $A \in \obj{\mathbf{C}}$ such that $\id_A \isoCAT f$ in $\arrowcat{C}$. Let $(s: A \rightarrow X ,t: A \rightarrow Y)$ be the "isomorphism@@CAT", its "inverse" must be $(s^{-1},t^{-1})$. Looking at the chain of "commutative" squares in \eqref{diag:chaincommsquare}, we can infer that $s \circ t^{-1}$ is the "inverse" of $f$.\footnote{The "composition" $f \circ s \circ t^{-1}$ is the top path of the combined two leftmost squares, the bottom path is $t \circ t^{-1} \circ \id_Y = \id_Y$. The "composition" $s \circ t^{-1} \circ f$ is the bottom path of the combined two rightmost squares, the top path is $\id_X \circ s \circ s^{-1} =\id_X$.}
+	($\Rightarrow$) For any $f: X \rightarrow Y \in \mor{\mathbf{C}}$, by hypothesis, there exists $A \in \obj{\mathbf{C}}$ such that $\id_A \isoCAT f$ in $\arrowcat{\mathbf{C}}$. Let $(s: A \rightarrow X ,t: A \rightarrow Y)$ be the "isomorphism@@CAT", its "inverse" must be $(s^{-1},t^{-1})$. Looking at the chain of "commutative" squares in \eqref{diag:chaincommsquare}, we can infer that $s \circ t^{-1}$ is the "inverse" of $f$.\footnote{The "composition" $f \circ s \circ t^{-1}$ is the top path of the combined two leftmost squares, the bottom path is $t \circ t^{-1} \circ \id_Y = \id_Y$. The "composition" $s \circ t^{-1} \circ f$ is the bottom path of the combined two rightmost squares, the top path is $\id_X \circ s \circ s^{-1} =\id_X$.}
 	\begin{equation}\label{diag:chaincommsquare}
 		% https://q.uiver.app/?q=WzAsMTAsWzEsMCwiQSJdLFsyLDAsIlgiXSxbMSwxLCJBIl0sWzIsMSwiWSJdLFszLDAsIkEiXSxbMywxLCJBIl0sWzQsMCwiWCJdLFs0LDEsIlgiXSxbMCwwLCJZIl0sWzAsMSwiWSJdLFswLDEsInMiXSxbMCwyLCJcXGlkX0EiLDJdLFsyLDMsInQiLDJdLFsxLDMsImYiLDJdLFsxLDQsInNeey0xfSJdLFszLDUsInReey0xfSIsMl0sWzQsNSwiXFxpZF9BIiwyXSxbNCw2LCJzIl0sWzUsNywicyIsMl0sWzYsNywiXFxpZF9YIl0sWzgsMCwidF57LTF9Il0sWzgsOSwiXFxpZF9ZIiwyXSxbOSwyLCJ0XnstMX0iLDJdLFs5LDMsIlxcaWRfWSIsMix7ImN1cnZlIjozfV0sWzEsNiwiXFxpZF9YIiwyLHsiY3VydmUiOi0zfV1d
 		\begin{tikzcd}
@@ -622,7 +704,7 @@ Here are other more interesting examples of "equivalent" "categories".
 		\end{tikzcd}
 	\end{equation}
 
-	($\Leftarrow$) Let $f: X \rightarrow Y$ be an "object" of $\arrowcat{C}$, the inverse of $f$ satisfies $f \circ f^{-1} = \id_Y$ and $f^{-1} \circ f = \id_X$, so the squares in \eqref{diag:twocommsquares} are "isomorphisms@@CAT" in $\arrowcat{\mathbf{C}}$ (they are inverses of each other). Thus, we find that $f$ is "isomorphic@@CAT" to $\id_X$ which is in the image of $F$.\begin{marginfigure}[-2\baselineskip]\begin{equation}\label{diag:twocommsquares}
+	($\Leftarrow$) Let $f: X \rightarrow Y$ be an "object" of $\arrowcat{\mathbf{C}}$, the inverse of $f$ satisfies $f \circ f^{-1} = \id_Y$ and $f^{-1} \circ f = \id_X$, so the squares in \eqref{diag:twocommsquares} are "isomorphisms@@CAT" in $\arrowcat{\mathbf{C}}$ (they are inverses of each other). Thus, we find that $f$ is "isomorphic@@CAT" to $\id_X$ which is in the image of $F$.\begin{marginfigure}[-2\baselineskip]\begin{equation}\label{diag:twocommsquares}
 		% https://q.uiver.app/?q=WzAsOCxbMCwwLCJYIl0sWzAsMSwiWCJdLFsxLDAsIlgiXSxbMSwxLCJZIl0sWzMsMCwiWCJdLFszLDEsIlgiXSxbNCwwLCJZIl0sWzQsMSwiWCJdLFswLDEsIlxcaWRfWCIsMl0sWzAsMiwiXFxpZF9YIl0sWzIsMywiZiJdLFsxLDMsImYiLDJdLFs0LDUsIlxcaWRfWCIsMl0sWzQsNiwiZiJdLFs2LDcsImZeey0xfSJdLFs1LDcsIlxcaWRfWCIsMl1d
 		\begin{tikzcd}
 			X & X && X & Y \\
@@ -640,7 +722,7 @@ Here are other more interesting examples of "equivalent" "categories".
 \end{exmp}
 \begin{exmps}[Hard] Examples of significant "equivalences" are all over the place in higher mathematics. However, they require a bit of work to describe them, thus let us only say a few words on them.
 	\begin{enumerate}
-		\item The "equivalence" between the "category" of affine schemes and the "opposite" of the "category" of "commutative rings" is a seminal result scheme theory, a huge part of modern algebraic geometry.%TODO: seminal
+		\item The "equivalence" between the "category" of affine schemes and the "opposite" of the "category" of "commutative rings" is a seminal result in scheme theory, a huge part of modern algebraic geometry.%TODO: check if seminal
 		\item The "equivalence" between Boolean lattices and Stone spaces is again seminal in the theory of Stone-type dualities. These can lead to deep connections between topology and logic. One application in particular is the study of the behavior of computer programs through formal semantics.
 	\end{enumerate} %TODO: maybe do a guided exercise for the baby stone duality.
 \end{exmps}

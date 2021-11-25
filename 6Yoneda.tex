@@ -4,7 +4,7 @@
 \chapter{Yoneda Lemma}\label{chap:yoneda}
 %TODO: try to talk about representing elements and rephrase yoneda lemma like nat trans is completely determined by representing element and choice of image and of representing element.
 \section{Representable Functors}
-Throughout, let $\mathbf{C}$ be a "locally small" "category". Recall that for an "object" $A \in \obj{\mathbf{C}}$, there are two $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$. The "covariant" one, $\Hom_{\mathbf{C}}(A, \placeholder)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to $f \circ (\placeholder)$. The "contravariant" one, $\Hom_{\mathbf{C}}(\placeholder,A)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f: B\rightarrow B'$ to $(\placeholder) \circ f$. In order to lighten the notation, we denote these functors $\Hombis^A$ and $\Hombis_A$ respectively.\footnote{It might seem like this contradicts the notation used so far because $\Hombis^A$ is "covariant" and $\Hombis_A$ "contravariant". However, this is not their \textit{variance} in the parameter $A$, and we will show that in fact, the \textit{variance} in $A$ are opposites.}%TODO: write better.
+Throughout this chapter, let $\mathbf{C}$ be a "locally small" "category". Recall that for an "object" $A \in \obj{\mathbf{C}}$, there are two $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$. The "covariant" one, $\Hom_{\mathbf{C}}(A, \placeholder)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to $f \circ (\placeholder)$. The "contravariant" one, $\Hom_{\mathbf{C}}(\placeholder,A)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f: B\rightarrow B'$ to $(\placeholder) \circ f$. In order to lighten the notation, we denote these functors $\Hombis^A$ and $\Hombis_A$ respectively.\footnote{It might seem like this contradicts the notation used so far because $\Hombis^A$ is "covariant" and $\Hombis_A$ "contravariant". However, this is not their \textit{variance} in the parameter $A$, and we will show that in fact, the \textit{variances} in $A$ are opposites.}%TODO: write better.
 
 Although these "functors" are sometimes interesting on their own, their full power is unleashed when they are related to other "functors" through "natural transformations". Before doing that, let us investigate how nice $\Hom$ "functors" are. For instance, many $\Hom$ "functors" can be described in simpler terms.
 \begin{exmps}\label{exmp:covrep}
@@ -12,13 +12,13 @@ Although these "functors" are sometimes interesting on their own, their full pow
 		\item[]
 		\item Let $\terminal = \{*\}$ be the "terminal" "object" in $\catSet$, then what is the action of $\Hombis^{\terminal}$? For any "object" $B$, \[\Hombis^{\terminal}(B) = \Hom_{\catSet}(\terminal, B)\]
 		is easy to describe because for any element $b \in B$, there is a unique function $f: \terminal \rightarrow B = * \mapsto b$. Hence, there is an "isomorphism@@CAT" from $\Hombis^{\terminal}(B)$ to $B$ for any $B \in \obj{\mathbf{C}}$, it sends $f$ to $f(*)$ and its inverse sends $b\in B$ to the map $*\mapsto b$. Moreover, these isomorphisms are natural in $B$ because \eqref{diag:H1Set} clearly "commutes" for any $f:B\rightarrow B'$, yielding a "natural isomorphism" $\Hombis^{\terminal} \isoCAT \id_{\mathbf{C}}$.
-		\begin{equation}\label{diag:H1Set}
+		\begin{marginfigure}\begin{equation}\label{diag:H1Set}
 			\begin{tikzcd}
 				\Hombis^{\terminal}(B) \arrow[d] \arrow[r, "f\circ (\placeholder)"] & \Hombis^{\terminal}(B') \arrow[d] \\
 				B \arrow[u] \arrow[r, "f"']               & B' \arrow[u]     
 			\end{tikzcd}
-		\end{equation}
-		\item Consider again the "terminal" "object" in the "category" $\catGrp$, namely, the "group" $\terminal$ only containing an "identity@@GRP". Then, for any "group" $G$, the set $\Hombis^{\terminal}(G)$ is a singleton because any "homomorphism@@GRP" $f:\terminal\rightarrow G$ must send the "identity@@GRP" to the "identity@@GRP" and no other choice can be made. Therefore, unlike in $\catSet$, $\Hombis^{\terminal}$ is very uninteresting and acts like the "constant functor" $\terminal:\catGrp \rightsquigarrow \catSet$.
+		\end{equation}\end{marginfigure}
+		\item Consider again the "terminal" "object" but in the "category" $\catGrp$, namely, the "group" $\terminal$ only containing an "identity@@GRP" element. Then, for any "group" $G$, the set $\Hombis^{\terminal}(G)$ is a singleton because any "homomorphism@@GRP" $f:\terminal\rightarrow G$ must send the "identity@@GRP" to the "identity@@GRP" and no other choice can be made. Therefore, unlike in $\catSet$, $\Hombis^{\terminal}$ is very uninteresting and acts like the "constant functor" $\terminal:\catGrp \rightsquigarrow \catSet$.
 		
 		\item A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $0$ to the "identity@@GRP" and $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$ and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
 		\item The "terminal" "object" in $\catCat$ is the "category" $\termcat$ with a single "object" $\bullet$ and no "morphism" other than the "identity". Observe that for any "category" $\mathbf{C}$, a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object". Therefore, the same argument will show that $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$, where $\obj{(\placeholder)}$ sends a "category" to its set\footnote{Recall that $\catCat$ only contains "small" "categories".} of "objects" and a "functor" to its action restricted on "objects".
@@ -87,9 +87,9 @@ For every $A \in \obj{\mathbf{C}}$, there are two "functors" $\Hombis^A$ and $\H
 		\end{tikzcd}
 	\end{equation}
 	
-	The "covariant" "embedding@@YON" $\Hombis_{(\placeholder)}:C \rightsquigarrow \catFunc{\op{\mathbf{C}}}{\catSet}$ sends $B \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis_B$ and a "morphism" $f:B\rightarrow B'$ to the "natural transformation" $\Hombis_f:\Hombis_B \rightarrow \Hombis_{B'}$ defined by $\Hombis_f^A = \Hom_{\mathbf{C}}(A,f) = f\circ (\placeholder)$ for any $A \in \obj{\mathbf{C}}$. "Naturality" follows from a similar argument.%TODO: put it in footnote.
+	The "covariant" "embedding@@YON" $\Hombis_{(\placeholder)}:\mathbf{C} \rightsquigarrow \catFunc{\op{\mathbf{C}}}{\catSet}$ sends $B \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis_B$ and a "morphism" $f:B\rightarrow B'$ to the "natural transformation" $\Hombis_f:\Hombis_B \rightarrow \Hombis_{B'}$ defined by $\Hombis_f^A = \Hom_{\mathbf{C}}(A,f) = f\circ (\placeholder)$ for any $A \in \obj{\mathbf{C}}$. "Naturality" follows from a similar argument.%TODO: put it in footnote.
 \end{defn}
-"Functoriality" is left for the reader to check. The "embeddings@@YON" are called like that because both "functors" are "fully faithful" as will follow from the "Yoneda lemma".%TODO: do it!
+"Functoriality" is left for the reader to check.\footnote{A quick proof is to recognize the "embeddings@@YON" as the "curried" $\Hom$ "bifunctor", i.e.: \[\Hombis_{(\placeholder)} = \Curry\Hom_{\mathbf{C}}(\placeholder,\placeholder).\]} The "embeddings@@YON" are called like that because both "functors" are "fully faithful" and injective on "objects" as will follow from the "Yoneda lemma".%TODO: do it!
 %TODO: recall what is happening with the notation.
 \section{Yoneda Lemma}
 We have understood how an "object" $A \in \obj{\mathbf{C}}$ sees the "category" $\mathbf{C}$ through "representables", but since a "representable" is an "object" of another "category", it is daring to study what "representables" see and how it relates to the "object" it "represents". More formally, what is the "functor" $\Hom_{\catFunc{\mathbf{C}}{\catSet}}(\Hombis^A, \placeholder)$ describing. \AP For simplicity, we denote it $\intro*\Nat(\Hombis^A,\placeholder)$ because, for a "functor" $F:\mathbf{C} \rightsquigarrow \catSet$, $\Nat(\Hombis^A,F)$ is the "collection"\footnote{Even if $\mathbf{C}$ is "locally small", there is no guarantee that $\catFunc{\mathbf{C}}{\catSet}$ is "locally small". Nevertheless, one consequence of the "Yoneda lemma" is that $\Nat(F,G)$ is a set whenever $F$ is "representable".} of "natural transformations" from $\Hombis^A$ to $F$.
@@ -97,7 +97,7 @@ We have understood how an "object" $A \in \obj{\mathbf{C}}$ sees the "category" 
 The surprising relation that the "Yoneda lemma" describes is that $\Nat(\Hombis^A,F)$ is "isomorphic@@CAT" to $F(A)$ "naturally" in $F$ and $A$. We first show the "isomorphism@@CAT" and then explain the "naturality".%TODO: give more intuition
 %TODO: explain naturally
 \begin{lem}[Yoneda lemma I]
-	For any $A \in \obj{\mathbf{C}}$ and $F: C\rightsquigarrow \catSet$,
+	For any $A \in \obj{\mathbf{C}}$ and $F: \mathbf{C}\rightsquigarrow \catSet$,
 	\[\Nat(\Hombis^A, F) \isoCAT F(A).\]
 \end{lem} 
 \begin{proof}

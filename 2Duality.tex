@@ -98,7 +98,7 @@ In the rest of this book, we choose to work with "functors" of type $\op{\mathbf
 	
 	\item The two $\Hom$ "functors" defined in Example \ref{exmp:homfunctor} are now written 
 	\[\Hom_{\mathbf{C}}(A, \placeholder): \mathbf{C} \rightsquigarrow \catSet \text{ and } \Hom_{\mathbf{C}}(\placeholder,A) : \op{\mathbf{C}} \rightsquigarrow \catSet.\]
-	By Exercise \ref{exer:catfunc:funccomponent}, they can be combined into a "functor" \[\Hom_{\mathbf{C}}(\placeholder,\placeholder): \mathbf{C}\cattimes \op{\mathbf{C}} \rightsquigarrow \catSet\] acting on "objects" as $(A,B) \mapsto \Hom_{\mathbf{C}}(A,B)$ and on "morphisms" as $(f,g) \mapsto (g \circ \placeholder \circ f)$. The condition in Exercise \ref{exer:catfunc:funccomponent} is satisfied because\footnote{Looking at where the "source" and "target" functions are applied, these equalities do not match exactly what is in Exercise \ref{exer:catfunc:funccomponent} since $\Hom_{\mathbf{C}}(\placeholder,\placeholder)$ is "contravariant" in the second component.}
+	By Exercise \ref{exer:catfunc:funccomponent}, they can be combined into a "functor" \[\Hom_{\mathbf{C}}(\placeholder,\placeholder): \op{\mathbf{C}}\cattimes \mathbf{C} \rightsquigarrow \catSet\] acting on "objects" as $(A,B) \mapsto \Hom_{\mathbf{C}}(A,B)$ and on "morphisms" as $(f,g) \mapsto (g \circ \placeholder \circ f)$. The condition in Exercise \ref{exer:catfunc:funccomponent} is satisfied because\footnote{Looking at where the "source" and "target" functions are applied, these equalities do not match exactly what is in Exercise \ref{exer:catfunc:funccomponent} since $\Hom_{\mathbf{C}}(\placeholder,\placeholder)$ is "contravariant" in the second component.}
 	\begin{align*}
 		\Hom_{\mathbf{C}}(f,g) &= g \circ \placeholder \circ f\\
 		 &= \id_{\target(g)} \circ (g \circ \placeholder \circ \id_{\target(f)}) \circ f = \Hom_{\mathbf{C}}(f,\id_{\target(g)}) \circ \Hom_{\mathbf{C}}(\id_{\target(f)},g)\\
@@ -162,10 +162,10 @@ The "dual@@CAT" versions of Propositions \ref{prop:mon1} and \ref{prop:mon2} als
 \end{proof}
 \AP Not all "epimorphisms" have a "right inverse", those that do are called ""split epimorphisms"".
 \begin{prop}
-	Let $\mathbf{C}$ be a "category" and $(f_1, f_2) \in \mathbf{C}_2$, if $f_1 \circ f_2$ is "epic", then $f_2$ is "epic".
+	Let $\mathbf{C}$ be a "category" and $(f_1, f_2) \in \mathbf{C}_2$, if $f_1 \circ f_2$ is "epic", then $f_1$ is "epic".
 \end{prop}
 \begin{proof}
-	Since $\op{f_2} \circ \op{f_1} = \op{(f_1 \circ f_2)}$ is "monic", the result for "monomorphisms" implies $\op{f_2}$ is "monic" and hence $f_2$ is "epic".
+	Since $\op{f_2} \circ \op{f_1} = \op{(f_1 \circ f_2)}$ is "monic", the result for "monomorphisms" implies $\op{f_1}$ is "monic" and hence $f_1$ is "epic".
 \end{proof}
 \begin{exmp}[$\catSet$]
 	We mentioned that "monomorphisms" are like generalizations of injective functions, and you may have guessed that "epimorphisms" are, in the same sense, generalizations of surjective functions. Let us make this precise.

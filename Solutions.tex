@@ -503,8 +503,8 @@
 \begin{proof}[Solution to Exercise \ref{exer:natural:equivfunccat}]\label{soln:natural:equivfunccat}
     We will show the following two implications
     \begin{align*}
-        \mathbf{C} \eqCat \mathbf{C}' &\implies \catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}}\\
-        \mathbf{D} \eqCat \mathbf{D}' &\implies \catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}}{\mathbf{D}'}
+        \forall \mathbf{D} \quad \mathbf{C} \eqCat \mathbf{C}' &\implies \catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}}\\
+        \forall \mathbf{C} \quad \mathbf{D} \eqCat \mathbf{D}' &\implies \catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}}{\mathbf{D}'}
     \end{align*}
     and infer that $\mathbf{C} \eqCat \mathbf{C}'$ and $\mathbf{D} \eqCat \mathbf{D}'$ implies 
     \[\catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}} \eqCat  \catFunc{\mathbf{C}'}{\mathbf{D}'}.\]
@@ -621,5 +621,4 @@
     \end{equation}\end{marginfigure}
     We claim that $K\varepsilon_A$ also fits in the place of $\varepsilon'_{KA}$ in \eqref{diag:univetavareps} which means they are equal by uniqueness. We need to show $R'K\varepsilon_A \circ \eta'_{R'KA} = \id_{R'KA}$. Recalling that $\eta' = \eta$ and $R'K = R$, we rewrite the equality as $R\varepsilon_A \circ \eta_{RA} = \id_{RA}$ which holds by a "triangle identity".
 \end{proof}
-\section{Solutions to Chapter \ref{chap:coalgebra}}
 \end{document}

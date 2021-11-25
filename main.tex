@@ -96,6 +96,14 @@
 }
 \fontsize{10}{20}\selectfont
 
+%Fixes for links and color (when \knowledge in composition mode) spilling over to footnotes.
+\makeatletter
+\patchcmd\@addmarginpar{\hb@xt@}{\pdfrunninglinkoff\hb@xt@}{}{\fail}
+\apptocmd\@addmarginpar{\pdfrunninglinkon}{}{\fail}
+\makeatother
+\setsidenotefont{\color{black}\footnotesize}
+\setmarginnotefont{\color{black}\footnotesize}
+
 \input{know.tex}
 \newrobustcmd{\source}{\kl[source]{s}}
 \newrobustcmd{\target}{\kl[target]{t}}
