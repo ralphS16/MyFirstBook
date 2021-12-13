@@ -214,7 +214,7 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
 
 
 
-\section{Generalization}
+\section{Generalization}%TODO: exercises asking to compute the opposite categories.
 \begin{defn}[Comma category]\label{defn:comma}
     \AP Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, there is a "category" $\comcat{F}{G}$,\footnote{Some authors denote this "category" $F/G$.} called the ""comma category"", whose "objects" are triples $(X, Y, \alpha)$ with $X \in \obj{\mathbf{D}}$, $Y \in \obj{\mathbf{E}}$ and $\alpha : F(X) \rightarrow G(Y)$ (in $\mor{\mathbf{C}}$) and "morphisms" between $(X_1, Y_1, \alpha)$ and $(X_2, Y_2, \beta)$ are pairs of "morphisms" $(f,g) \in \Hom_{\mathbf{D}}(X_1,X_2) \times \Hom_{\mathbf{E}}(Y_1,Y_2)$ yielding a "commutative" square as in \eqref{diag:morphicomcat}.
     \begin{equation}\label{diag:morphicomcat}

@@ -20,7 +20,7 @@ Although these "functors" are sometimes interesting on their own, their full pow
 		\end{equation}\end{marginfigure}
 		\item Consider again the "terminal" "object" but in the "category" $\catGrp$, namely, the "group" $\terminal$ only containing an "identity@@GRP" element. Then, for any "group" $G$, the set $\Hombis^{\terminal}(G)$ is a singleton because any "homomorphism@@GRP" $f:\terminal\rightarrow G$ must send the "identity@@GRP" to the "identity@@GRP" and no other choice can be made. Therefore, unlike in $\catSet$, $\Hombis^{\terminal}$ is very uninteresting and acts like the "constant functor" $\terminal:\catGrp \rightsquigarrow \catSet$.
 		
-		\item A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $0$ to the "identity@@GRP" and $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$ and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
+		\item A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $0$ to the "identity@@GRP" and $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because the "homomorphism@@GRP" properties imply that $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$, $f(-n) = f(n)^{-1}$, and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
 		\item The "terminal" "object" in $\catCat$ is the "category" $\termcat$ with a single "object" $\bullet$ and no "morphism" other than the "identity". Observe that for any "category" $\mathbf{C}$, a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object". Therefore, the same argument will show that $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$, where $\obj{(\placeholder)}$ sends a "category" to its set\footnote{Recall that $\catCat$ only contains "small" "categories".} of "objects" and a "functor" to its action restricted on "objects".
 		
 	 	In order to obtain a similar way to extract "morphisms", consider the category $\cattwo$ with two "objects" and a single "morphism" between them. One obtains a "natural isomorphism" $\Hombis^{\cattwo} \isoCAT (\placeholder)_1$.\footnote{You can prove this as we did for $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$ or use Example \ref{exmp:simplefunccat}.\ref{exmp:funct2arrow}.}
@@ -35,16 +35,17 @@ These examples suggest that "functors" that are "naturally isomorphic" to $\Hom$
 \begin{exmps}\label{exmp:contrarep}
 	Let us give examples of the "contravariant" kind.
 	\begin{enumerate}%TODO: new notation for contravariant power set 2^X
-		\item The "contravariant" "powerset" functor $\mPcontr: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mP(X)$ and a function $f:X\rightarrow Y$ to the inverse image $f^{-1}:\mP(Y) \rightarrow \mP(X)$. It is common to identify subsets of a given set with functions from this set into $2 = \{0,1\}$. Formally, this is an "isomorphism@@CAT" $\mPcontr(X) \isoCAT \Hombis_{2}(X) = 2^X$ for any $X$, it maps $S \subseteq X$ to the characteristic function $\chi_S$.\footnote{It sends $x \in X$ to $1$ if $x \in S$ and to $0$ otherwise.} In the reverse direction, it sends a function $g:X\rightarrow \{0,1\}$ to $g^{-1}(1)$. It is easy to check that for any $f:X\rightarrow Y$, the "isomorphisms@@CAT" make \eqref{diag:H2pset} "commute", so $\mPcontr \isoCAT \Hombis_{2}$.
+		\item The "contravariant" "powerset" functor $\mPcontr{\placeholder}: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mP(X)$ and a function $f:X\rightarrow Y$ to the inverse image $f^{-1}:\mP(Y) \rightarrow \mP(X)$. It is common to identify subsets of a given set with functions from this set into $2 = \{0,1\}$. Formally, this is an "isomorphism@@CAT" $\mPcontr{X} \isoCAT \Hombis_{2}(X) = 2^X$ for any $X$, it maps $S \subseteq X$ to the characteristic function $\chi_S$.\footnote{It sends $x \in X$ to $1$ if $x \in S$ and to $0$ otherwise.} In the reverse direction, it sends a function $g:X\rightarrow \{0,1\}$ to $g^{-1}(1)$. It is easy to check that for any $f:X\rightarrow Y$, the "isomorphisms@@CAT" make \eqref{diag:H2pset} "commute", so $\mPcontr{\placeholder} \isoCAT \Hombis_{2}$.
 		\begin{equation}\label{diag:H2pset}
 			\begin{tikzcd}
 				\Hombis_{2}(X) \arrow[d] \arrow[r, "f\circ (\placeholder)"] & \Hombis_{2}(Y) \arrow[d] \\
-				\mPcontr(X) \arrow[u] \arrow[r, "f^{-1}"']                & \mPcontr(Y) \arrow[u]           
+				\mPcontr{X} \arrow[u] \arrow[r, "f^{-1}"']                & \mPcontr{Y} \arrow[u]           
 			\end{tikzcd}
 		\end{equation}
-		\item In functional programming, it is often useful to transform a function taking multiple arguments so that it ends up taking a single argument but outputs another function. For instance, the multiplication function $\textsf{mult}: \textsf{int} \times \textsf{int} \rightarrow \textsf{int}$ that takes two numbers as inputs and outputs their product can be rewritten as $\textsf{multc} : \textsf{int} \rightarrow (\textsf{int} \rightarrow \textsf{int})$. The function $\textsf{multc}$ takes a number as input and outputs a function that outputs the product of its input and the initial input of $\textsf{multc}$. For example $\textsf{multc}(3)$ is a function that outputs $3\cdot n$ when $n$ is the input. This new function $\textsf{multc}$ is said to be the "curried" version of $\textsf{mult}$ in honor of Haskell Curry. This leads to a more general argument in $\catSet$.
+		\item%TODO: replace with exponential example.
+		In functional programming, it is often useful to transform a function taking multiple arguments so that it ends up taking a single argument but outputs another function. For instance, the multiplication function $\textsf{mult}: \textsf{int} \times \textsf{int} \rightarrow \textsf{int}$ that takes two numbers as inputs and outputs their product can be rewritten as $\textsf{multc} : \textsf{int} \rightarrow (\textsf{int} \rightarrow \textsf{int})$. The function $\textsf{multc}$ takes a number as input and outputs a function that outputs the product of its input and the initial input of $\textsf{multc}$. For example $\textsf{multc}(3)$ is a function that outputs $3\cdot n$ when $n$ is the input. This new function $\textsf{multc}$ is said to be the "curried" version of $\textsf{mult}$ in honor of Haskell Curry. This leads to a more general argument in $\catSet$.
 		
-		Fix two sets $A$ and $B$. The "functor" $\Hom(\placeholder\product A,B)$ maps a set $X$ to $\Hom(X\product A, B)$ and a function $f:X\rightarrow Y$ to the function $(\placeholder) \circ (f \product \id_A)$.\footnote{You can see it as the composition $\Hombis_B \circ (\placeholder\product A)$.} As suggested by the "currying" process for \textsf{mult}, for any set $X$, there is a bijection $\Hom(X\product A,B) \isoCAT \Hom(X, B^A)$. The image of $f:X\product A \rightarrow B$ is denoted $\curry{f}$ and it satisfies $f(x,a) = \curry{f}(x)(a)$ for any $x \in X$ and $a \in A$. It is easy to check that this is a bijection and also that it is "natural" in $X$ because the \eqref{diag:natcurry} "commutes" for any $f:X\rightarrow Y$, so $\Hom(\placeholder\product A,B) \isoCAT \Hom(\placeholder,B^A)$.%TODO: make this about exponential objects.
+		Fix two sets $A$ and $B$. The "functor" $\Hom(\placeholder\product A,B)$ maps a set $X$ to $\Hom(X\product A, B)$ and a function $f:X\rightarrow Y$ to the function $(\placeholder) \circ (f \product \id_A)$.\footnote{You can see it as the composition $\Hombis_B \circ (\placeholder\product A)$.} As suggested by the "currying" process for \textsf{mult}, for any set $X$, there is a bijection $\Hom(X\product A,B) \isoCAT \Hom(X, B^A)$. The image of $f:X\product A \rightarrow B$ is denoted $\curry{f}$ and it satisfies $f(x,a) = \curry{f}(x)(a)$ for any $x \in X$ and $a \in A$. It is easy to check that this is a bijection and also that it is "natural" in $X$ because \eqref{diag:natcurry} "commutes" for any $f:X\rightarrow Y$, so $\Hom(\placeholder\product A,B) \isoCAT \Hom(\placeholder,B^A)$.%TODO: make this about exponential objects.
 		\begin{equation}\label{diag:natcurry}
 			\begin{tikzcd}
 				{\Hom(X\product A,B)} \arrow[d] \arrow[rr, "(\placeholder)\circ (f\product \id_A)"] & & {\Hom(Y\product A,B)} \arrow[d] \\
@@ -54,27 +55,26 @@ These examples suggest that "functors" that are "naturally isomorphic" to $\Hom$
 	\end{enumerate}
 \end{exmps}
 In the first item of Examples \ref{exmp:covrep} and \ref{exmp:contrarep}, we made an arbitrary choice of set. That is, we could have taken any singleton in the first case and any set with two elements in the second. More generally, one can show that if $A \isoCAT B$, then $\Hombis_A \isoCAT \Hombis_B$ and $\Hombis^A \isoCAT \Hombis^B$.
-\begin{exer}
-    Let $A,B \in \obj{\mathbf{C}}$ be "isomorphic@@CAT" "objects". Show that $\Hombis^A \isoCAT \Hombis^B$. "Dually@@CAT", show that $\Hombis_A\isoCAT \Hombis_B$. 
+\begin{exer}\label{exer:yoneda:isomeanshomiso}\marginnote{\hyperref[soln:yoneda:isomeanshomiso]{See solution.}}
+	Let $A,B \in \obj{\mathbf{C}}$ be "isomorphic@@CAT" "objects". Show that $\Hombis^A \isoCAT \Hombis^B$. "Dually@@CAT", show that $\Hombis_A\isoCAT \Hombis_B$. 
 \end{exer}
 Surprisingly, the converse is also true and it will follow from the "Yoneda lemma", but we prove it on its own first as a warm-up for the proof of the "lemma@yoneda".
 \begin{prop}
 	Let $A,B \in \obj{\mathbf{C}}$ be such that $\Hombis^A \isoCAT \Hombis^B$, then $A \isoCAT B$.
 \end{prop}
 \begin{proof}
-	The "natural isomorphism" gives two "natural transformations" $\phi: \Hombis^A \Rightarrow \Hombis^B$ and $\eta: \Hombis^B \Rightarrow \Hombis^A$ such that for any "object" $X \in \obj{\mathbf{C}}$, \[\eta_X \circ \phi_X:\Hombis^A(X)\rightarrow \Hombis^A(X) \quad \text{ and }\quad  \phi_X \circ \eta_X:\Hombis^B(X) \rightarrow \Hombis^B(X)\] are "identities". In order to show $A \isoCAT B$, we will find two "morphisms" $f:B\rightarrow A$ and $g:A\rightarrow B$ such that $f\circ g = \id_A$ and $g\circ f = \id_B$.
-	
-	First, note that putting $X$ equal to $A$, we get $\eta_A(\phi_A(\id_A)) = \id_A$ and we claim that \[\eta_A(\phi_A(\id_A)) =\phi_A(\id_A) \circ \eta_B(\id_B).\]
-	Since $\phi_A(\id_A)$ is a "morphism" from $B$ to $A$, \eqref{diag:proofYonedaprep} "commutes" by "naturality" of $\eta$. The equality then follows, starting with $\id_B \in \Hombis_B(B)$.
+	The "natural isomorphism" gives two "natural transformations" $\phi: \Hombis^A \Rightarrow \Hombis^B$ and $\eta: \Hombis^B \Rightarrow \Hombis^A$ such that for any "object" $X \in \obj{\mathbf{C}}$, \[\eta_X \circ \phi_X:\Hombis^A(X)\rightarrow \Hombis^A(X) \quad \text{ and }\quad  \phi_X \circ \eta_X:\Hombis^B(X) \rightarrow \Hombis^B(X)\] are "identities". In order to show $A \isoCAT B$, we will find two "morphisms" $f:B\rightarrow A$ and $g:A\rightarrow B$ such that $f\circ g = \id_A$ and $g\circ f = \id_B$. With the given data, there is no freedom to construct $f$ and $g$. Since $\mathbf{C}$, $A$ and $B$ are arbitrary, there are only two "morphisms" that are required to exist, $\id_A$ and $\id_B$. Next, we note that $\id_A \in \Hombis^A(A)$ and $\id_B \in \Hombis^B(B)$, hence, we can set $f:= \phi_A(\id_A)$ and $g:=\eta_B(\id_B)$.\footnote{To emphasize the point about \textit{no freedom}, try to convince yourself that any "morphisms" of type $B\rightarrow A$ and $A \rightarrow B$ that we can construct from $\id_A$, $\id_B$, $\phi$ and $\eta$ (the only data we have) must be equal to $f$ and $g$ as we defined them.}
+
+	Now, $\phi_A(\id_A)$ is a "morphism" from $B$ to $A$, so \eqref{diag:proofYonedaprep} "commutes" by "naturality" of $\eta$.
 	\begin{equation}\label{diag:proofYonedaprep}
 		\begin{tikzcd}
 			\Hombis_B(A) \arrow[r, "\eta_A"]                                      & \Hombis_A(A)                                       \\
 			\Hombis_B(B) \arrow[r, "\eta_B"'] \arrow[u, "\phi_A(\id_A)\circ (\placeholder)"] & \Hombis_A(B) \arrow[u, "\phi_A(\id_A) \circ (\placeholder)"']
 		\end{tikzcd}
 	\end{equation}
-
-	A "dual@@CAT" argument shows that \[\id_B = \phi_B(\eta_B(\id_B)) =  \eta_B(\id_B) \circ \phi_A(\id_A),\]
-	so we can conclude, letting $f = \phi_A(\id_A)$ and $g= \eta_B(\id_B)$, that $A \isoCAT B$.
+	We conclude, by starting with $\id_B$ in the bottom left, that \[g \circ f = \phi_A(\id_A) \circ \eta_B(\id_B) = \eta_A(\phi_A(\id_A)) = \id_A.\]
+	A "dual@@CAT" argument shows that \[f \circ g = \eta_B(\id_B) \circ \phi_A(\id_A) = \phi_B(\eta_B(\id_B)) = \id_B,\]
+	and we have shown $A \isoCAT B$.
 \end{proof}
 For every $A \in \obj{\mathbf{C}}$, there are two "functors" $\Hombis^A$ and $\Hombis_A$, they are "objects" of $[\mathbf{C}, \catSet]$ and $[\op{\mathbf{C}}, \catSet]$ respectively. It is then reasonable to expect that the assignments $A \mapsto \Hombis^A$ and $A \mapsto \Hombis_A$ are "functorial".
 
@@ -87,7 +87,7 @@ For every $A \in \obj{\mathbf{C}}$, there are two "functors" $\Hombis^A$ and $\H
 		\end{tikzcd}
 	\end{equation}
 	
-	The "covariant" "embedding@@YON" $\Hombis_{(\placeholder)}:\mathbf{C} \rightsquigarrow \catFunc{\op{\mathbf{C}}}{\catSet}$ sends $B \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis_B$ and a "morphism" $f:B\rightarrow B'$ to the "natural transformation" $\Hombis_f:\Hombis_B \rightarrow \Hombis_{B'}$ defined by $\Hombis_f^A = \Hom_{\mathbf{C}}(A,f) = f\circ (\placeholder)$ for any $A \in \obj{\mathbf{C}}$. "Naturality" follows from a similar argument.%TODO: put it in footnote.
+	The "covariant" "embedding@@YON" $\Hombis_{(\placeholder)}:\mathbf{C} \rightsquigarrow \catFunc{\op{\mathbf{C}}}{\catSet}$ sends $B \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis_B$ and a "morphism" $f:B\rightarrow B'$ to the "natural transformation" $\Hombis_f:\Hombis_B \Rightarrow \Hombis_{B'}$ defined by $\Hombis_f^A = \Hom_{\mathbf{C}}(A,f) = f\circ (\placeholder)$ for any $A \in \obj{\mathbf{C}}$. "Naturality" follows from a similar argument.%TODO: put it in footnote.
 \end{defn}
 "Functoriality" is left for the reader to check.\footnote{A quick proof is to recognize the "embeddings@@YON" as the "curried" $\Hom$ "bifunctor", i.e.: \[\Hombis_{(\placeholder)} = \Curry\Hom_{\mathbf{C}}(\placeholder,\placeholder).\]} The "embeddings@@YON" are called like that because both "functors" are "fully faithful" and injective on "objects" as will follow from the "Yoneda lemma".%TODO: do it!
 %TODO: recall what is happening with the notation.
@@ -112,7 +112,7 @@ The surprising relation that the "Yoneda lemma" describes is that $\Nat(\Hombis^
 	We now check that $\phi_{A,F}$ and $\eta_{A,F}$ are inverses. First,
 	$(\eta \circ \phi)_{A,F}$ sends $\alpha\in \Nat(\Hombis^A,F)$ to $\eta_{A,F}(\alpha_A(\id_A))$, and at any $B \in \obj{\mathbf{C}}$, we have 
 	\begin{align*}
-		\eta_{A,F}(\alpha_A(\id_A))_B(f) &= F(f)(\alpha_A(\id_A)&&\mbox{def of $\eta$}\\
+		\eta_{A,F}(\alpha_A(\id_A))_B(f) &= F(f)(\alpha_A(\id_A))&&\mbox{def of $\eta$}\\
 		&= \alpha_B(f \circ \id_A) &&\mbox{"naturality" of $\alpha$}\\
 		&= \alpha_B(f),
 	\end{align*}
@@ -124,9 +124,18 @@ The surprising relation that the "Yoneda lemma" describes is that $\Nat(\Hombis^
 \end{proof}
 What this results first tells us is that $\Nat(\Hombis^A, F)$ is a set (because it is "isomorphic@@CAT" to $F(A)$ which is a set). This lets us define two new "functors" to understand the second part of the "Yoneda lemma".
 
-The assignment $(A,F) \mapsto \Nat(\Hombis^A,F)$ is a "functor" $\mathbf{C} \cattimes \catFunc{\mathbf{C}}{\catSet} \rightsquigarrow \catSet$. We denote it $\Nat(\Hombis^{(\placeholder)}, \placeholder)$, it sends a "morphism" $(g,\mu): (A,F) \rightarrow (A',F')$ to $\mu \cdot (\placeholder) \cdot \Hombis^g:\Nat(\Hombis^A,F) \rightarrow \Nat(\Hombis^{A'},F')$.\footnote{As $\Nat(\placeholder, \placeholder)$ is the $\Hom$ "bifunctor@hombif" of $\catFunc{\mathbf{C}}{\catSet}$, we can see $\Nat(\Hombis^{(\placeholder)}, \placeholder)$ as the "composition" \[\Nat(\placeholder, \placeholder) \circ (\Hombis^{(\placeholder)} \functimes \id_{\catFunc{\mathbf{C}}{\catSet}}).\]} %TODO: describe the composition. and show it is a funcotr%TODO: define it as Hom(\placeholder,\placeholder) functor.
+The assignment $(A,F) \mapsto \Nat(\Hombis^A,F)$ is a "functor" $\mathbf{C} \cattimes \catFunc{\mathbf{C}}{\catSet} \rightsquigarrow \catSet$. We denote it $\Nat(\Hombis^{(\placeholder)}, \placeholder)$, it sends a "morphism" $(g,\mu): (A,F) \rightarrow (A',F')$ to $\mu \cdot (\placeholder) \cdot \Hombis^g:\Nat(\Hombis^A,F) \rightarrow \Nat(\Hombis^{A'},F')$.\footnote{If $g: A \rightarrow A'$, $\mu: F \Rightarrow F'$, and $\eta \in \Nat(\Hombis^A, F)$, we have 
+\[\Hombis^{A'} \xRightarrow{\Hombis^g} \Hombis^A \xRightarrow{\eta} F \xRightarrow{\mu} F' \in \Nat(\Hombis^{A'},F').\]
+We leave you to finish checking "functoriality".}
+% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbWJpc157QSd9Il0sWzEsMCwiXFxIb21iaXNeQSJdLFsyLDAsIkYiXSxbMywwLCJGJyJdLFswLDEsIlxcSG9tYmlzXmciLDAseyJsZXZlbCI6Mn1dLFsxLDIsIlxcZXRhIiwwLHsibGV2ZWwiOjJ9XSxbMiwzLCJcXG11IiwwLHsibGV2ZWwiOjJ9XV0=
+% \[\begin{tikzcd}
+% 	{\Hombis^{A'}} & {\Hombis^A} & F & {F'}
+% 	\arrow["{\Hombis^g}", Rightarrow, from=1-1, to=1-2]
+% 	\arrow["\eta", Rightarrow, from=1-2, to=1-3]
+% 	\arrow["\mu", Rightarrow, from=1-3, to=1-4]
+% \end{tikzcd}\in \Nat(\Hombis^{A'},F')\]
 
-The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We denote it $\intro*\Ev$ (for evaluation), it sends a "morphism" $(g,\mu): (A,F) \rightarrow (A',F')$ to $F'(g) \circ \mu_A :F(A) \rightarrow F'(A')$.%TODO: show it is a functor
+The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We denote it $\intro*\Ev$ (for evaluation), it sends a "morphism" $(g,\mu): (A,F) \rightarrow (A',F')$ to $F'(g) \circ \mu_A :F(A) \rightarrow F'(A')$.\footnote{You can check this functor is the "uncurrying" of the "identity functor" on $\catFunc{\mathbf{C}}{\catSet}$, i.e.: $\Ev = \Uncurry{\id_{\catFunc{\mathbf{C}}{\catSet}}}$}
 
 \begin{lem}[Yoneda lemma II]
 	There is a "natural isomorphism" $\Nat(\Hombis^{(\placeholder)}, \placeholder) \isoCAT \Ev$.
@@ -216,7 +225,7 @@ It turns out this result is not very useful.%TODO: explain why not useful.
 		\end{tikzcd}
 	\end{equation}
 
-	($\Leftarrow$) First, we define $\projection_X$ and $\projection_Y$ to be the pair of "morphisms" corresponding to $\id_P$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(P,P)$. Given two "morphisms" $f: A \rightarrow X$ and $g: A \rightarrow Y$, the "isomorpshism@@CAT" 
+	($\Leftarrow$) First, we define $\projection_X$ and $\projection_Y$ to be the pair of "morphisms" corresponding to $\id_P$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(P,P)$. Given two "morphisms" $f: A \rightarrow X$ and $g: A \rightarrow Y$, the "isomorphism@@CAT" 
 	\[\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(A,P)\]
 	yields a unique "morphism" $!: A \rightarrow P$. To see that $\projection_X \circ {!} = f$ and $\projection_Y \circ {!} = g$ we start with $\id_P$ in the top right of \eqref{diag:productreprnaturaltwo} which "commutes" by hypothesis.
 	\begin{marginfigure}\begin{equation}\label{diag:productreprnaturaltwo}

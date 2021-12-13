@@ -608,7 +608,7 @@ What is more, the existence of an "isomorphism@@CAT" $\eta(A): A \rightarrow FG(
 \begin{defn}[Essentially surjective]
 	\AP A "functor" $F:\mathbf{C}\rightsquigarrow \mathbf{D}$ is ""essentially surjective"" if for any $X \in \obj{\mathbf{D}}$, there exists $Y \in \obj{\mathbf{C}}$ such that $X \isoCAT F(Y)$.
 \end{defn}
-We will show that these two properties ("full faithfulness" and "essential surjectivity" are necessary and sufficient for $F$ to be an "equivalence".
+We will show that these two properties ("full faithfulness" and "essential surjectivity") are necessary and sufficient for $F$ to be an "equivalence".
 \begin{thm}
 	A "functor" $F:\mathbf{C}\rightsquigarrow \mathbf{D}$ is an "equivalence" of "categories" if and only if $F$ is "fully faithful" and "essentially surjective".
 \end{thm}
@@ -647,7 +647,7 @@ The insight to extract from this argument is that two categories are "equivalent
 \begin{rem} We used the axiom of choice to construct the "quasi-inverse" of $F$.
 \end{rem}%TODO: check
 
-We will detail a couple of \textit{easy} examples of "equivalences" and briefly metion a few \textit{harder} ones. Of course, all the "isomorphisms@@CAT" of "categories" we saw earlier are examples of "equivalences" where the "natural isomorphisms" are identities.
+We will detail a couple of \textit{easy} examples of "equivalences" and briefly mention a few \textit{harder} ones. Of course, all the "isomorphisms@@CAT" of "categories" we saw earlier are examples of "equivalences" where the "natural isomorphisms" are identities.
 \begin{exmps}[Easy]\label{exmps:equiveasy}
 	\begin{enumerate}%TODO: weird behaviour of knowledge.
 		\itemAP Consider the "full@@CAT" "subcategory" of $\catFinSet$ consisting only of the sets $\emptyset, \{1\}, \{1,2\}, \dots, \{1,\dots,n\},\dots$, denote it $\intro*\catFinOrd$.\footnote{The name $\catFinOrd$ is an abbreviation of finite \href{https://en.wikipedia.org/wiki/Ordinal_number}{ordinals}, because we can also define $\catFinOrd$ as the "category" of finite ordinals and functions between them.} The "inclusion functor" is "fully faithful" by definition and we claim it is "essentially surjective". Indeed, any set $X \in \obj{\catFinSet}$ has a finite cardinality $n$, so $X \isoCAT \{1,\dots,n\} \in \obj{\catFinOrd}$.
