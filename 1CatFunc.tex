@@ -266,7 +266,7 @@ Many simple examples of "large" "categories" arise as "subcategories" of $\catSe
 Our last example is a "large" "category" which is neither a "subcategory" of $\catSet$ nor a "concrete category".
 \begin{exmp}[$\catRel$]\label{exmp:catRel}
     \AP The "category" of sets and relations, denoted $\intro*\catRel$, has as "objects" the "collection" of all sets, and for any sets $X$ and $Y$, $\Hom_{\catRel}(X,Y)$ is the set of relations between $X$ and $Y$, that is, the powerset of $X\times Y$. The "composition" of two relations $R \subseteq X\times Y$ and $S \subseteq Y\times Z$ is defined by\marginnote{\begin{rem}\label{rem:setsubrel}%TODO: check if it is referred to somewhere else. If not, no need for remark.
-		You can view $\catSet$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$, \[|\left\{ y \in Y\mid (x,y) \in R \right\}| = 1.\]
+		You can view $\catSet$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$, \[\cardinal{\left\{ y \in Y\mid (x,y) \in R \right\}} = 1.\]
 	\end{rem}}
     \[S\circ R = R;S := \{(x,z) \in X\times Z \mid \exists y \in Y, (x,y) \in R, (y,z) \in S\} \subseteq X \times Z.\]
     \AP One can check that this "composition" is "associative" and that, for any set $X$, the ""diagonal relation"" $\diagRel_X = \{(x,x) : x \in X\} \subseteq X \times X$ is the "identity" with respect to this "composition".
@@ -366,8 +366,8 @@ While bijectivity is very strong to compare sets --- it morally says that the el
 			\[\mP\id_X(S)= \{\id_X(x) \mid x \in S\} = \{ x \mid x \in S\} = S.\]
 		\end{enumerate}
 
-		The "powerset functor" is "faithful" because the same image map cannot arise from two different functions\footnote{Indeed, if $f(x) \neq g(x)$, then $f(\{x\}) \neq g(\{x\})$.}, it is not "full@@FUNC" because lots of functions $\mPcov(X) \rightarrow \mPcov(Y)$ are not image maps. A cardinality argument suffices: when $|X|, |Y| \geq 2$,
-		\[|\Hom_{\catSet}(X,Y)| = |Y|^{|X|} < |\mPcov(Y)|^{|\mPcov(X)|} = |\Hom_{\catSet}(\mPcov(X), \mPcov(Y))|.\]
+		The "powerset functor" is "faithful" because the same image map cannot arise from two different functions\footnote{Indeed, if $f(x) \neq g(x)$, then $f(\{x\}) \neq g(\{x\})$.}, it is not "full@@FUNC" because lots of functions $\mPcov(X) \rightarrow \mPcov(Y)$ are not image maps. A cardinality argument suffices: when $\cardinal{X}, \cardinal{Y} \geq 2$,
+		\[\cardinal{\Hom_{\catSet}(X,Y)} = \cardinal{Y}^{\cardinal{X}} < \cardinal{\mPcov(Y)}^{\cardinal{\mPcov(X)}} = \cardinal{\Hom_{\catSet}(\mPcov(X), \mPcov(Y))}.\]
 		\itemAP The "concrete categories" of Examples \ref{exmp:concreteCat} are defined using a "functor". 
 		\begin{defn}[Concrete category]\label{defn:concrete}
 			\AP We call a "category" $\mathbf{C}$ ""concrete"" if it is paired (generally implicitly) with a "faithful" "functor" $\forget: \mathbf{C} \rightsquigarrow \catSet$. \AP In most cases, $U$ is called the ""forgetful functor"" because it sends "objects" and "morphisms" of $\mathbf{C}$ to sets and functions by \emph{forgetting} additional structure.

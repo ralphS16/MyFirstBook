@@ -681,37 +681,117 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
             \end{tikzcd}
         \end{equation}
     \end{minipage}\\
+
+    % \begin{gather*}
+    %     (\widehat{\mu} \diamond \mu)\circ \widehat{M}\lambda M \circ \overline{M}(\widehat{\eta}\diamond \eta) = \mathbb{1}_\overline{M}\\
+    %     (\widehat{\mu} \diamond \mu)\circ \widehat{M}\lambda M \circ (\widehat{\eta}\diamond \eta)\overline{M} = \mathbb{1}_\overline{M}\\
+    %     (\widehat{\mu} \diamond \mu)\circ \widehat{M}\lambda M \circ  (\widehat{\mu} \diamond \mu)\overline{M}\circ \widehat{M}\lambda M\overline{M} =  (\widehat{\mu} \diamond \mu)\circ \widehat{M}\lambda M \circ  \overline{M}(\widehat{\mu} \diamond \mu)\circ \overline{M}\widehat{M}\lambda M
+    % \end{gather*}
+
     %TODO: make this into diagrams.
-    For the left part of \eqref{diag:unitcomposite}, we have the following diagram, the justifications of each part is given below with what diagram has to be considered and what functors should be applied to it (recall that acting on the diagrams does not affect commutativity). The notation \eqref{diag:unitmonad}.L (resp. .R) means only the left (resp. right) part of the diagram is considered.
-    \begin{equation}
- \begin{tikzcd}
- \overline{M} \arrow[rrrrrr, "\overline{M}(\widehat{\eta}\diamond \eta)", Rightarrow, bend left] \arrow[rrr, "\overline{M}\widehat{\eta}"] \arrow[rrrdd, "\overline{M}\widehat{\eta}"'] \arrow[rrrrrrddd, "\widehat{M}\widehat{\eta}M"', bend right=40] \arrow[rrrrrrdddd, "\one_{\overline{M}} = \one_{\widehat{M}}M"', Rightarrow, bend right=49] & {} \arrow[rrdd,  phantom, near start, "\text{(a)}"] & & \overline{M}\widehat{M} \arrow[rrr, "\overline{M}\widehat{M}\eta"] \arrow[rrd, "\overline{M}\eta\widehat{M}"'] \arrow[dd, "\widehat{M}\one_M\widehat{M}"'] & & {} \arrow[d,  phantom, "\text{(c)}"] & \overline{M}^2 \arrow[dd, "\widehat{M}\lambda M", Rightarrow] \\
- & & & {} \arrow[rr,  phantom, "\text{(b)}"] & & \overline{M}M\widehat{M} \arrow[ru, "\overline{M}\lambda"'] \arrow[lld, "\widehat{M}\mu\widehat{M}"] \arrow[rdd,  phantom, "\text{(d)}"] & \\
- & & & \overline{M}\widehat{M} \arrow[rrrd, "\widehat{M}\lambda"'] \arrow[d,  phantom, "\text{(e)}"] & & & \widehat{M}^2M^2 \arrow[dd, "\widehat{\mu} \diamond \mu", Rightarrow, bend left=49] \arrow[d, "\widehat{M}^2\mu"'] \\
- & & & {} & & {} & \widehat{M}^2M \arrow[d, "\widehat{\mu}M"'] \\
- & & & {} \arrow[u,  phantom, "\text{(f)}"] & & & \overline{M} 
- \end{tikzcd}
-    \end{equation}
-    \begin{enumerate}[(a)]
+    For the left part of \eqref{diag:unitcomposite}, we have the following "paving", the justifications of each part is given in the margin (the notation \eqref{diag:unitmonad}.L (resp. .R) means only the left (resp. right) part of the diagram is considered).\marginnote[4\baselineskip]{Showing \eqref{diag:leftunitcompositemon} "commutes":\begin{enumerate}[(a)]
+        \item Definition of $\horcomp$ and "functoriality" of $\overline{M}$.
         \item $\widehat{M}\one_M \widehat{M}$ is the identity transformation.
         \item Act on \eqref{diag:unitmonad}.L with $\widehat{M}$ on the left and right.
         \item Act on \eqref{diag:mondistlaw1}.R with $\overline{M}$ on the left.
         \item Act on \eqref{diag:mondistlaw2}.L with $\widehat{M}$ on the left.
         \item Act on \eqref{diag:mondistlaw1}.L with $\widehat{M}$ on the left.
         \item Act on \eqref{diag:unitmonad} with $M$ on the right.
-    \end{enumerate}
+        \item Definition of $\horcomp$.
+    \end{enumerate}}
+    \begin{equation}\label{diag:leftunitcompositemon}
+        % https://q.uiver.app/?q=WzAsMTAsWzAsMCwiXFxvdmVybGluZXtNfSJdLFszLDAsIlxcb3ZlcmxpbmV7TX1cXHdpZGVoYXR7TX0iXSxbNSwwLCJcXG92ZXJsaW5le019XjIiXSxbNCwxLCJcXG92ZXJsaW5le019TVxcd2lkZWhhdHtNfSJdLFs1LDIsIlxcd2lkZWhhdHtNfV4yTV4yIl0sWzQsMywiXFx3aWRlaGF0e019XjJNIl0sWzUsNCwiXFxvdmVybGluZXtNfSJdLFszLDIsIlxcb3ZlcmxpbmV7TX1cXHdpZGVoYXR7TX0iXSxbMywzLCJcXHdpZGVoYXR7TX1eMk0iXSxbMyw0LCJcXG92ZXJsaW5le019Il0sWzAsMSwiXFxvdmVybGluZXtNfVxcd2lkZWhhdHtcXGV0YX0iXSxbMSwyLCJcXG92ZXJsaW5le019XFx3aWRlaGF0e019XFxldGEiXSxbMSwzLCJcXG92ZXJsaW5le019XFxldGFcXHdpZGVoYXR7TX0iLDFdLFszLDIsIlxcb3ZlcmxpbmV7TX1cXGxhbWJkYSIsMV0sWzIsNCwiXFx3aWRlaGF0e019XFxsYW1iZGEgTSJdLFs0LDUsIlxcd2lkZWhhdHtNfV4yXFxtdSIsMV0sWzUsNiwiXFx3aWRlaGF0e1xcbXV9TSIsMV0sWzEsNywiXFx3aWRlaGF0e019XFxvbmVfTVxcd2lkZWhhdHtNfSIsMl0sWzMsNywiXFx3aWRlaGF0e019XFxtdVxcd2lkZWhhdHtNfSJdLFswLDcsIlxcb3ZlcmxpbmV7TX1cXHdpZGVoYXR7XFxldGF9IiwxXSxbNCw2LCJcXHdpZGVoYXR7XFxtdX1cXGhvcmNvbXBcXG11Il0sWzcsNSwiXFx3aWRlaGF0e019XFxsYW1iZGEiLDFdLFswLDIsIlxcb3ZlcmxpbmV7TX0oXFx3aWRlaGF0e1xcZXRhfVxcaG9yY29tcFxcZXRhKSIsMCx7ImN1cnZlIjotNX1dLFswLDgsIlxcd2lkZWhhdHtNfVxcd2lkZWhhdHtcXGV0YX1NIiwxLHsiY3VydmUiOjN9XSxbOCw1LCIiLDEseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDksIlxcb25lX3tcXG92ZXJsaW5le019fT1cXG9uZV97XFx3aWRlaGF0e019fU0iLDIseyJjdXJ2ZSI6NX1dLFs5LDYsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEwLDcsIlxcdGV4dHsoYil9IiwxLHsibGFiZWxfcG9zaXRpb24iOjQwLCJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwxOCwiXFx0ZXh0eyhjKX0iLDEseyJzaG9ydGVuIjp7InRhcmdldCI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTEsMywiXFx0ZXh0eyhkKX0iLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMywxNSwiXFx0ZXh0eyhlKX0iLDEseyJzaG9ydGVuIjp7InRhcmdldCI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTUsNiwiXFx0ZXh0eyhoKX0iLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMjIsMSwiXFx0ZXh0eyhhKX0iLDEseyJsYWJlbF9wb3NpdGlvbiI6NjAsInNob3J0ZW4iOnsic291cmNlIjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyMyw5LCJcXHRleHR7KGcpfSIsMSx7ImxhYmVsX3Bvc2l0aW9uIjo3MCwic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzE5LDgsIlxcdGV4dHsoZil9IiwxLHsibGFiZWxfcG9zaXRpb24iOjYwLCJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\begin{tikzcd}
+	{\overline{M}} &&& {\overline{M}\widehat{M}} && {\overline{M}^2} \\
+	&&&& {\overline{M}M\widehat{M}} \\
+	&&& {\overline{M}\widehat{M}} && {\widehat{M}^2M^2} \\
+	&&& {\widehat{M}^2M} & {\widehat{M}^2M} \\
+	&&& {\overline{M}} && {\overline{M}}
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{\overline{M}\widehat{\eta}}", from=1-1, to=1-4]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{\overline{M}\widehat{M}\eta}", from=1-4, to=1-6]
+	\arrow["{\overline{M}\eta\widehat{M}}"{description}, from=1-4, to=2-5]
+	\arrow["{\overline{M}\lambda}"{description}, from=2-5, to=1-6]
+	\arrow["{\widehat{M}\lambda M}", from=1-6, to=3-6]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "{\widehat{M}^2\mu}"{description}, from=3-6, to=4-5]
+	\arrow["{\widehat{\mu}M}"{description}, from=4-5, to=5-6]
+	\arrow["{\widehat{M}\one_M\widehat{M}}"', from=1-4, to=3-4]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "{\widehat{M}\mu\widehat{M}}", from=2-5, to=3-4]
+	\arrow[""{name=4, anchor=center, inner sep=0}, "{\overline{M}\widehat{\eta}}"{description}, from=1-1, to=3-4]
+	\arrow["{\widehat{\mu}\horcomp\mu}", from=3-6, to=5-6]
+	\arrow["{\widehat{M}\lambda}"{description}, from=3-4, to=4-5]
+	\arrow[""{name=5, anchor=center, inner sep=0}, "{\overline{M}(\widehat{\eta}\horcomp\eta)}", curve={height=-30pt}, from=1-1, to=1-6]
+	\arrow[""{name=6, anchor=center, inner sep=0}, "{\widehat{M}\widehat{\eta}M}"{description}, curve={height=18pt}, from=1-1, to=4-4]
+	\arrow[Rightarrow, no head, from=4-4, to=4-5]
+	\arrow["{\one_{\overline{M}}=\one_{\widehat{M}}M}"', curve={height=30pt}, from=1-1, to=5-4]
+	\arrow[Rightarrow, no head, from=5-4, to=5-6]
+	\arrow["{\text{(b)}}"{description, pos=0.4}, Rightarrow, draw=none, from=0, to=3-4]
+	\arrow["{\text{(c)}}"{description}, Rightarrow, draw=none, from=1-4, to=3]
+	\arrow["{\text{(d)}}"{description}, Rightarrow, draw=none, from=1, to=2-5]
+	\arrow["{\text{(e)}}"{description}, Rightarrow, draw=none, from=2-5, to=2]
+	\arrow["{\text{(h)}}"{description}, Rightarrow, draw=none, from=2, to=5-6]
+	\arrow["{\text{(a)}}"{description, pos=0.6}, Rightarrow, draw=none, from=5, to=1-4]
+	\arrow["{\text{(g)}}"{description, pos=0.7}, Rightarrow, draw=none, from=6, to=5-4]
+	\arrow["{\text{(f)}}"{description, pos=0.6}, Rightarrow, draw=none, from=4, to=4-4]
+\end{tikzcd}
+    \end{equation}
+    % \begin{enumerate}[(a)]
+    %     \item $\widehat{M}\one_M \widehat{M}$ is the identity transformation.
+    %     \item Act on \eqref{diag:unitmonad}.L with $\widehat{M}$ on the left and right.
+    %     \item Act on \eqref{diag:mondistlaw1}.R with $\overline{M}$ on the left.
+    %     \item Act on \eqref{diag:mondistlaw2}.L with $\widehat{M}$ on the left.
+    %     \item Act on \eqref{diag:mondistlaw1}.L with $\widehat{M}$ on the left.
+    %     \item Act on \eqref{diag:unitmonad} with $M$ on the right.
+    % \end{enumerate}
     %TODO: color important parts.
-    Without a diagram, the derivation is this (we use $;$ to denote the opposite of $\circ$, i.e.: composition in the order read on the diagram):
-    \begin{align*}
-        \overline{M}(\widehat{\eta} \diamond \eta);\widehat{M}\lambda M; \widehat{\mu}\diamond \mu &= \overline{M}\widehat{\eta}; \overline{M} \widehat{M}\eta; \widehat{M}\lambda M; \widehat{M}^2\mu;\widehat{\mu}M &&\mbox{def of $\diamond$}\\
-        &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M}; \overline{M}\lambda;\widehat{M}\lambda M; \widehat{M}\widehat{M}\mu;\widehat{\mu}M &&\mbox{$\overline{M}$\eqref{diag:mondistlaw1}.R}\\
-        &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M};\widehat{M}\mu \widehat{M} ; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag:mondistlaw2}.L}\\
-        &= \overline{M}\widehat{\eta}; \widehat{M}\one_M \widehat{M}; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag:unitmonad}.L$\widehat{M}$}\\
-        &= \overline{M}\widehat{\eta}; \widehat{M}\lambda;\widehat{\mu}M\\
-        &= \widehat{M}\widehat{\eta}M;\widehat{\mu}M&&\mbox{$\widehat{M}$\eqref{diag:mondistlaw1}.R}\\
-        &= \one_{\widehat{M}}M = \one_{\overline{M}}&&\mbox{\eqref{diag:unitmonad}.L$M$}\\
-    \end{align*}%diagram is stored below in comments.
-    For the right part of \eqref{diag:unitcomposite}, the derivation is very similar.
+    % Without a diagram, the derivation is this (we use $;$ to denote the opposite of $\circ$, i.e.: composition in the order read on the diagram):
+    % \begin{align*}
+    %     \overline{M}(\widehat{\eta} \diamond \eta);\widehat{M}\lambda M; \widehat{\mu}\diamond \mu &= \overline{M}\widehat{\eta}; \overline{M} \widehat{M}\eta; \widehat{M}\lambda M; \widehat{M}^2\mu;\widehat{\mu}M &&\mbox{def of $\diamond$}\\
+    %     &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M}; \overline{M}\lambda;\widehat{M}\lambda M; \widehat{M}\widehat{M}\mu;\widehat{\mu}M &&\mbox{$\overline{M}$\eqref{diag:mondistlaw1}.R}\\
+    %     &= \overline{M}\widehat{\eta}; \overline{M}\eta \widehat{M};\widehat{M}\mu \widehat{M} ; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag:mondistlaw2}.L}\\
+    %     &= \overline{M}\widehat{\eta}; \widehat{M}\one_M \widehat{M}; \widehat{M}\lambda;\widehat{\mu}M &&\mbox{$\widehat{M}$\eqref{diag:unitmonad}.L$\widehat{M}$}\\
+    %     &= \overline{M}\widehat{\eta}; \widehat{M}\lambda;\widehat{\mu}M\\
+    %     &= \widehat{M}\widehat{\eta}M;\widehat{\mu}M&&\mbox{$\widehat{M}$\eqref{diag:mondistlaw1}.R}\\
+    %     &= \one_{\widehat{M}}M = \one_{\overline{M}}&&\mbox{\eqref{diag:unitmonad}.L$M$}\\
+    % \end{align*}%diagram is stored below in comments.
+    For the right part of \eqref{diag:unitcomposite}, we have the following "paving".\marginnote[4\baselineskip]{Showing \eqref{diag:rightunitcompositemon} "commutes":\begin{enumerate}[(a)]
+        \item 
+    \end{enumerate}}
+    \begin{equation}\label{diag:rightunitcompositemon}
+        % https://q.uiver.app/?q=WzAsMTAsWzQsMCwiXFxvdmVybGluZXtNfSJdLFswLDAsIlxcb3ZlcmxpbmV7TX1eMiJdLFswLDIsIlxcd2lkZWhhdHtNfV4yTV4yIl0sWzAsNCwiXFxvdmVybGluZXtNfSJdLFsyLDAsIk1cXG92ZXJsaW5le019Il0sWzEsMywiXFx3aWRlaGF0e019TV4yIl0sWzIsMiwiTVxcb3ZlcmxpbmV7TX0iXSxbMSwxLCJNXFx3aWRlaGF0e019XFxvdmVybGluZXtNfSJdLFsyLDMsIlxcd2lkZWhhdHtNfU1eMiJdLFsyLDQsIlxcb3ZlcmxpbmV7TX0iXSxbMSwyLCJcXHdpZGVoYXR7TX1cXGxhbWJkYSBNIiwyXSxbMiwzLCJcXHdpZGVoYXR7XFxtdX1cXGhvcmNvbXBcXG11IiwyXSxbMCwxLCIoXFx3aWRlaGF0e1xcZXRhfVxcaG9yY29tcFxcZXRhKVxcb3ZlcmxpbmV7TX0iLDIseyJjdXJ2ZSI6NX1dLFswLDQsIlxcZXRhXFxvdmVybGluZXtNfSIsMl0sWzQsMSwiXFx3aWRlaGF0e1xcZXRhfU1cXG92ZXJsaW5le019IiwyXSxbMiw1LCJcXHdpZGVoYXR7XFxtdX1NXjIiLDFdLFs1LDMsIlxcd2lkZWhhdHtNfVxcbXUiLDFdLFs2LDUsIlxcbGFtYmRhIE0iLDFdLFs3LDEsIlxcbGFtYmRhIFxcb3ZlcmxpbmV7TX0iLDFdLFs3LDYsIk1cXHdpZGVoYXR7XFxtdX1NIiwyXSxbNCw3LCJNXFx3aWRlaGF0e1xcZXRhfVxcb3ZlcmxpbmV7TX0iLDFdLFs0LDYsIk1cXG9uZV97XFx3aWRlaGF0e019fU0iXSxbMCw2LCJcXGV0YVxcb3ZlcmxpbmV7TX0iLDFdLFs4LDUsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsOCwiXFx3aWRlaGF0e019XFxldGEgTSIsMSx7ImN1cnZlIjotM31dLFs5LDMsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsOSwiXFx3aWRlaGF0e019XFxvbmVfTSA9IFxcb25lX3tcXG92ZXJsaW5le019fSIsMCx7ImN1cnZlIjotNX1dLFsxMiw0LCJcXHRleHR7KGEpfSIsMSx7ImxhYmVsX3Bvc2l0aW9uIjo2MCwic2hvcnRlbiI6eyJzb3VyY2UiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEzLDYsIlxcdGV4dHsoYil9IiwxLHsibGFiZWxfcG9zaXRpb24iOjMwLCJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNCwxOSwiXFx0ZXh0eyhjKX0iLDEseyJzaG9ydGVuIjp7InRhcmdldCI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTQsNywiXFx0ZXh0eyhkKX0iLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNywxNSwiXFx0ZXh0eyhlKX0iLDEseyJzaG9ydGVuIjp7InRhcmdldCI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMjIsMjQsIlxcdGV4dHsoZil9IiwxLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzI0LDksIlxcdGV4dHsoZyl9IiwxLHsibGFiZWxfcG9zaXRpb24iOjcwLCJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTUsMTYsIlxcdGV4dHsoaCl9IiwxLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
+\begin{tikzcd}
+	{\overline{M}^2} && {M\overline{M}} && {\overline{M}} \\
+	& {M\widehat{M}\overline{M}} \\
+	{\widehat{M}^2M^2} && {M\overline{M}} \\
+	& {\widehat{M}M^2} & {\widehat{M}M^2} \\
+	{\overline{M}} && {\overline{M}}
+	\arrow["{\widehat{M}\lambda M}"', from=1-1, to=3-1]
+	\arrow["{\widehat{\mu}\horcomp\mu}"', from=3-1, to=5-1]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{(\widehat{\eta}\horcomp\eta)\overline{M}}"', curve={height=30pt}, from=1-5, to=1-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{\eta\overline{M}}"', from=1-5, to=1-3]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "{\widehat{\eta}M\overline{M}}"', from=1-3, to=1-1]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "{\widehat{\mu}M^2}"{description}, from=3-1, to=4-2]
+	\arrow[""{name=4, anchor=center, inner sep=0}, "{\widehat{M}\mu}"{description}, from=4-2, to=5-1]
+	\arrow["{\lambda M}"{description}, from=3-3, to=4-2]
+	\arrow["{\lambda \overline{M}}"{description}, from=2-2, to=1-1]
+	\arrow[""{name=5, anchor=center, inner sep=0}, "{M\widehat{\mu}M}"', from=2-2, to=3-3]
+	\arrow["{M\widehat{\eta}\overline{M}}"{description}, from=1-3, to=2-2]
+	\arrow["{M\one_{\widehat{M}}M}", from=1-3, to=3-3]
+	\arrow[""{name=6, anchor=center, inner sep=0}, "{\eta\overline{M}}"{description}, from=1-5, to=3-3]
+	\arrow[Rightarrow, no head, from=4-3, to=4-2]
+	\arrow[""{name=7, anchor=center, inner sep=0}, "{\widehat{M}\eta M}"{description}, curve={height=-18pt}, from=1-5, to=4-3]
+	\arrow[Rightarrow, no head, from=5-3, to=5-1]
+	\arrow["{\widehat{M}\one_M = \one_{\overline{M}}}", curve={height=-30pt}, from=1-5, to=5-3]
+	\arrow["{\text{(a)}}"{description, pos=0.6}, Rightarrow, draw=none, from=0, to=1-3]
+	\arrow["{\text{(b)}}"{description, pos=0.3}, Rightarrow, draw=none, from=1, to=3-3]
+	\arrow["{\text{(c)}}"{description}, Rightarrow, draw=none, from=1-3, to=5]
+	\arrow["{\text{(d)}}"{description}, Rightarrow, draw=none, from=2, to=2-2]
+	\arrow["{\text{(e)}}"{description}, Rightarrow, draw=none, from=2-2, to=3]
+	\arrow["{\text{(f)}}"{description}, Rightarrow, draw=none, from=6, to=7]
+	\arrow["{\text{(g)}}"{description, pos=0.7}, Rightarrow, draw=none, from=7, to=5-3]
+	\arrow["{\text{(h)}}"{description}, Rightarrow, draw=none, from=3, to=4]
+\end{tikzcd}
+    \end{equation}
+
     
     For \eqref{diag:multcomposite}, we do the same thing.
     \begin{center}

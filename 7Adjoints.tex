@@ -216,6 +216,7 @@ Our main point in the introduction to this chapter was that grouping "universal 
 \begin{cor}["Dual@@CAT"]
     A "category" $\mathbf{C}$ has all "colimits" of shape $\mathbf{J}$ if and only if the "functor" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$ has a "left adjoint".
 \end{cor}
+%TODO: prove that limits are "commutative" in the very general sense.
 
 In the rest of this chapter, we will see many examples of "adjunctions" and results about "adjoint" "functors" and try to have a balance between the different definitions we use.\footnote{We try to care about which definition is easiest to use but it is not always possible.} We start with a long list of examples.%TODO: find example for unit and counit instead of maybe functor to respect this.
 \begin{exmps}[Old stuff]
@@ -695,8 +696,8 @@ Let us now turn to the many great properties of "adjoint" "functors".
             \arrow[""{name=0, anchor=center, inner sep=0}, "{\Uncurry{}}", shift left=2, from=1-5, to=1-4]
             \arrow[""{name=1, anchor=center, inner sep=0}, "{\lim_{\mathbf{J}} \circ \placeholder}", shift left=2, from=1-2, to=1-1]
             \arrow[""{name=2, anchor=center, inner sep=0}, "{\Curry{}}", shift left=2, from=1-4, to=1-5]
-            \arrow[""{name=3, anchor=center, inner sep=0}, "{\placeholder \circ \mathsf{swap}^{-1}}", shift left=2, from=1-4, to=1-3]
-            \arrow[""{name=4, anchor=center, inner sep=0}, "{\placeholder \circ \mathsf{swap}}", shift left=2, from=1-3, to=1-4]
+            \arrow[""{name=3, anchor=center, inner sep=0}, "{\placeholder \circ \swap^{-1}}", shift left=2, from=1-4, to=1-3]
+            \arrow[""{name=4, anchor=center, inner sep=0}, "{\placeholder \circ \swap}", shift left=2, from=1-3, to=1-4]
             \arrow[""{name=5, anchor=center, inner sep=0}, "{\Uncurry{}}", shift left=2, from=1-2, to=1-3]
             \arrow[""{name=6, anchor=center, inner sep=0}, "{\gdiagFunc_{\mathbf{D}}^{\mathbf{J}}\circ \placeholder}", shift left=2, from=1-1, to=1-2]
             \arrow[""{name=7, anchor=center, inner sep=0}, "{\Curry{}}", shift left=2, from=1-3, to=1-2]
@@ -706,9 +707,9 @@ Let us now turn to the many great properties of "adjoint" "functors".
             \arrow["\adjoint"{anchor=center, rotate=-90}, draw=none, from=6, to=1]
         \end{tikzcd}
     \end{equation}
-    From left to right. The first "adjunction" is induced by Proposition \ref{prop:adjcompisadj} and the "adjunction" $\gdiagFunc_{\mathbf{D}}^{\mathbf{J}} \adjoint \lim_{\mathbf{J}}$ given by "completeness" of $\mathbf{D}$. The second "adjunction" is obtained from Proposition \ref{prop:equivadj} and the fact that $\Curry{}$ and $\Uncurry{}$ are "inverses". The third "adjunction" is induced by Corollary \ref{cor:adjcompisadjdual} and the canonical "isomorphism@@CAT" $\mathsf{swap} : \mathbf{C} \cattimes \mathbf{J} \rightsquigarrow \mathbf{J} \cattimes \mathbf{C}$.\footnote{One could also see that $\placeholder \circ \mathsf{swap}$ and $\placeholder\circ \mathsf{swap}^{-1}$ are inverses.} The fourth "adjunction" is similar to the second one.
+    From left to right. The first "adjunction" is induced by Proposition \ref{prop:adjcompisadj} and the "adjunction" $\gdiagFunc_{\mathbf{D}}^{\mathbf{J}} \adjoint \lim_{\mathbf{J}}$ given by "completeness" of $\mathbf{D}$. The second "adjunction" is obtained from Proposition \ref{prop:equivadj} and the fact that $\Curry{}$ and $\Uncurry{}$ are "inverses". The third "adjunction" is induced by Corollary \ref{cor:adjcompisadjdual} and the canonical "isomorphism@@CAT" $\swap : \mathbf{C} \cattimes \mathbf{J} \rightsquigarrow \mathbf{J} \cattimes \mathbf{C}$.\footnote{One could also see that $\placeholder \circ \swap$ and $\placeholder\circ \swap^{-1}$ are inverses.} The fourth "adjunction" is similar to the second one.
 
-    There is a simpler way to describe the "composition" of the three rightmost "adjunctions". If we view a "functor" $F: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{J}}{\mathbf{D}}$ as taking two arguments and write it $F(\placeholder_1)(\placeholder_2)$, the "composition" $\Curry{} \circ (\placeholder \circ \mathsf{swap}) \circ \Uncurry{}$ (the top "path") swaps the order of the arguments to yield the "functor" $F(\placeholder_2)(\placeholder_1): \mathbf{J} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$. The bottom "path" swaps back the arguments.
+    There is a simpler way to describe the "composition" of the three rightmost "adjunctions". If we view a "functor" $F: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{J}}{\mathbf{D}}$ as taking two arguments and write it $F(\placeholder_1)(\placeholder_2)$, the "composition" $\Curry{} \circ (\placeholder \circ \swap) \circ \Uncurry{}$ (the top "path") swaps the order of the arguments to yield the "functor" $F(\placeholder_2)(\placeholder_1): \mathbf{J} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$. The bottom "path" swaps back the arguments.
 
     Next, we show that the "composition" of the top "path" is $\gdiagFunc_{\catFunc{\mathbf{C}}{\mathbf{D}}}^{\mathbf{J}}$. Starting with a "functor" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$, the first "left adjoint" sends it to $\gdiagFunc_{\mathbf{D}}^{\mathbf{J}} \circ F$ which sends $X\in \obj{\mathbf{C}}$ to the "constant functor" at $FX$ and $f: X \rightarrow Y \in \mor{\mathbf{C}}$ to the "natural transformation" whose "components" are all $Ff: FX \rightarrow FY$. Applying the three other "left adjoints", we obtain a "functor" which sends any $j \in \obj{\mathbf{J}}$ to the "functor" $F$ and any $m: j \rightarrow j' \in \mor{\mathbf{J}}$ to $\one_F$. We conclude that the top "path" sends $F$ to the "constant functor" at $F$.
 

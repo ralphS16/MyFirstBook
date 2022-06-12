@@ -15,7 +15,7 @@
 \usepackage{etoolbox}
 \usepackage{verbatim}
 \usepackage{subfiles}
-\usepackage[paper,xcolor,hyperref,notion,quotation]{knowledge}
+\usepackage[xcolor,hyperref,notion,quotation]{knowledge}
 \usepackage{enumerate}
 \allowdisplaybreaks
 % A TikZ style for curved arrows of a fixed height, due to AndréC.
@@ -66,7 +66,6 @@
 \newcommand{\Mod}[1]{\ (\text{mod}\ #1)}
 \newcommand{\mC}{\mathcal{C}}
 \newcommand{\mG}{\mathcal{G}}
-\newcommand{\mP}{\mathcal{P}}
 \renewcommand{\P}{\mathbb{P}}
 \DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\aut}{Aut}
@@ -85,7 +84,7 @@
 \DeclareMathOperator{\syl}{Syl}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\inp}[2]{\left\langle #1, #2 \right\rangle}
-\newcommand{\gln}{\mathrm{GL}_n}
+\newcommand{\gln}{\kl[gln]{\mathrm{GL}}_n}
 \newcommand{\xRightarrow}[1]{\stackrel{#1}{\Longrightarrow}}
 
 \geometry{
@@ -104,7 +103,7 @@
 \setsidenotefont{\color{black}\footnotesize}
 \setmarginnotefont{\color{black}\footnotesize}
 
-\input{know.tex}
+\input{know.tex} %TODO: switch to withkl and cmdkl
 \newrobustcmd{\source}{\kl[source]{s}}
 \newrobustcmd{\target}{\kl[target]{t}}
 \newrobustcmd{\obj}[1]{#1_{\kl[objects]{0}}}
@@ -122,8 +121,11 @@
 \newrobustcmd{\diagRel}{\kl[diagonal relation]{\Delta}}
 \newrobustcmd{\diagFunc}{\kl[diagonal functor]{\Delta}}
 \newrobustcmd{\gdiagFunc}{\kl[gdf]{\Delta}}
+\newrobustcmd{\mP}{\kl[powerset]{\mathcal{P}}}
 \newrobustcmd{\mPcov}{\kl[powerset functor]{\mathcal{P}}}
 \newrobustcmd{\mPcontr}[1]{\kl[contravariant powerset functor]{2}^{#1}}
+\newrobustcmd{\cardinal}[1]{\kl[cardinal]{|}#1\kl[cardinal]{|}}
+\newrobustcmd{\conjug}[1]{\kl[conjugation]{\mathsf{c}}_{#1}}
 \newrobustcmd{\forget}{\kl[forgetful]{U}}
 \newrobustcmd{\free}{\kl(FUNC)[free]{F}}
 \newrobustcmd{\deloopobject}{\kl[deloopobject]{\ast}}
@@ -133,6 +135,7 @@
 \newrobustcmd{\precomp}[1]{\kl[pre-composition]{{\kern0pt#1}^{*}}}
 \newrobustcmd{\dual}[1]{#1^{\kl(VECT)[dual]{*}}}
 \newrobustcmd{\op}[1]{{\kern0pt#1}^{\kl[opposite]{\mathrm{op}}}}
+\newrobustcmd{\nsub}{\mathrel{\kl[normal]{\lhd}}}
 \newrobustcmd{\isoCAT}{\mathrel{\kl(CAT)[isomorphic]{\cong}}}
 \newrobustcmd{\isoMON}{\mathrel{\kl(MON)[isomorphic]{\cong}}}
 \newrobustcmd{\isoGRP}{\mathrel{\kl(GRP)[isomorphic]{\cong}}}
@@ -151,7 +154,7 @@
 \newrobustcmd{\cattimes}{\mathbin{\kl[cattimes]{\times}}}
 \newrobustcmd{\functimes}{\mathbin{\kl[functimes]{\times}}}
 \newrobustcmd{\eqclass}[1]{\left[ #1 \right]}
-\newrobustcmd{\gen}[1]{\left\langle #1 \right\rangle}
+\newrobustcmd{\gen}[1]{\mathopen{\kl(GRP)[generates]{\langle}} #1 \mathclose{\kl(GRP)[generates]{\rangle}}}
 \newrobustcmd{\coker}{\kl[cokernel]{\mathrm{coker}}}
 \newrobustcmd{\pushout}[1]{\mathbin{\kl[pushout]{+}_{#1}}}
 \newrobustcmd{\pullback}[1]{\mathbin{\kl[pullback]{\times}_{#1}}}
@@ -189,6 +192,7 @@
 \newrobustcmd{\NOW}{\kl[nowexer]{NOW!}}
 \newrobustcmd{\kermon}{\kl(MON)[kernel]{\ker}}
 \newrobustcmd{\kergrp}{\kl(GRP)[kernel]{\ker}}
+\newrobustcmd{\kerring}{\kl(RING)[kernel]{\ker}}
 \newrobustcmd{\infimum}{\mathbin{\kl[infimum]{\wedge}}}
 \newrobustcmd{\supremum}{\mathbin{\kl[supremum]{\vee}}}
 \newrobustcmd{\placeholder}{\kl[placeholder]{-}}
@@ -203,8 +207,8 @@
 \newrobustcmd{\adjoint}{\mathrel{\kl[adjoint]{\dashv}}}
 \newrobustcmd{\transpose}[1]{{\kern0pt#1}^{\kl[transpose]{\mathrm{t}}}}
 \newrobustcmd{\pfun}{\mathrel{\kl[partial]{\rightharpoonup}}}
-\newrobustcmd{\pull}[2]{{\kern0pt#1}^{\kl[apull]{*}}\left( {#2} \right)}
-\newrobustcmd{\push}[2]{{\kern0pt#1}_{\kl[apush]{*}}\left( {#2} \right)}
+\newrobustcmd{\pull}[2]{{\kern0pt#1}^{\kl[apull]{*}}( #2 )}
+\newrobustcmd{\push}[2]{{\kern0pt#1}_{\kl[apush]{*}}(#2)}
 \newrobustcmd{\charac}{\kl[characteristic]{\chi}}
 \newrobustcmd{\Power}{\kl[power object]{\mathfrak{P}}}
 \newrobustcmd{\Sub}{\kl[subobject]{\mathrm{Sub}}}
@@ -232,6 +236,7 @@
 \newrobustcmd{\sourcearr}{\kl[sourcearr]{\mathsf{s}}}
 \newrobustcmd{\targetarr}{\kl[targetarr]{\mathsf{t}}}
 \newrobustcmd{\constFunc}[1]{\kl[constant functor]{\Delta}(#1)}
+\newrobustcmd{\swap}{\kl[swap]{\mathsf{swap}}}
 
 \renewcommand{\succ}{\textsf{succ}}
 \newcommand{\Str}{\textsf{Str}}
@@ -277,8 +282,27 @@
 \title{My First Category Theory Textbook}\author{Ralph Sarkis} % Your name
 \begin{document}
 %\justifying
-\frontmatter
-%\maketitle
+%\frontmatter
+% \input{titlepage.tex}
+% \maketitle
+\setcounter{secnumdepth}{1}
+\titleformat{\chapter}[hang]{\huge\rmfamily\bfseries}{\thechapter}{2em}{}[]
+\titleformat{\section}[hang]{\Large\rmfamily\bfseries}{\thesection}{2em}{}[]
+\titleformat{\subsection}[hang]{\large\rmfamily\bfseries}{\thesubsection}{1em}{}[]
+\titlecontents{chapter}%
+[1em] % distance from left margin
+{\vspace{0.2\baselineskip}\begin{fullwidth}\Large\rmfamily\bfseries} % above (global formatting of entry)
+{\hspace*{0em}\contentslabel{2em}} % before w/label (label = ``2'')
+{\hspace*{0em}} % before w/o label
+{\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+[\end{fullwidth}] % after
+\titlecontents{section}% FIXME
+[3em] % distance from left margin
+{\vspace{0\baselineskip}\begin{fullwidth}\large\rmfamily\bfseries} % above (global formatting of entry)
+{\hspace*{2em}\contentslabel{2em}} % before w/label (label = ``2.6'')
+{\hspace*{2em}} % before w/o label
+{\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+[\end{fullwidth}] % after
 
 
 %TODO: knowledge for rightsquigarrow.
@@ -306,6 +330,7 @@
 %TODO: talk about paving diagrams as being a softer version of diagram chasing because there is no need to use universal properties. So diagram paving is a subset of diagram chasing.
 %TODO: When I first tried to learn category theory, I realized there was a blatant gap in the market of category theory textbooks: there was no book made for me. For this reason, I had to look at multiple textbooks in order to learn at my own pace. This book conveniently fills this gap.
 %TODO: category theory is just as hard to explain to someone that does not know about it as mathematics. How would you convince someone that doesnt know what mathematics is to learn about it? Very hard to answer and same for category theory, I will try to give a 1% satisfactory answer and I hope this book accounts for the rest of the 99%. In this idea, category theory is not necessarily a language to do maths, we will do maths and use a lot of maths because that is the context of this book but it is not necessary, see PQP.
+\setcounter{tocdepth}{1}
 \tableofcontents
 \subfile{0Prelim.tex}
 \subfile{1CatFunc.tex}

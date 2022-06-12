@@ -370,10 +370,10 @@ In the next Proposition, we will generalize this result to see how any "universa
 		\end{tikzcd}
 	\end{equation}\end{marginfigure}
 \end{proof}
-\begin{cor}["Dual@@CAT"]\label{prop:universalreprdual}
+\begin{cor}["Dual@@CAT"]\label{cor:universalreprdual}
 	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor" and $X \in \obj{\mathbf{D}}$. There is a "universal morphism" from $F$ to $X$ if and only if there exists $A \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{D}}(F\placeholder,X) \isoCAT \Hom_{\mathbf{C}}(\placeholder,A)$.
 \end{cor}
-Comparing Propositions \ref{prop:limitrepr} and \ref{prop:universalreprdual} and their "duals@@CAT", we infer that "(co)@colimit""limits" satisfy "universal properties".
+Comparing Propositions \ref{prop:limitrepr} and \ref{prop:universalrepr} and their "duals@@CAT", we infer that "(co)@colimit""limits" satisfy "universal properties".
 \begin{thm}\label{thm:limituniversal}
 	Let $F\in \obj{\catFunc{\mathbf{J}}{\mathbf{C}}}$ be a "diagram".
 	\begin{itemize}
@@ -383,4 +383,43 @@ Comparing Propositions \ref{prop:limitrepr} and \ref{prop:universalreprdual} and
 \end{thm}
 %TODO: can we make this about limit preservation, reflection and creation ? Then prove that Hom preserves limits.
 In the next chapter, we will lift these correspondence to a more global version. Namely, we will see how to assemble the "universal morphisms" for all "diagrams" of shape $\mathbf{J}$ into a powerful "object".
+
+%TODO: Use Yoneda with the previous section to derive some stuff like A^(X^Y) = A^(X \times Y) and so on... Start with : in order to use Yoneda, we need to show examples of how representability is useful. Universality is the most useful concept, let's see how these are linked.
+
+%TODO: section on colimits of representable. Maybe in a bonus chapter on stuff that could fit but decided to make the book a little shorter?
+% \newpage
+% Let $\{\eta_{x,X}: H_X \Rightarrow K \mid (x,X) \in \int_{\mathbf{C}} F\}$ be a cocone. You find that $!_X: FX \rightarrow KX$ must be defined by $x \mapsto \eta_{x,X}(X)(\id_X)$. Now, you need to show this is natural. Let $f : Y \rightarrow X$, you want to show this commutes.
+% \begin{equation*}
+% 	% https://q.uiver.app/?q=WzAsNCxbMCwwLCJGWCJdLFswLDEsIkZZIl0sWzEsMSwiS1kiXSxbMSwwLCJLWCJdLFsxLDIsIiFfWSIsMl0sWzAsMSwiRihmKSIsMl0sWzAsMywiIV9YIl0sWzMsMiwiSyhmKSJdXQ==
+% \begin{tikzcd}
+% 	FX & KX \\
+% 	FY & KY
+% 	\arrow["{!_Y}"', from=2-1, to=2-2]
+% 	\arrow["{F(f)}"', from=1-1, to=2-1]
+% 	\arrow["{!_X}", from=1-1, to=1-2]
+% 	\arrow["{K(f)}", from=1-2, to=2-2]
+% \end{tikzcd}
+% \end{equation*}
+% Starting with $x$ in the top left, the bottom path yields $\eta_{Ff(x),Y}(Y)(\id_Y)$ and the top path yields $(K(f)\circ \eta_{x,X}(X))(\id_X)$. Now, by assumption that the $\eta$'s form a cocone, this diagram commutes.
+% \begin{equation*}
+% 	% https://q.uiver.app/?q=WzAsMyxbMSwwLCJIX1kiXSxbMCwwLCJIX1giXSxbMCwxLCJLIl0sWzAsMSwiSF9mIiwyXSxbMCwyLCJcXGV0YV97RmYoeCksWX0iXSxbMSwyLCJcXGV0YV97eCxYfSIsMl1d
+% \begin{tikzcd}
+% 	{H_X} & {H_Y} \\
+% 	K
+% 	\arrow["{H_f}"', from=1-2, to=1-1]
+% 	\arrow["{\eta_{Ff(x),Y}}", from=1-2, to=2-1]
+% 	\arrow["{\eta_{x,X}}"', from=1-1, to=2-1]
+% \end{tikzcd}
+% \end{equation*}
+% Which we can instantiate at $Y$ to get \[\eta_{Ff(x),Y}(Y) = \eta_{x,X}(Y) \circ H_f^Y.\]
+% Now, on the R.H.S., we can almost apply the fact that $\eta_{x,X}$ is natural from $H_X$ to $K$ to make a $K$ appear and have $\eta_{x,X}(X)$. The problem is that we would like to have $H^f_X$ instead of $H^Y_f$. We had a similar problem when proving Yoneda, go look at how we solved it and use this technique here.
+
+
+% So the result of the bottom path can be simplified/expanded to the following.
+% \begin{align*}
+% 	\eta_{Ff(x),Y}(Y)(\id_Y) &= \left( \eta_{x,X}(Y) \circ H_f^Y \right)(\id_Y)\\
+% 	&= \eta_{x,X}(Y)(f)\\
+% 	&= \left( \eta_{x,X}(Y) \circ H_X^f \right)(\id_X)\\
+% 	&= \left( K(f) \circ \eta_{x,X}(X) \right)(\id_X)
+% \end{align*}
 \end{document}

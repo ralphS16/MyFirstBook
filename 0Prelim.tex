@@ -1,52 +1,55 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
 \chapter{Preliminaries}\label{chap:prelim}
-Our main goal is to introduce notation and terminology so that this book is self-contained.\footnote{Especially with the heavy use of the \texttt{"knowledge"} package, I felt it was necessary to cover enough background material in order to have the least amount of external links in the book.}
+Our main goal here is to introduce enough notation and terminology so that this book is self-contained.\footnote{Especially with the heavy use of the \texttt{"knowledge"} package, I felt it was necessary to cover enough background material in order to have the least amount of external links in the book.}
 
 We assume you are familiar and comfortable with basic concepts about sets (e.g.: subsets, union, Cartesian product, cardinality, equivalence classes, quotients, etc.), functions (e.g.: injectivity, surjectivity, inverses, (pre)image, etc.), logic (e.g.: quantifiers, implication) and proofs (e.g.: you can write, read and understand proofs),\footnote{The very first things usually taught in early undergraduate mathematics courses.} and we will not recall anything here. However, we need to have a little talk about foundations.
 
-\AP Several times in our coverage of category theory, we will use the term ""collection"" in order to avoid set-theoretical paradoxes. "Collections" are supposed to behave just like sets except that we will never consider "collections" containing other "collections". We do not make it more formal because there are many ways to do it\footnote{Most commonly, people use classes or Grothendieck universes. If this sticky point worries you, we suggest you keep it in the back of your mind and go read \url{https://arxiv.org/pdf/0810.1279.pdf} when you are a bit more comfortable with category theory.} and none of them are relevant to this course. However, you still need to know why we cannot use sets as is usual in all other courses.
+\AP Several times in our coverage of category theory, we will use the term ""collection"" in order to avoid set-theoretical paradoxes. "Collections" are supposed to behave just like sets except that we will never consider "collections" containing other "collections". We do not make it more formal because there are many ways to do it\footnote{Most commonly, people use classes or Grothendieck universes. If this sticky point worries you, I suggest you keep it in the back of your mind and go read \url{https://arxiv.org/pdf/0810.1279.pdf} when you are a bit more comfortable with category theory.} and none of them are relevant to this course. However, you still need to know why we cannot use sets as is usual in all other courses.
 
-In short, there exist "collections" of objects that cannot be sets.\footnote{Famous examples include the "collection" of ordinal numbers which, by the Burali--Forti paradox, cannot be a set and the "collection" of all sets that do not contain themselves which, by the Russel paradox, cannot be a set.} In our case, we will need to talk about the "collection" of all sets and the "collection" of all groups (among others) and they cannot form sets. For the former, it is easy to see because if $S$ is the set of all sets, then it contains all its subsets and hence $\mP(S) \subseteq S$, this leads to the contradiction $|\mP(S)| \leq |S| < |\mP(S)|$.
+In short, there exist "collections" of objects that cannot be sets.\footnote{Famous examples include the "collection" of ordinal numbers which, by the Burali--Forti paradox, cannot be a set and the "collection" of all sets that do not contain themselves which, by the Russel paradox, cannot be a set.} In our case, we will need to talk about the "collection" of all sets and the "collection" of all groups (among others) and they cannot form sets. For the former, it is easy to see because if $S$ is the set of all sets, then it contains all its subsets and hence $\mP(S) \subseteq S$, this leads to the contradiction $\cardinal{\mP(S)} \leq \cardinal{S} < \cardinal{\mP(S)}$.\footnote{\AP For a set $X$, $\cardinal{X}$ denotes the ""cardinal"" of $X$ and $\mP(X)$ denotes the ""powerset"" of $X$, i.e. the set of all subsets of $X$. The strict inequality $\cardinal{S} < \cardinal{\mP(S)}$ is due to Georg Cantor's famous \href{https://en.wikipedia.org/wiki/Cantor's_diagonal_argument}{diagonalization argument}.}
 
 In the rest of this chapter, we cover the necessary background that we will use in the rest of the book. It is supposed to be a quick and (unfortunately) dry overview of stuff you may or may not have seen, so we will not dwell on explanations, intuitions and motivations.\footnote{Contrarily to the other chapters of this book.} You can safely skip these sections and come back whenever you click on a word or symbol that is defined here. We hope that this will save you from several trips to Wikipedia.
 \section{Abstract Algebra}
 Here we recall definitions, examples and results you may have seen in classes on abstract algebra or linear algebra.\footnote{"Monoids" are not commonly covered, but they are simpler than "groups" and we need them at one point so we present them here.}
 \subsection{Monoids}
 \begin{defn}[Monoid]
-    \AP A ""monoid"" is set $M$ equipped with a binary operation $\cdot: M\times M \rightarrow M$ called ""multiplication@@MON"" and an ""identity@@MON"" element\footnote{Some authors call $1_M$ the \textbf{unity} or the \textbf{neutral} element.} $1_M$ satisfying for all $x,y,z \in M$
+    \AP A ""monoid"" is a set $M$ equipped with a binary operation $\cdot: M\times M \rightarrow M$ (written infix) called ""multiplication@@MON"" and an ""identity@@MON"" element\footnote{Some authors call $1_M$ the \textbf{unit} or the \textbf{neutral} element.} $1_M$ satisfying for all $x,y,z \in M$
     \[(x\cdot y) \cdot z = x \cdot (y\cdot z) \quad \text{ and } \quad 1_M \cdot x = x = x \cdot 1_M.\]
     \AP If it satisfies $\forall x,y \in M, x\cdot y = y \cdot x$, $M$ is a ""commutative monoid"".\marginnote{Depending on the context, we will refer to a "monoid" either as $M$ or $(M,\cdot)$ or $(M,\cdot, 1_M)$.}
 \end{defn}
 \begin{rem}
-    We will quickly drop the $\cdot$ symbol and denote "multiplication@@MON" with plain juxtaposition (i.e.: $xy:= x\cdot y$) for "monoids" and other algebraic structures with a multiplication.
+    We will quickly drop the $\cdot$ symbol and denote "multiplication@@MON" with plain juxtaposition (i.e. $xy:= x\cdot y$) for "monoids" and other algebraic structures with a multiplication.
 \end{rem}
 \begin{exmps}
     \begin{enumerate}
-        \item For any set $S$, the set of function from $S$ to itself form a "monoid" with the "multiplication@@MON" being composition and the "identity@@MON" being the identity map $s \mapsto s$.
-        \item The sets $\N$, $\Z$, $\Q$ and $\R$ equipped with the operation of addition are all "commutative monoids".
-        \item For any set $S$, the "powerset" $\mP(S)$ has two simple "monoid" structures: one where the "multiplication@@MON" is $\cup$ and the "identity@@MON" if $\emptyset\subseteq S$ and the other where "multiplication@@MON" is $\cap$ and the "identity@@MON" is $S\subseteq S$.
+        \item For any set $S$, the set of function from $S$ to itself forms a "monoid" with the "multiplication@@MON" being composition of functions and the "identity@@MON" being the identity function $s \mapsto s$. We denote this "monoid" by $S^S$.
+        \item The sets $\N$, $\Z$, $\Q$ and $\R$\footnote{\AP The symbols $\intro*\N$, $\intro*\Z$, $\intro*\Q$ and $\intro*\R$ denote respectively the sets of natural numbers, integers, rationals and real numbers.} equipped with the operation of addition are all "commutative monoids".
+        \item For any set $S$, the "powerset" $\mP(S)$ has two simple "monoid" structures: one where the "multiplication@@MON" is $\cup$ and the "identity@@MON" is $\emptyset\subseteq S$, and the other where "multiplication@@MON" is $\cap$ and the "identity@@MON" is $S\subseteq S$.
     \end{enumerate}
 \end{exmps}
+\begin{defn}[Submonoid]
+    \AP Given a "monoid" $M$, a ""submonoid"" of $M$ is a subset $N\subseteq M$ containing $1_M$ that is closed under "multiplication@@MON" (i.e. $\forall x,y \in N, x\cdot y \in N$).\footnote{This implies $N$ is also a "monoid" with the "multiplication@@MON" and "identity@@MON" inherited from $M$.}
+\end{defn}
+\begin{exmp}
+	For any set $S$, the set of bijections from $S$ to itself, denoted by $\Perm_S$, is a "submonoid" of $S^S$ because the composition of two bijections is bijective.
+\end{exmp}
 \begin{defn}[Homomorphism]
     \AP Let $M$ and $N$ be two "monoids", a ""monoid homomorphism"" from $M$ to $N$ is a function $f: M \rightarrow N$ satisfying the following property:
     \[f(1_M) = 1_N \quad \text{ and } \quad \forall x,y \in M, f(xy) = f(x)f(y).\]
-    \AP When $f$ is a bijection, we call it a ""monoid isomorphism"", say that $M$ and $N$ are ""isomorphic@@MON"" and denote $M \intro*\isoMON N$.
-\end{defn}
-\begin{defn}[Submonoid]
-    \AP Given a "monoid" $M$, a ""submonoid"" of $M$ is a subset $N\subseteq M$ containing $1_M$ that is closed under "multiplication@@MON" (i.e.: $\forall x,y \in N, x\cdot y \in N$).\footnote{This implies $N$ is also a "monoid" with the "multiplication@@MON" and "identity@@MON" inherited from $M$.}
+    \AP When $f$ is a bijection, we call it a ""monoid isomorphism"", say that $M$ and $N$ are ""isomorphic@@MON"", and write $M \intro*\isoMON N$.
 \end{defn}
 \begin{defn}[Kernel]
     \AP The ""kernel@@MON"" of a "homomorphism@@MON" $f: M \rightarrow N$ is the preimage of $1_N$: $\kermon(f) := f^{-1}(1_N)$. For any "homomorphism@@MON" $f$, $\kermon(f)$ is a "submonoid" of $M$.\footnote{Similarly, the image of a "homomorphism@@MON" is also a "submonoid".}
 \end{defn}
 \begin{exmp}
-    The inclusions $(\N,+) \rightarrow (\Z,+) \rightarrow (\Q,+) \rightarrow (\R,+)$ are all "monoid homomorphisms" with trivial "kernel@@MON".\footnote{i.e.: the "kernel@@MON" only contains the "identity@@MON".} This implies this is also a chain of inclusions as "submonoids".
+    The inclusions $(\N,+) \rightarrow (\Z,+) \rightarrow (\Q,+) \rightarrow (\R,+)$ are all "monoid homomorphisms" with trivial "kernel@@MON".\footnote{i.e. the "kernel@@MON" only contains the "identity@@MON".} This implies this is also a chain of inclusions as "submonoids".
 \end{exmp}
 \begin{defn}[Monoid action]
     Let $M$ be a "monoid" and $S$ a set, \AP an (left) ""action@@MON"" of $M$ on $S$ is an operation $\actmon : M \times S \rightarrow S$ satisfying for all $x,y \in M$ and $s \in S$\marginnote{\AP The data $(M,S,\actmon)$ will also be called an $M$""--set@mset"" and we may refer to it abusively with $S$.}
     \[(x\cdot y)\actmon s = x \actmon (y\act s) \quad \text{ and } \quad 1_M \actmon s = s.\]
-    \AP Any "monoid action" has a ""permutation representation@@MON"" defined to be the map \[\sigma_{\actmon}: M \rightarrow \Perm_S = x \mapsto (s \mapsto x \actmon s).\]
-    Conversely, a map $\sigma: M \rightarrow \Perm_S$ that satisfies $\sigma(1_M) = \mathrm{id}_S$ and $\sigma(xy)= \sigma(x) \circ \sigma(y)$ for any $x,y \in M$ gives rise to a "monoid action" $\actmon_\sigma$ defined by $x \actmon_\sigma s = \sigma(x)(s)$.\footnote{These are inverse operations, i.e.:\[\sigma_{\actmon_{\sigma}} = \sigma \quad \text{ and } \quad \actmon_{\sigma_{\actmon}} = \actmon.\]}
+    \AP Any "monoid action" has a ""permutation representation@@MON"" defined to be the map \[\sigma_{\actmon}: M \rightarrow S^S = x \mapsto (s \mapsto x \actmon s).\]
+    The properties of the "action@@MON" imply $\sigma_{\actmon}$ is a "homomorphism@@MON". Conversely, given a "homomorphism@@MON" $\sigma: M \rightarrow S^S$ (i.e. $\sigma(1_M)$ is the identity function and $\sigma(xy)= \sigma(x) \circ \sigma(y)$ for any $x,y \in M$), there is a "monoid action" $\actmon_\sigma$ defined by $x \actmon_\sigma s = \sigma(x)(s)$.\footnote{These are inverse operations, i.e.\[\sigma_{\actmon_{\sigma}} = \sigma \quad \text{ and } \quad \actmon_{\sigma_{\actmon}} = \actmon.\]}
 \end{defn}
 \begin{exmp}
     Any "monoid" $M$ has a canonical "left action@@MON" on itself defined by $x \actmon m = xm$ for all $x,m\in M$.
@@ -59,34 +62,165 @@ Here we recall definitions, examples and results you may have seen in classes on
 \end{defn}
 \begin{exmps}
     \begin{enumerate}
-        \item For any set $S$, the set of bijections from $S$ to itself form a "group" with the "multiplication@@GRP" being composition, the "inverse@@GRP" being the set-theoretical inverse and the "identity@@GRP" being the identity map $s \mapsto s$. \AP We denote this "group" $\intro*\Perm_S$ and call it the "group" of ""permutations"" of $S$.\footnote{For $n \in \N$, we denote $\Perm_n$ the "group" of "permutations" of $\{1,\dots, n\}$.}
+        \item For any set $S$, we saw $\Perm_S$ was a "submonoid" of $S^S$, and it is in fact a "group" where the "inverse@GRP" of a function $f$ is $f^{-1}$ (it exists because $f$ is bijective). \AP We denote this "group" $\intro*\Perm_S$ and call it the "group" of ""permutations"" of $S$.\footnote{For $n \in \N$, $\Perm_n$ denotes the "group" of "permutations" of $\{1,\dots, n\}$.}
         \item The "monoids" on $(\Z,+)$, $(\Q,+)$ and $(\R,+)$ are also "abelian groups" with the "inverse@@GRP" of $x$ being $-x$.
         \item %TODO: quotients, generators and \Z/p\Z.
     \end{enumerate}
 \end{exmps}
+\begin{defn}[Subgroup]
+    \AP Given a "group" $G$, a ""subgroup"" of $G$ is a "submonoid" $H$ of $G$ closed under taking "inverses@@GRP" (i.e. $\forall x \in H, x^{-1} \in H$).\footnote{This implies $H$ is also a "group" with the "multiplication@@GRP", "inverse@@GRP" and "identity@@GRP" inherited from $G$.}
+\end{defn}
+\begin{exmp}
+	\AP For any "group" $G$ and subset $S \subseteq G$, the "subgroup" ""generated@@GRP"" by $S$ inside $G$, denoted by $\gen{S}$ is the smallest "subgroup" containing $S$.\footnote{An explicit construction is \[\gen{S} = \left\{ x_1\cdots x_n \mid n \in \N, x_1,\dots, x_n \in S\cup \{1_G\} \right\}.\]}
+\end{exmp}
 \begin{defn}[Homomorphism]
     \AP Let $G$ and $H$ be two "groups", a ""group homomorphism"" from $G$ to $H$ is a "monoid homomorphism" $f: G \rightarrow H$. It follows that\footnote{For this, you need to show that "inverses@@GRP" are unique.} \[\forall x \in G, f(x^{-1}) = f(x)^{-1}.\]
-    \AP When $f$ is a bijection, we call it a ""group isomorphism"", say that $G$ and $H$ are ""isomorphic@@GRP"" and denote $G \intro*\isoGRP H$.
+    \AP When $f$ is a bijection, we call it a ""group isomorphism"", say that $G$ and $H$ are ""isomorphic@@GRP"", and write $G \isoGRP H$.
 \end{defn}
-\begin{defn}[Subgroup]
-    \AP Given a "group" $G$, a ""subgroup"" of $G$ is a "submonoid" $H$ of $G$ closed under taking "inverses@@GRP" (i.e.: $\forall x \in H, x^{-1} \in H$).\footnote{This implies $H$ is also a "group" with the "multiplication@@GRP", "inverse@@GRP" and "identity@@GRP" inherited from $G$.}
-\end{defn}
-\begin{defn}[Quotient]
-	\AP Let $G$ be a "group" and $H$ a "subgroup" of $G$, the ""quotient@@MON"" $\quotGRP{G}{H}$ is the "group" whose elements are equivalence class of 
-\end{defn}
+\begin{exmp}
+	\AP For any "group" $G$ and element $g \in G$, we call ""conjugation"" by $g$ the "homomorphism@@GRP" $\conjug{g}: G \rightarrow G$ defined by $\conjug{g}(x) = gxg^{-1}$.\footnote{It is a "homomorphism@@GRP" as $g1_Gg^{-1} = gg^{-1} = 1_G$ and \[gxyg^{-1} = gx1_Gyg^{-1} = gxg^{-1}gyg^{-1}.\]}
+\end{exmp}
 \begin{defn}[Kernel]
     \AP The ""kernel@@GRP"" of a "homomorphism@@GRP" $f: G \rightarrow H$ is the preimage of $1_H$: $\kergrp(f) := f^{-1}(1_H)$. For any "homomorphism@@GRP" $f$, $\kergrp(f)$ is a "subgroup" of $G$.\footnote{Similarly, the image of a "homomorphism@@GRP" is also a "subgroup".}
 \end{defn}
-\begin{defn}[Group action]
-    Let $G$ be a "group" and $S$ a set, \AP an (left) ""action@@GRP"" of $G$ on $S$ is a (left) "monoid action" of $G$ on $S$. \AP A set $S$ equipped with "action" of $G$ is called a $G$""--set"".
+\begin{exmp}
+	For any group $G$ and element $g \in G$, $\kergrp(\conjug{g}) = \{1_G\}$. Indeed, if $gxg^{-1} = 1_G$, "conjugating" by $g^{-1}$ on both sides yields $x = 1_G$.
+\end{exmp}
+\begin{defn}[Normal subgroup]
+	\AP A "subgroup" $N$ of $G$ is called ""normal"" if for any $g \in G$ and $n \in N$, $gng^{-1} \in N$. In words, $N$ is closed under "conjugation" by $G$. We write $N \nsub G$ when $N$ is a "normal subgroup" of $G$.\footnote{The "kernel@@GRP" of any "homomorphism@@GRP" $f$ is a "normal subgroup" as for any $h \in \kergrp{f}$ and any $g \in G$, we have
+	\[f(ghg^{-1}) = f(g)f(h)f(g)^{-1} = f(g)1f(g^{-1}) = 1.\]}
 \end{defn}
-%TODO: define orbits as maximal subsets that are stable under the action.
+\begin{prop}\label{prop:equivcoset}
+	For any "subgroup" $H$ of $G$, the relation $\sim_H$ defined by \[g \sim_H g' \Leftrightarrow \exists h \in H, gh = g'\]
+	is an equivalence relation.
+\end{prop}
+\begin{proof}
+	Any "subgroup" contains $1_G$, so $g \sim_H g$ is witnessed by $g1_G = g$, hence $\sim_H$ is reflexive. If $gh = g'$, then $g = ghh^{-1} = g'h^{-1}$, thus $\sim_H$ is symmetric. If $gh = g'$ and $g'h' = g''$, then $ghh' = g''$ and since $H$ is a subgroup $hh' \in H$, we conclude $\sim_H$ is transitive.
+\end{proof}
+\begin{defn}[Quotient]
+	Let $G$ be a "group" and $N$ a "normal subgroup" of $G$, the "multiplication@@GRP" of $G$ is well-defined on equivalence classes of $\sim_N$, namely, if $g \sim_N g'$ and $h \sim_N h'$, then $gh \sim_N g'h'$.\footnote{Suppose $gn = g'$ and $hn'= h'$ for $n,n' \in N$, then using the fact that $h^{-1}nh \in N$, we let $n'' := h^{-1}nhn' \in N$ and we find
+	\[g'h' = gnhn' = ghh^{-1}nhn' = ghn'',\]
+	thus $gh \sim_N g'h'$.} \AP The ""quotient@@GRP"" $\quotGRP{G}{N}$ is the "group" whose elements are equivalence classes of $\sim_N$ with the "multiplication@@GRP" $[g]\cdot [h] := [g\cdot h]$ and "identity@@GRP" $1_{\quotGRP{G}{N}} = [1_G]$ (where $[g]$ denotes the equivalence class of $\sim_N$ containing $g$). 
+\end{defn}
+\begin{defn}[Group action]
+    Let $G$ be a "group" and $S$ a set, \AP an (left) ""action@@GRP"" of $G$ on $S$ is a (left) "monoid action" of $G$ on $S$. \AP A set $S$ equipped with "action" of $G$ is called a $G$""--set"". It follows from the properties of an "action@@MON" that the function $s \mapsto g\actmon s$ is a bijection, hence the permutation representation $\sigma_{\actmon}$ is a "homomorphism@@GRP" $G \rightarrow \Perm_S$.
+\end{defn}
 \begin{exmp}
     Any "group" $G$ has a canonical "left action@@GRP" on itself defined by $x \actmon m = xm$ for all $x,m\in G$.
 \end{exmp}
+\begin{defn}[Orbit]
+	\AP Let $S$ be a $G$"--set", an ""orbit"" of $S$ is a maximal subset of $S$ closed under the "action@@GRP" of $G$. Namely, it is a subset $A \subset S$ such that $g \actmon a \in A$ for any $g \in G$ and $a \in A$, and no subset strictly including $A$ and strictly included in $S$ ($A \subset A' \subset S$) has this property.
+\end{defn}
 \subsection{Rings}
+\begin{defn}[Ring]
+	\AP A ""ring"" is a set $R$ equipped with a "monoid" structure $(R,\cdot,1_R)$ and an "abelian group" structure $(R,+,0_R)$\footnote{\AP We call $\cdot$ the ""multiplication@@RING"" and $+$ the ""addition@@RING"" of the "ring".} such that for all $x,y,z \in R$
+	\[x\cdot(y+z) = (x\cdot y)+(x\cdot z).\]
+	If $(R,\cdot,1_R)$ is a "commutative monoid", we say that $R$ is "commutative@@RING".
+\end{defn}
+\begin{exmps}
+	\begin{enumerate}
+		\item The "abelian groups" $(\Z, +)$, $(\Q,+)$ and $(\R,+)$ are also "commutative rings" with "multiplication@@RING" being the standard multiplication of numbers.
+		\item For any "ring" $R$ and any $n \in \N$, the set of matrices $R^{n\times n}$ is a "ring" where "addition@@RING" is done pointwise, "multiplication@@RING" is the standard \href{https://en.wikipedia.org/wiki/Matrix_multiplication}{multiplication of matrices}, $1_{R^{n\times n}}$ is the matrix with $1_R$ in each diagonal entry and $0_R$ everywhere else, and $0_{R^{n\times n}}$ is the matrix with $0_R$ everywhere.
+	\end{enumerate} %TODO: maybe talk about determinant
+\end{exmps}
+\begin{prop}
+	Let $R$ be a "ring", for any $r \in R$, $0_R \cdot r = 0_R = r \cdot 0_R$.
+\end{prop}
+\begin{proof}
+	Here is the derivation for one equality (the other is symmetric):
+	\[0_R \cdot r = (1_R - 1_R) \cdot r = 1_R\cdot r - 1_R \cdot r = r-r = 0_R.\]
+\end{proof}
+\begin{defn}[Subring]
+	\AP Given a "ring" $R$, a ""subring"" of $R$ is a subset $S\subseteq R$ that is both a "submonoid" for $\cdot$ and a "subgroup" for $+$.\footnote{This implies $S$ is also a "ring" with the "multiplication@@RING" and "addition@@RING" inherited from $R$.}
+\end{defn}
+\begin{defn}[Homomorphism]
+	\AP Let $R$ and $S$ be two "rings", a ""ring homomorphism"" from $R$ to $S$ is a function $f: R \rightarrow S$ that is both a "monoid homomorphism" for the operation $\cdot$ and a "group homomorphism" for the operation $+$. Namely, it satisfies
+	\begin{align*}
+		\forall x,y \in R, f(x\cdot y) &= f(x)\cdot f(y) &f(1_R) &= 1_S\\
+		\forall x,y\in R, f(x+y) &= f(x) + f(y) &f(0_R) &= 0_S.
+	\end{align*}
+	\AP When $f$ is a bijection, we call it a ""ring isomorphism"", say that $R$ and $S$ are ""isomorphic@@RING"", and write $R \isoRING S$.
+\end{defn}
+\begin{defn}[Kernel]
+	\AP The ""kernel@@RING"" of a "homomorphism@@RING" $f: R \rightarrow S$ is the preimage of $0_S$: $\kerring{f} := f^{-1}(0_S)$. For any "homomorphism@@RING", $\kerring{f}$ is a "subring" of $S$.
+\end{defn}
+As for "monoids" and "groups", the image of a "homomorphism@@RING" is a "subring", and as for "groups" the "kernel@@RING" satisfies an additional property: it is an "ideal".
+\begin{defn}[Ideal]
+	\AP Given a "ring" $R$, an ""ideal"" of $R$ is a subring $I$ such that for any $i \in I$ and $r,s \in R$, $ris \in I$.\footnote{An "ideal" is not only closed under "multiplication@@RING" but it is also preserved by "multiplciation@@RING" by elements outside of the "ideal".}
+\end{defn}
+\begin{prop}
+	For any "subring" $S$ of $R$, the relation $\sim_S$ defined by 
+	\[r \sim_S r' \Leftrightarrow \exists s \in S, r+s = r'\]
+	is an equivalence relation.\footnote{Apply Proposition \ref{prop:equivcoset} to the "group" $(R,+)$ and its "subgroup" $(S,+)$.}
+\end{prop}
+\begin{defn}[Quotient]
+	Let $R$ be a "ring" and $I$ be an "ideal" of $R$, the "addition@@RING" and "multiplication@@RING" of $R$ are well-defined on equivalence classes of $\sim_I$, namely, if $r \sim_I r'$ and $s \sim_I s'$, then $r+s \sim_I r'+s'$ and $rs \sim_I r's'$.\footnote{For "addition@@RING", we can use the same proof as for "quotient@@GRP" "groups" because $I$ is a "normal subgroup" of $(R,+)$ (any "subgroup" of an "abelian group" is "normal"). For "multiplication@@RING", suppose $r+i = r'$ and $s+j = s'$ for $i,j \in I$, then \[r's' = (r+i)(s+j) = rs+rj+is+ij,\] and since $I$ is an "ideal", $rj+is+ij \in I$. We conclude $rs \sim_I r's'$.} \AP The "quotient@@RING" $\quotRING{R}{I}$ is the "ring" whos elements are equivalence classes of $\sim_I$ with the "addition@@RING" $[r]+[s] := [r+s]$, the "multiplication@@RING" $[r]\cdot [s] :=  [r\cdot s]$, $0_{\quotRING{R}{I}} := [0_R]$, and $1_{\quotRING{R}{I}} := [1_R]$.
+\end{defn}
+\begin{defn}[Units]
+	\AP An element of a "ring" is called a ""unit@@RING"" if it has a multiplicative inverse. Namely, $x \in R$ is a "unit@@RING" if there exists $x^{-1}$ such that $xx^{-1} = 1_R = x^{-1}x$. We denote by $\units{R}$ the set of "unit@@RING" of $R$, it is a "group" with the "multiplication@@GRP" inherited from $R$.
+\end{defn}
+\begin{exmp}
+	\AP The "group" of "unit@@RING" of $R^{n\times n}$ is called the ""general linear group"" over $R$ and denoted by $\gln(R)$. It contains all the invertible\footnote{Sometimes called non-singular.} $n\times n$ matrices with entries in $R$.
+\end{exmp}
+\begin{prop}
+	Any "ring homomorphism" $f: R \rightarrow S$ sends "units@@RING" of $R$ to "units@@RING" of $S$.\footnote{By restricting $f$ to $\units{R}$, we obtain a "group homomorphism" \[\units{f}: \units{R} \rightarrow \units{S}.\]}
+\end{prop}
+\begin{proof}
+	If $x \in R$ has a multiplicative inverse $x^{-1}$, then the "homomorphism@@RING" properties imply
+	\[f(x)f(x^{-1}) = f(xx^{-1}) = f(1_R) = 1_S = f(1_R) = f(x^{-1}x) = f(x^{-1})f(x),\]
+	thus $f(x^{-1})$ is the multiplicative inverse of $f(x)$.
+\end{proof}
 \subsection{Fields}
+\begin{defn}[Field]
+	\AP A ""field"" is a "commutative ring" where every non-zero element is a "unit@@RING".
+\end{defn}
+\begin{exmp}
+	The "rings" $\Q$ and $\R$ are "fields", but $\Z$ is not since the $\units{\Z} = \{-1,1\}$.
+\end{exmp}
+\begin{defn}[Characteristic]
+	\AP The ""characteristic"" of a "field" $k$ is the minimum $n \in \N$ such that $1_k+\stackrel{n}{\cdots} + 1_k = 0_K$. If no such $n$ exists, the "characteristic" of $k$ is infinite.\footnote{One can show the "characteristic" of a "field" is never a composite number, it is either prime or infinite.}
+\end{defn}
+\begin{exmps}
+	Fix a prime number $p$. The set $p\Z$ of multiples of $p$ is an "ideal" of the "ring" $\Z$ and $\quotRING{\Z}{p\Z}$ is a "field" of "characteristic" $p$. The "field" $\Q$ has infinite "characteristic".
+\end{exmps}
 \subsection{Vector Spaces}
+Fix a "field" $k$.
+\begin{defn}[Vector space]
+	\AP A ""vector space"" over $k$ is a set an "abelian group" $(V,+,0)$ along with an operation $\cdot : k\times V \rightarrow V$ called ""scalar multiplication"" such that the following holds for any $x,y \in k$ and $u,v \in V$:\footnote{We will not distinguish between the additions and zeros in $k$ and $V$.}
+	\begin{align*}
+		(xy)\cdot v &= x\cdot (y\cdot v) &1\cdot v &= v\\
+		(x+y)\cdot v&= x\cdot v + y \cdot v &x\cdot (u+v) &= x\cdot u + x \cdot v.
+	\end{align*}
+	It follows that $0\cdot v = 0$. \AP We call elements of $V$ ""vectors"".
+\end{defn}
+\begin{exmp}
+	For any $n \in \N$, the set $k^n$ has a "vector space" structure, where addition and "scalar multiplication" are done pointwise, i.e.:
+	\[(u_1,\dots, u_n)+ (v_1,\dots, v_n) = (u_1+v_1,\dots, u_n+v_n)\quad x\cdot (v_1,\dots, v_n) = (xv_1,\dots, xv_n).\]
+\end{exmp}
+\begin{defn}[Subspace]
+	\AP Given a "vector space" $V$, a ""subspace"" of $V$ is a subset $W \subseteq V$ such that $0 \in W$, and for any $x \in k$ and $u,w \in W$, $x \cdot w \in W$ and $u+w \in W$.
+\end{defn}
+\begin{defn}[Linear map]
+	\AP Let $V$ and $W$ be two "vector spaces" over $k$, a ""linear map"" from $V$ to $W$ is a function $T: V \rightarrow W$ satisfying
+	\[\forall x \in k, \forall u,v \in V, \quad T(x\cdot v) = x \cdot T(v) \qquad T(u+v) = T(u)+T(v).\]
+	\AP When $T$ is a bijection, we call it a ""linear isomorphism"", say that $R$ and $S$ are ""isomorphic@@VECT"", and write $V \isoVECT W$.
+\end{defn}
+\begin{defn}[Linear combination]
+	\AP Let $V$ be a "vector space" and $v_1,\dots, v_n \in V$, a ""linear combination"" of these "vectors" is a sum \[\sum_{i=1}^n a_iv_i = a_1\cdot v_1 +\cdots + a_nv_n,\]
+	where $a_1,\dots, a_n \in k$ are called the \textbf{"coefficients"}.
+\end{defn}
+\begin{defn}[Basis]
+	Let $V$ be a "vector space" and $S\subseteq V$. \AP We say that $S$ is ""linearly independent"" if a "linear combination" of "vectors" in $S$ is the zero "vector" if and only if all "coefficients" are zero. \AP We say that $S$ is ""generating@@VECT"" if any $v \in V$ is a "linear combination" of "vectors" in $S$. \AP We say that $S$ is a ""basis"" of $V$ if it is "linearly independent" and "generating@@VECT". \AP The "cardinality" of a "basis" $S$ of $V$ is called the ""dimension"" of $V$.\footnote{Using the axiom of choice, one can show a "basis" always exists and all "bases" must have the same "cardinality", hence the "dimension" of a "vector space" is well-defined.}
+\end{defn}
+\begin{prop}
+	A "linear map" $T: V \rightarrow W$ is completely determined by where it sends a "basis" of $V$.
+\end{prop}
+\begin{prop}
+	If a "vector space" $V$ over $k$ has "dimension" $n\in \N$, then $V \isoVECT k^n$.
+\end{prop}
+\begin{defn}[Dual]
+	
+\end{defn}
 \section{Order Theory}
 In this section, we briefly cover some early definitions and results from order theory. Since this subject is not usually taught in undergraduate courses, we spend a bit more time. In fact, we even introduce stuff we will not use later to make sure readers can get more familiar with the most important objects: "posets" and "monotone" functions.
 \begin{defn}[Poset]
@@ -101,12 +235,12 @@ In this section, we briefly cover some early definitions and results from order 
 \begin{exmps}
     \begin{enumerate}
         \item The usual non-strict orders ($\leq$ and $\geq$) on $\N$, $\Z$, $\Q$ and $\R$ are all "partial orders". The strict orders do not satisfy "reflexivity".
-        \item The divisibility relation $\mid$ on $\N$ satisfying $n \mid m$ whenever $n$ divides $m$ is a "partial order".
-        \item For any set $S$, the "powerset" of $S$ $\mP(S)$ is a "poset" when equipped with the $\subseteq$ relation.\begin{marginfigure}For any "monoid" $M$, there are three "preorders" defined by the so-called \href{https://en.wikipedia.org/wiki/Green%27s_relations}{Green's relations}:
+        \item The divisibility relation $\mid$ on $\N$ ($n \mid m$ if and only if $n$ divides $m$) is a "partial order".
+        \item For any set $S$, the "powerset" of $S$  equipped with the subset relation ($\subseteq$) is a "poset".\begin{marginfigure}For any "monoid" $M$, there are three "preorders" defined by the so-called \href{https://en.wikipedia.org/wiki/Green%27s_relations}{Green's relations}:
         \begin{align*}
-            \forall x,y \in M x\leq_L y &\Leftrightarrow \exists m \in M, x = my\\
-            \forall x,y \in M x\leq_R y &\Leftrightarrow \exists m \in M, x = ym\\
-            \forall x,y \in M x\leq_J y &\Leftrightarrow \exists m,m' \in M, x = mym'
+            \forall x,y \in M, x\leq_L y &\Leftrightarrow \exists m \in M, x = my\\
+            \forall x,y \in M, x\leq_R y &\Leftrightarrow \exists m \in M, x = ym\\
+            \forall x,y \in M, x\leq_J y &\Leftrightarrow \exists m,m' \in M, x = mym'
         \end{align*}\end{marginfigure}
         \item Any subset of a "poset" inherits a "poset" structure by restricting the "partial order".
     \end{enumerate}
@@ -115,57 +249,57 @@ In this section, we briefly cover some early definitions and results from order 
 	\AP A function $f:(A, \leq_A) \rightarrow (B,\leq_B)$ between "posets" is ""monotone"" (or \textbf{"order-preserving"}) if for any $a, a' \in A$, $a \leq a' \implies f(a) \leq f(a')$.
 \end{defn}
 \begin{exmp}
-    You probably already know lots of "monotone" functions, but let us give two less intuitive examples. \AP Let $f: S \rightarrow T$ be a function, the ""image"" map of $f$\footnote{Which we abusively denote $f$.} is the function $\mP(S) \rightarrow \mP(T)$ defined by $S \supseteq X\mapsto f(X) := \{f(x) \mid x\in X\}$. When both "powersets" are equipped with the inclusion "partial order", the "image" map is "monotone" because $X \subseteq X'\subseteq S$ implies $f(X) \subseteq f(X')$.
+    You probably already know lots of "monotone" functions, but let us give two less intuitive examples. \AP Let $f: S \rightarrow T$ be a function, the ""image map"" of $f$\footnote{Which we abusively denote by $f$.} is the function $\mP(S) \rightarrow \mP(T)$ defined by $S \supseteq X\mapsto f(X) := \{f(x) \mid x\in X\}$. When both "powersets" are equipped with the inclusion "partial order", the "image map" is "monotone" because $X \subseteq X'\subseteq S$ implies $f(X) \subseteq f(X')$.
 
-    \AP The ""preimage"" map is \[f^{-1}: \mP(T) \rightarrow \mP(S) = T \supseteq Y \mapsto f^{-1}(Y) := \{y \in S \mid f(y) \in Y\}.\]
+    \AP The ""preimage map"" is \[f^{-1}: \mP(T) \rightarrow \mP(S) = T \supseteq Y \mapsto f^{-1}(Y) := \{y \in S \mid f(y) \in Y\}.\]
     It is also "order-preserving" because $Y \subseteq Y'\subseteq T$ implies $f^{-1}(Y) \subseteq f^{-1}(Y')$.
 \end{exmp}
-\begin{fact}
+\begin{prop}
     The composition of "monotone" functions between "posets" is "monotone".
-\end{fact}
+\end{prop}
 \begin{defn}[Dual]
-	\AP The ""dual order""\footnote{This definition lets us avoid many symmetric arguments.} of a "poset" $(A, \leq)$, denoted $\op{(A, \leq)}$, is the same set equipped with the converse relation $\geq$ defined by \[\forall x,y \in A, x \geq y \Leftrightarrow y\leq x.\]
+	\AP The ""dual order""\footnote{This definition lets us avoid many symmetric arguments.} of a "poset" $(A, \leq)$, denoted by $\op{(A, \leq)}$, is the same set equipped with the converse relation $\geq$ defined by \[\forall x,y \in A, x \geq y \Leftrightarrow y\leq x.\]
 \end{defn}
-\begin{defn}
-	\AP Let $(A, \leq)$ be a "poset" and $S \subseteq A$, then $a \in A$ is an ""upper bound"" of $S$ if $\forall s \in S, s\leq a$. \AP Moreover, $a \in A$ is a ""supremum"" of $S$, if it is a least "upper bound", that is, $a$ is an "upper bound" of $S$ and for any "upper bound" $a'$ of $S$, $a\leq a'$. A "supremum" of $S$ is denoted $\supremum S$, but when $S$ contains only two elements, we use the infix notation $s_1 \supremum s_2$ and call this a \textbf{"join"}.
+\begin{defn}[Bounds]
+	\AP Let $(A, \leq)$ be a "poset" and $S \subseteq A$, then $a \in A$ is an ""upper bound"" of $S$ if $\forall s \in S, s\leq a$. \AP Moreover, $a \in A$ is a ""supremum"" of $S$, if it is a least "upper bound", that is, $a$ is an "upper bound" of $S$ and for any "upper bound" $a'$ of $S$, $a\leq a'$. A "supremum" of $S$ is denoted by $\supremum S$, but when $S$ contains only two elements, we use the infix notation $s_1 \supremum s_2$ and call this a \textbf{"join"}.
 	
-	\AP A ""lower bound"" (resp. ""infimum""/\textbf{"meet"}) of $S$ is an "upper bound" (resp. "supremum"/"join") of $S$ in the "dual order" $\op{(A, \leq)}$.\footnote{Explicityly, $a\in A$ is a "lower bound" of $S$ if $\forall s\in S, a\leq s$. It is an "infimum" of $S$ if, in addition to being a "lower bound" of $S$, any "lower bound" $a'$ of $S$ satisfies $a' \leq a$.} An "infimum" of $S$ is denoted $\infimum S$ or $s_1 \infimum s_2$ in the binary case.
+	\AP A ""lower bound"" (resp. ""infimum""/\textbf{"meet"}) of $S$ is an "upper bound" (resp. "supremum"/"join") of $S$ in the "dual order" $\op{(A, \leq)}$.\footnote{Explicityly, $a\in A$ is a "lower bound" of $S$ if $\forall s\in S, a\leq s$. It is an "infimum" of $S$ if, in addition to being a "lower bound" of $S$, any "lower bound" $a'$ of $S$ satisfies $a' \leq a$.} An "infimum" of $S$ is denoted by $\infimum S$ or $s_1 \infimum s_2$ in the binary case.
 \end{defn}
 \begin{prop}
 	"Infimums" and "supremums" are unique when they exist.\footnote{This holds by "antisymmetry".}
 \end{prop}
-\begin{defn}
-	\AP A ""complete lattice"" comprises the data $(L, \infimum, \supremum, \leq)$ where $(L, \leq)$ is a "poset", and $\infimum, \supremum : (\mP(L), \subseteq) \rightarrow (L, \leq)$ are respectively "infimum" and "supremum" as defined above.\footnote{Notice that, by definition, these are "monotone" maps when the domain $\mP(L)$ is equipped with the inclusion order. Moreover, if these functions are defined on all of $\mP(L)$, all "supremums" and "infimums" exist in $(L, \leq)$.} Observe that $L$ has a smallest element $\supremum \emptyset$ and a largest element $\infimum \emptyset$ (they are usually called \textbf{top} and \textbf{bottom} respectively).
+\begin{defn}[Complete lattice]
+	\AP A ""complete lattice"" is a "poset" $(L,\leq)$ where every subset has a "supremum" and an "infimum".\footnote{Notice that, we can see $\supremum$ and $\infimum$ as "monotone" maps from $(\mP(L),\subseteq)$ to $(L,\leq)$.} In particular, $L$ has a smallest element $\supremum \emptyset$ and a largest element $\infimum \emptyset$ (they are usually called \textbf{top} and \textbf{bottom} respectively).
 \end{defn}
 \begin{exmps}
     \begin{enumerate}
-        \item For any set $S$, $(\mP(S), \subseteq)$ is a "complete lattice": the "supremum" of a family of subsets is their union and the "infimum" is their intersection.
+        \item For any set $S$, $(\mP(S), \subseteq)$ is a "complete lattice". the "supremum" of a family of subsets is their union and the "infimum" is their intersection.
         \item Defining "supremums" and "infimums" on the "poset" $(\N, \mid)$ is subtle. When $S \subseteq \N$ is non-empty, $\infimum S$ is the greatest common divisor of all elements in $S$ and $\infimum \emptyset$ is $0$ because any integer divides $0$. For a finite and non-empty $S \subseteq \N$, $\supremum S$ is the least common multiple of all elements in $S$. If $S$ is infinite, then $\supremum S$ is $0$ and the "supremum" of the empty set is $1$ because $1$ divides any integer.
     \end{enumerate}
 \end{exmps}
 You might be wondering about possible "posets" where all "infimums" exist but not necessarily all "supremums" or vice-versa, it turns out that this is not possible as shown below.
-\begin{lem}\label{lem:posetlattice}%TODO: fibonacci as meet-preserving functor.
+\begin{prop}\label{prop:posetlattice}%TODO: fibonacci as meet-preserving functor.
 	Let $(L, \leq)$ be a "poset", then the following are equivalent:
 	\begin{enumerate}[(i)]
-		\item $(L, \infimum, \supremum, \leq)$ is a "complete lattice".
+		\item $(L,\leq)$ is a "complete lattice".
 		\item Any $S \subseteq L$ has a "supremum".
 		\item Any $S \subseteq L$ has an "infimum".
 	\end{enumerate}
-\end{lem}
-\begin{proof} %TODO: my defs might be weird.
-	(i) $\implies$ (ii), (i) $\implies$ (iii) and (ii) + (iii) $\implies$ (i) are all trivial. Also, by using duality, we only need to prove (ii) $\implies$ (iii). For that, it suffices to note that for any $S \subseteq L$, $\infimum S = \bigvee \{a \in L \mid \forall s \in S, a \leq s\}$ is a suitable definition of the "infimum".
+\end{prop}
+\begin{proof}
+	(i) $\implies$ (ii), (i) $\implies$ (iii) and (ii) + (iii) $\implies$ (i) are all trivial. Also, by using duality, we only need to prove (ii) $\implies$ (iii).\footnote{If this implication is true for any $(L,\leq)$, then it is true, in particular, for $(L,\geq)$. This implication for $(L,\geq)$ is equivalent to the converse implication for $(L,\leq)$.} For that, it suffices to note that, for any $S \subseteq L$, we can define $\infimum S$ to be the least "upper bound" for "lower bounds" of $S$. Formally, \[\infimum S = \bigvee \{a \in L \mid \forall s \in S, a \leq s\}.\]
 	
-	Defined that way, $\infimum S$ is a "lower bound" of $S$ because if $s < \infimum S$, then $s < a$ for some "lower bound" $a$ of $S$\footnote{Because $\infimum S$ was the least "upper bound" for "lower bounds" of $S$.}, in particular $s \notin S$. Additionally, since we are taking the "supremum" over all "lower bounds" of $S$, no "lower bound" of $S$ can be greater and we conclude that $\infimum S$ is indeed the "infimum" of $S$.
+	Defined that way, $\infimum S$ is a "lower bound" of $S$ because if $s \in S$, then $s \geq a$ for every "lower bound" $a$ of $S$, thus $\infimum S$, being the least "upper bound" of the "lower bounds", is smaller than $s$. By definition, $\infimum S$ is greater than any other "lower bound" of $S$, hence it is indeed the "infimum" of $S$.
 \end{proof}
-\begin{defn}[Fixpoints]%TODO: check which is which
+\begin{defn}[Fixpoints]
 	\AP Let $f: (L, \leq) \rightarrow (L, \leq)$, a ""pre-fixpoint"" of $L$ is an element $x \in L$ such that $f(x) \leq x$. \AP A ""post-fixpoint"" is an element $x\in L$ such that $x \leq f(x)$. \AP A ""fixpoint"" (or \textbf{"fixed point"}) of $f$ is a "pre-@pre-fixpoint" and "post-fixpoint".
 \end{defn}
-\begin{thm}[Knaester-Tarski]\label{thm:knatar}\footnote{This is actually a weaker version of the Knaester-Tarski theorem which states that the "fixpoints" of a "monotone" $f$ form a "complete lattice".}
-	Let $(L, \infimum, \supremum, \leq)$ be a "complete lattice" and $f: L\rightarrow L$ be "monotone", then 
+\begin{thm}[Knaester--Tarski\footnotemark]\label{thm:knatar}\footnotetext{This is actually a weaker version of the Knaester-Tarski theorem. The latter states that the "fixpoints" of a "monotone" function $f$ form a "complete lattice".}
+	Let $(L, \leq)$ be a "complete lattice" and $f: L\rightarrow L$ be "monotone". 
 	\begin{enumerate}
-		\item The least "fixpoint" of $f$ is $\mu f := \infimum \{a \in L \mid f(a) \leq a\}$.
-		\item The greatest "fixpoint" of $f$ is $\nu f := \supremum \{a \in L \mid a \leq f(a)\}$.
-	\end{enumerate}
+		\item The least "fixpoint" of $f$ is the least "pre-fixpoint" $\mu f := \infimum \{a \in L \mid f(a) \leq a\}$.
+		\item The greatest "fixpoint" of $f$is the greatest "post-fixpoint" $\nu f := \supremum \{a \in L \mid a \leq f(a)\}$.
+	\end{enumerate}%TODO: lfp and gfp macros for mu and nu
 \end{thm}
 \begin{proof}
 	\begin{enumerate}
@@ -174,59 +308,59 @@ You might be wondering about possible "posets" where all "infimums" exist but no
 		\item Any "fixpoint" of $f$ is in particular a "post-fixpoint", thus $\nu f$, being an "upper bound" of "post-fixpoints", is bigger than all "fixpoints". Moreover, because for any "post-fixpoint" $a\in L$, $a \leq f(a) \leq f(\nu f)$, $f(\nu f)$ is an "upper bound" of the "post-fixpoints", so $\nu f\leq f(\nu f)$. We infer that $f(\nu f) \leq f(f(\nu f))$, so $f(\nu f)$ is a "post-fixpoint" and $f(\nu f) \leq \nu f$. We conclude that $\nu f$ is a "fixpoint" by "antisymmetry".
 	\end{enumerate}
 \end{proof}
-\begin{defn}
+\begin{defn}[Closure operator]
 	\AP Let $(A, \leq)$ be a "poset", a ""closure operator"" on $A$ is a map $c: A \rightarrow A$ that is 
     \begin{enumerate}
         \item "monotone",
-        \itemAP ""extensive"" ($\forall x \in A, x \leq c(x)$), and
-        \itemAP ""idempotent"" ($\forall x \in A, c(x) = c(c(x))$).\footnote{We will use this definition of "idempotence" in other contexts.}%TODO: give a Knowledge context.
-    \end{enumerate} 
+        \itemAP extensive ($\forall a \in A, a \leq c(a)$), and
+        \itemAP idempotent ($\forall a \in A, c(a) = c(c(a))$).
+    \end{enumerate}
 \end{defn}
-\begin{exmp}%TODO: change a's to x's or vice-versa
+\begin{exmp}
     The floor ($\lfloor \placeholder \rfloor$) and ceiling ($\lceil \placeholder \rceil$) operations are "closure operators" on $(\R, \geq)$ and $(\R, \leq)$ respectively.
 \end{exmp}
-\begin{defn}
+\begin{defn}[Galois connection]
 	\AP Given two "posets" $(A, \leq)$ and $(B, \sqsubseteq)$, a ""Galois connection"" is a pair of "monotone" functions $l: A \rightarrow B$ and $r: B\rightarrow A$ such that for any $a \in A$ and $b\in B$, \[l(a) \sqsubseteq b \Leftrightarrow a \leq r(b).\]
-	For such a pair, we write $l \mathbin{\kl[Galois connection]{\dashv}} r:A\rightarrow B$.
+	For such a pair, we write $l \mathrel{\kl[Galois connection]{\dashv}} r:A\rightarrow B$.
 \end{defn}
-\begin{lem}
-	Let $l \mathbin{\kl[Galois connection]{\dashv}} r: A\rightarrow B$ be a "Galois connection", then $l$ and $r$ are "monotone".
-\end{lem}
-\begin{proof}%TODO: help in footnote.
-	Assume towards a contradiction that $a < a'$ and $l(a) \not\sqsubseteq l(a')$, then because $l(a') \sqsubseteq l(a')$, we infer that $a' \leq r(l(a'))$ and thus, by transitivity, $a \leq r(l(a'))$. However, this contradicts the fact that $l(a) \not\sqsubseteq l(a')$ (using the $\Leftarrow$ of the "Galois connection"). We conclude that $l$ is "monotone".
+\begin{prop}
+	Let $l \mathrel{\kl[Galois connection]{\dashv}} r: A\rightarrow B$ be a "Galois connection", then $l$ and $r$ are "monotone".
+\end{prop}
+\begin{proof}
+	Suppose $a \leq a'$, we will show $l(a) \sqsubseteq l(a')$. Since $l(a') \sqsubseteq l(a')$, using $\Rightarrow$ of the "Galois connection" yields $a' \leq r(l(a'))$, and, by transitivity, we have $a \leq r(l(a'))$. Then, using $\Leftarrow$ of the "Galois connection", we find $l(a) \sqsubseteq l(a')$. We conclude that $l$ is "monotone".
 	
-	A symmetric argument works to show that $r$ is "monotone".
+	A symmetric argument works to show $r$ is "monotone".
 \end{proof}
 \begin{exmp}
 	%TODO: Implication and wedge in a Heyting algebra.
 \end{exmp}
 \begin{prop}\label{prop:compgaloisisclosure}
-	Let $l \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ be a "Galois connection", then $r\circ l: A\rightarrow A$ is a "closure operator".
+	Let $l \mathrel{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ be a "Galois connection", then $r\circ l: A\rightarrow A$ is a "closure operator".
 \end{prop}
 \begin{proof}
-	Because $r$ and $l$ are "monotone", $r\circ l$ is clearly "monotone". Also, for any $a \in A$, $l(a) \sqsubseteq l(a)$ implying $a \leq r(l(a))$, so $r\circ l$ is "extensive".
+	Since $r$ and $l$ are "monotone", $r\circ l$ is "monotone". Also, for any $a \in A$, $l(a) \sqsubseteq l(a)$ implies $a \leq r(l(a))$, so $r\circ l$ is "extensive".
 	
 	Now, in order to prove $r\circ l$ is "idempotent", it is enough to show that\footnote{The $\leq$ inequality follows by "extensiveness".} \[r(l(a)) \geq r(l(r(l(a)))).\]
 	Observe that since $r(b) \leq r(b)$ for any $b\in B$, we have $l(r(b)) \leq b$, thus in particular, with $b = l(a)$, we have $l(r(l(a))) \leq l(a)$. Applying $r$ which is "monotone" yields the desired inequality.
 \end{proof}
 \begin{prop}
-	Let $l \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ and $l' \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ be "Galois connections", then $l = l'$.
+	Let $l \mathrel{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ and $l' \mathrel{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ be "Galois connections", then $l = l'$.
 \end{prop}
 \begin{prop}
-	Let $l \mathbin{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ and $l \mathbin{\kl[Galois connection]{\dashv}} r':A \rightarrow B$ be "Galois connections", then $r = r'$.
+	Let $l \mathrel{\kl[Galois connection]{\dashv}} r:A \rightarrow B$ and $l \mathrel{\kl[Galois connection]{\dashv}} r':A \rightarrow B$ be "Galois connections", then $r = r'$.
 \end{prop}
 \section{Topology}
 In this section, we introduce the basic terminology of "topological spaces". Again we go a bit further than needed to help readers that first learn about "topology" here. We end this section by recalling some definitions about "metric spaces". 
 \begin{defn}\label{defn:topspace}
-	\AP A ""topological space"" is a pair $(X, \topo)$, where $X$ is a set and $\topo\subseteq \mP(X)$ is closed under arbitrary unions and finite intersections\footnote{For any family of "open sets" $\{U_i\}_{i \in I}\subseteq \topo$,\[\bigcup_{i \in I} U_i \in \topo,\] and if $I$ is finite,\[\bigcap_{i \in I} U_i \in \topo.\]} whose elements are called ""open sets"" of $X$. We call $\topo$ a \textbf{"topology"} on $X$.
+	\AP A ""topological space"" is a pair $(X, \topo)$, where $X$ is a set and $\topo\subseteq \mP(X)$ is a family of subsets of $X$ closed under arbitrary unions and finite intersections\footnote{For any family of "open sets" $\{U_i\}_{i \in I}\subseteq \topo$,\[\bigcup_{i \in I} U_i \in \topo,\] and if $I$ is finite,\[\bigcap_{i \in I} U_i \in \topo.\]} whose elements are called ""open sets"" of $X$. We call $\topo$ a \textbf{"topology"} on $X$.
 	
-	\AP The ""complement"" of an "open set" $U$, denoted $U^\comple$, is said to be ""closed"".\footnote{Observe that both the empty set and the whole "space@@TOP" are "open" and "closed" (sometimes referred to as \textbf{clopen}) because 
+	\AP The ""complement"" of an "open set" $U$, denoted by $U^\comple$, is said to be ""closed"".\footnote{Observe that both the empty set and the whole "space@@TOP" are "open" and "closed" (sometimes referred to as \textbf{clopen}) because 
 	\[\emptyset = \bigcup_{U \in \emptyset} U \text{ and } X = \bigcap_{U \in \emptyset} U \text { and } \emptyset = X^\comple.\]}
 \end{defn}
 In the sequel, fix a "topological space" $(X,\topo)$.
-\begin{lem}
+\begin{prop}
 	Let $(C_i)_{i \in I}$ be a family of "closed sets" of $X$, then $\cap_{i \in I} C_i$ is "closed" and if $I$ is finite, $\cup_{i \in I} C_i$ is also "closed".\footnote{This lemma gives an alternative to the axioms of Definition \ref{defn:topspace}. Indeed, it is sometimes more convenient to define a "topological space" by giving its "closed sets", and you can show the axioms about "open sets" still hold.}
-\end{lem}
+\end{prop}
 \begin{proof}
 	Both statements readily follow from DeMorgan's laws and the fact that the "complement" of a "closed set" is "open" and vice-versa. For the first one, DeMorgan's laws yield
 	\[\bigcap_{i \in I} C_i =  \left( \bigcup_{i \in I} C_i^\comple \right)^\comple,\]
@@ -234,22 +368,22 @@ In the sequel, fix a "topological space" $(X,\topo)$.
 	\[\bigcup_{i \in I} C_i =  \left( \bigcap_{i \in I} C_i^\comple \right)^\comple,\]
 	and the LHS is the "complement" of a finite intersection of "opens", so it is "closed".
 \end{proof}
-\begin{lem}\label{lem:openchar}
+\begin{prop}\label{prop:openchar}
 	A subset $A \subseteq X$ is "open" if and only if for any $x \in A$, there exists an "open" $U \subseteq A$ such that $x \in U$.
-\end{lem}
+\end{prop}
 \begin{proof}
 	($\Rightarrow$) For any $x \in A$, set $U = A$.
 	
 	($\Leftarrow$) For each $x \in X$, pick an open $U_x \subseteq A$ such that $x \in A$, then we claim $A = \cup_{x \in A} U_x$ which is "open"\footnote{Arbitrary unions of "opens" are "open".}. The $\subseteq$ inclusion follows because each $x \in A$ has a set $U_x$ in the union that contains $x$. The $\supseteq$ inclusion follows because each term of the union is a subset of $A$ by assumption.
 \end{proof}
-\begin{lem}\label{lem:closedchar}
+\begin{prop}\label{prop:closedchar}
 	A subset $A\subseteq X$ is "closed" if and only if for any $x \notin A$, there exists an "open" $U$ such that, $x \in U$ and $U\cap A = \emptyset$.\footnote{This result is simply a restatement of the last one by setting $A = A^\comple$.}
-\end{lem}
+\end{prop}
 \begin{defn}%TODO: say that you don't like notation.
-	\AP Given $A \subseteq X$, the ""closure"" of $A$, denoted $\closure{A}$ is the intersection of all "closed sets" containing $A$. One can show that $\closure{A}$ is the smallest "closed set" containing $A$.\footnote{$\closure{A}$ is "closed" because it is an intersection of "closed sets" and any "closed sets" containing $A$ also contains $\closure{A}$ by definition.} Then, it follows that $A$ is "closed" if and only if $\closure{A} = A$.
+	\AP Given $A \subseteq X$, the ""closure"" of $A$, denoted by $\closure{A}$ is the intersection of all "closed sets" containing $A$. One can show that $\closure{A}$ is the smallest "closed set" containing $A$.\footnote{$\closure{A}$ is "closed" because it is an intersection of "closed sets" and any "closed sets" containing $A$ also contains $\closure{A}$ by definition.} Then, it follows that $A$ is "closed" if and only if $\closure{A} = A$.
 \end{defn}
 Here are more easy results on the "closure" of a subset.
-\begin{lem}\label{lem:closure}%TODO: L.H.S. or LHS
+\begin{prop}\label{prop:closure}%TODO: L.H.S. or LHS
 	Given $A,B \subseteq X$ then the following statements hold:
 	\begin{enumerate}
 		\item $A \subseteq B \implies \closure{A} \subseteq \closure{B}$
@@ -258,7 +392,7 @@ Here are more easy results on the "closure" of a subset.
 		\item $\closure{\emptyset} = \emptyset$
 		\item $\closure{(A \cup B)} = \closure{A} \cup \closure{B}$
 	\end{enumerate}\marginnote[-10\baselineskip]{%TODO: put some in the footnote.
-		\begin{proof}[Proof of Lemma \ref{lem:closure}]
+		\begin{proof}[Proof of Lemma \ref{prop:closure}]
 			\begin{enumerate}
 				\item By definition, $\closure{B}$ contains $B$, thus $A$, but $\closure{B}$ is "closed", so it must contain $\closure{A}$.
 				\item By definition.
@@ -267,16 +401,16 @@ Here are more easy results on the "closure" of a subset.
 				\item $\subseteq$ follows because the LHS is the smallest "closed set" containing $A \cup B$ and the RHS is "closed" and contains $A\cup B$.\\ $\supseteq$: Since the RHS is "closed", we have $\closure{(\closure{A} \cup \closure{B})} = \closure{A} \cup \closure{B}$ implying that the RHS is the smallest "closed set" containing $\closure{A} \cup \closure{B}$. Then, since the LHS is a "closed set" containing $A$ and $B$, it contains $\closure{A}$ and $\closure{B}$ and hence must contain the RHS.
 			\end{enumerate}
 		\end{proof}}
-\end{lem}
+\end{prop}
 \begin{rem}
-    If we view $\mP(X)$ as "partial order" equipped with the inclusion relation, the previous lemma is about good properties of the function $\closure{(\placeholder)}: \mP(X) \rightarrow \mp(X)$. Namely, we showed in the first three points that it is a "monotone", "extensive" and "idempotent", and therefore it is a "closure operator".\footnote{In fact, this is where the terminology comes from.} %TODO: check
+    If we view $\mP(X)$ as "partial order" equipped with the inclusion relation, the previous lemma is about good properties of the function $\closure{(\placeholder)}: \mP(X) \rightarrow \mP(X)$. Namely, we showed in the first three points that it is a "monotone", "extensive" and "idempotent", and therefore it is a "closure operator".\footnote{In fact, this is where the terminology comes from.} %TODO: check
 \end{rem}
-\begin{defn}
+\begin{defn}[Dense]
 	\AP A subset $A\subseteq X$ is said to be ""dense"" (in $X$) if any non-empty "open set" intersects $A$ non-trivially, that is, $\forall\emptyset\neq  U  \in \topo, A \cap U \neq \emptyset$.
 \end{defn}
-\begin{thm}[Decomposition]\label{thm:decomptop}
+\begin{prop}[Decomposition]\label{prop:decomptop}
 	Let $A\subseteq X$, then $A = \closure{A} \cap (A \cup (\closure{A})^\comple)$, where $\closure{A}$ is "closed" and $A \cup (\closure{A})^\comple$ is "dense". This results says that any subset of $X$ can be decomposed into a "closed" and a "dense" set.
-\end{thm}
+\end{prop}
 \begin{proof}
 	The equality is clear\footnote{We use (in this order) distributivity of $\cap$ over $\cup$, the fact that a set and its "complement" intersect trivially and the inclusion $A \subseteq \closure{A}$:
     \begin{align*}
@@ -284,25 +418,25 @@ Here are more easy results on the "closure" of a subset.
     \end{align*}} and $\closure{A}$ is "closed" by definition. It is left to show that $A \cup (\closure{A})^\comple$ is "dense". Let $U \neq \emptyset$ be an "open set". If $U$ intersects $A$, we are done. Otherwise, we have the following equivalences:\[U \cap A = \emptyset\Leftrightarrow A \subseteq U^\comple \Leftrightarrow \closure{A} \subseteq U^\comple \Leftrightarrow U \subseteq (\closure{A})^\comple,\]
 	where the second $\Rightarrow$ holds because $U^\comple$ is "closed". We conclude $U \cap (\closure{A})^\comple \neq \emptyset$.
 \end{proof}
-\begin{lem}
+\begin{prop}
 	A subset $A \subseteq X$ is "dense" if and only if $\closure{A} = X$.
-\end{lem}
+\end{prop}
 \begin{proof}
 	($\Rightarrow$) Since $(\closure{A})^\comple$ is "open" but it intersects trivially the "dense" set $A$, it must be empty, thus $\closure{A}$ is the whole "space@@TOP".
 	
 	($\Leftarrow$) Let $U$ be an "open set" such that $U \cap A = \emptyset$, then $A$ is contained in the "closed set" $U^\comple$, but this implies $\closure{A} \subseteq U^\comple$,\footnote{Recall that the "closure" of $A$ is the smallest "closed set" containing $A$.} thus $U$ is empty.
 \end{proof}
-\begin{defn}
-	\AP Let $A \subseteq X$, the ""interior"" of $A$, denoted $\interior{A}$ is the union of all "open sets" contained in $A$. Similarly to the "closure", we can check that that $\interior{A}$ is the largest "open" subset of $A$ and thus that $A$ is "open" if and only if $A = \interior{A}$.\footnote{It also follows that $A \subseteq B \implies \interior{A} \subseteq \interior{B}$ and that $\interior{\interior{A}} = \interior{A}$.} 
+\begin{defn}[Interior]
+	\AP Let $A \subseteq X$, the ""interior"" of $A$, denoted by $\interior{A}$ is the union of all "open sets" contained in $A$. Similarly to the "closure", we can check that that $\interior{A}$ is the largest "open" subset of $A$ and thus that $A$ is "open" if and only if $A = \interior{A}$.\footnote{It also follows that $A \subseteq B \implies \interior{A} \subseteq \interior{B}$ and that $\interior{\interior{A}} = \interior{A}$.} 
 \end{defn}
 
 We end this section by presenting a largely preferred way of defining a "topology" that avoid describing all "open sets".
 \begin{defn}[Base]%TODO: look at other sources.
 	\AP Let $X$ be a set, a ""base"" $B$ is a set $B\subseteq \mP(X)$ such that $X = \cup_{U \in B} U$ and any finite intersection of sets in $B$ can be written as a union of sets in $B$. 
 \end{defn}
-\begin{lem}
+\begin{prop}
 	Let $X$ and $B \subseteq \mP(X)$. If $\topo$ is the set of all unions of sets in $B$, then it is a "topology" on $X$. We say that $\topo$ is the "topology" ""generated@@TOP"" by $B$.
-\end{lem}
+\end{prop}
 \begin{proof}
 	By assumption, we know that unions of "opens" are "open" and finite intersections of sets in $B$ are "open". It remains to show that finite intersections of unions of sets in $B$ are also "open". Let $U = \cup_{i \in I} U_i$ and $V = \cup_{j \in J} V_j$ with $U_i \in B$ and $V_j \in B$, then by distributivity, we obtain
 	\[U\cap V = \cup_{i \in I} U_i \bigcap \cup_{j \in J} V_j = \bigcup_{i\in I, j \in J} U_i \cap V_j,\]
@@ -323,11 +457,11 @@ Another very useful way to define "topological spaces" is to consider the "topol
 \begin{defn}[Non-expansive]
 	\AP A function between "metric spaces" $f: (X,d_X) \rightarrow (Y, d_Y)$ is said to be ""non-expansive""\footnote{Also called \textbf{$1$--Lipschitz} or \textbf{short}.} if for all $x, x' \in X$, \[d_Y(f(x),f(x')) \leq d_X(x,x').\]
 \end{defn}
-\begin{fact}
+\begin{prop}
 	The composition of any two "non-expansive" maps is "non-expansive".
-\end{fact}
+\end{prop}
 \begin{defn}[Open ball]
-	\AP Let $(X,d)$ be a "metric space". Given a point $x \in X$ and a non-negative radius $r\in [0,\infty)$, the "open ball" of radius $r$ centered at $x$ is
+	\AP Let $(X,d)$ be a "metric space". Given a point $x \in X$ and a non-negative radius $r\in [0,\infty)$, the ""open ball"" of radius $r$ centered at $x$ is
 	\[\ball_r(x) := \{y \in X \mid d(x,y) < r.\]
 \end{defn}
 \begin{defn}[Induced topology]
