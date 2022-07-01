@@ -1,6 +1,7 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
 %TODO: start motivation with contravariant powerset .
+%TODO: (terminal, terminal) is terminal in product + dual statemetn
 \chapter{Duality}\label{chap:duality}
 The concept of duality is ubiquitous throughout mathematics. It can relate two perspectives of the same object as for "dual@@VECT" "vector spaces", two complementary optimization problems such as a maximization and a minimization linear program and even two seemingly unrelated fields like topology and logic (\href{https://en.wikipedia.org/wiki/Stone_duality}{Stone duality}). While this vague principle of duality is behind many groundbreaking results, the duality in question here is categorical "duality@@CAT" and it is a bit more precise.%TODO: ref.
 
@@ -180,7 +181,7 @@ The "dual@@CAT" versions of Propositions \ref{prop:mon1} and \ref{prop:mon2} als
 		
 		($\Leftarrow$) Since $f$ is surjective, it has a "right inverse", so it is "epic" by Proposition \ref{prop:ep1}.
 		
-		($\Rightarrow$) Let $h: B \rightarrow \{0,1\}$ be the constant function at $1$ and $g:B \rightarrow \{0,1\}$ be the indicator function of $\im(f) \subseteq B$, namely, \[g(x) = \begin{cases}1&\exists a \in A, x = f(a)\\0&\text{o/w}\end{cases}.\]
+		($\Rightarrow$) Let $h: B \rightarrow \{0,1\}$ be the constant function at $1$ and $g:B \rightarrow \{0,1\}$ be the indicator function of $\im(f) \subseteq B$, namely, \[g(x) = \begin{cases}1&\exists a \in A, x = f(a)\\0&\text{otherwise}\end{cases}.\]
 		We see that $g \circ f = h\circ f \equiv 1$, and $f$ being "epic" implies $g = h$. Thus, any element of $B$ is in the image of $f$, that is, $f$ is surjective.
 	\end{itemize}
 \end{exmp}
@@ -315,7 +316,9 @@ Rewording the last two results, we can say that "initial" (resp. "terminal") "ob
 \begin{exer}\label{exer:duality:morterminal}\marginnote{\hyperref[soln:duality:morterminal]{See solution.}}
 	Let $\mathbf{C}$ be a "category" with a "terminal" "object" $\terminal$. Show any "morphism" $f: \terminal \rightarrow X$ is "monic". State and prove the "dual@@CAT" statement.
 \end{exer}
-
+\begin{exer}\label{exer:duality:productterminal}\marginnote{\hyperref[soln:duality:productterminal]{See solution.}}
+	Let $\mathbf{C}$ and $\mathbf{D}$ be "categories", and $\terminal_{\mathbf{C}}$ and $\terminal_{\mathbf{D}}$ be "terminal" "objects" in $\mathbf{C}$ and $\mathbf{D}$ respectively. Show that $(\terminal_{\mathbf{C}},\terminal_{\mathbf{D}})$ is "terminal" in the $\mathbf{C} \cattimes \mathbf{D}$. State and prove the "dual@@CAT" statement.
+\end{exer}
 \begin{exmp}
 For our last application of "duality@@CAT" in this section,\footnote{Don't worry, we will have plenty of opportunities to use "duality@@CAT" later.} let $X$ be a set and consider the "posetal" "category" $(\mP(X), \subseteq)$. We would like to define the union of two subsets of $X$ in this "category". The usual definition $A \cup B = \{x \in X \mid x \in A \text{ or } x \in B\}$ is not suitable because the data in the "posetal" "category" $\mP(X)$ never refers to elements of $X$. In particular, the subsets $A,B \subseteq X$ are simply "objects" in the "category" and it is not clear to us how we can determine what elements are in $A$ and $B$ with our categorical tools ("objects" and "morphisms").
 
