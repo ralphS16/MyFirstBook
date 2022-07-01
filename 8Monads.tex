@@ -6,6 +6,8 @@
 %TODO: monads in spans are categories.
 %TODO: talk about the state monad, the reader monad, the continuation monad.
 \section{POV: Category Theory}
+%TODO: when F and G are inverses, then GF is the identity on C. When F and G are quasi-inverses, then GF is isomorphic to the identity on C. When F and G are adjoint (which is a relaxation of inverse), we are entitled to ask how special is GF.
+
 %Composition of adjunctions
 We will start from the concept of an "adjunction" which, as we hope was made clear in the previous chapter, is ubiquitous and powerful throughout mathematics. However, we will start with a great oversimplification; we will assume the "categories" concerned are "posetal".
 
@@ -144,6 +146,7 @@ The second question might not be as natural to novices in category theory but it
 %TODO: next best thing to uniqueness is universality.
 In any case, we will respectively give a positive and negative answer to these questions. Fortunately, while we might not benefit from the power of uniqueness, there are two special "adjunctions" arising from a "monad" whose descriptions are fairly straightforward. In the order we present them, the first is due to Kleisli and the second to Eilenberg and Moore. In the rest of this section, $(M, \eta, \mu)$ will be a "monad" on a "category" $\mathbf{C}$.
 \subsection{Kleisli Category $\KL{\mathbf{C}}{M}$}
+%TODO: surprisingly, we don't simply take the composition and identity of the original category as we did in basically all other constructions of categories, this time, we have to be a bit clever.
 \AP An intuitive way to think about "monads" is through the idea of ""generalized elements"".\footnote{This is not a formal term.} Given an object $A \in \obj{\mathbf{C}}$, we can view $MA$ as extending $A$ with more \textit{general} or \textit{structured} elements built from $A$.
 
 In this picture, the "morphisms" $\eta_A: A \rightarrow MA$ give a way to understand anything inside $A$ trivially as a "general element" of $A$. The "morphisms" $\mu_A : M^2A \rightarrow MA$ imply that higher order structures can be collapsed so that "generalized elements" over "generalized elements" of $A$ are "generalized elements" of $A$. The "functoriality" of $M$ implies that the new structures in $MA$ are somewhat independent of $A$. Indeed, for every "morphisms" $f: A \rightarrow B$, there is a "morphism" $Mf: MA \rightarrow MB$ which, by "naturality" of $\eta$ ($Mf(\eta_A) = \eta_B(f)$), acts just like $f$ on the trivial generalization of elements in $A$. "Commutativity" of \eqref{diag:unitmonad} says that the trivial generalization\footnote{There are two ways to do it corresponding to the L.H.S. and R.H.S. of \eqref{diag:unitmonad}.} of a "generalized element" is indeed trivial, namely, after collapsing via $\mu$, we end up with what we started with. Finally, the associativity of $\mu$ (i.e.: "commutativity" of \eqref{diag:multmonad}) corresponds to the fact that in higher order of generalizations, one can collapse the structure at every level in any order and end up with the same thing.

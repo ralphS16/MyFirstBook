@@ -118,6 +118,10 @@
         \end{equation*}
     \end{minipage}
 \end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:duality:productterminal}]\label{soln:duality:productterminal}
+    Let $(X,Y)$ be an object of $\mathbf{C} \cattimes \mathbf{D}$, the pair consisting of $\termmorph_{\mathbf{C}} : X \rightarrow \terminal_{\mathbf{C}}$ and $\termmorph_{\mathbf{D}} : Y \rightarrow \terminal_{\mathbf{D}}$ is a "morphism" \[(\termmorph_{\mathbf{C}}, \termmorph_{\mathbf{D}}): (X,Y) \rightarrow (\terminal_{\mathbf{C}}, \terminal_{\mathbf{D}})\]
+    in $\mathbf{C} \cattimes \mathbf{D}$. Any other "morphism" of this type is a pair $(f,g)$ consisting of $f: X \rightarrow \terminal_{\mathbf{C}}$ and $g:Y \rightarrow \terminal_{\mathbf{D}}$, but by definition of "terminal" "objects", we must have $f = \termmorph_{\mathbf{C}}$ and $g= \termmorph_{\mathbf{D}}$. Hence, $(\termmorph_{\mathbf{C}}, \termmorph_{\mathbf{D}})$ is the unique "morphism" in $\Hom_{\mathbf{C}\cattimes \mathbf{D}}((X,Y), (\terminal_{\mathbf{C}}, \terminal_{\mathbf{D}}))$.
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:duality:preserving}]\label{soln:duality:preservingexer:duality:preserving}
     \begin{enumerate}
         \item Let $f:A \rightarrow B$ be the only non-identity "morphism" in $\cattwo$, it is a "monomorphism" vacuously because there is only one "morphism" with "target" $A$ ($\id_A$). Now, for any "morphism" $m: X \rightarrow Y \in \mor{\mathbf{C}}$, we can define $F: \cattwo \rightsquigarrow \mathbf{C}$ by $FA = X$, $FB = Y$ and $Ff = m$ and it will be a "functor". Thus, choosing $m$ that is not "monic" yields the required example.
