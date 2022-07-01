@@ -186,6 +186,7 @@ Before moving on to more interesting examples, we introduce the $\Hom$ notation.
 	
 	As a particular case of "posetal" "categories", let $(X, \tau)$ be a "topological space" and note that the inclusion relation on "open sets" is a "partial order" on $\tau$. Thus, $X$ has a corresponding "posetal" "category". More explicitly, the "objects" are "open sets" and for any $U, V \in \tau$, the "hom-set" $\Hom_X(U,V)$ contains the inclusion map $i_{UV}$ if $U\subseteq V$ and is empty otherwise. \AP This category will be denoted $\intro*\catOpens(X,\tau)$ or $\catOpens(X)$.
 \end{exmp}
+%TODO: remark on posetal categories. They are a great simple example but all diagrams commute, so not always great for intuition. Here is another (arguably less helpful) simple example.
 \begin{exmp}[Single object categories]\label{exmp:monoid}
 	\AP If a "category" $\mathbf{C}$ has a single "object" $\deloopobject$, then the only "morphisms" go from $\deloopobject$ to $\deloopobject$. In particular, $\mor{\mathbf{C}} = \Hom_{\mathbf{C}}(\deloopobject, \deloopobject)$ and $\mortwo{\mathbf{C}} = \mor{\mathbf{C}} \times \mor{\mathbf{C}}$. Then, the "associativity" of $\circ$ and existence of $\id_{\deloopobject}$ makes $(\mor{\mathbf{C}}, \circ)$ into a "monoid".
 	
