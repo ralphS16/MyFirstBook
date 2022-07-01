@@ -451,7 +451,7 @@
     \[\phi^{-1}_Y \circ G(f) = \phi^{-1}_Y \circ \phi_Y \circ F(f) \circ \phi_X^{-1} = F(f) \circ \phi_X^{-1}\]
     yields the "naturality" of $\phi^{-1}$.
 \end{proof}
-\begin{proof}[Solution to Exercise \ref{exer:natural:opcatfunc}]\label{soln:natural:opcatfunc}
+\begin{proof}[Solution to Exercise \ref{exer:natural:opcatfun}]\label{soln:natural:opcatfun}
     We have already seen in Exercise \ref{exer:duality:oppositefunc} that we can take the "dual" of a "functor" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ to obtain a "functor" $\op{F}: \op{\mathbf{C}} \rightsquigarrow \op{\mathbf{D}}$. It remains to check that a "natural transformation" $F \Rightarrow G$ can be identified with a "natural transformation" $\op{G} \Rightarrow \op{F}$. This follows from observing that the "naturality" square \eqref{diag:natsquarenotop} in $\mathbf{D}$ corresponds to the "naturality" square \eqref{diag:natsquareop} in $\op{\mathbf{D}}$.\footnote{i.e.: \eqref{diag:natsquarenotop} "commutes" if and only if \eqref{diag:natsquareop} "commutes".}\\
     \begin{minipage}{0.49\textwidth}
         \begin{equation}\label{diag:natsquarenotop}
@@ -610,7 +610,7 @@
     Then, observing that both "composite" "left adjoints" are equal,\footnote{Both $\gdiagFunc_{\mathbf{D}}^{\mathbf{J}} \circ L$ and $L\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$ send $X \in \obj{\mathbf{C}}$ to the "constant functor" at $LX$.} we conclude by Corollary \ref{cor:rightadjunique} that $R\lim_{\mathbf{J}} \isoCAT \lim_{\mathbf{J}}(R\placeholder)$. %TODO: explain the end.
 \end{proof}
 \section{Solutions to Chapter \ref{chap:monads}}
-\begin{proof}[Solution to Exercise \ref{exer:monad:adjmorphcommute}]\label{soln:monad:adjmorphcommute}
+\begin{proof}[Solution to Exercise \ref{exer:monads:adjmorphcommute}]\label{soln:monads:adjmorphcommute}
     By the "universal property" of $\eta'$ and one of the "triangle identities", $\varepsilon'_{KA}$ is the unique "morphism" such that $R'\varepsilon'_{KA} \circ \eta'_{R'KA} = \id_{R'KA}$ (see \eqref{diag:univetavareps}).\begin{marginfigure}\begin{equation}\label{diag:univetavareps}
         % https://q.uiver.app/?q=WzAsNyxbMSwwLCJSJ0wnUidLQSJdLFswLDAsIlInS0EiXSxbMSwxLCJSJ0tBIl0sWzMsMSwiS0EiXSxbMywwLCJMJ1InS0EiXSxbMiwwXSxbNCwwXSxbMSwwLCJcXGV0YSdfe1InS0F9Il0sWzEsMiwiXFxpZF97UidLQX0iLDJdLFs0LDMsIlxcdmFyZXBzaWxvbidfe0tBfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFswLDIsIlInXFx2YXJlcHNpbG9uJ197S0F9IiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzksMTAsIlIiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjozMH0sImxldmVsIjoxfV1d
         \begin{tikzcd}
