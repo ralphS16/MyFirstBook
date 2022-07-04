@@ -15,7 +15,7 @@
 \usepackage{etoolbox}
 \usepackage{verbatim}
 \usepackage{subfiles}
-\usepackage[xcolor,hyperref,notion,quotation]{knowledge}
+\usepackage[paper,xcolor,hyperref,notion,quotation]{knowledge}
 \usepackage{enumerate}
 \allowdisplaybreaks
 % A TikZ style for curved arrows of a fixed height, due to AndréC.
@@ -248,6 +248,8 @@
 
 %Categories
 \newrobustcmd{\catSet}{\kl[Set]{\mathbf{Set}}}
+\newrobustcmd{\catSetInj}{\kl[SetInj]{\mathbf{SetInj}}}
+\newrobustcmd{\catSetSurj}{\kl[SetSurj]{\mathbf{SetSurj}}}
 \newrobustcmd{\catFinSet}{\kl[FinSet]{\mathbf{FinSet}}}
 \newrobustcmd{\catFinOrd}{\kl[FinOrd]{\mathbf{FinOrd}}}
 \newrobustcmd{\catMon}{\kl[Mon]{\mathbf{Mon}}}
@@ -261,6 +263,7 @@
 \newrobustcmd{\catFDVect}[1]{\kl[FDVect]{\mathbf{FDVect}}_{#1}}
 \newrobustcmd{\catTop}{\kl[Top]{\mathbf{Top}}}
 \newrobustcmd{\catPoset}{\kl[Poset]{\mathbf{Poset}}}
+\newrobustcmd{\catPre}{\kl[Pre]{\mathbf{Pre}}}
 \newrobustcmd{\catRel}{\kl[Rel]{\mathbf{Rel}}}
 \newrobustcmd{\catCat}{\kl[Cat]{\mathbf{Cat}}}
 \newrobustcmd{\catOpens}{\kl[catOpens]{\mathcal{O}}}
@@ -283,7 +286,7 @@
 \begin{document}
 %\justifying
 %\frontmatter
-% \input{titlepage.tex}
+\input{titlepage.tex}
 % \maketitle
 \setcounter{secnumdepth}{1}
 \titleformat{\chapter}[hang]{\huge\rmfamily\bfseries}{\thechapter}{2em}{}[]
@@ -332,6 +335,11 @@
 %TODO: category theory is just as hard to explain to someone that does not know about it as mathematics. How would you convince someone that doesnt know what mathematics is to learn about it? Very hard to answer and same for category theory, I will try to give a 1% satisfactory answer and I hope this book accounts for the rest of the 99%. In this idea, category theory is not necessarily a language to do maths, we will do maths and use a lot of maths because that is the context of this book but it is not necessary, see PQP.
 \setcounter{tocdepth}{1}
 \tableofcontents
+\counterwithout{equation}{chapter}
+\setcounter{equation}{-1}
+\setcounter{chapter}{-1}
+\counterwithout{footnote}{chapter}
+\setcounter{footnote}{-1}
 \subfile{0Prelim.tex}
 \subfile{1CatFunc.tex}
 \subfile{2Duality.tex}
