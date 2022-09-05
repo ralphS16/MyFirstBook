@@ -143,9 +143,9 @@
 \newrobustcmd{\isoFLD}{\mathrel{\kl(FLD)[isomorphic]{\cong}}}
 \newrobustcmd{\isoVECT}{\mathrel{\kl(VECT)[isomorphic]{\cong}}}
 \newrobustcmd{\initial}{\kl[initial]{\emptyset}}
-\newrobustcmd{\initmorph}{\kl[initial]{()}}
+\newrobustcmd{\initmorph}{\kl[initial]{[]}}
 \newrobustcmd{\terminal}{\kl[terminal]{\mathbf{1}}}
-\newrobustcmd{\termmorph}{\kl[terminal]{[]}}
+\newrobustcmd{\termmorph}{\kl[terminal]{\langle\rangle}}
 \newrobustcmd{\zero}{\kl[zero]{\mathbf{0}}}
 \newrobustcmd{\Product}{\mathop{\kl[product]{\prod}}}
 \newrobustcmd{\Coproduct}{\mathop{\kl[coproduct]{\coprod}}}
@@ -197,6 +197,8 @@
 \newrobustcmd{\supremum}{\mathbin{\kl[supremum]{\vee}}}
 \newrobustcmd{\placeholder}{\kl[placeholder]{-}}
 \newrobustcmd{\topo}{\kl[topology]{\tau}}
+\newrobustcmd{\disc}{\kl(TOP)[discrete]{\top}}
+\newrobustcmd{\codisc}{\kl(TOP)[codiscrete]{\bot}}
 \newrobustcmd{\interior}[1]{{\kern0pt#1}^{\kl[interior]{\mathrm{o}}}}
 \newrobustcmd{\comple}{{\kl[complement]{c}}}
 \newrobustcmd{\closure}[1]{{\kern0pt#1}^{\kl[closure]{-}}}
@@ -333,6 +335,8 @@
 %TODO: talk about paving diagrams as being a softer version of diagram chasing because there is no need to use universal properties. So diagram paving is a subset of diagram chasing.
 %TODO: When I first tried to learn category theory, I realized there was a blatant gap in the market of category theory textbooks: there was no book made for me. For this reason, I had to look at multiple textbooks in order to learn at my own pace. This book conveniently fills this gap.
 %TODO: category theory is just as hard to explain to someone that does not know about it as mathematics. How would you convince someone that doesnt know what mathematics is to learn about it? Very hard to answer and same for category theory, I will try to give a 1% satisfactory answer and I hope this book accounts for the rest of the 99%. In this idea, category theory is not necessarily a language to do maths, we will do maths and use a lot of maths because that is the context of this book but it is not necessary, see PQP.
+%TODO: because lots of proofs are straightforward unrolling of definitions, I did not spend same amount of time on the pedagogy of each proofs, some are dry and straight to the point while other are more fleshed out.
+%TODO: put "see solution" in left margin.
 \setcounter{tocdepth}{1}
 \tableofcontents
 \counterwithout{equation}{chapter}

@@ -184,7 +184,7 @@ In many cases, not drawing all "morphisms" can lead to ambiguities like for \eqr
 	\end{enumerate}
 \end{rem}
 \begin{warn}
-	Diagrams are not "commutative" by default. We will always specify when a diagram is "commutative". As our usage of "commutative diagrams" ramps up in the following chapters, you have to try to remember that. 
+	Diagrams are not "commutative" by default. We will always specify when a diagram "commutes". As our usage of "commutative diagrams" ramps up in the following chapters, you have to try to remember that. 
 \end{warn}
 
 Before moving on to more interesting "categories", we introduce the $\Hom$ notation.
@@ -361,7 +361,7 @@ Informally, a "functor" is a "morphism" of "categories". Thus, to motivate the d
 		\item If $f,g \in \mor{\mathbf{C}}$ are "composable", then $F(f)$ and $F(g)$ are "composable" by \ref{propfunctor1} and $F(f\circ_{\mathbf{C}} g) = F(f) \circ_{\mathbf{D}} F(g)$ by "commutativity" of \eqref{diag:func2}.
 		\item If $A \in \obj{\mathbf{C}}$, then $\idu_{\mathbf{D}}(F(A)) = F(\idu_{\mathbf{C}}(A))$ by "commutativity" of \eqref{diag:func3}.\footnote{Alternatively, $\id_{F(A)} = F(\id_A)$.}
 	\end{enumerate}
-	The subscript on $F$ is often omitted, as is common in the literature, because it is always clear whether $F$ is applied to an "object" or a "morphism". We will also denote application of $F$ with juxtaposition instead of parentheses, i.e., we can write $FA$ and $Ff$ instead of $F(A)$ and $F(f)$.
+	The subscript on $F$ is often omitted, as is common in the literature, when it is clear whether $F$ is applied to an "object" or a "morphism". We will also denote application of $F$ with juxtaposition instead of parentheses, i.e., we can write $FA$ and $Ff$ instead of $F(A)$ and $F(f)$.
 \end{rem}
 \begin{exmps}[Boring examples]
 	As usual, a few trivial constructions arise.
@@ -403,7 +403,7 @@ While bijectivity is very strong to compare sets --- it morally says that the el
 \begin{exmps}\label{exmp:functors}
 	For all but the first example, we leave you to prove "functoriality".\footnote{It is an elementary task that is mostly relevant to the field of mathematics the "functor" comes from.} In the literature, a lot of "functors" are given only with their action on "objects" and the reader is supposed to figure out the action on "morphisms". Not everyone has the same innate ability to do this, but I hope this book can give you enough experience to overcome this difficulty.
 	\begin{enumerate}
-		\item The ""powerset functor"" $\mPcov: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mPcov(X)$\footnote{The "powerset" of $X$ is the set of all subsets of $X$.} and a function $f: X\rightarrow Y$ to the image map $\mPcov(f):\mPcov(X)\rightarrow \mPcov(Y)$. The latter sends a subset $S\subseteq X$ to \[\mPcov(f)(S)= f(S) := \{f(s) \mid s \in S\} \subseteq Y.\]
+		\item\label{exmp:powersetcov} The ""powerset functor"" $\mPcov: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mPcov(X)$\footnote{The "powerset" of $X$ is the set of all subsets of $X$.} and a function $f: X\rightarrow Y$ to the image map $\mPcov(f):\mPcov(X)\rightarrow \mPcov(Y)$. The latter sends a subset $S\subseteq X$ to \[\mPcov(f)(S)= f(S) := \{f(s) \mid s \in S\} \subseteq Y.\]
 		In order to prove that $\mPcov$ is a "functor", we need to show it makes diagrams \eqref{diag:func1}, \eqref{diag:func2}, and \eqref{diag:func3} "commute". Equivalently, we can show it satisfies the three conditions in Remark \ref{rem:funcconditions}.
 		
 		\begin{enumerate}[i.]
@@ -531,7 +531,7 @@ Let us clarify by example. In the setting of Proposition \ref{prop:funccompose},
 	\arrow["\target", from=1-2, to=1-3]
 \end{tikzcd}
 \end{equation}
-We can factor the action of $G\circ F$ and draw \eqref{diag:paving2}. We indicated with $\circlearrowleft$ that some parts of the diagram are known to "commute" (this time by definition of $G\circ F$).\footnote{We did not leave the arrow $(G\circ F)_1$ because it would make the diagram messy.}
+We can factor the action of $G\circ F$ and draw \eqref{diag:paving2}. We indicated with $\circlearrowleft$ that some parts of the diagram are known to "commute" (by definition of $G\circ F$).\footnote{We did not leave the arrow $(G\circ F)_1$ because it would make the diagram messy.}
 \begin{equation}\label{diag:paving2}
 	% https://q.uiver.app/?q=WzAsOSxbMCwwLCJcXG9iantcXG1hdGhiZntDfX0iXSxbMCwyLCJcXG9iantcXG1hdGhiZntFfX0iXSxbMSwwLCJcXG1vcntcXG1hdGhiZntDfX0iXSxbMSwyLCJcXG9iantcXG1hdGhiZntFfX0iXSxbMiwwLCJcXG9iantcXG1hdGhiZntDfX0iXSxbMiwyLCJcXG9iantcXG1hdGhiZntFfX0iXSxbMCwxLCJcXG9iantcXG1hdGhiZntEfX0iXSxbMSwxLCJcXG1vcntcXG1hdGhiZntEfX0iXSxbMiwxLCJcXG9iantcXG1hdGhiZntEfX0iXSxbMCwxLCIoR1xcY2lyYyBGKV8wIiwyLHsib2Zmc2V0IjoyLCJjdXJ2ZSI6M31dLFs0LDUsIihHXFxjaXJjIEYpXzAiLDAseyJvZmZzZXQiOi0yLCJjdXJ2ZSI6LTN9XSxbMiwwLCJcXHNvdXJjZSIsMl0sWzMsMSwiXFxzb3VyY2UiXSxbMyw1LCJcXHRhcmdldCIsMl0sWzIsNCwiXFx0YXJnZXQiXSxbMCw2LCJGXzAiLDJdLFs2LDEsIkdfMCIsMl0sWzIsNywiRl8xIl0sWzcsMywiR18xIl0sWzQsOCwiRl8wIl0sWzgsNSwiR18wIl0sWzksNiwiXFxjaXJjbGVhcnJvd2xlZnQiLDEseyJsYWJlbF9wb3NpdGlvbiI6NzAsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs4LDEwLCJcXGNpcmNsZWFycm93bGVmdCIsMSx7ImxhYmVsX3Bvc2l0aW9uIjozMCwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
 \begin{tikzcd}
@@ -585,7 +585,7 @@ Then we can decompose the two rectangles into four squares that all "commute" by
 \end{equation}
 Finally, we recognize that all the "commutative diagrams" in \eqref{diag:paving3} combine into \eqref{diag:paving1}, so the latter is "commutative".
 
-From now on, when doing proofs by "paving" a diagram, we will only show the last "paved" diagram. We will use letters instead of $\circlearrowleft$ to indicate regions that "commute" so we can explain why they "commute" in the text.
+From now on, when doing proofs by "paving" a diagram, we will only show the last "paved" diagram. Instead of $\circlearrowleft$, we will use letters to indicate regions that "commute" so we can refer to each region in the text and explain why they "commute".
 
 %TODO: first simple prop to use diagram paving.
 
@@ -598,6 +598,7 @@ There is one last thing we want to mention to end this chapter. We gave two cent
 \begin{exer}\label{exer:catfunc:diagfunc}\marginnote{\hyperref[soln:catfunc:diagfunc]{See solution.}}
 	Show that the assignment $\diagFunc_{\mathbf{C}} :\mathbf{C} \rightsquigarrow \mathbf{C}\cattimes \mathbf{C} = X \mapsto (X,X)$ is "functorial", i.e., give its action on "morphisms" and show it satisfies the relevant axioms. We call $\diagFunc_{\mathbf{C}}$ the ""diagonal functor"".
 \end{exer}
+%TODO: exercise : what is a functor BG \times BH \to Set.
 \begin{defn}[Product functor]
 	\AP Let $F: \mathbf{C} \rightsquigarrow  \mathbf{C}'$ and $G: \mathbf{D} \rightsquigarrow \mathbf{D}'$ be two "functors", the \intro[functimes]{product} of $F$ and $G$, denoted $F\functimes G: \mathbf{C} \cattimes \mathbf{D} \rightsquigarrow \mathbf{C}' \cattimes \mathbf{D}'$, is defined componentwise on "objects" and "morphisms", i.e., for any $(X,Y) \in \obj{(\mathbf{C}\cattimes \mathbf{D})}$ and $(f,g) \in \mor{(\mathbf{C}\cattimes \mathbf{D})}$,
 	\[(F\functimes G)(X,Y) = (FX,GY) \text{ and } (F\functimes G)(f,g) = (Ff,Gg).\]
