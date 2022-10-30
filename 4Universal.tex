@@ -215,8 +215,61 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
 
 
 \section{Generalization}%TODO: exercises asking to compute the opposite categories.
+
+Diagrams \eqref{diag:freemon}, \eqref{diag:abelianization}, \eqref{diag:basis}, \eqref{diag:exponent}, \eqref{diag:upsubobjectclassifier} and \eqref{diag:uppowerobject} look so similar that you can try to infer the following definition unifying all these concepts under the term "universal property".\footnote{Although, \eqref{diag:exponent} looks like all arrows have been reversed, so, you guessed it, it will be an instance of the "dual@@CAT" notion.}
+
+\begin{defn}[Universal morphism]
+    If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a functor and $X \in \obj{\mathbf{C}}$. \AP A ""universal morphism"" from $X$ to $F$ a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag:univmorphalt}. %TODO: Detail the equivalently: uniqueness of f inside D because we defined morphisms in the comma category as coming from D (not simply being the image of F)
+    \begin{equation}\label{diag:univmorphalt}
+        \begin{tikzcd}
+            & X & FA & {} & A & {} \\
+            && FB && B
+            \arrow["a", from=1-2, to=1-3]
+            \arrow[""{name=0, anchor=center, inner sep=0}, "Ff", dashed, from=1-3, to=2-3]
+            \arrow["b"', from=1-2, to=2-3]
+            \arrow[""{name=1, anchor=center, inner sep=0}, "f", dashed, from=1-5, to=2-5]
+            \arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-2, to=1-3]
+            \arrow["{\text{in }\mathbf{D}}"{description}, shift left=6, draw=none, from=1-4, to=1-6]
+            \arrow["{F}"', shorten <=6pt, shorten >=12pt, from=1, to=0]
+        \end{tikzcd}
+    \end{equation}
+    
+The "dual@@CAT" notion is a "universal morphism" from $F$ to $X$.\footnote{The "duality@@CAT" is clear from how \eqref{diag:univmorphaltdual} is just \eqref{diag:univmorphalt} with all "morphisms" reversed. More abstractly, we can say that a "universal morphism" from $F$ to $X$ is a "universal morphism" from $X\in \op{\mathbf{C}}$ to $\op{F}:\op{D}\rightsquigarrow \op{C}$.} It is a "morphism" $a: F(A) \rightarrow X$ such that for any other "morphism" $F(B) \rightarrow X$, there is a unique "morphism" $f:B \rightarrow A$ in $\mathbf{D}$ satisfying $a \circ F(f) = b$. This is summarized below in \eqref{diag:univmorphaltdual}.
+    \begin{equation}\label{diag:univmorphaltdual}
+        % https://q.uiver.app/?q=WzAsNyxbMSwwLCJGQSJdLFswLDAsIkEiXSxbMSwxLCJGQiJdLFszLDEsIkIiXSxbMywwLCJBIl0sWzIsMF0sWzQsMF0sWzAsMSwiYSIsMl0sWzIsMCwiRmYiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJiIl0sWzMsNCwiZiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7RH0iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcbWF0aGJme0N9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEwLDgsIkYiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0Ijo0MH0sImxldmVsIjoxfV1d
+\begin{tikzcd}
+	A & FA & {} & A & {} \\
+	& FB && B
+	\arrow["a"', from=1-2, to=1-1]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "Ff"', dashed, from=2-2, to=1-2]
+	\arrow["b", from=2-2, to=1-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "f"', dashed, from=2-4, to=1-4]
+	\arrow["{\text{in }\mathbf{D}}"{description}, shift left=6, draw=none, from=1-3, to=1-5]
+	\arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-1, to=1-2]
+	\arrow["F"', shorten <=6pt, shorten >=12pt, from=1, to=0]
+\end{tikzcd}
+    \end{equation} 
+\end{defn}
+\begin{defn}[Universal property]
+    \AP A ""universal property"" is the property of being a "universal morphism".
+\end{defn}
+\begin{exmps}\label{exmps:allup}
+    In practice and in the literrature, we often say that some construction satisfies a "universal property" without referring to the actual "universal morphism". For example, we say that the "free monoid" satisfies a "universal property", while the less ambiguous thing to say is that the inclusion of a set $A$ into the "free monoid" $\freemon{A}$ is a "universal morphism" from the set $A$ to the "fogetful functor" $U: \catMon \rightsquigarrow \catSet$.\footnote{You probably agree that the latter is a mouthful, but the former can feel very vague, especially when you are not familiar with the construction or "universal properties" in general.}
+    Let us translate the other examples we gave above with this new terminology.
+    \begin{enumerate}
+        \item The quotient map from a group $G$ to its "abelianization" $\ab{G}$ is the "universal morphism" from $G$ to the "forgetful functor" $\catAb \rightsquigarrow \catGrp$.
+        \item The set $S \subseteq V$ is a "basis" for the "vector space" $V$ when the inclusion $S \hookrightarrow V$ is the "universal morphism" from $S$ to the "forgetful functor" $\catVect{k} \rightsquigarrow \catSet$.
+        \item An "exponential object" is an "object" $A^X$ along with a "universal morphism" $\ev$ from the "functor" $\placeholder\product X$ to $A$.\footnote{This is an example of a "universal morphism" from a "functor" to an "object", whereas all the other examples are "universal morphisms" from an "object" to a "functor".}
+        \item A "subobject classifier" is a "morphism" $\top: \terminal \hookrightarrow \Omega$ such that the corresponding function $\top: \terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ is a "universal morphism" from $\terminal$ to the "functor" $\Sub_{\mathbf{C}}$.
+        \item A "power object" of $X$ is an object $\Power X$ along with a "universal morphism" $\ni_X$ from $\terminal$ to $\Sub_{\mathbf{C}}(\placeholder\product X)$.
+    \end{enumerate}
+\end{exmps}
+Another common practice is to use the word free in situations where we have a "universal morphism" to a "forgetful functor" (just like the "free monoid"). For instance, one could say that $\ab{G}$ is the free "abelian group" over $G$, or that $V$ is the free "vector sapce" over its "basis". When you have two "categories" with an obvious "forgetful functor" between them, it can be useful to figure out if you can construct free objects. We will get back to this in Chapter \ref{chap:adjoints}.
+
+\section{Comma Categories}
+Before moving on, we are going to have some fun with new definitions that let us construct new "categories" out of "categories" and "functors". This section could have appeared in earlier chapters, but those were already dense, and this section ends with a more concise definition of "universal morphisms".
 \begin{defn}[Comma category]\label{defn:comma}
-    \AP Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, there is a "category" $\comcat{F}{G}$,\footnote{Some authors denote this "category" $F/G$.} called the ""comma category"", whose "objects" are triples $(X, Y, \alpha)$ with $X \in \obj{\mathbf{D}}$, $Y \in \obj{\mathbf{E}}$ and $\alpha : F(X) \rightarrow G(Y)$ (in $\mor{\mathbf{C}}$) and "morphisms" between $(X_1, Y_1, \alpha)$ and $(X_2, Y_2, \beta)$ are pairs of "morphisms" $(f,g) \in \Hom_{\mathbf{D}}(X_1,X_2) \times \Hom_{\mathbf{E}}(Y_1,Y_2)$ yielding a "commutative" square as in \eqref{diag:morphicomcat}.
+    \AP Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, there is a "category" $\comcat{F}{G}$,\footnote{Some authors denote this "category" $F/G$.} called the ""comma category"", whose "objects" are triples $(X, Y, \alpha)$ with $X \in \obj{\mathbf{D}}$, $Y \in \obj{\mathbf{E}}$ and $\alpha : F(X) \rightarrow G(Y)$ (in $\mor{\mathbf{C}}$), and "morphisms" between $(X_1, Y_1, \alpha)$ and $(X_2, Y_2, \beta)$ are pairs of "morphisms" $f: X_1 \rightarrow X_2$ in $\mor{\mathbf{D}}$ and $g: Y_1 \rightarrow Y_2$ in $\mor{\mathbf{E}}$ yielding a "commutative" square as in \eqref{diag:morphicomcat}.
     \begin{equation}\label{diag:morphicomcat}
     \begin{tikzcd}
         F(X_1) \arrow[d, "\alpha"'] \arrow[r, "F(f)"] & F(X_2) \arrow[d, "\beta"] \\
@@ -247,8 +300,9 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
         \item Show that $\intro*\targetarr:\arrowcat{\mathbf{C}} \rightsquigarrow \mathbf{C}$ sending $f \in \obj{\arrowcat{\mathbf{C}}}$ to $\target(f)$ is "functorial".
     \end{enumerate}
 \end{exer}
+%TODO: show that C -> Arr(C) is a functor Cat -> Cat
 \begin{defn}[Slice category]
-    In the setting of Definition \ref{defn:comma}, if $F = \id_{\mathbf{C}}$ and $G= X: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $G(\bullet) = X \in \obj{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{X}$ is called the ""slice category"" over $X$ and denoted $\slice{\mathbf{C}}{X}$.\footnote{Some authors call this "category" $\mathbf{C}$ over $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "target" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
+    In the setting of Definition \ref{defn:comma}, if $F = \id_{\mathbf{C}}$ and $G= \constFunc{X}: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $G(\bullet) = X \in \obj{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{\constFunc{X}}$ is called the ""slice category"" over $X$ and denoted $\slice{\mathbf{C}}{X}$.\footnote{Some authors call this "category" $\mathbf{C}$ over $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "target" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
     \begin{equation}\label{diag:slice}
         \begin{tikzcd} 
             A \arrow[rr] \arrow[rd] & & B \arrow[ld]\\
@@ -256,8 +310,25 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
         \end{tikzcd}
     \end{equation}
 \end{defn}
+\begin{exer}[\NOW]\label{exer:universal:sliceterminal}\marginnote{\hyperref[soln:universal:sliceterminal]{See solution.}}
+    Suppose $\mathbf{C}$ has a "terminal" "object" $\terminal$, what is $\slice{\mathbf{C}}{\terminal}$?
+\end{exer}
+\begin{exmp}
+    Recall that $\Omega = \{\bot, \top\}$ is the "subobject classifier" in $\catSet$, that is, a function $A \rightarrow \Omega$ can be identified with the subset $f^{-1}(\top) \subseteq A$. Therefore, "objects" of $\slice{\catSet}{\Omega}$ can be seen as sets $A$ equipped with a distinguished subset $P\subseteq A$ that we will call a predicate.\footnote{This terminology comes from the field of logic. You can think of predicates as things that might be satisfied or not by elements of a set. We say that $a \in A$ satisfies $P$ if $a \in P$.} Suppose $(A,P_A)$ and $(B,P_B)$ are sets equipped with predicates, what is a "morphism" $(A,P_A) \rightarrow (B,P_B)$ when we see these as "objects" in $\slice{\catSet}{\Omega}$? It is a function $f: A \rightarrow B$ making \eqref{diag:predpreserve} "commute".\footnote{Recall that $\charac_{P_A}(a) = \top \Leftrightarrow a \in P_A$ and similarly for $P_B$.}
+    \begin{equation}\label{diag:predpreserve}
+        % https://q.uiver.app/?q=WzAsMyxbMCwwLCJBIl0sWzEsMSwiXFxPbWVnYSJdLFsyLDAsIkIiXSxbMCwxLCJcXGNoYXJhY197UF9BfSIsMl0sWzIsMSwiXFxjaGFyYWNfe1BfQn0iXSxbMCwyLCJmIl1d
+    \begin{tikzcd}
+        A && B \\
+        & \Omega
+        \arrow["{\charac_{P_A}}"', from=1-1, to=2-2]
+        \arrow["{\charac_{P_B}}", from=1-3, to=2-2]
+        \arrow["f", from=1-1, to=1-3]
+    \end{tikzcd}
+    \end{equation}
+    Equivalently, $f$ must satisfy $a \in P_B \implies f(a) \in P_B$. Logically-minded people might call $\slice{\catSet}{\Omega}$ the "category" of predicates and predicate-preserving functions.
+\end{exmp}
 \begin{defn}[Coslice category]
-    In the setting of Definition \ref{defn:comma}, if $G = \id_{\mathbf{C}}$ and $F= X: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $F(\bullet) = X \in \obj{\mathbf{C}}$, then $\comcat{X}{\id_{\mathbf{C}}}$ is called the ""coslice category"" under $X$ and denoted $\coslice{X}{\mathbf{C}}$.\footnote{Some authors call this "category" $\mathbf{C}$ under $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "source" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
+    In the setting of Definition \ref{defn:comma}, if $G = \id_{\mathbf{C}}$ and $F= \constFunc{X}: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $F(\bullet) = X \in \obj{\mathbf{C}}$, then $\comcat{\constFunc{X}}{\id_{\mathbf{C}}}$ is called the ""coslice category"" under $X$ and denoted $\coslice{X}{\mathbf{C}}$.\footnote{Some authors call this "category" $\mathbf{C}$ under $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "source" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
     \begin{equation}\label{diag:coslice}
         \begin{tikzcd}
             & X \arrow[ld] \arrow[rd] &\\
@@ -265,70 +336,59 @@ Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of
         \end{tikzcd}
     \end{equation}
 \end{defn}
+\begin{exmp}\label{exmp:ptdsetcoslice}
+    In the solution to Exercise \ref{exer:limits:defelements}, we saw that a function $\terminal \rightarrow X$ in $\catSet$ can be identified with the element of $X$ it picks out. Therefore, "objects" of $\coslice{\terminal}{\catSet}$ can be seen as sets $A$ equipped with a distinguished element $a \in A$. We already have a name for these things, they are "pointed sets". Suppose $(A,a)$ and $(B,b)$ are "pointed sets", what is a "morphism" $(A,a) \rightarrow (B,b)$ when we see these as "objects" of $\coslice{\terminal}{\catSet}$? It is a function $f: A \rightarrow B$ making \eqref{diag:pointpreserve} "commute".
+    \begin{equation}\label{diag:pointpreserve}
+        % https://q.uiver.app/?q=WzAsMyxbMCwxLCJBIl0sWzIsMSwiQiJdLFsxLDAsIlxcdGVybWluYWwiXSxbMCwxLCJmIiwyXSxbMiwwLCJhIiwyXSxbMiwxLCJiIl1d
+    \begin{tikzcd}
+        & \terminal \\
+        A && B
+        \arrow["f"', from=2-1, to=2-3]
+        \arrow["a"', from=1-2, to=2-1]
+        \arrow["b", from=1-2, to=2-3]
+    \end{tikzcd}
+    \end{equation}
+    Equivalently, $f$ must send $a$ to $b$, i.e., $f(a) = b$. You might now recognize that $\coslice{\terminal}{\catSet}$ is really the "category" $\catPtd$ in disguise.
+\end{exmp}
 \begin{exer}\label{exer:universal:termslice}\marginnote{\hyperref[soln:universal:termslice]{See solution.}}
     Show that for any "category" $\mathbf{C}$ and "object" $X \in \obj{\mathbf{C}}$, the "slice category" $\slice{\mathbf{C}}{X}$ has a "terminal" "object". State and prove the "dual@@CAT" statement.
 \end{exer}
 \begin{exer}\label{exer:universal:productslice}\marginnote{\hyperref[soln:universal:productslice]{See solution.}}
     Show that the "product" of $f:A \rightarrow X$ and $g: B \rightarrow X$ in $\slice{\mathbf{C}}{X}$ exists if and only if the "pullback" of $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & X & B \arrow[l, "g"'] \end{tikzcd}$ exists in $\mathbf{C}$. State and prove the "dual@@CAT" statement.
 \end{exer}
-% \begin{cor}["Dual@@CAT"]
-%     The "coproduct" of $f:X \rightarrow A$ and $g: X \rightarrow A$ in $\coslice{\mathbf{C}}{X}$ exists if and only if the "pushout" of $\begin{tikzcd}[cramped, sep=small] A & \arrow[l, "f"'] X \arrow[r, "g"] & B \end{tikzcd}$ exists in $\mathbf{C}$.
-% \end{cor}
-Back to "universal properties".
-\begin{defn}[Universal morphism]
-    If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a functor and $X \in \obj{\mathbf{C}}$. \AP A ""universal morphism"" from $X$ to $F$ is an "initial" "object" in $\comcat{X}{F}$. Namely, it is a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is unique "commutative" triangle as in \eqref{diag:univmorph}.
+
+\begin{exmp}
+    %TODO: similar example to predicates but with binary relations, and n-ary relations. See the binary ones as supercategories of poset.
+\end{exmp}
+\begin{exer}\label{exer:universal:opcomma}\marginnote{\hyperref[soln:universal:opcomma]{See solution.}}
+    Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, show that an "initial" "object" in $\comcat{F}{G}$ is a "terminal" "object" in $\comcat{\op{G}}{\op{F}}$.
+\end{exer}
+
+Back to "universal properties". We give a more concise definition.
+\begin{prop}
+    Let $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ be a functor, $X \in \obj{\mathbf{C}}$ and $\constFunc{X}:\termcat \rightsquigarrow \mathbf{C}$ be the "constant functor". \AP A ""universal morphism"" from $X$ to $F$ is an "initial" "object" in $\comcat{\constFunc{X}}{F}$.
+\end{prop}
+\begin{proof}
+    Unrolling the definition of "initial" "object" in $\comcat{\constFunc{X}}{F}$, we find that it is a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is unique "morphism" $(\bullet,A,a) \rightarrow (\bullet,B,b)$, that is, a unique "morphism" $f:A \rightarrow B$ making \eqref{diag:univmorph} "commute".
     \begin{equation}\label{diag:univmorph}
+        % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiRkEiXSxbMSwxLCJGQiJdLFsxLDAsIlgiXSxbMCwxLCJhIiwyXSxbMSwyLCJGZiIsMl0sWzMsMiwiYiJdLFswLDMsIlxcaWRfWCJdXQ==
         \begin{tikzcd}
-            & X \arrow[ld, "a"'] \arrow[rd, "b"] &\\
-            F(A) \arrow[rr, dashed, "F(f)"']  & & F(B) 
+            X & X \\
+            FA & FB
+            \arrow["a"', from=1-1, to=2-1]
+            \arrow["Ff"', from=2-1, to=2-2]
+            \arrow["b", from=1-2, to=2-2]
+            \arrow["{\id_X}", from=1-1, to=1-2]
         \end{tikzcd}
     \end{equation}
-    Notice that equivalently, one could say that for any $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag:univmorphalt}. %TODO: Detail the equivalently: uniqueness of f inside D because we defined morphisms in the comma category as coming from D (not simply being the image of F)
-    \begin{equation}\label{diag:univmorphalt}
-        \begin{tikzcd}
-            & X & FA & {} & A & {} \\
-            && FB && B
-            \arrow["a", from=1-2, to=1-3]
-            \arrow[""{name=0, anchor=center, inner sep=0}, "Ff", dashed, from=1-3, to=2-3]
-            \arrow["b"', from=1-2, to=2-3]
-            \arrow[""{name=1, anchor=center, inner sep=0}, "f", dashed, from=1-5, to=2-5]
-            \arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-2, to=1-3]
-            \arrow["{\text{in }\mathbf{D}}"{description}, shift left=6, draw=none, from=1-4, to=1-6]
-            \arrow["{F}"', shorten <=6pt, shorten >=12pt, from=1, to=0]
-        \end{tikzcd}
-    \end{equation}
-    
-    The "dual@@CAT" notion is a "universal morphism" from $F$ to $X$, it is a "terminal" "object" in $\comcat{F}{X}$. The "dual@@CAT" of \eqref{diag:univmorphalt} is depicted below.
-    \begin{equation}\label{diag:univmorphaltdual}
-        % https://q.uiver.app/?q=WzAsNyxbMSwwLCJGQSJdLFswLDAsIkEiXSxbMSwxLCJGQiJdLFszLDEsIkIiXSxbMywwLCJBIl0sWzIsMF0sWzQsMF0sWzAsMSwiYSIsMl0sWzIsMCwiRmYiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJiIl0sWzMsNCwiZiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7RH0iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcbWF0aGJme0N9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEwLDgsIkYiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0Ijo0MH0sImxldmVsIjoxfV1d
-\begin{tikzcd}
-	A & FA & {} & A & {} \\
-	& FB && B
-	\arrow["a"', from=1-2, to=1-1]
-	\arrow[""{name=0, anchor=center, inner sep=0}, "Ff"', dashed, from=2-2, to=1-2]
-	\arrow["b", from=2-2, to=1-1]
-	\arrow[""{name=1, anchor=center, inner sep=0}, "f"', dashed, from=2-4, to=1-4]
-	\arrow["{\text{in }\mathbf{D}}"{description}, shift left=6, draw=none, from=1-3, to=1-5]
-	\arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-1, to=1-2]
-	\arrow["F"', shorten <=6pt, shorten >=12pt, from=1, to=0]
-\end{tikzcd}
-    \end{equation} 
-\end{defn}
-\begin{defn}[Universal property]
-    \AP A ""universal property"" is the property of being a "universal morphism". %TODO: meh
-\end{defn}
-\begin{exmps}\label{exmps:allup}
-    Here we translate all the examples of this chapter into the general language.
-    \begin{enumerate}
-        \item The "free monoid" on a set $A$ is the "universal morphism" from $A$ to the "forgetful functor" $\catMon \rightsquigarrow \catSet$.
-        \item The "abelianization" of a "group" $G$ is the "universal morphism" from $G$ to the "forgetful functor" $\catAb \rightsquigarrow \catGrp$.
-        \item The set $S \subseteq V$ is a "basis" for the "vector space" $V$ when the inclusion $S \hookrightarrow V$ is the "universal morphism" from $S$ to the "forgetful functor" $\catVect{k} \rightsquigarrow \catSet$.
-        \item An "exponential object" is an "object" $A^X$ along with a "universal morphism" from the "functor" $\placeholder\product X$ to $A$.
-        \item A "subobject classifier" is a "morphism" $\top: \terminal \hookrightarrow \Omega$ such that the corresponding function $\top: \terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ is a "universal morphism" from $\terminal$ to the "functor" $\Sub_{\mathbf{C}}$.
-        \item A "power object" of $X$ is an object $\Power X$ along with a "universal morphism" $\ni_X$ from $\terminal$ to $\Sub_{\mathbf{C}}(\placeholder\product X)$.
-    \end{enumerate}
-\end{exmps}
-We will not bother applying this general definition anymore because the formalism is not crucial to the study of "universal properties".
+    This is exactly the situation depicted in \eqref{diag:univmorphalt}.
+\end{proof}
+\begin{cor}["Dual@@CAT"]\label{cor:equivdefunivmor}
+    A "universal morphism" from $F$ to $X$ is a "terminal" "object" in $\comcat{F}{\constFunc{X}}$.
+\end{cor}
+\begin{proof}
+    We said that a "universal morphism" from $F$ to $X$ is a "universal morphism" from $X \in \op{\mathbf{C}}$ to $\op{F}$. By the previous result, it is an "initial" "object" in $\comcat{\constFunc{X}}{\op{F}}$. By Exercise \ref{exer:universal:opcomma}, it is a "terminal" "object" in $\comcat{F}{\constFunc{X}}$.
+\end{proof}
 
 We have to postpone to Chapter \ref{chap:yoneda} showing that, as we have claimed, any "(co)@colimit""limit" satisfies a "universal property". Still, you might have noticed that our definition of "universal property" also uses a special case of "(co)@colimit""limits", that is, "initial" and "terminal" "objects". What is more, in the following chapters, we will introduce a couple more concepts which often coincide\footnote{By \textit{coincide}, we mean that one is a special case of the other or vice-versa or both directions.} with the concepts of "(co)@colimit""limits" and "universal properties".
 

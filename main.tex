@@ -1,5 +1,5 @@
 \documentclass[justified]{tufte-book} % A4 paper and 11pt font size
-%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype} TODO: reactivate microtype
+%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype} %TODO: reactivate microtype
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \usepackage{mathpazo} %Mathpazon fonts
 \usepackage[english]{babel} % English language/hyphenation
@@ -273,6 +273,7 @@
 \newrobustcmd{\catPtd}{\kl[pointed]{\mathbf{Set}_{\ast}}}
 \newrobustcmd{\catPar}{\kl[partial]{\mathbf{Par}}}
 \newrobustcmd{\catMat}[1]{\kl[Mat]{\mathbf{Mat}}\kern-2pt\left( #1 \right)}
+\newrobustcmd{\catMet}{\kl[Met]{\mathbf{Met}}}
 \newrobustcmd{\catSimplex}{\kl[simplex category]{\mathbf{\Delta}}}
 %Known Symbols
 
@@ -333,7 +334,7 @@
 %TODO: at the start of each chapter, put a reason why I love category theory that is related to the chapter.
 %TODO: I don't want to spend too much time motivating category theory because I am pretty sure that in a couple of years I will have changed enough to do so. So I hope that you have read a bit about the motivation behind category theory before stumbling upon this book. O/w, go read [ref].
 %TODO: talk about paving diagrams as being a softer version of diagram chasing because there is no need to use universal properties. So diagram paving is a subset of diagram chasing.
-%TODO: When I first tried to learn category theory, I realized there was a blatant gap in the market of category theory textbooks: there was no book made for me. For this reason, I had to look at multiple textbooks in order to learn at my own pace. This book conveniently fills this gap.
+%TODO: When I first tried to learn category theory, I realized there was a blatant gap in the market of category theory textbooks: there was no book made for me. For this reason, I had to look at multiple textbooks in order to learn at my own pace. This book conveniently fills this gap. More helpfully, this book is aimed at...
 %TODO: category theory is just as hard to explain to someone that does not know about it as mathematics. How would you convince someone that doesnt know what mathematics is to learn about it? Very hard to answer and same for category theory, I will try to give a 1% satisfactory answer and I hope this book accounts for the rest of the 99%. In this idea, category theory is not necessarily a language to do maths, we will do maths and use a lot of maths because that is the context of this book but it is not necessary, see PQP.
 %TODO: because lots of proofs are straightforward unrolling of definitions, I did not spend same amount of time on the pedagogy of each proofs, some are dry and straight to the point while other are more fleshed out.
 %TODO: put "see solution" in left margin.

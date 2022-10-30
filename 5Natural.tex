@@ -9,7 +9,7 @@
 \section{Natural Transformations}
 "Natural transformations" are admittedly what made mathematicians want to study category theory in the first place. In short, they are "morphisms" between "functors", i.e.: transformations that preserve the structure of "functors".
 
-The abstract structure of a "category" is very familiar because it resembles what is found in algebraic structures such as "groups", "rings" or "vector spaces". That is to say, it consists of the data of one or more sets with one or more operations satisfying one or more properties. In contrast, the definition of a functor is more opaque and by itself, the structure of a functor is not obvious. A functor is effectively a morphism between categories, hence a natural transformation will be a \textit{morphism between morphisms}. Before moving on, one might find it enlightening to look for a satisfying definition of morphism between two group homomorphisms $f,g: G \rightarrow H$ and then observe its meaning when $f$ and $g$ are seen as functors $\deloop{G} \rightsquigarrow \deloop{H}$.
+The abstract structure of a "category" is very familiar because it resembles what is found in algebraic structures such as "groups", "rings" or "vector spaces".\footnote{In fact, it is technically called an \href{https://ncatlab.org/nlab/show/essentially algebraic theory}{essentially algebraic structure}.} That is to say, it consists of the data of one or more sets with one or more operations satisfying one or more properties. In contrast, the definition of a functor is more opaque and by itself, the structure of a functor is not obvious. A functor is effectively a morphism between categories, hence a natural transformation will be a \textit{morphism between morphisms}. Before moving on, one might find it enlightening to look for a satisfying definition of morphism between two group homomorphisms $f,g: G \rightarrow H$ and then observe its meaning when $f$ and $g$ are seen as functors $\deloop{G} \rightsquigarrow \deloop{H}$.
 
 %TODO: better intro ! - explain that functors are slightly more opaque but not that much. Similarly to categories where we only bothered to preserve composition and units and the rest followed, Here we only look at the action on morphisms and the rest follows. For composition, you need the square to commute.
 
@@ -44,7 +44,10 @@ Thus, a "morphism" between $F$ and $G$ should fit in this picture by sending dia
 	\end{equation}
     \AP Each $\phi(A)$ will be called a ""component"" of $\phi$ and may also be denoted $\phi_A$.
 \end{defn}
-\AP As usual, there are trivial examples of "natural transformations" such as the ""identity transformation"" $\one_F:F \Rightarrow F$ that sends every "object" $A$ to the "identity" map $\id_{F(A)}$, but let us go back to the group case. Although very specific to "single object" "categories", it is simple enough to quickly digest.
+\AP As usual, there is an ""identity transformation"" $\one_F:F \Rightarrow F$, it sends every "object" $A$ to the "identity" map $\id_{F(A)}$. but let us go back to the group case. Although very specific to "single object" "categories", it is simple enough to quickly digest.
+\begin{exmp}
+	%TODO: example about transformations between functors where the source category is discrete.
+\end{exmp}
 \begin{exmp}\label{exmp:grouphom}
 	Let $f,g: \deloop{G} \rightsquigarrow \deloop{H}$ be "functors" (i.e.: "group homomorphisms"), both send the unique "object" $\deloopobject$ in $\deloop{G}$ to $\deloopobject$ in $\deloop{H}$. Thus, a "natural transformation" $\phi : f\Rightarrow g$ has a single "component" $\phi(\deloopobject):\deloopobject \rightarrow \deloopobject$ in $H$, which is simply an element $\phi \in H$. The "commutativity" condition is then exhibited by diagram \eqref{diag:homnattrans} (which lives in $\deloop{H}$) for any $x \in G$.
 	\begin{equation}\label{diag:homnattrans}
@@ -55,6 +58,7 @@ Thus, a "morphism" between $F$ and $G$ should fit in this picture by sending dia
 	\end{equation}
 	Recall that composition in $\deloop{H}$ is just multiplication in $H$, so "naturality" of $\phi$ says that for any $x \in G$, $\phi \cdot f(x) = g(x) \cdot \phi$. Equivalently, $\phi f(x) \phi^{-1} = g(x)$. Therefore, $g = c_{\phi} \circ f$ where $c_{\phi}$ denotes "conjugation" by $\phi$.\footnote{\AP In a "group" $(H, \cdot)$, ""conjugation"" by an element $h \in H$ is the "homomorphism@@GRP" $c_h$ defined $x \mapsto hxh^{-1}$.} In short, "natural transformations" between "group homomorphisms" correspond to factorizations through "conjugations".
 \end{exmp}
+%TODO: example, tautological transformation from the source functor to the target functor.
 Next, an example closer to the general idea of a "natural transformation".
 \begin{exmp}
 	Fix some $n \in \N$ and define the "functor" $\gln:\catCRing \rightsquigarrow \catGrp$ by\footnote{The map $\gln(f)$ is just the extension of $f$ on $\gln(R)$ by applying $f$ to every element of the matrices.}
@@ -493,9 +497,14 @@ It turns out we can abstract the properties of $\terminal$ and $\times$ that ens
 %TODO: req exercises: Composing with a constant yields a functor that preserves isomorphisms for use when saying limits are taken pointwise [C x D, E] = [D x C, E]
 \section{Equivalences}
 Recall that an isomorphism of "categories" is an "isomorphism@@CAT" in the "category" $\catCat$, namely, a "functor" $F:\mathbf{C}\rightsquigarrow \mathbf{D}$ with an inverse $G:\mathbf{D}\rightsquigarrow \mathbf{C}$ such that $F \circ G = \id_{\mathbf{D}}$ and $G\circ F = \id_{\mathbf{C}}$. As is typical in mathematics, one cannot distinguish between "isomorphic@@CAT" "categories" as they only differ in notations and terminology.%TODO: explain.
+
+In many situations, we will describe an "isomorphism@@CAT" between $\mathbf{C}$ and $\mathbf{D}$ by identifying the "objects" and "morphisms" in $\mathbf{C}$ with the "objects" and "morphisms" in $\mathbf{D}$. That is, the "functors" are implicit in the discussion. For instance, in Example \ref{exmp:ptdsetcoslice} we argued that $\coslice{\terminal}{\catSet}$ and $\catPtd$ are the same "category". We really meant that they are "isomorphic@@CAT".\footnote{The details of the construction of the "isomorphisms" are left to you.} Only in rare cases (see Example \ref{exmp:isocat}.\ref{exmp:curryingfunctors} below) will we explicitly define the "functor" and its "inverse".
+
+
 \begin{exmps}\label{exmp:isocat}
 	\begin{enumerate}
-		\item[]\marginnote[2\baselineskip]{Another example for readers who know a bit of advanced algebra. Let $k$ be a "field" and $G$ a finite "group", the "categories" of $k[G]$--\href{https://en.wikipedia.org/wiki/Module_(mathematics)}{modules} ($k[G]$ is the \href{https://en.wikipedia.org/wiki/Group_ring}{group ring} of $k$ over $G$) and of $k$--\href{https://en.wikipedia.org/wiki/Group_representation}{linear representations} of $G$ are "isomorphic@@CAT".}
+		Here are other examples of "isomorphic@@CAT" "categories" that we have already seen and a couple of new ones.
+		\marginnote[2\baselineskip]{Another example for readers who know a bit of advanced algebra. Let $k$ be a "field" and $G$ a finite "group", the "categories" of $k[G]$--\href{https://en.wikipedia.org/wiki/Module_(mathematics)}{modules} ($k[G]$ is the \href{https://en.wikipedia.org/wiki/Group_ring}{group ring} of $k$ over $G$) and of $k$--\href{https://en.wikipedia.org/wiki/Group_representation}{linear representations} of $G$ are "isomorphic@@CAT".}
 		\item It was already shown in Example \ref{exmp:grpactionfunctor} (the details were implicit) that for a group $G$, the category $\catFunc{\deloop{G}}{\catSet}$ is "isomorphic@@CAT" to the "category" of $G$--"sets@gset" with $G$--"equivariant" maps as "morphisms".
 		\item In Example \ref{exmp:simplefunccat}, three other "isomorphisms@@CAT" were implicitly given:
 		\[\catFunc{\termcat}{\mathbf{C}} \isoCAT \mathbf{C} \quad \quad \quad \catFunc{\termcat\coproduct\termcat}{\mathbf{C}} \isoCAT \mathbf{C}\cattimes \mathbf{C} \quad \quad \quad\catFunc{\cattwo}{\mathbf{C}} \isoCAT \arrowcat{\mathbf{C}}.\]
@@ -715,6 +724,9 @@ Here are other more interesting examples of "equivalent" "categories".
 		\end{tikzcd}
 	\end{equation}\end{marginfigure}
 \end{exmp}
+\begin{exer}\label{exer:natural:equivsetandequiv}\marginnote{\hyperref[soln:natural:equivsetandequiv]{See solution.}}
+	%TODO: show that category of sets and functions is equivalent to the category of sets and equiv relation and functions preserving the equiv relation. 
+\end{exer}
 \begin{exmps}[Hard] Examples of significant "equivalences" are all over the place in higher mathematics. However, they require a bit of work to describe them, thus let us only say a few words on them.
 	\begin{enumerate}
 		\item The "equivalence" between the "category" of affine schemes and the "opposite" of the "category" of "commutative rings" is a seminal result in scheme theory, a huge part of modern algebraic geometry.%TODO: check if seminal

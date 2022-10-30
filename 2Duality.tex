@@ -283,8 +283,11 @@ Rewording the last two results, we can say that "initial" (resp. "terminal") "ob
 \begin{exmp}[$\catGrp$]
 	Similarly to $\catSet$, the "trivial group" with one element is "terminal" in $\catGrp$. Moreover, note that there are no empty "group" (because a "group" must contain an "identity@@GRP" element), but any "group homomorphism" from the "trivial group" $\{1\}$ into a "group" $G$ must send $1$ to $1_G$, which completely determines the "homomorphism@@GRP". Therefore, the "trivial group" is also "initial" in $\catGrp$, it is the "zero" "object".
 \end{exmp}
+\begin{exmp}[$\catMet$]\label{exmp:terminitmet}
+	The "terminal" "object" in $\catMet$ is the space with only one point $\ast$. The distance is determined by the axioms on a "metric", because $d_{\terminal}(\ast,\ast)$ must be equal to $0$.\footnote{The function sending all of $X$ to $\ast$ is nonexpansive whatever the distance $d$ on $X$ because $d(x,y) \geq 0 = d_{\terminal}(\ast,\ast)$.} The "initial" "object" in $\catMet$ is the empty space, for the same reason that $\emptyset$ is "initial" in $\catSet$.
+\end{exmp}
 \begin{exer}\label{exer:duality:zeroinvect}\marginnote{\hyperref[soln:duality:zeroinvect]{See solution.}}
-	Find the "initial" and "terminal" "object" in $\catVect{k}$.
+	Find the "initial" and "terminal" "objects" in $\catVect{k}$.
 \end{exer}
 \begin{exer}\label{exer:duality:terminalinitial}\marginnote{\hyperref[soln:duality:terminalinitial]{See solution.}}
 	Find a "category" with only two "objects" $X$ and $Y$ such that
@@ -334,7 +337,7 @@ We propose another characterization of the union of $A$ and $B$. First, what is 
 
 The "dual@@CAT" of this property (reversing all inclusions) is as follows.\footnote{The symbol $\square$ is a placeholder for the operation which we will find to be "dual@@CAT" to union.}
 \[ A \square B \subseteq A, B \text{ and } \forall Y \text{ s.t. } Y \subseteq A,B \text{ then } Y \subseteq A \square B\]
-Putting this in words, $A \square B$ is the largest subset of $X$ which is contained in $A$ and $B$. That is, of course, the intersection $A \cap B$. In this sense, union and intersection are "dual@@CAT" operations. If you search your memory for properties about union and intersection that you proved when you first learned about sets, you will find that they usually come in pairs; the first property being the "dual@@CAT" of the second.\footnote{e.g.: \[A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\]\[A \cup (B \cap C) = (A \cup B) \cap (A \cup C)\]}
+Putting this in words, $A \square B$ is the largest subset of $X$ which is contained in $A$ and $B$. That is, of course, the intersection $A \cap B$. In this sense, union and intersection are "dual@@CAT" operations. If you search your memory for properties about union and intersection that you proved when you first learned about sets, you will find that they usually come in pairs, the first property being the "dual@@CAT" of the second.\footnote{e.g.: \[A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\]\[A \cup (B \cap C) = (A \cup B) \cap (A \cup C)\]}
 \end{exmp}
 
 \section{More Vocabulary}
@@ -365,7 +368,7 @@ Since "diagrams" are defined as "functors", they interact well with other "funct
 	"Preserving@@PROP" and "reflecting@@PROP" a property $P$ are not "dual@@CAT" notions. The "dual@@CAT" of "preserving" (resp. "reflecting@@PROP") $P$ is "preserving" (resp. "reflecting@@PROP") the "dual@@CAT" of $P$. 
 \end{warn}
 \begin{exmp}["Commutativity"]
-	By drawing the "objects" and "morphisms" in the image of a "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, we can still use Definition \ref{defn:commutative} to say whether $D$ is "commutative" or not. Since "functors" preserve "composition", if $D$ is "commutative" and $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is any "functor", $F\circ D$ is also "commutative". Indeed, if two "paths" in $\mathbf{C}$ "compose@comppaths" to the same "morphism", then the "composites@comppaths" of the "paths" after applying $F$ are still equal. In other words, all "functors" "preserve@@PROP" "commutativity". We will use this fact many times in proofs\footnote{Without the rigor of defining the "functor" represented in the diagrams.} by drawing a "commutative" diagram and applying $F$ to all "objects" and "morphisms" to get another "commutative" diagram.
+	By drawing the "objects" and "morphisms" in the image of a "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, we can still use Definition \ref{defn:commutative} to say whether $D$ is "commutative" or not. Since "functors" preserve "composition", if $D$ is "commutative" and $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is any "functor", $F\circ D$ is also "commutative". Indeed, if two "paths" in $\mathbf{C}$ "compose@comppaths" to the same "morphism", then the "composites@comppaths" of the "paths" after applying $F$ are still equal. In other words, all "functors" "preserve@@PROP" "commutativity". We will use this fact many times in proofs\footnote{Without the rigor of defining the "functor" represented by the diagrams.} by drawing a "commutative" diagram and applying $F$ to all "objects" and "morphisms" to get another "commutative" diagram.
 
 	"Commutativity" is not "reflected@@PROP" by all "functors". Even if a "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$ does not "commute", "composing" $D$ with the unique "functor" into the "terminal" "category" $\termcat$ yields a (trivially) "commutative" "diagram" $\termmorph \circ D : \mathbf{J} \rightsquigarrow \termcat$.
 
@@ -387,7 +390,7 @@ The following two exercises are a quick investigation in "preservation@@PROP" an
 		\item State and prove the "dual@@CAT" statement.
 	\end{enumerate}
 \end{exer}
-
+%TODO: exercise about functors preserving and reflecting initial and terminal objects.
 %sub object, quotient object.
 %
 % \item We say that a functor $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ \textbf{preserves} monomorphisms if whenever $f \in \mathbf{C}_1$ is monic, then $F(f)$ is also monic.
@@ -405,7 +408,7 @@ The following two exercises are a quick investigation in "preservation@@PROP" an
 %     \item Let $X \in \mathbf{C}_0$ be an object, the set \textbf{subobjects} of $X$, denoted $\text{Sub}_{\mathbf{C}}(X)$, is the set of monomorphisms into $X$ quotiented by 
 %     Denoting $[m]$ the equivalence class of $m$, $\text{Sub}_{\mathbf{C}}(X)$ has a poset structure defined by \[m \leq m' \Leftrightarrow \exists \text{ morphism } k, m = m'k.\]
 %     Show that $\sim$ is an equivalence relation and $\leq$ is a partial order on $\text{Sub}_{\mathbf{C}}(X)$.
-We have seen how to \textit{categorify}\footnote{Categorification is an imprecise term referring to the process of casting an idea in a more categorical language. Depending on the original idea, there can be many ways to describe it in a categorical framework. In the following two chapters, we will spend some time categorifying several set-theoretical notions.} unions and intersections of subsets in Example \ref{exmp:unions}. The next set theoretical notion we categorify is subsets. A subset $I \subseteq S$ can be identified with the inclusion function $I \hookrightarrow S$, and since the latter is injective, we may want to consider "monomorphisms" with "target" $S$ to be some kind of generalized subset. Observe however that an injection $I \hookrightarrow S$ is not necessarily an inclusion function. This does not matter because, in reality, we are interested in the image of this injection. We run into another obstacle because if two injections into $S$ have the same image, they represent the same subset. We overcome this using the following exercise.
+We have seen how to \textit{categorify}\footnote{Categorification is an imprecise term referring to the process of casting an idea in a more categorical language. Depending on the original idea and the context where it is used, there can be many ways to describe it with a categorical mind. In the following two chapters, we will spend some time categorifying several set-theoretical notions.} unions and intersections of subsets in Example \ref{exmp:unions}. The next set theoretical notion we categorify is subsets. A subset $I \subseteq S$ can be identified with the inclusion function $I \hookrightarrow S$, and since the latter is injective, we may want to consider "monomorphisms" with "target" $S$ to be some kind of generalized subset. Observe however that an injection $I \hookrightarrow S$ is not necessarily an inclusion function. This does not matter because, in reality, we are interested in the image of this injection. We run into another obstacle because if two injections into $S$ have the same image, they represent the same subset. We overcome this using the following exercise.
 \begin{exer}\label{exer:duality:equivsubobj}\marginnote{\hyperref[soln:duality:equivsubobj]{See solution.}}
 	\begin{marginfigure}[1\baselineskip]
 		Two "monomorphisms" related by $\sim$.
@@ -448,4 +451,9 @@ We can use "duality@@CAT" to obtain (for free) the notion of "quotient objects".
 \end{defn}
 %TODO: example in groups. (need to state first isomorphism theorem)
 %TODO: add other stuff when needed later.
+
+I love finding a categorical definition for something I am used to thikning of in classical terms.\footnote{This feeling led me to study more category theory.} It facilitates a better understanding of the essential components of the classical notion, and "duality@@CAT" can open the gates to a parallel world where we can have just as much fun.
+
+For now, we only played with definitions without discovering anything deep. Some people maintain it is useless to take a categorical point of view if it does not lead to new results. Category theorists (I presume) believe that it helps organize our thoughts regardless of the mathematical outcomes. The rest of the book focuses on practicing categorical thinking without necessarily demonstrating its advantages other than its unifying/orgasitional power.
+
 \end{document}

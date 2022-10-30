@@ -160,6 +160,20 @@
     \textbf{Transitivity:} If $m\leq n$ and $n\leq o$, then there exist "morphisms" $k: Y \rightarrow Z$ and $k': W \rightarrow Z$ satisfying $m = n \circ k$ and $n = o \circ k'$. Therefore, we have $m =  o \circ k' \circ k$ which implies $m \leq o$.
 \end{proof}
 \section{Solutions to Chapter \ref{chap:limits}}
+
+\begin{proof}[Solution to Exercise \ref{exer:limits:defelements}]\label{soln:limits:defelements}
+    There is a simple correspondence between a set $S$ and the set of functions $\terminal \rightarrow S$.\footnote{Recall that the "terminal" "object" in $\catSet$ is the singleton $\{\ast\}$, or any other singleton.} An element $s \in S$ is sent to the function assigning $s$ to $\ast$, and a function $f: \terminal \rightarrow S$ is sent to $f(\ast) \in S$. This suggests to define an element of a set $S$ by a function from $\{\ast\}$ to $S$. This is indeed a categorical definition because we can abstract away from $\catSet$.
+    \begin{defn}[Element]\label{defn:element}
+        In a "category" $\mathbf{C}$ with a "terminal" "object" $\terminal$,\footnote{We need this requirement in the definition because some "categories" may not have a "terminal" "object", and we would not know what "object" could replace it.} an ""element"" of an "object" $X \in \obj{\mathbf{C}}$ is a "morphism" in $\Hom_{\mathbf{C}}(\terminal, X)$.
+    \end{defn}
+    Unfortunately, this definition does not represent our intuition about elements faithfully in all "categories" with a "terminal" "object".
+    \begin{itemize}
+        \item[-] In $\catPoset$, the "terminal" "object" is the set $\{\ast\}$ with the only possible order $\leq_{\terminal} = \{(\ast,\ast)\}$. Any function $\terminal \rightarrow (X,\leq)$ is "monotone" because $\leq$ has to be "reflexive". Thus, the same correspondence as for $\catSet$ works, and an "element" of $(X,\leq)$ in the categorical sense can be seen as an ``actual'' element of the "poset".
+        \item[-] In $\catGrp$, the "terminal" "object" is the trivial "group" with a single "identity@@GRP" element. For any "group" $G$, there is only one "homomorphism@@GRP" $\terminal \rightarrow G$ that must send the "identity@@GRP" in $\terminal$ to the "identity@@GRP" in $G$. Hence, there is only one categorical "element" of $G$ no matter its size.
+        \item[-] In $\catCat$, the "terminal" "object" is $\termcat$, the "category" with a single "object" $\bullet$ and a single "morphism" $\id_{\bullet}$. There is a simple correspondence between "objects" of a "category" $\mathbf{C}$ and "functors" $\termcat \rightsquigarrow \mathbf{C}$. In one direction, it sends $X \in \obj{\mathbf{C}}$ to the "functor" sending $\bullet$ to $X$ and $\id_{\bullet}$ to $\id_X$. In the other direction, it sends $F: \termcat \rightsquigarrow \mathbf{C}$ to $F(\bullet) \in \obj{\mathbf{C}}$. Therefore, a categorical "element" of $\mathbf{C}$ is an "object" of $\mathbf{C}$.\footnote{It is harder to decide whether the definition makes sense here. An other intuitive notion of element of $\mathbf{C}$ could be a "morphism" instead of a "object".}
+    \end{itemize}
+\end{proof}
+
 \begin{proof}[Solution to Exercise \ref{exer:limits:prodcommute}]\label{soln:limits:prodcommute}
     As we have said that "binary products" are unique up to "isomorphism@@CAT", it is enough to show that $A\product B$ satisfies the same "universal property" as $B \product A$. Let $\projection_A$ and $\projection_B$ be the "projections" of $A \product B$, we claim that $\begin{tikzcd}[cramped, sep=small]
         B & {A\product B} & A
@@ -210,6 +224,34 @@
         \end{equation}
     \end{marginfigure}
     The "dual" statement is that $f: X \rightarrow Y$ is "epic" if and only if \eqref{diag:pushoutepic} is a "pushout". We leave the proof to you.
+\end{proof}
+
+\begin{proof}[Solution to Exercise \ref{exer:limits:trivialcolim}]\label{soln:limits:trivialcolim}
+    We recognize that 1 and 2 are "dual@@CAT" statements and so are 3 and 4. We will prove something more general from which 1 and 3 follows, and use duality for 2 and 4.
+    \begin{prop}
+        Let $\mathbf{J}$ be a "category" with an "initial" "object" $\initial$. For any "diagram" $F: \mathbf{J} \rightsquigarrow \mathbf{C}$, we have $\lim_{\mathbf{J}}F = F(\initial)$.
+    \end{prop}
+    \begin{proof}
+        The "limit cone" comprises $F(\initial)$ as the "tip", and for each $X \in \obj{\mathbf{D}}$, $\phi_X= F(!_X):F(\initial) \rightarrow FX$ is the image of the unique "morphism" $!_X :\initial \rightarrow X$ under $F$. We can verify this is a "cone" over $F$ because for any $a:X \rightarrow X'$ in $\mor{\mathbf{J}}$, $F(a) \circ F(!_X) = F(a \circ {!}_X) = F(!_{X'})$.\footnote{By "initiality" of $\initial$, $a \circ {!}_X= {!}_{X'}$.} 
+
+        Let $\{\psi_X:X \rightarrow FX\}$ be another "cone" over $F$. There is a "morphism" $\psi_{\initial}: X \rightarrow F(\initial)$, and it is a "morphism of cones" to the "limit cone" because for any $X\in \obj{\mathbf{J}}$, $F({!}_X) \circ \psi_{\initial} = \psi_X$ is a consequence of the $\psi_X$s forming a "cone". Any other "morphism of cone" $f: X \rightarrow F(\initial)$ must satisfy $F(!_{\initial}) \circ f = \psi_{\initial}$, but $!_{\initial}$ is the "identity" on $\initial$, hence $\id_{F(\initial)}\circ f = \psi_{\initial}$ implies $f = \psi_{\initial}$.
+    \end{proof}
+    \begin{cor}["Dual@@CAT"]
+        Let $\mathbf{J}$ be a "category" with a "terminal" "object" $\terminal$. For any "diagram" $F:\mathbf{J} \rightsquigarrow \mathbf{C}$, we have $\colim_{\mathbf{J}}F = F(\terminal)$. 
+    \end{cor}
+    We can now apply these results to Exercise \ref{exer:limits:trivialcolim}.
+    \begin{enumerate}
+        \item The "limit" of $A \rightarrow B$ is $A$.
+        \item The "colimit" of $A \rightarrow B$ is $B$.
+        \item The "limit" of $A \leftarrow B \rightarrow C$ is $B$.
+        \item The "colimit" of $A \rightarrow B \leftarrow C$ is $B$.
+    \end{enumerate}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:limits:composecon}]\label{soln:limits:composecon}
+    If $\{\psi_X: A \rightarrow DX\}_{X\in \obj{\mathbf{J}}}$ is a "cone" over $F$, then the family $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is a "cone over" $F \circ D$ since $Da \circ \psi_X = \psi_Y$ implies $FDa \circ F\psi_X = F\psi_Y$ for any $a: X \rightarrow Y \in \mor{\mathbf{J}}$. On "morphisms" $F_D$ sends $g:\{\psi_X\}_{X \in \obj{\mathbf{J}}} \rightarrow \{\phi_X\}_{X \in \obj{\mathbf{J}}}$ to $Fg:\{F\psi_X\}_{X \in \obj{\mathbf{J}}} \rightarrow \{F\phi_X\}_{X \in \obj{\mathbf{J}}}$. Again, the fact that $Fg$ is a "morphism" of "cones" follows straightforwardly from \[\phi_X \circ g = \psi_X \implies F\phi_X \circ Fg = F\psi_X.\]
+    
+    Observe that "cones" and "cocones" are "dual@@CAT" in the sense that $\cone(D)$ is the same as $\cocone(\op{D})$.\footnote{Recall that $\op{D}$ is the "functor" $\op{\mathbf{J}} \rightsquigarrow \op{\mathbf{C}}$ with the same action as $D$.}
+    Therefore, $F^D: \cocone(D) \rightsquigarrow \cocone(F \circ D)$ can be defined as $\op{F}_{\op{D}}: \cone(\op{D}) \rightsquigarrow \cone(\op{F} \circ \op{D}) = \cone(\op{(F \circ D)})$.
 \end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:limits:isopullback}]\label{soln:limits:isopullback}
     Let $p_A: X \rightarrow A$ and $p_B: X \rightarrow B$ be such that \eqref{diag:pullid} "commutes". A "mediating morphism" $!: X \rightarrow A$ must satisfy $\id_A \circ ! = p_A$ and $f \circ !  = p_B$. The first equality ensures $! = p_A$ is unique and satisfies the second equality because the outer square "commuting" yields $f \circ p_A = p_B$.\\
