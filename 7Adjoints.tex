@@ -11,6 +11,7 @@
 %TODO: mention other way to see adjoints, closest thing to an inverse. See when F is equiv or F has inverse, then F has adjoint given by those.
 %TODO: universal from X to R, L is defined by the codomain of this universal morphism.
 %TODO: needs more motivations in the steps.
+%TODO: from poset to 2Rel and back = adjoints
 
 We start with a "universal morphism" $\eta_X: X \rightarrow RLX$ for all $X \in \obj{\mathbf{C}}$ and develop a lot of things. First, we show that $L$ is "functorial". For any $f: X \rightarrow Y$, the "universality" of $\eta_X$ yields a unique "morphism" $Lf: LX \rightarrow LY$ satisfying $RLf \circ \eta_X = \eta_Y \circ f$ as summarized in \eqref{diag:Lisfunctor}.\begin{marginfigure}\begin{equation}\label{diag:Lisfunctor}
     % https://q.uiver.app/?q=WzAsOCxbMSwwLCJSTFgiXSxbMCwwLCJYIl0sWzEsMSwiUkxZIl0sWzMsMSwiTFkiXSxbMywwLCJMWCJdLFsyLDBdLFs0LDBdLFswLDEsIlkiXSxbMSwwLCJcXGV0YV9YIl0sWzEsMiwiXFxldGFfWSBcXGNpcmMgZiIsMV0sWzQsMywiTGYiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSw2LCJcXHRleHR7aW4gfVxcbWF0aGJme0R9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMCwiXFx0ZXh0e2luIH1cXG1hdGhiZntDfSIsMSx7Im9mZnNldCI6LTUsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDIsIlJMZiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDcsImYiLDJdLFs3LDIsIlxcZXRhX1kiLDJdLFsxMCwxMywiUiIsMix7ImxhYmVsX3Bvc2l0aW9uIjo0MCwic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjMwfSwibGV2ZWwiOjF9XV0=
@@ -218,6 +219,7 @@ Our main point in the introduction to this chapter was that grouping "universal 
 \end{cor}
 %TODO: explain the action of lim_J on morphisms more carefully. It gives products of morphisms, but what about equalizers and pullbacks.
 %TODO: prove that limits are "commutative" in the very general sense.
+%TODO: do a proof of products + equalizers => limits at the level of adjoint functors 
 
 
 In the rest of this chapter, we will see many examples of "adjunctions" and results about "adjoint" "functors" and try to have a balance between the different definitions we use.\footnote{We try to care about which definition is easiest to use but it is not always possible.} We start with a long list of examples.%TODO: find example for unit and counit instead of maybe functor to respect this.

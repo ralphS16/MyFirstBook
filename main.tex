@@ -131,8 +131,6 @@
 \newrobustcmd{\deloopobject}{\kl[deloopobject]{\ast}}
 \newrobustcmd{\act}{\mathbin{\kl(GRP)[action]{\star}}}
 \newrobustcmd{\actmon}{\mathbin{\kl(MON)[action]{\star}}}
-\newrobustcmd{\postcomp}[1]{\kl[post-composition]{#1_{*}}} %TODO: they are not used right?
-\newrobustcmd{\precomp}[1]{\kl[pre-composition]{{\kern0pt#1}^{*}}}
 \newrobustcmd{\dual}[1]{#1^{\kl(VECT)[dual]{*}}}
 \newrobustcmd{\op}[1]{{\kern0pt#1}^{\kl[opposite]{\mathrm{op}}}}
 \newrobustcmd{\nsub}{\mathrel{\kl[normal]{\lhd}}}
@@ -146,6 +144,7 @@
 \newrobustcmd{\initmorph}{\kl[initial]{[]}}
 \newrobustcmd{\terminal}{\kl[terminal]{\mathbf{1}}}
 \newrobustcmd{\termmorph}{\kl[terminal]{\langle\rangle}}
+\newrobustcmd{\termset}{\kl[terminal set]{\mathbf{1}}}
 \newrobustcmd{\zero}{\kl[zero]{\mathbf{0}}}
 \newrobustcmd{\Product}{\mathop{\kl[product]{\prod}}}
 \newrobustcmd{\Coproduct}{\mathop{\kl[coproduct]{\coprod}}}
@@ -239,8 +238,10 @@
 \newrobustcmd{\targetarr}{\kl[targetarr]{\mathsf{t}}}
 \newrobustcmd{\constFunc}[1]{\kl[constant functor]{\Delta}(#1)}
 \newrobustcmd{\swap}{\kl[swap]{\mathsf{swap}}}
+\newrobustcmd{\andrel}{\mathbin{\kl[andrel]{\wedge}}}
+\renewrobustcmd{\succ}{\mathsf{succ}}
+\newrobustcmd{\NNO}{\mathfrak{N}}
 
-\renewcommand{\succ}{\textsf{succ}}
 \newcommand{\Str}{\textsf{Str}}
 \newcommand{\head}{\textsf{head}}
 \newcommand{\tail}{\textsf{tail}}
@@ -268,6 +269,7 @@
 \newrobustcmd{\catPre}{\kl[Pre]{\mathbf{Pre}}}
 \newrobustcmd{\catRel}{\kl[Rel]{\mathbf{Rel}}}
 \newrobustcmd{\catCat}{\kl[Cat]{\mathbf{Cat}}}
+\newrobustcmd{\catDGph}{\kl[DGph]{\mathbf{DGph}}}
 \newrobustcmd{\catOpens}{\kl[catOpens]{\mathcal{O}}}
 \newrobustcmd{\catFunc}[2]{\kl[functor category]{[} #1,#2 \kl[functor category]{]}}
 \newrobustcmd{\catPtd}{\kl[pointed]{\mathbf{Set}_{\ast}}}
@@ -275,6 +277,7 @@
 \newrobustcmd{\catMat}[1]{\kl[Mat]{\mathbf{Mat}}\kern-2pt\left( #1 \right)}
 \newrobustcmd{\catMet}{\kl[Met]{\mathbf{Met}}}
 \newrobustcmd{\catSimplex}{\kl[simplex category]{\mathbf{\Delta}}}
+\newrobustcmd{\catnRel}[1]{\kl[catnRel]{#1\mathbf{Rel}}}
 %Known Symbols
 
 \newrobustcmd{\R}{\kl[real numbers]{\mathbb{R}}}
@@ -335,9 +338,13 @@
 %TODO: I don't want to spend too much time motivating category theory because I am pretty sure that in a couple of years I will have changed enough to do so. So I hope that you have read a bit about the motivation behind category theory before stumbling upon this book. O/w, go read [ref].
 %TODO: talk about paving diagrams as being a softer version of diagram chasing because there is no need to use universal properties. So diagram paving is a subset of diagram chasing.
 %TODO: When I first tried to learn category theory, I realized there was a blatant gap in the market of category theory textbooks: there was no book made for me. For this reason, I had to look at multiple textbooks in order to learn at my own pace. This book conveniently fills this gap. More helpfully, this book is aimed at...
-%TODO: category theory is just as hard to explain to someone that does not know about it as mathematics. How would you convince someone that doesnt know what mathematics is to learn about it? Very hard to answer and same for category theory, I will try to give a 1% satisfactory answer and I hope this book accounts for the rest of the 99%. In this idea, category theory is not necessarily a language to do maths, we will do maths and use a lot of maths because that is the context of this book but it is not necessary, see PQP.
+%TODO: ask about one-line explainations of cat theory , so that I can expand on them.
+%TODO: category theory is just as hard to explain to someone that does not know about it as mathematics. (Imagine someone that has no idea what maths is, and how useful and efficient it has been) How would you convince someone that doesnt know what mathematics is to learn about it? Very hard to answer and same for category theory, I will try to give a 1% satisfactory answer and I hope this book accounts for the rest of the 99%. In this idea, category theory is not necessarily a language to do maths, we will do maths and use a lot of maths because that is the context of this book but it is not necessary, see PQP.
 %TODO: because lots of proofs are straightforward unrolling of definitions, I did not spend same amount of time on the pedagogy of each proofs, some are dry and straight to the point while other are more fleshed out.
 %TODO: put "see solution" in left margin.
+%TODO: hookarrow to other notation. keep hook arrow for actual inclusions. Make them knowledge.
+%TODO: explain what unroll means and how we will often use it. Make sure the knowledge unroll is consistently used.
+%TODO: When I say, we leave you to check. It means at this point, I expect a post-rigorous check will convince you. Make some knowledge for this sentence.
 \setcounter{tocdepth}{1}
 \tableofcontents
 \counterwithout{equation}{chapter}

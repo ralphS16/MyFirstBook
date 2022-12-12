@@ -1,27 +1,36 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-\chapter{Universal Properties}\label{chap:universal}
-%TODO: section on freeness, cofreeness, currying, ends.
-%TODO: natural numbers object
-%TODO: general cantor argument? http://www.lix.polytechnique.fr/Labo/Samuel.Mimram/teaching/INF551/course.pdf
+\chapter{Universal Properties}\label{chap:universal}%TODO: general cantor argument? http://www.lix.polytechnique.fr/Labo/Samuel.Mimram/teaching/INF551/course.pdf
+
+We continue our exploration of "universal constructions". This chapter is arranged like the previous one, we give lots of examples before abstracting away to define "universal properties".\footnote{I estimate we have done enough "diagram chasing", so we will not prove as much results as we did in Chapter \ref{chap:limits}.} This abstracting step involves a new concept: "comma categories", which are interesting in their own right.
+
+%TODO: small paragraph introducing universal properties informally as extreme solutions to some problem.?
+% "Limits" and "colimits" allow us to define an "object" (and "morphisms") in a "category" $\mathbf{C}$ by asserting how it should relate to other "objects" and "morphisms" in $\mathbf{C}$. The simplest examples are "terminal" and "initial" "objects" which have exactly one "morphism"
 \section{Examples}
 \subsection{Free Monoid}
-The construction of a \textit{free} object is common to different fields of mathematics and the example we will carry out in $\catMon$ can be carried out in many other "categories" like $\catGrp$, $\catAb$, $\catRing$, $\textbf{Mod}_R$ (we will do this one in the next section). In fact, one way to view this construction comes from the "forgetful" "functor" to $\catSet$ that all these "categories" have in common. In Chapter \ref{chap:adjoints}, we will cover "adjoints" and recover the free constructions from $U$.
+The construction of a \textit{free} object is common to different fields of mathematics. Informally, when $\mathbf{C}$ is a "category" whose "objects" are "objects" of another "category" $\mathbf{D}$ equipped with extra structure (e.g. $\mathbf{C}$ is a "concrete category" and $\mathbf{D} = \catSet$), the free $\mathbf{C}$--"object" over a $\mathbf{D}$--"object" $X$ carries the least amount of structure possible to be considered a part of $\mathbf{C}$ while \textit{containing} $X$.
 
-We choose $\catMon$ because the concrete characterization of a "free monoid" is the simplest.
+The example we will carry out in $\catMon$ can be carried out in many other "categories" like $\catGrp$, $\catAb$, $\catRing$, etc. We choose $\catMon$ because the concrete characterization of a "free monoid" is simple.
 \begin{defn}[Classical]
-    \AP A "monoid" $M$ is said to be ""free@@MON"" if it can be "presented@@MON" by a set of "generators@@MON" without any "relations", i.e. $M = \langle A \mid \emptyset \rangle$. In this case, $M$ is called the \textbf{"free monoid" on $A$} and denoted $\freemon{A}$.
+    \AP The ""free monoid"" on a set $A$, denoted by $\freemon{A}$, is the set of finite words with symbols in $A$ with the "multiplication@@MON" being concatenation of words and "identity@@MON" being \AP the ""empty word@emptyword"" $\emptyword$.\footnote{Examples of finite words in $\freemon{\{\mathtt{a},\mathtt{b},\mathtt{c}\}}$ are $\mathtt{a}$, $\mathtt{ab}$, $\mathtt{abc}$, $\mathtt{accabac}$, etc. The concatenation of $\mathtt{abc}$ and $\mathtt{aacb}$ is $\mathtt{abcaacb}$.}
 \end{defn}
-It is easy to check that $\freemon{A}$ is the set of finite words with symbols in $A$ with the operation being concatenation and identity being \AP the empty word (denoted $\intro*\emptyword$). In order to give a categorical characterization, we need to look at "homomorphisms@@MON" from or into the "free monoid". Notice that any "homomorphism@@MON" $h^*:\freemon{A} \rightarrow M$ is completely determined by where $h^*$ sends elements of $A$. Indeed, in order to satisfy the "homomorphism@@MON" property, we must have for any $a_1, a_2 \in A$, \[h^*(a_1a_2) = h^*(a_1)\cdot h^*(a_2) \text{ and } h^*(\emptyword) = 1_M.\] In general, the unique "homomorphism@@MON" sending $a \in A$ to $h(a)$ can be defined recursively:
-\[h^*(w) = \begin{cases}
-    h(a)\cdot h^*(w') &a \in A, w \in \freemon{A}, w = aw'\\
-    1_M &w = \emptyword\end{cases}.\]
-Now, suppose that a "monoid" $N$ contains $A$ and satisfies the same property, that is for any (set-theoretic) function $h:A \rightarrow M$, there is a unique "homomorphism@@MON" $h^*:N \rightarrow M$ with $h^*(a) = h(a)$. 
+An intuitive way to see $\freemon{A}$ is that it is the \textit{smallest} "monoid" that contains $A$. We start from single-letter words which are just elements of $A$, and then generate the rest by concatenating bigger and bigger words together (before finally adding $\emptyword$).
 
-%TODO: put subscripts to
-If we take $M = \freemon{A}$, and $h: A \rightarrow \freemon{A} = a \mapsto a$, then we get a "homomorphism@@MON" $h_N^*: N \rightarrow \freemon{A}$. Moreover, taking $M = N$ and $i: A \hookrightarrow N$ be the inclusion, the property of $\freemon{A}$ means there is a unique "homomorphism@@MON" $i^*: \freemon{A} \rightarrow N$. Note that $h_N^* \circ i^* : \freemon{A} \rightarrow \freemon{A}$ is a "homomorphism@@MON" satisfying $a \mapsto a$, so it must be the identity by uniqueness. We conclude that $N$ and $\freemon{A}$ are "isomorphic@@MON".
+In order to give a categorical characterization, we need to look at "homomorphisms@@MON" from or into the "free monoid". Notice that any "homomorphism@@MON" $h^*:\freemon{A} \rightarrow M$ is completely determined by where $h^*$ sends single-letter words, i.e., elements of $A$. Indeed, in order to satisfy the "homomorphism@@MON" property, we must have for any $\mathtt{a}, \mathtt{b} \in A$, \[h^*(\mathtt{a}\mathtt{b}) = h^*(\mathtt{a})\cdot h^*(\mathtt{b}) \text{ and } h^*(\emptyword) = 1_M.\] In general, the unique "homomorphism@@MON" sending $\mathtt{a} \in A$ to $h(\mathtt{a})$ can be defined recursively:
+\[h^*(w) = \begin{cases}
+    h(\mathtt{a})\cdot h^*(w') &\mathtt{a} \in A, w \in \freemon{A}, w = \mathtt{a}w'\\
+    1_M &w = \emptyword\end{cases}.\]
+Concisely, for any function $h: A \rightarrow M$, there is a unique "homomoprhisms@@MON" $h^*: \freemon{A} \rightarrow M$ that sends $\mathtt{a}$ to $h(\mathtt{a})$. We call this fact the "universal property" of the "free monoid".
+
+We repeated several times that "universal properties" should determine an "object" up to "isomorphism@@CAT", let us check this. Suppose that a "monoid" $N$ contains $A$ and satisfies the same property, that is for any (set-theoretic) function $h:A \rightarrow M$, there is a unique "homomorphism@@MON" $h^*_N:N \rightarrow M$ with $h^*_N(\mathtt{a}) = h(\mathtt{a})$. We claim that $N$ and $A^*$ are "isomorphic@@MON".
+
+If we take $M = \freemon{A}$, and $h: A \rightarrow \freemon{A} = a \mapsto a$, then we get a "homomorphism@@MON" $h_N^*: N \rightarrow \freemon{A}$ using the property for $N$. If we take $M = N$ and the inclusion $i: A \hookrightarrow N$, then the property of $\freemon{A}$ yields a "homomorphism@@MON" $i^*: \freemon{A} \rightarrow N$. By construction, $h_N^* \circ i^* : \freemon{A} \rightarrow \freemon{A}$ and $i^* \circ h_N^*: N \rightarrow N$ are both "homomorphisms@@MON" that send $\mathtt{a}$ to $\mathtt{a}$.\footnote{Recall that both $\freemon{A}$ and $N$ contains all elements in $A$.} Note that $\id_{\freemon{A}}: \freemon{A} \rightarrow \freemon{A}$ and $\id_N: N \rightarrow N$ are also "homomorphisms@@MON" sending $\mathtt{a}$ to $\mathtt{a}$. By the uniqueness in the "universal property", we conclude
+\[h_N^* \circ i^* = \id_{\freemon{A}} \text{ and }  i^* \circ h_N^* = \id_N,\]
+that is, $\freemon{A}$ and $N$ are "isomorphic@@MON".
+
+The "universal property" we gave above determined the "free monoid" up to "isomorphism@@CAT", so we are happy to make this into a definition. However, this definition cannot take place entirely in the "category" $\catMon$. We had to implicitly rely on the fact that a "monoid" has an underlying set and "homomorphisms@MON" are just functions satisfying additional properties. Our categorical definition thus relies on the "forgetful functor" $U: \catMon \rightsquigarrow \catSet$. 
 \begin{defn}[Categorical]\label{defn:freemon}
-    \AP The "free monoid" of a set $A$ is an object $\freemon{A}$ in $\catMon$ along with a \textit{canonical inclusion} $i: A \rightarrow U(\freemon{A})$ that satisfies the following "universal property": for any "monoid" $M$ and function $h:A \rightarrow U(M)$, there exists a unique "homomorphism@@MON" $h^*: \freemon{A} \rightarrow M$ such that $U(h^*) \circ i = h$, namely, $h^*(i(a)) = h(a)$. This is summarized in \eqref{diag:freemon}, where we omit the $U$ as the underlying set of a "monoid" is often denoted with the same symbol as the "monoid".
+    \AP The "free monoid" of a set $A$ is an object $\freemon{A}$ in $\catMon$ along with a \textit{canonical inclusion} $i: A \rightarrow U(\freemon{A})$ that satisfies the following "universal property": for any "monoid" $M$ and function $h:A \rightarrow U(M)$, there exists a unique "homomorphism@@MON" $h^*: \freemon{A} \rightarrow M$ such that $U(h^*) \circ i = h$, namely, $h^*(i(a)) = h(a)$. This is summarized in \eqref{diag:freemon}.\footnote{We omit occurences of $U$ as the underlying set (resp. function) of a "monoid" (resp. "homomorphism@@MON") is often denoted with the same symbol as the "monoid" (resp. "homomorphism@@MON").}
     \begin{equation}\label{diag:freemon}
         \begin{tikzcd}
             & A & \freemon{A} & {} & \freemon{A} & {} \\
@@ -36,14 +45,19 @@ If we take $M = \freemon{A}$, and $h: A \rightarrow \freemon{A} = a \mapsto a$, 
         \end{tikzcd}
     \end{equation}
 \end{defn}
+We will see in Chapter \ref{chap:adjoints} that the assignment $A \mapsto \freemon{A}$ can be assembled into a "functor" $\freemon{\placeholder}: \catSet \rightsquigarrow \catMon$. It goes in the opposite direction to the "forgetful functor", and in fact can be seen as a weak notion of "inverse" to $U$.
 
 \subsection{Abelianization}
+Our next example is very similar to the previous one. We add the least amount of structure to a "group" $G$ to obtain an "abelian group" $\ab{G}$.\footnote{This assignment assembles into a weak "inverse" to the intermediate "forgetful functor" $\catAb \rightsquigarrow \catGrp$.}
 \begin{defn}[Classical]
-    \AP Let $G$ be a group, the ""abelianization"" of $G$, denoted $\ab{G}$, is the "quotient@@GRP" of $G$ with $G' := \{xyx^{-1}y^{-1} \mid x, y \in G\} \leq G$, called the ""commutator subgroup"", that is $\ab{G} := G/G'$.
+    \AP Let $G$ be a "group", the ""abelianization"" of $G$, denoted by $\ab{G}$, is the "quotient@@GRP" of $G$ \AP by the ""commutator subgroup"" $G' := \{xyx^{-1}y^{-1} \mid x, y \in G\} \subseteq G$, that is $\ab{G} := G/G'$.
 \end{defn}
-Let us get insight into this definition. The "abelianization" is supposed to be the \textit{biggest} "abelian" "quotient@@GRP" of $G$. To see why, note that if $A$ is an "abelian group", any "homomorphism@@GRP" $h:G \rightarrow A$ must satisfy $h(xyx^{-1}y^{-1}) = 1_A$ for any $x,y\in G$. Hence, $G'$ is contained in the "kernel@GRP" of $h$. This yields a factorization $h = G \stackrel{\pi}{\rightarrow} G/G' \stackrel{h^*}{\rightarrow} A$ with $h^*$ unique, where $\pi$ is the canonical "quotient@@GRP" map.%TODO: maybe define factorization
-
-Moreover, since $\catAb$ is a "full@@CAT" "subcategory" of $\catGrp$, $h^*$ is also unique as a "morphism" in $\catAb$. Using the fact that $G/G'$ is "abelian", we conclude the following categorical definition of $\ab{G}$.
+Let us get more insight into this definition. The "abelianization" is supposed to be the \textit{biggest} "abelian" "quotient@@GRP" of $G$. To see why, note that if $A$ is an "abelian group", any "homomorphism@@GRP" $h:G \rightarrow A$ must satisfy $h(xyx^{-1}y^{-1}) = 1_A$ for any $x,y\in G$.\footnote{The "homomorphism@@GRP" property implies \begin{align*}
+    h(xyx^{-1}y^{-1})&= h(x)h(y)h(x)^{-1}h(y)^{-1}\\
+    &=h(x)h(x)^{-1}h(y)h(y)^{-1}\\
+    &= 1_A.
+\end{align*}}
+Hence, $G'$ is contained in the "kernel@GRP" of $h$. By the fundamental theorem of "homomorphism@@GRP" (ref), there is a unique "factorization" $h = G \stackrel{\pi}{\rightarrow} G/G' \stackrel{h'}{\rightarrow} A$, where $\pi$ is the canonical "quotient@@GRP" map. We summarize this "universal property" as follows. %TODO: create ref for fundamental hom thm
 \begin{defn}[Categorical]
     Let $G$ be a group, the "abelianization" of $G$ is an "abelian group" $\ab{G}$ with a map $\pi: G \rightarrow \ab{G}$ satisfying the following "universal property": for any "homomorphism@@GRP" $h:G \rightarrow A$ where $A$ is "abelian", there is a unique "homomorphism@@GRP" $h^*: \ab{G} \rightarrow A$ such that $h^* \circ \pi = h$. This is summarized in \eqref{diag:abelianization}.
     \begin{equation}\label{diag:abelianization}
@@ -60,21 +74,28 @@ Moreover, since $\catAb$ is a "full@@CAT" "subcategory" of $\catGrp$, $h^*$ is a
         \end{tikzcd}
     \end{equation}
 \end{defn}
+We can verify that this characterizes the "abelianization" of $G$ up to "isomorphism@@GRP".\footnote{Compare with what we proved for "free monoids".}
+\begin{exer}\label{exer:universal:uniqueabelianization}\marginnote{\hyperref[soln:universal:uniqueabelianization]{See solution.}}
+    Let $p: G \rightarrow H$ satisfy the "universal property" of $\pi: G \rightarrow \ab{G}$. Show that $\ab{G} \isoCAT H$.
+\end{exer}
+
 \subsection{Vector Space Basis}
+This is the third and last example of the same flavor.\footnote{We now work with the "forgetful functor" $\catVect{k} \rightsquigarrow \catSet$.}
 \begin{defn}[Classical]
     \AP Let $V$ be a "vector space" over a "field" $k$, a ""basis"" for $V$ is a subset $S \subseteq V$ that is "linearly independent" and "generates@@VECT" $V$, namely, any $v \in V$ can be expressed as a "linear combination" of elements in $S$ and any $s \in S$ cannot be expressed as a "linear combination" of elements in $S \setminus\{s\}$.
 \end{defn}
-Once again, we would like to get rid of the content of this definition talking about elements, so we focus on what this means for "linear maps" coming out of $V$. Let $S$ be a "basis" of $V$, $W$ be another "vector space" over $k$ and $T: V \rightarrow W$ be a "linear map". By "linearity", $T$ is completely determined by where it sends the elements of $S$. Indeed, for any $v \in V$, write $v$ as a "linear combination" $\sum_{s \in S} \lambda_s s$ with $\lambda_s \in k$ (only finitely many of the coefficients are non-zero), then $T(v) = \sum_{s \in S} \lambda_s T(s)$. We conclude that any (set-theoretic) function $t: S \rightarrow W$ extends to a unique "linear map" $T: V \rightarrow  W$.
+Once again, we would like to get rid of the content of this definition talking about elements, so we focus on what this means for "linear maps" coming out of $V$. Let $S$ be a "basis" of $V$, $W$ be another "vector space" over $k$ and $T: V \rightarrow W$ be a "linear map". By "linearity", $T$ is completely determined by where it sends the elements of $S$. Indeed, for any $v \in V$, write $v$ as a "linear combination" $\sum_{s \in S} \lambda_s s$ with $\lambda_s \in k$ (only finitely many of the coefficients are non-zero), then $T(v) = \sum_{s \in S} \lambda_s T(s)$. We conclude that any (set-theoretic) function $t: S \rightarrow W$ extends to a unique "linear map" $T: V \rightarrow  W$.\footnote{This is completely analogous to how any "homomorphism@@MON" from the "free monoid" $\freemon{A}$ is determined by where it sends the generators (elements of $A$).}
 
 We claim that this property completely characterizes "bases" of $V$. Indeed, let $S \subseteq V$ be such that for any $t: S \rightarrow W$, there is a unique "linear map" $T: V \rightarrow  W$ extending $t$. We will show that $S$ is "generating@@VECT" and "linearly independent".
 \begin{enumerate}
-    \item Assume towards a contradiction that $S$ is not "generating@@VECT", that is, there exists $v \in V$ that is not a "linear combination" of vectors in $S$. Equivalently, if $U$ is the "subspace" "generated@@VECT" by $S$, then $V/U$ is not $0$. Now, let $t: S \rightarrow V/U$ be the $0$ map, both the quotient map $\pi: V \rightarrow V/U$ and the $0$ map $0: V \rightarrow V/U$ extend $t$, and since $V/U$ is not trivial, they are different maps.
-    \item Assume towards a contradiction that $S$ is not "linearly dependent", that is, there exists $v \in S$ is such that $v = \sum_{s \in S-v} \lambda_s s$. Consider the function \[t: S \rightarrow V \oplus V  = \begin{cases}(s,0) & s\neq v\\ (0,v) & s = v\end{cases}.\]
-    There cannot exist a "linear map" $T: V \rightarrow V\oplus V$ extending $t$ because by "linearity", we can show
-    \[(0,v) = t(v) = T(v) = T(\sum_{s \in S-v} \lambda_s s) = \sum_{s \in S-v} \lambda_s T(s) = \sum_{s \in S-v} \lambda_s (s,0),\]
-    which is absurd.
+    \item Let $U$ be the "subspace" "generated@@VECT" by $S$.\footnote{It contains all "linear combinations" of elements in $S$.} We claim that the "quotient@@VECT" space $V/U$ is $\{0\}$ implying $U=V$, i.e., $S$ is "generating@@VECT". Let $t: S \rightarrow V/U$ be the function sending everything to $0$, both the "quotient@@VECT" map $\pi: V \rightarrow V/U$ and the $0$ map $0: V \rightarrow V/U$ extend $t$ linearly.\footnote{The former extends $t$ because every "linear combination" of elements in $S$ is in $U$ which $\pi$ sends to $0$.} By the uniqueness in the "universal property", $\pi$ and $0$ must coincide, hence $V/U$ must be trivial.
+    \item Fix $v \in S$, we will show that $v$ is not a "linear combination" of elements in $S\setminus\{v\}$. First, we claim that $v$ is not zero. If it were, then any function $t:S \rightarrow k$ sending $v$ to a non-zero element could not be extended. Next, consider the function\footnote{Recall that the "coproduct" of "vector spaces" is their direct sum, i.e. $V+V = \{(u,w)\mid u,w \in V\}$ and operations are done coordinate-wise.} \[t: S \rightarrow V \coproduct V  = \begin{cases}(s,0) & s\neq v\\ (0,v) & s = v\end{cases}.\]
+    By the universal property, there exists a "linear map" $T: V \rightarrow V\coproduct V$ extending $t$. Notice that applying $T$ to a "linear combination" of elements in $S$, we must obtain a vector of $V\coproduct V$ whose second coordinate is $0$. However, the second coordinate of $T(v)$ is $v$, not $0$. Hence, $v$ is not a "linear combination" of elements in $S$. Our choice of $v$ was arbitrary, so we can conclude that $S$ is "linearly independent".
 \end{enumerate}
-In conclusion, we have the following alternate definition of a "vector space" "basis".
+
+We have the following alternative definition of a "vector space" "basis".\footnote{We are assuming a different point of view than we did for "free monoids", but we are doing the same thing. One could start from a set $S$ and say that $V$ is the free "vector space" over $S$ if there is the inclusion $i: S \rightarrow V$ satisfying \eqref{diag:basis}.
+
+This opposite point of view can be misleading. If we try to prove that this characterizes the "basis" up to "isomorphism@@CAT" (i.e. if $S$ and $S'$ are "bases" of $V$, then $S\isoCAT S'$), we will have a harder time than before. Comparing with the proofs for "free monoids" and "abelianizations", we find we can easily prove that if $V$ and $W$ have $S$ as a "basis", then $V \isoCAT W$.}
 \begin{defn}[Categorical]
     Let $V$ be a "vector space", a "basis" of $V$ is a set $S$ along with an inclusion $i: S \rightarrow V$ satisfying the following "universal property": for any function $t: S \rightarrow W$ where $W$ is a "vector space", there is a unique "linear map" $T: V \rightarrow W$ such that $T \circ i = t$. This is summarized in \eqref{diag:basis}.
     \begin{equation}\label{diag:basis}
@@ -92,17 +113,30 @@ In conclusion, we have the following alternate definition of a "vector space" "b
     \end{tikzcd}
     \end{equation}
 \end{defn}
+The previous three examples of "universal properties" are all categorifications of a free construction. Here are two others we leave you to work out on your own.
+\begin{exer}\label{exer:universal:freeposet}\marginnote{\hyperref[soln:universal:freeposet]{See solution.}}
+    What is the free "partial order" over a set $S$?
+\end{exer}
+Recall that we can see a "category" as a "directed graph" with extra structure using the "forgetful functor" $U:\catCat \rightsquigarrow \catDGph$ that forgets about "composition" and "identities". From any "directed graph" $G$, we can construct a "category" of paths of $G$, denoted by $\mathbf{P}G$. The "objects" of $\mathbf{P}G$ are those of $G$, and the "morphisms" in $\Hom_{\mathbf{P}G}(A,B)$ are "paths" from $A$ to $B$ in $G$. The "composition" of two "paths" $A \xrightarrow{f_1} \cdots \xrightarrow{f_n} B$ and $B \xrightarrow{g_1} \cdots \xrightarrow{g_m} C$ is the concatenated "path" $A \xrightarrow{f_1} \cdots \xrightarrow{f_n} B \xrightarrow{g_1} \cdots \xrightarrow{g_m} C$, and the "identity" on $A$ is the empty "path" going from $A$ to $A$.\footnote{Of course, concatenating a "path" with the empty "path" does nothing.}
+\begin{exer}\label{exer:universal:freecat}\marginnote{\hyperref[soln:universal:freecat]{See solution.}}
+    Show that $\mathbf{P}G$ is the free "category" over the "directed graph" $G$. Moreover, show that when $G$ has a single "object", $\mathbf{P}G$ is the "delooping" of the "free monoid" $\freemon{\mor{G}}$. 
+\end{exer}
 
 \subsection{Exponential Objects}
 This section and the following two are motivated by important constructions in $\catSet$ that we want to define categorically. Going further in this direction amounts to doing \href{https://ncatlab.org/nlab/show/topos}{topos theory}, namely, studying "categories" which look a lot like $\catSet$.
+\begin{rem}
+    Let me repeat that there is a choice to make when doing such categorifications. Given a classical construction, we need to decide what is the core idea that we want to keep when we abstract away from concrete details. If this core idea allows you to recover the original construction when instantiating back in $\catSet$, then your abstraction is appropriate, but it might not be the only one.
+\end{rem}
 \begin{exer}\label{exer:universal:prodXfunc}\marginnote{\hyperref[soln:universal:prodXfunc]{See solution.}}
     Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that for any $Y \in \obj{\mathbf{C}}$, $Y \product X$ exists. Show that $\placeholder\product X$ is a "functor" $\mathbf{C} \rightsquigarrow \mathbf{C}$.
-\end{exer}
-Let $A$ and $X$ be sets, $A^X$ commonly denotes the set of functions $X \rightarrow A$. In hope to generalize this construction to other "categories", let us study "morphisms" into $A^X$. Given a set $B$ and a "morphism" $f: B \rightarrow A^X$, \AP there is a natural operation called ""uncurrying"" that takes $f$ to $\uncurry{f}:B \times X \rightarrow A$ which basically evaluates both $f$ and its output at the same time. Namely, $\uncurry{f}(b,x) = f(b)(x)$.
+\end{exer} 
+Let $A$ and $X$ be sets, $A^X$ commonly denotes the set of functions $X \rightarrow A$. In particular, $\catSet$ is "locally small" and $\Hom_{\catSet}(A,B)$ is a set, i.e., an "object" of $\catSet$. This is a somewhat exceptional situation, but there are other "categories" where "hom-sets" can actually be viewed as "objects" of the "category".\footnote{For instance, the set of "linear maps" $V \rightarrow W$ is a "vector space" where addition and scalar multiplication is done pointwise.}
+
+In hope to generalize this construction to other "categories", let us study "morphisms" into $A^X$.\footnote{A priori, there is no reason to prefer "morphisms" into $A^X$ over "morphisms" out of $A^X$, but the intuition is cleaner with the former.} Given a set $B$ and a "morphism" $f: B \rightarrow A^X$, \AP there is a natural operation called ""uncurrying"" that takes $f$ to $\uncurry{f}:B \times X \rightarrow A$ which basically evaluates both $f$ and its output at the same time. Namely, $\uncurry{f}(b,x) = f(b)(x)$.
 
 As a particular case, we consider the identity function $A^X \rightarrow A^X$. \AP "Uncurrying" yields the ""evaluation"" function $\ev: A^X \times X \rightarrow A$ that evaluates the function in the first coordinate at the second coordinate: $\ev(f,x) = f(x)$.
 
-\AP Now, as the name suggests, "uncurrying" has an inverse operation called ""currying"" which takes $g : B\times X \rightarrow A$ to $\curry{g}: B \rightarrow A^X$ defined by $\curry{g}(b) = x \mapsto g(b,x)$. Morally, $\curry{g}$ delays the evaluation of $g$ to later.\footnote{For computer scientists, this is also related to the concept of \textit{continuations}.} Moreover, notice that the "currying" of $g$ satisfies $\ev(\curry{g}(b), x) = g(b,x) \in A$ for any $b \in B$ and $x \in X$. This along with the fact that "currying" and "uncurrying" are bijective operations\footnote{Check that $\curry{\uncurry{g}} = g$ and $\uncurry{\curry{g}} = g$.} leads to a "universal property" that $\ev$ satisfies. It is summarized in \eqref{diag:exponent}. %TODO: check about continuations.
+\AP Now, as the name suggests, "uncurrying" has an inverse operation called ""currying"" which takes $g : B\times X \rightarrow A$ to $\curry{g}: B \rightarrow A^X$ defined by $\curry{g}(b) = x \mapsto g(b,x)$. Morally, $\curry{g}$ delays the evaluation of $g$ on the second input to later.\footnote{For computer scientists, this is also related to the concept of \textit{continuations}.} Moreover, notice that the "currying" of $g$ satisfies $\ev(\curry{g}(b), x) = g(b,x) \in A$ for any $b \in B$ and $x \in X$. Intuitively, $\curry{g}(b)$ reads the first argument $b$ and waits for the second argument, then $\ev(\curry{g}(b),x)$ inputs $x$, so it is the same thing as doing $g(b,x)$. This along with the fact that "currying" and "uncurrying" are bijective operations\footnote{Check that $\curry{\uncurry{g}} = g$ and $\uncurry{\curry{g}} = g$.} leads to a "universal property" that $\ev$ satisfies. It is summarized in \eqref{diag:exponent}.
 
 \begin{equation}\label{diag:exponent}
 % https://q.uiver.app/?q=WzAsOSxbMiwxLCJBXlhcXHByb2R1Y3QgWCJdLFsxLDEsIkEiXSxbMiwyLCJCXFxwcm9kdWN0IFgiXSxbNCwyLCJCIl0sWzQsMSwiQV5YIl0sWzAsMF0sWzEsMF0sWzMsMV0sWzUsMV0sWzAsMSwiXFxldiIsMl0sWzIsMCwiXFxjdXJyeXtnfVxccHJvZHVjdG0gXFxpZF9YIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzIsMSwiZyJdLFszLDQsIlxcY3Vycnl7Z30iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcY2F0U2V0IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzcsOCwiXFx0ZXh0e2luIH1cXGNhdFNldCIsMSx7Im9mZnNldCI6LTUsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxMiwxMCwiXFxwbGFjZWhvbGRlclxccHJvZHVjdCBYIiwyLHsibGFiZWxfcG9zaXRpb24iOjQwLCJzaG9ydGVuIjp7InNvdXJjZSI6MTAsInRhcmdldCI6NDB9LCJsZXZlbCI6MX1dXQ==
@@ -120,12 +154,25 @@ As a particular case, we consider the identity function $A^X \rightarrow A^X$. \
 \end{equation}
 This is entirely categorical, so we can define "exponential objects" as follows.
 \begin{defn}[Exponential]
-    Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $\placeholder\product X$ is a "functor".\footnote{i.e.: all "binary products" with $X \in \obj{\mathbf{C}}$ exist.} For $A \in \obj{\mathbf{C}}$, the ""exponential"" $A^X$ (if it exists) is an "object" $A^X$ along with a "morphism" $\ev: A^X \times X \rightarrow A$ such that for all $g: B\times X \rightarrow A$, there is a unique $\curry{g}:B \rightarrow A^X$ making \eqref{diag:exponent} "commute".
+    Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $\placeholder\product X$ is a "functor".\footnote{i.e.: all "binary products" with $X \in \obj{\mathbf{C}}$ exist.} For $A \in \obj{\mathbf{C}}$, the ""exponential"" $A^X$ (if it exists) is an "object" $A^X$ along with a "morphism" $\ev: A^X \product X \rightarrow A$ such that for all $g: B\product X \rightarrow A$, there is a unique $\curry{g}:B \rightarrow A^X$ making \eqref{diag:exponent} "commute".
 \end{defn}
-
+Informally, one can think of $A^X$ as an "object" which behaves like $\Hom_{\mathbf{C}}(A,X)$. The terminology \textbf{internal hom} is often used (sometimes in more general contexts).
+\begin{exer}\label{exer:universal:expovect}\marginnote{\hyperref[soln:universal:expovect]{See solution.}}
+    Let $k$ be a "field", and $V$ and $W$ be "vector spaces" over $k$. Show that the "vector space" $\Hom_{\catVect{k}}(V,W)$ equipped with pointwise addition and scalar multiplication of "linear maps" is the "exponential" $W^V$.
+\end{exer}
+\begin{exer}\label{exer:universal:expounique}\marginnote{\hyperref[soln:universal:expounique]{See solution.}}
+    Show that if $e: Y \product X \rightarrow A$ satisfies the same "universal property" as $\ev$, then $Y \isoCAT A^X$.\footnote{We will stop proving that "universal properties" determine "objects" up to "isomorphisms@@CAT", the abstract result (stating that works for all "universal properties") is Corollary \ref{cor:univpropiso}.}
+\end{exer}
+\begin{defn}[Cartesian closed]
+    \AP When a "category" $\mathbf{C}$ has all "exponentials" $A^X$ for all $A,X \in \obj{\mathbf{C}}$ (in particular, it has all "binary products"), we say it is ""cartesian closed"".
+\end{defn}
+The "category" of sets is "cartesian closed". Here is an exercise calling back to when we showed many familiar properties of Cartesian products generalized to "binary products".
+\begin{exer}\label{exer:universal:propexpon}\marginnote{\hyperref[soln:universal:propexpon]{See solution.}}
+    Let $\mathbf{C}$ be a "category" with a "terminal" "object" $\terminal$, and let $X \in \obj{\mathbf{C}}$. Show that $X$ is the "exponential" $X^{\terminal}$ and $\terminal$ is the "exponential" $\terminal^X$,\footnote{Other properties about "exponentials" in $\catSet$ can be generalized (e.g. $(X^Y)^Z \isoCAT X^{Y\times Z}$), but we will wait until we see the "Yoneda lemma" to give more elegant proofs.} i.e. find the "evaluation" "morphisms" and prove they satisfy the right "universal property".
+\end{exer}
 \subsection{Subobject Classifier}
-\begin{exer}\label{exer:universal:subobjfunctor}\marginnote{\hyperref[soln:universal:subobjfunctor]{See solution.}}%TODO: define \pull and pullback along
-    Let $\mathbf{C}$ be a "well-powered" "category" with all "pullbacks". We define $\Sub_{\mathbf{C}}$ on "morphisms": it sends $f: X \rightarrow Y$ to $\pull{f}{\placeholder}: \Sub_{\mathbf{C}}(Y) \rightarrow \Sub_{\mathbf{C}}(X)$ sending $m: I \rightarrow Y$ to $\pull{f}{m}$ (the "pullback" of $m$ "along" $f$ as depicted in \eqref{diag:pullbackalongf}). Show that this is well-defined and makes $\Sub_{\mathbf{C}}$ into a "functor" $\op{\mathbf{C}} \rightsquigarrow \mathbf{Set}$.\begin{marginfigure}\begin{equation}\label{diag:pullbackalongf}
+\begin{exer}\label{exer:universal:subobjfunctor}\marginnote{\hyperref[soln:universal:subobjfunctor]{See solution.}}
+    Let $\mathbf{C}$ be a "well-powered" "category" with all "pullbacks". We define $\Sub_{\mathbf{C}}$ on "morphisms": it sends $f: X \rightarrow Y$ to $\pull{f}{\placeholder}: \Sub_{\mathbf{C}}(Y) \rightarrow \Sub_{\mathbf{C}}(X)$ sending $m: I \hookrightarrow Y$ to $\pull{f}{m}$, the "pullback" of $m$ "along" $f$ as depicted in \eqref{diag:pullbackalongf}. Show that this is well-defined (recall that a "subobject" of $Y$ is an equivalence class of "monomorphisms") and makes $\Sub_{\mathbf{C}}$ into a "functor" $\op{\mathbf{C}} \rightsquigarrow \mathbf{Set}$.\begin{marginfigure}\begin{equation}\label{diag:pullbackalongf}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJKIl0sWzAsMSwiWCJdLFsxLDEsIlkiXSxbMSwwLCJJIl0sWzAsMSwiXFxwdWxse2Z9e1xcaW90YX0iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsxLDIsImYiLDJdLFswLDNdLFszLDIsIlxcaW90YSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
 \begin{tikzcd}
 	J & I \\
@@ -138,10 +185,10 @@ This is entirely categorical, so we can define "exponential objects" as follows.
 \end{tikzcd}
     \end{equation}\end{marginfigure}
 \end{exer}
-In $\catSet$, recall that "subobjects" are subsets. Hence, letting $\Omega=\{\bot,\top\}$ there is a correspondence between $\Sub_{\catSet}(X)$ and $\Hom_{\catSet}(X,\Omega)$, it sends $I \subseteq X$ to the "characteristic" function $\charac_I: X \rightarrow \Omega$,\footnote{The "characteristic" function $\charac_I$ is defined by 
+In $\catSet$, recall that "subobjects" are subsets. Hence, letting $\Omega=\{\bot,\top\}$ there is a correspondence between $\Sub_{\catSet}(X)$ and $\Hom_{\catSet}(X,\Omega)$, it sends $I \subseteq X$ to the "characteristic" function $\charac_I: X \rightarrow \Omega$,\footnote{\label{foot:characdef}The "characteristic" function $\charac_I$ is defined by 
 \[\charac_I(x) = \begin{cases}
     \top &x \in I\\\bot & x\notin I
-\end{cases}.\]} and in the other direction $f: X \rightarrow \Omega$ is sent to $f^{-1}(\top)\subseteq X$. Furthermore, recall that the preimage can be seen as a "pullback", so we can define $\charac_I$ as the unique function making \eqref{diag:pullbackcharac} into a "pullback" square. Uniqueness holds because this "pullback" implies $I = \charac_I^{-1}(\top)$.%TODO: ref to where we said this.
+\end{cases}.\]} and in the other direction $f: X \rightarrow \Omega$ is sent to $f^{-1}(\top)\subseteq X$. In particular, we have that $\charac_I^{-1}(\top) = I$, which we can write categorically as the following "pullback".\footnote{Recall our discussion on preimages in Example \ref{exmp:pullbackinset}.}
 \begin{equation}\label{diag:pullbackcharac}
     % https://q.uiver.app/?q=WzAsNCxbMCwwLCJJIl0sWzAsMSwiWCJdLFsxLDEsIlxcT21lZ2EiXSxbMSwwLCJcXHRlcm1pbmFsIl0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwyLCJcXGNoYXJhY19JIiwyXSxbMCwzXSxbMywyLCJcXHRvcCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
     \begin{tikzcd}
@@ -154,10 +201,36 @@ In $\catSet$, recall that "subobjects" are subsets. Hence, letting $\Omega=\{\bo
         \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
     \end{tikzcd}
 \end{equation}
-The role played by the two element set $\{\bot,\top\}$ can now be generalized to other "categories".
+Crucially, this "pullback" uniquely determines $\charac_I$.\footnote{If $f:X \rightarrow \Omega$ also makes \eqref{diag:pullbackcharac} a "pullback" square, then $f^{-1}(\top) = I$, so $f$ and $\charac_I$ must coincide. The preimage of $f$ on $\top$ determines all of $f$ because there is only one other value in the codomain of $f$.} The role played by the two element set $\{\bot,\top\}$ can now be generalized to other "categories".
 \begin{defn}[Subobject classifier]
-    \AP Let $\mathbf{C}$ be a "category" with a "terminal" object $\terminal$. A ""subobject classifier"" is a "morphism" $\top: \terminal \rightarrow \Omega \in \mor{\mathbf{C}}$ such that for any "monomorphism" $I \hookrightarrow X$ there is a unique "morphism" $\charac_m: X \rightarrow \Omega$ such that \eqref{diag:pullbackcharac} is a "pullback" square. \AP We call $\charac_I$ the ""characteristic map"" of $I \hookrightarrow X$.
-\end{defn}\begin{marginfigure}[6\baselineskip]\begin{equation}\label{diag:classifierwelldef}
+    \AP Let $\mathbf{C}$ be a "category" with a "terminal" object $\terminal$. The ""subobject classifier"" (if it exists) is a "morphism" $\top: \terminal \rightarrow \Omega \in \mor{\mathbf{C}}$ such that for any "monomorphism" $I \hookrightarrow X$ there is a unique "morphism" $\charac_m: X \rightarrow \Omega$ such that \eqref{diag:pullbackcharac} is a "pullback" square. \AP We call $\charac_I$ the ""classifying morphism"" of $I \hookrightarrow X$.
+\end{defn}
+\begin{exmp}[$\catPtd$]
+    We find the "subobject classifier" in $\catPtd$.
+    
+    Let $(X,x)$ be a "pointed set", we first show that a "subobject" of $(X,x)$ is a subset of $X$ that contains $x$. An argument like the one in Example \ref{exmp:monicset} shows that "monomorphisms" in $\catPtd$ are precisely the injective functions that preserve the point.\footnote{We can also give a more abstract proof. The "forgetful functor" $\catPtd \rightsquigarrow \catSet$ is "faithful" so it "reflects" "monomorphisms" by Exercise \ref{exer:duality:reflecting}. Also, we saw in Exercise \ref{exer:limits:preserveptd} that it "preserves" "pullbacks", hence it "preserves" "monomorphisms" by Exercise \ref{exer:limits:preservepullbackmono}.} Hence, for a subset $I\subseteq X$ with $x \in I$, the inclusion $i: (I,x) \hookrightarrow (X,x)$ is a "monomorphism". Moreover, we can show (as we did in Example \ref{exmp:subobjsubset}) that two "monomorphisms" $(I,i) \hookrightarrow (X,x)$ and $(J,j) \hookrightarrow (X,x)$ are in the same equivalence class of $\Sub_{\catPtd}(X,x)$ if and only if their images coincide (and their image must contain $x$). We conclude that $\Sub_{\catPtd}(X,x)$ is in correspondence with $\{S\subseteq X\mid x \in S\}$.
+
+    The "terminal object" $\terminal$ in $\catPtd$ is the singleton $\{\ast\}$ with distinguished point $\ast$. Keeping the same notation $\Omega = \{\bot, \top\}$, we claim the "subobject classifier" is the unique "morphism" $\top: \terminal \rightarrow (\Omega,\top)$,\footnote{The "terminal object" $\terminal$ is also "initial" in $\catPtd$, see Exercise \ref{exer:duality:zeroinptd}.} it sends $\ast$ to $\top$. For any subset $I\subseteq X$ that contains $x \in X$, we define the "classifying morphism" $\charac_I:(X,x) \rightarrow (\Omega,\top)$ as before (see Footnote \ref{foot:characdef}), noting that it is a "morphism" in $\catPtd$ because $x$ belongs to $I$ so is mapped to $\top$. It clearly makes the square in \eqref{diag:characptd} "commute".\footnote{Both paths send everything in $I$ to $\top$.}
+    \begin{equation}\label{diag:characptd}
+        % https://q.uiver.app/?q=WzAsNSxbMiwxLCIoXFx7XFxhc3RcXH0sXFxhc3QpIl0sWzIsMiwiKFxcT21lZ2EsXFx0b3ApIl0sWzEsMSwiKEkseCkiXSxbMSwyLCIoWCx4KSJdLFswLDAsIihBLGEpIl0sWzAsMSwiXFx0b3AiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDMsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsMSwiXFxjaGFyYWNfSSIsMl0sWzIsMF0sWzQsMywiZiIsMix7ImN1cnZlIjoxfV0sWzQsMCwiIiwyLHsiY3VydmUiOi0xfV0sWzQsMiwiZiIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+        \begin{tikzcd}
+            {(A,a)} \\
+            & {(I,x)} & {(\{\ast\},\ast)} \\
+            & {(X,x)} & {(\Omega,\top)}
+            \arrow["\top", hook, from=2-3, to=3-3]
+            \arrow[hook, from=2-2, to=3-2]
+            \arrow["{\charac_I}"', from=3-2, to=3-3]
+            \arrow[from=2-2, to=2-3]
+            \arrow["f"', curve={height=6pt}, from=1-1, to=3-2]
+            \arrow[curve={height=-6pt}, from=1-1, to=2-3]
+            \arrow["f"{description}, dashed, from=1-1, to=2-2]
+        \end{tikzcd}
+    \end{equation}
+    Now, for any "morphism" $f:(A,a) \rightarrow (X,x)$ making \eqref{diag:characptd} "commute", we find the image of $f$ must be contained in $I$.\footnote{Otherwise some $a \in A$ is mapped to $\bot$ in the bottom path but not the top path.} Therefore, we can "factor" $f$ through the inclusion of $I$ in $X$ (necessarily uniquely). We conclude that the square in \eqref{diag:characptd} is a "pullback".
+
+    It remains to show $\charac_I$ is the only possible "morphism" making that possible. If another "morphism" $\chi'$ does, we apply the "forgetful functor" which "preserves" "pullbacks" (Exercise \ref{exer:limits:preserveptd}) to get a "pullback" in $\catSet$. Because $\top: \terminal \rightarrow \Omega$ is the "subobject classifier" in $\catSet$, $\chi'$ must be the "classifying morphism" which is the "characteristic map" $\charac_I$.
+\end{exmp}
+\begin{marginfigure}[6\baselineskip]\begin{equation}\label{diag:classifierwelldef}
     % https://q.uiver.app/?q=WzAsNixbMSwwLCJJIl0sWzEsMSwiWCJdLFsyLDEsIlxcT21lZ2EiXSxbMiwwLCJcXHRlcm1pbmFsIl0sWzAsMCwiSSciXSxbMCwxLCJYIl0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwyLCJcXGNoYXJhY19JIiwxXSxbMCwzXSxbMywyLCJcXHRvcCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNSwxLCJcXGlkX1giLDFdLFs0LDAsIlxcc2ltIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzUsMiwiXFxjaGFyYWNfe0knfSIsMix7ImN1cnZlIjo1fV0sWzQsMSwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
 \begin{tikzcd}
 	{I'} & I & \terminal \\
@@ -174,9 +247,9 @@ The role played by the two element set $\{\bot,\top\}$ can now be generalized to
 	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
 \end{tikzcd}
 \end{equation}\end{marginfigure}
-Before drawing a diagram like those above to summarize the "universal property" of a "subobject classifier", we need to make sure that the "characteristic maps" of two "monomorphisms" in the same equivalence class in $\Sub_{\mathbf{C}}(X)$ are equal. Looking at \eqref{diag:classifierwelldef}, the right square is a "pullback" by hypothesis and the left square is a "pullback" by Exercise \ref{exer:limits:isopullback}. Therefore, the rectangle is a "pullback" by the "pasting lemma" and we see that $\charac_{I'} = \charac_I \circ \id_X$ by uniqueness of the "characteristic map".
+Before we can draw a diagram (akin to \eqref{diag:freemon}, \eqref{diag:abelianization}, etc.) summarizing the "universal property" of the "subobject classifier", we need to make sure that the "classifying morphisms" of two "monomorphisms" in the same equivalence class in $\Sub_{\mathbf{C}}(X)$ are equal. Let $I' \hookrightarrow X$ and $I \hookrightarrow X$ represent the same "subobject", namely, there is an "isomorphism@@CAT" $I' \isoCAT I$ making the left square in \eqref{diag:classifierwelldef} "commute". The right square is a "pullback" by hypothesis and the left square is a "pullback" by Exercise \ref{exer:limits:isopullback}. Therefore, the rectangle is a "pullback" by the "pasting lemma", and we see that $\charac_{I'} = \charac_I \circ \id_X$ by uniqueness of the "classifying morphism".
 
-Now, in a "well-powered" "category" $\mathbf{C}$ has a "terminal" object and all "pullbacks",\footnote{The definition of "subobject classifier" does not need the "well-poweredness" and the existence of all "pullbacks", but they are necessary to have a "universal property" because it uses the "functor" $\Sub_{\mathbf{C}}$. In any case, "subobject classifiers" are usually used when these conditions are satisfied.} a "subobject classifier" $\top: \terminal \rightarrow \Omega$ is such that for any "subobject" $m$ of $X$, which we identify as a "morphism" $m: \terminal \rightarrow \Sub_{\mathbf{C}}(X)$, there is a unique "morphism" $\charac_{m}: X \rightarrow \Omega$ such that $\pull{\charac_m}{\top} = m$. This is summarized in \eqref{diag:upsubobjectclassifier}.%TODO: write footnote better.
+Now, in a "well-powered" "category" $\mathbf{C}$ that has a "terminal" object and all "pullbacks",\footnote{The definition of "subobject classifier" does not need the "well-poweredness" and the existence of all "pullbacks", but they are necessary to have a "universal property" because it uses the "functor" $\Sub_{\mathbf{C}}$. In any case, "subobject classifiers" are usually used when these conditions are satisfied.} the "subobject classifier" $\top: \terminal \rightarrow \Omega$ is such that for any "subobject" $m$ of $X$, there is a unique "morphism" $\charac_{m}: X \rightarrow \Omega$ satisfying $\pull{\charac_m}{\top} = m$. This is summarized in \eqref{diag:upsubobjectclassifier} where we identify $\top$ with the function $\terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ picking out this "subobject" (recall that any "morphism" out of $\terminal$ is "monic" by Exercise \ref{exer:duality:morterminal}), and similarly for $m$.
 \marginnote[2\baselineskip]{Notice that the dashed arrow gets reversed because $\Sub_{\mathbf{C}}$ is "contravariant". We could also write ``in $\op{\mathbf{C}}$'' and not reverse the arrow.}
 \begin{equation}\label{diag:upsubobjectclassifier}
     % https://q.uiver.app/?q=WzAsNyxbMSwwLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFxcT21lZ2EpIl0sWzAsMCwiXFx0ZXJtaW5hbCJdLFsxLDEsIlxcU3ViX3tcXG1hdGhiZntDfX0oWCkiXSxbMywxLCJYIl0sWzMsMCwiXFxPbWVnYSJdLFsyLDBdLFs0LDBdLFsxLDAsIlxcdG9wIl0sWzEsMiwiXFxpb3RhIiwyXSxbMyw0LCJcXGNoYXJhY197XFxpb3RhfSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7Q30iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcY2F0U2V0IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiXFxwdWxse1xcY2hhcmFjX3tcXGlvdGF9fXtcXHBsYWNlaG9sZGVyfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs5LDEyLCJcXFN1Yl97XFxtYXRoYmZ7Q319IiwyLHsibGFiZWxfcG9zaXRpb24iOjQwLCJzaG9ydGVuIjp7InNvdXJjZSI6MTAsInRhcmdldCI6NDB9LCJsZXZlbCI6MX1dXQ==
@@ -194,32 +267,270 @@ Now, in a "well-powered" "category" $\mathbf{C}$ has a "terminal" object and all
 \end{equation}
 
 \subsection{Power Objects}
-Let $X$ be a set, the "powerset" of $X$, $\mPcov X$ is the set of all subsets of $X$. 
-\begin{equation}\label{diag:uppowerobject}
-    % https://q.uiver.app/?q=WzAsNyxbMSwwLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFxcUG93ZXIgWFxccHJvZHVjdCBYKSJdLFswLDAsIlxcdGVybWluYWwiXSxbMSwxLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFlcXHByb2R1Y3QgWCkiXSxbMywxLCJZIl0sWzMsMCwiXFxQb3dlciBYIl0sWzIsMF0sWzQsMF0sWzEsMCwiXFxuaV9BIl0sWzEsMiwiXFxpb3RhIiwyXSxbMyw0LCJcXGNoYXJhY197XFxpb3RhfSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7Q30iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcY2F0U2V0IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiXFxwdWxse1xcY2hhcmFjX3tcXGlvdGF9fXtcXHBsYWNlaG9sZGVyXFxwcm9kdWN0bVxcaWRfWH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbOSwxMiwiXFxTdWJfe1xcbWF0aGJme0N9fShcXHBsYWNlaG9sZGVyIFxccHJvZHVjdCBYKSIsMix7ImxhYmVsX3Bvc2l0aW9uIjo0MCwic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjQwfSwibGV2ZWwiOjF9XV0=
+This is the third and last example that can motivate the study of topos theory.
+
+Let $X$ be a set, $\mPcov X$ commonly denotes the set of all subsets of $X$. In particular, $\catSet$ is "well-powered" and $\Sub_{\catSet}(X)$ is a set, i.e., an "object" of $\catSet$. Again, this is an exceptional situation\footnote{This is even more exceptional than being "cartesian closed". I do not have any simple examples, but we will see a couple of harder examples.} that we would like to make abstract.
+
+Let us study "morphisms" into $\mPcov X$. A function $f: Y \rightarrow \mPcov X$ assigns to each $y \in Y$ a (possibly empty) set $f(y)$ of values in $X$. We can also present the data of $f$ as a subset $\Gamma_f$ of $X\times Y$ containing the pair $(x,y)$ whenever $x \in f(y)$. This yields a bijection between functions $f:Y \rightarrow \mPcov X$ and subsets $\Gamma_f \subseteq X\times Y$\footnote{This generalizes the correspondence between elements of $\mPcov X$ and $\Sub_{\catSet}(X)$ because
+\[\mPcov X \isoCAT \Hom(\terminal, \mPcov X) \isoCAT \Sub_{\catSet}(X \times \terminal) \isoCAT \Sub_{\catSet}(X).\]}: given a subset $\Gamma \subseteq X\times Y$, we define $f_\Gamma:Y \rightarrow \mPcov X$ by $f(y) = \{x \in X \mid (x,y) \in \Gamma\}$.
+The trick to rephrase this categorically is to note that $\Gamma_f$ is the preimage of the ``element of'' subset ${\in_X} \subseteq X\times \mPcov X$ under the function $\id_X \productm f : X\times Y \rightarrow X\times \mPcov X$.\footnote{We have that $(\id_X \productm f)(x,y) = (x,f(y))$ is in $\in_X$ if and only if $x \in f(y)$ if and only  if $(x,y) \in \Gamma_f$. Thus, $\Gamma_f = (\id_X \productm f)^{-1}(\in_X)$.}
+Therefore, we have the following "pullback" (again, see Example \ref{exmp:pullbackinset}).
+\begin{equation}\label{diag:pullbackpower}
+    % https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXGluX1giXSxbMSwxLCJYXFx0aW1lcyBcXG1QY292IFgiXSxbMCwwLCJcXEdhbW1hX2YiXSxbMCwxLCJYXFx0aW1lcyBZIl0sWzAsMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwzLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFszLDEsImYiLDJdLFsyLDBdLFsyLDEsIiIsMix7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
 \begin{tikzcd}
-	\terminal & {\Sub_{\mathbf{C}}(\Power X\product X)} & {} & {\Power X} & {} \\
-	& {\Sub_{\mathbf{C}}(Y\product X)} && Y
-	\arrow["{\ni_A}", from=1-1, to=1-2]
-	\arrow["m"', from=1-1, to=2-2]
-	\arrow[""{name=0, anchor=center, inner sep=0}, "{\charac_{m}}"', dashed, from=2-4, to=1-4]
-	\arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-3, to=1-5]
-	\arrow["{\text{in }\catSet}"{description}, shift left=6, draw=none, from=1-1, to=1-2]
-	\arrow[""{name=1, anchor=center, inner sep=0}, "{\pull{\charac_{m}}{\placeholder\productm\id_X}}", dashed, from=1-2, to=2-2]
-	\arrow["{\Sub_{\mathbf{C}}(\placeholder \product X)}"'{pos=0.4}, shorten <=11pt, shorten >=45pt, from=0, to=1]
+	{\Gamma_f} & {\in_X} \\
+	{X\times Y} & {X\times \mPcov X}
+	\arrow[hook, from=1-2, to=2-2]
+	\arrow[hook, from=1-1, to=2-1]
+	\arrow["\id_X \productm f"', from=2-1, to=2-2]
+	\arrow[from=1-1, to=1-2]
+	\arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
 \end{tikzcd}
 \end{equation}
-\marginnote{A "finitely complete" "category" where every "object" has a "power object" is called an \textbf{(elementary) topos}. Topos theory is a vast subject concerned with properties and uses of toposes.}%TODO: write better.
-%TODO: power object
+We are ready to give the abstract definition.\begin{marginfigure}[8\baselineskip]
+    \begin{equation}\label{diag:pullbackpower2}
+        % https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXGluX1giXSxbMSwxLCJYXFx0aW1lcyBcXFBvd2VyIFgiXSxbMCwwLCJcXEdhbW1hIl0sWzAsMSwiWFxcdGltZXMgWSJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMywxLCJcXGlkX1ggXFxwcm9kdWN0bSBmX1xcR2FtbWEiLDJdLFsyLDBdLFsyLDEsIiIsMix7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+    \begin{tikzcd}
+        \Gamma & {\in_X} \\
+        {X\product Y} & {X\product \Power X}
+        \arrow[hook, from=1-2, to=2-2]
+        \arrow["\gamma"', hook, from=1-1, to=2-1]
+        \arrow["{\id_X \productm f_\gamma}"', dashed, from=2-1, to=2-2]
+        \arrow[from=1-1, to=1-2]
+        \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+    \end{tikzcd}
+    \end{equation}
+\end{marginfigure}
+\begin{defn}[Power object]
+    Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $X\product \placeholder$ is a "functor". \AP The ""power object"" of $X$ (if it exists) is an "object" $\Power X \in \obj{\mathbf{C}}$ along with a "monomorphism" ${\in_X} \hookrightarrow X \product \Power X$ such that for any "monomorphism" $\gamma: \Gamma \hookrightarrow X\product Y$, there is a unique "morphism" $f_\gamma: Y \rightarrow \Power X$ making \eqref{diag:pullbackpower2} a "pullback" square.
+\end{defn}
+Note that we obtain $f_\gamma$ from $\gamma$ instead of $\Gamma_f$ from $f$ (like we did in $\catSet$). In the end, it does not matter because the key property is that there is a correspondence between them. However, in the definition above, the fact that "pullbacks" are unique up to "isomorphisms" implies $\gamma$ is uniquely determined by $f_\gamma$ up to "isomorphism@@CAT",\footnote{More precisely, the "subobject" represented by $\gamma$ is uniquely determined by $\gamma$.} hence we only need to require $f_\gamma$ is uniquely determined by $\gamma$.
+
+\begin{exmp}[$\catPtd$]
+    Recall that a "subobject" of $(X,x)$ in $\catPtd$ is a subset of $X$ that contains $x$. This suggests the "power object" of $X$ may be the set of subsets of $X$ containing $x$. However we still need to figure out what would be the distinguished point in that set. It turns out there is no point that works out. In fact, we can show that, in general, $(X,x)$ does not have a "power object".
+
+    We saw above that the "power object" $\Power (X,x)$ must satisfy \[\Hom(\terminal, \Power(X,x)) \isoCAT \Sub_{\catPtd}((X,x) \product \terminal).\]
+    Since $\terminal$ is "initial" in $\catPtd$, the L.H.S. is a singleton set. We recall that taking a "product" with the "terminal" "object" does nothing (Exercise \ref{exer:limits:termneutralprod}), so the R.H.S. is the set of all subsets of $X$ containing $x$. Hence, this "isomorphism@@CAT" cannot be unless $(X,x) = \terminal$.\footnote{In that case, you can check $\terminal$ has a (uninteresting) "power object".}
+\end{exmp}
+
+Again, we want to draw a diagram that summarizes this "universal property". Just like for "subobject classifiers", we have to check $f_\gamma$ is the same as $f_{\gamma'}$ when $\gamma$ and $\gamma'$ are representatives for the same "subobject".
+\begin{exer}\label{exer:universal:welldefinedpowerchar}\marginnote{\hyperref[soln:universal:welldefinedpowerchar]{See solution.}}
+    Let ${\in_X} \hookrightarrow X\product \Power X$ be the "power object" of $X \in \obj{\mathbf{C}}$. Show that if $\gamma$ and $\gamma'$ are two "monomorphisms" equal in $\Sub_{\mathbf{C}}(X\product Y)$, then $f_\gamma = f_{\gamma'}$.
+\end{exer}
+We can conclude that if $\mathbf{C}$ is "well-powered" and has a "terminal" "object", the "power object" of $X\in \obj{\mathbf{C}}$ is a "monomorphism" ${\in_X} \hookrightarrow X\product \Power X$ such that for any "subobject" $\gamma$ of $X\product Y$, there is a unique "morphism" $f_\gamma: Y \rightarrow \Power X$ satisfying $\pull{(\id_X \productm f_\gamma)}{\in_X} = \gamma$. This is summarized in \eqref{diag:uppowerobject}.
+\begin{equation}\label{diag:uppowerobject}
+    % https://q.uiver.app/?q=WzAsNyxbMSwwLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFhcXHByb2R1Y3RcXFBvd2VyIFgpIl0sWzAsMCwiXFx0ZXJtaW5hbCJdLFsxLDEsIlxcU3ViX3tcXG1hdGhiZntDfX0oWFxccHJvZHVjdCBZKSJdLFszLDEsIlkiXSxbMywwLCJcXFBvd2VyIFgiXSxbMiwwXSxbNCwwXSxbMSwwLCJcXGluX1giXSxbMSwyLCJcXGlvdGEiLDJdLFszLDQsImZfXFxnYW1tYSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7Q30iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcY2F0U2V0IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiXFxwdWxse2ZfXFxnYW1tYX17XFxpZF9YIFxccHJvZHVjdG1cXHBsYWNlaG9sZGVyfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs5LDEyLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFhcXHByb2R1Y3QgXFxwbGFjZWhvbGRlcikiLDIseyJsYWJlbF9wb3NpdGlvbiI6MzAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0Ijo1MH0sImxldmVsIjoxfV1d
+\begin{tikzcd}
+	\terminal & {\Sub_{\mathbf{C}}(X\product\Power X)} & {} & {\Power X} & {} \\
+	& {\Sub_{\mathbf{C}}(X\product Y)} && Y
+	\arrow["{\in_X}", from=1-1, to=1-2]
+	\arrow["\iota"', from=1-1, to=2-2]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{f_\gamma}"', dashed, from=2-4, to=1-4]
+	\arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-3, to=1-5]
+	\arrow["{\text{in }\catSet}"{description}, shift left=6, draw=none, from=1-1, to=1-2]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{\pull{f_\gamma}{\id_X \productm\placeholder}}", dashed, from=1-2, to=2-2]
+	\arrow["{\Sub_{\mathbf{C}}(X\product \placeholder)}"'{pos=0.3}, shorten <=11pt, shorten >=57pt, from=0, to=1]
+\end{tikzcd}
+\end{equation}
+
+In the "category" $\catDGph$, any "graph" has "power object".\footnote{Recall that $\catDGph$ contains only "small" "directed graphs", those with a set of "objects" and a set of "arrows". The "morphisms" in $\catDGph$ are like "functors", but without the requirements about preserving "composition" and "identities" (they are not defined in a "directed graph").} Before proving this, we need to explain what are "subobjects" and how to take "products" and "pullbacks" in $\catDGph$.
+
+Adapting the solution to Exercise \ref{exer:duality:subobjccat}, we find that the "subobjects" of $G \in \obj{\catDGph}$ are "graphs" $H$ with $\obj{H} \subseteq \obj{G}$ and $\mor{H} \subseteq \mor{G}$ such that the "source" and "target" maps of $H$ are restrictions of those of $G$. Similarly to "subcategories", we can obtain $H$ from $G$ by deleting "arrows" and "objects", and making sure the "sources" and "targets" of remaining "arrows" also remain.
+
+Again taking inspiration from $\catCat$, Definition \ref{defn:prodcat} (see also Exercise \ref{exer:limits:catprod}) tells us how to define "binary products" of "graphs" if we forget about the "composition" and "identities".\footnote{In other words, the "forgetful functor" $\catCat \rightsquigarrow \catDGph$ "preserves@@LIM" "binary products".}
+
+We have not yet defined "pullbacks" in $\catCat$, but we will do it only for $\catDGph$ here because it is easier.
+\begin{exer}\label{exer:universal:dgphpullbacks}\marginnote{\hyperref[soln:universal:dgphpullbacks]{See solution.}}
+    Given two "morphisms" $f: A \rightarrow C$ and $g:B \rightarrow C$ in $\catDGph$, find the "pullback" $A\pullback{C} B$. Show that the "functors" $\obj{(\placeholder)}:\catDGph \rightsquigarrow \catSet$ and $\mor{(\placeholder)}: \catDGph \rightsquigarrow \catSet$\footnote{These are defined like for $\catCat$ in Exercise \ref{exer:catfunc:forgetfulcat}.} "preserve@@LIM" "pullbacks".
+\end{exer}
+The second part of this exercise is a hint for the first part, and it is what we will use shortly. "Unrolling", it means the "objects" and "arrows" of $A\pullback{C} B$ are defined as follows:
+\begin{align*}
+    \obj{\left( A\pullback{C} B \right)} &= \left\{ (x,x') \in \obj{A}\times \obj{B} \mid f_0(x) = g_0(x') \right\}\\
+    \mor{\left( A\pullback{C} B \right)} &= \left\{ (e,e') \in \mor{A}\times \mor{B} \mid f_1(e) = g_1(e') \right\}.
+\end{align*} 
+\begin{exmp}[$\catDGph$]\footnote{I am writing this as if we are figuring it out together, but we will use a couple of clever tricks that come from higher-level arguments that we cannot give yet (seeing $\catDGph$ as a "functor category").}
+    Fix a "graph" $X$, we will find $\Power X$.
+    
+    The "universal property" of $\Power X$ implies that there is a correspondence between "morphisms" $\terminal \rightarrow \Power X$ and "subobjects" of $X$ (the "terminal" "object" in $\catDGph$ is the "graph" with one "object" and one "arrow"). For $\catCat$, we saw that a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object" in $\obj{\mathbf{C}}$, but this is not the case in $\catDGph$. A "morphism" of "graphs" does not need to preserve "identities", thus a "morphism" $\terminal \rightsquigarrow X$ is a choice of "object" plus a choice of "loop" on it. This means in $\Power X$, we should have one "loop" for each subgraph of $X$. Unfortunately, this does not tell us that much at this point.\footnote{We will come back to this later.}
+    
+    To give a complete (and enlightening) description of $\Power X$, we need to know what are its "objects", its "arrows" and the "source" and "target" of its "arrows". We will make use of a more general consequence of the "universal property" of $\Power X$: for any "graph" $Y$, $\Hom(Y,\Power X) \isoCAT \Sub(X\product Y)$. We can find two "graphs" $O$ and $A$ such that $\Hom(O, \Power X)$ is in correspondence with the "objects" of $\Power X$ and $\Hom(A,X)$ with its "arrows".
+
+    The "graph" $O$ only contains one "object" $o$ and no "arrow". A "morphism" $O \rightarrow \Power X$ is then just a choice of an "object" that is the image of $o$. The "product@bproduct" $X \product O$ has the same "objects" as $X$ but no "arrows".\footnote{By Definition \ref{defn:prodcat}, we have
+    \begin{align*}
+        \obj{(X\product O)} &= \obj{X} \times \obj{O} = \obj{X} \times \{o\} \isoCAT X, \text{ and }\\
+        \mor{(X\product O)} &= \mor{X} \times \mor{O} = \mor{X} \times \emptyset \isoCAT \emptyset.\\
+    \end{align*}} Therefore, a subgraph of $X\product O$ is a subset of $\obj{X}$, and we conclude that we can define $\obj{(\Power X)} = \mPcov(\obj{X})$.
+
+    The "graph" $A$ contains two "objects" and one "arrow" $a$ between them. It looks like the "graph" of $\cattwo$, but without the "identity morphisms". A "morphism" $A \rightarrow \Power X$ is a choice of an "arrow" that is the image of $a$, and a redundant (determined by the first choice) choice for the image of the "source" and "target" of $a$. The "product@bproduct" $X \product A$ can be viewed as two copies of the "objects" of $X$ (one for each "object" of $A$), and for each "arrow" $f: x \rightarrow x'$ in $X$, there is an "arrow" from the first copy of $x$ to the second copy of $x'$.\footnote{By Definition \ref{defn:prodcat}, we have
+    \[\obj{(X\product A)} = \obj{X} \times \obj{A} = \obj{X} \times \{1,2\} \isoCAT X\coproduct X,\] and all "morphisms" are of the form $(g,a): (x,1) \rightarrow (x',2)$ where $g: x \rightarrow x'$. Thus,\[\Hom_{X\product A}((x,1), (x',2)) = \Hom_{X}(x,x'),\] and all other "hom-sets" are empty.} Here is a drawing of a small example.
+    \begin{equation*}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDgI2ccZg4QAX1LpMufIRTkK1Ok1bsuvfoJFiQGbHgJFZAJnkMWbRJx58BQ0eJ1SiZAMzHFZi6usa7kvTNIuNCZK5ipW6rZaErrSyACsckFuypZqNpravrEAbIkKpimeERnRDii5RkkFoalekZkxRAmB+SEe4ek+jeUBrtXtad5R9n7IAOx5we5hg-WlowAck8k1RZ3DWURLla3TtcVdZeO9VW0zdSUjsUstU4UdQw1HZMR9bY-zsbKvp+4fV01SD9dux-psUEtgXdzCJ5DAoABzeBEUAAMwAThAALZIMggHAQJDkSIY7FEmgEpAGEmYnGIPGUxDUzSkulOCmEpk0slMjlIAAs3Lp-L5iBFIEYEAgaCIAE4yKimHAYPJGPRuDBGAAFT7sdFYBEAC3WrKQCXxnPIshAGrAUCQTmIQqQuQtROZaNpZtF5A9IFNiCWbsQvudiAmwfIgpZXsQsp94tt9sQAFpHWHyObGeRXYwsGB3JACyAaIaYPRk+ACGwKfQsIx2EWaxL1ZqdQDzPnsLASyDzAANIYB8gR7NBvPF8xN3tliuN6u9nB1htThc0NUa7W6ztgbvN6EgftcNCYqDMADGOAABABBWHCIA
+        \begin{tikzcd}[sep=1em]
+        {} \arrow[r, "X", phantom] & {}  &  &  &  & {} \arrow[rrr, "X\product A" ,phantom] &  &  &{}\\
+        \bullet \arrow[r] \arrow[rd] & \bullet \arrow[d]& & & & \bullet \arrow[rrr, bend left] \arrow[rrrd] & \bullet \arrow[rrd] & \bullet & \bullet \\
+        &\bullet \arrow[d] & & & & & \bullet \arrow[rrd] & & \bullet\\ 
+        \bullet \arrow[ru] & \bullet \arrow[loop, distance=2em, in=35, out=325] & & & &\bullet \arrow[rrru] &\bullet \arrow[rr, bend right] & \bullet & \bullet
+        \end{tikzcd}
+    \end{equation*}
+    A subgraph $H \hookrightarrow X \product A$ can be seen as two subsets $H^1$ and $H^2$ of $\obj{X}$\footnote{$H^1$ contains the "objects" of $H$ belonging to the first copy of $X$ in $X\product A$ and $H^2$ contains the "objects" of $H$ in the second copy.} along with a set of "arrows" $H^a\subseteq \mor{X}$ whose "sources" are in $H^1$ and "targets" are in $H^2$. We define $\mor{(\Power X)}$ to be the set of all such triples $(H^1,H^2,H^a)$ to ensure we have $\Hom(A,X) \isoCAT \mor{(\Power X)} \isoCAT \Sub(X\product A)$.
+
+    It seems more than likely that $H^1$ and $H^2$, being "objects" of $\Power X$, are the "source" and "target" of the "arrow" $(H^1,H^2,H^a)$. As a sanity check, let us verify that with this definition of "source" and "target" in $\Power X$, the "loops" are in correspondence with "subgraphs" of $X$; that is the first thing we discovered about $\Power X$. If $H^1 = H^2$, then the triple defines the "subgraph" of $X$ containing all the "objects" in $H^1$ (or $H^2$) and all the "arrows" in $H^a$. Conversely, given a "subgraph" of $H \hookrightarrow X$, we let both $H^1$ and $H^2$ be the set of "objects" of $H$ and $H^a$ be the set of "arrows" of $H$.
+    
+    We seem to be on the right track, and we need one last thing in the definition of "power object",\footnote{Before the proof of the "universal property".} the subgraph $\in_X$ of $X\product \Power X$. Since we are almost done, we will totally trust our intuition of what $\in_X$ should be without looking for more justifications. The "objects" of $\in_X$ are pairs $(x,H)$ where $x \in \obj{X}$ and $H\subseteq \obj{X}$, it makes sense to require that $x \in H$. The "arrows" of $\in_X$ are pairs $(f,(H^1,H^2,H^a))$ where $f:x \rightarrow x'$, $x \in H^1$, $x' \in H^2$, it makes sense to require that $f \in H^a$.\footnote{Recall that every "arrow" in $H^a$ has its "source" in $H^1$ and its "target" in $H^2$ just like $f$.} We are ready to prove ${\in_X} \hookrightarrow \Power X$ satisfies the "universal property" of the "power object" of $X$.
+
+    Let $\Gamma$ be a subgraph of $X\product Y$ with inclusion $\gamma:\Gamma \rightarrow X\product Y$.\footnote{We assume without loss of generality that $\gamma$ is an inclusion (not an arbitrary "monomorphism") to avoid having different names for stuff in $\Gamma$ and stuff in $X\product Y$.} We need to define a "morphism" $f_{\gamma}: Y \rightarrow \Power X$ making \eqref{diag:pullbackpower2} a "pullback" square, and we also need to prove it is unique. Let us use Exercise \ref{exer:universal:dgphpullbacks} to compute the "pullback" for some yet undefined $f_\gamma$, and we will then figure out what constraints we obtain on $f_\gamma$ when requiring that "pullback" to be $\Gamma$. Hopefully, these will uniquely define $f_\gamma$.
+
+    Call this "pullback" $G$. The "objects" of $G$ are tuples\footnote{Recall that $\in_X$ is a subgraph of $X\product \Power X$.}
+    \[((x,y),(x',S)) \subseteq \obj{(X\product Y)} \times \obj{(\in_X)}\]
+    that satisfy, by "commutativity" of \eqref{diag:pullbackpower2}, $x = x'$ and $f_\gamma(y) = S \subseteq \obj{X}$, and by definition of $\in_X$, $x' \in S$. Since the second pair is determined by the first, we can be equivalently write
+    \[\obj{G} = \{(x,y) \in \obj{X}\times \obj{Y} \mid x \in f_{\gamma}(y)\}.\]
+    Thus, to ensure $G$ has the same "objects" as $\Gamma$,  it is enough that $f_\gamma$ satisfies $x \in f_\gamma(y) \Leftrightarrow (x,y) \in \Gamma$ which means $f_\gamma(y) = \{x \in \obj{X} \mid (x,y)\in \obj{\Gamma}\}$.
+
+    The "arrows" of $G$ are tuples
+    \[((g,h),(g',(H^1,H^2,H^a))) \subseteq \mor{(X\product Y)} \times \mor{(\in_X)}\]
+    that satisfy, by "commutativity" of \eqref{diag:pullbackpower2}, $g = g'$ and $f_\gamma(h) = (H^1,H^2,H^a)$, and by definition of $\in_X$, $\source(g) \in H^1$, $\target(g) \in H^2$ and $g \in H^a$. Like above, we make things more concise:
+    \[\mor{G} = \{(g,h) \in \mor{X}\times \mor{Y} \mid \source(g) \in f_\gamma(h)^1, \target(g) \in f_\gamma(h)^2, g \in f_\gamma(h)^a\}.\]
+    To ensure $G$ has the same "arrows" as $\Gamma$, we define $f_{\gamma}(h)$ be the "arrow" defined by the triple
+    \[\left( \{\source(g)\mid (g,h) \in \mor{\Gamma}\}, \{\target(g)\mid (g,h) \in \mor{\Gamma}\}, \{g \mid (g,h) \in \mor{\Gamma} \}\right).\]\begin{marginfigure}[8\baselineskip]
+        \begin{equation}\label{diag:pullbackpower3}
+            % https://q.uiver.app/?q=WzAsNSxbMiwwLCJcXGluX1giXSxbMiwxLCJYXFx0aW1lcyBcXFBvd2VyIFgiXSxbMSwwLCJHIl0sWzEsMSwiWFxcdGltZXMgWSJdLFswLDAsIlxcR2FtbWEiXSxbMCwxLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDMsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsMSwiXFxpZF9YIFxccHJvZHVjdG0gZl9cXGdhbW1hIiwyXSxbMiwwXSxbMiwxLCIiLDIseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbNCwzLCJcXGdhbW1hIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNCwyLCJcXGlzb0NBVCIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+        \begin{tikzcd}
+            \Gamma & G & {\in_X} \\
+            & {X\times Y} & {X\times \Power X}
+            \arrow[hook, from=1-3, to=2-3]
+            \arrow[hook, from=1-2, to=2-2]
+            \arrow["{\id_X \productm f_\gamma}"', from=2-2, to=2-3]
+            \arrow[from=1-2, to=1-3]
+            \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-2, to=2-3]
+            \arrow["\gamma"', hook, from=1-1, to=2-2]
+            \arrow["\isoCAT"{description}, draw=none, from=1-1, to=1-2]
+        \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+
+    We leave you two final things to check. First, we only exhibited bijections between the "objects" and "arrows" of $G$ and $\Gamma$, but in order for \eqref{diag:pullbackpower2} to be a "pullback", we have to make sure these bijections assemble into an "isomorphism@@CAT" making \eqref{diag:pullbackpower3} "commute". Second, for any other $f_\gamma$, the "pullback" $G$ is another "subobject" of $X\product Y$ (i.e. there is no "isomorphism@@CAT" as in \eqref{diag:pullbackpower3}).
+\end{exmp}
+
+Unlike for "exponentials", there is no well-known terminology for a "category" with all "power objects". This is because "power objects" are usually studied in "categories" with all finite "limits", and when such a "category" has all "power objects", it is called a "topos".
+\begin{defn}[Topos]
+    A "finitely complete" "category" where every "object" has a "power object" is called an \textbf{(elementary) topos}.
+\end{defn}
+
+\subsection{Digression on Toposes}
+The goal of this section is to give an equivalent definition of a "topos" using "exponentials" and "subobject classifiers". The proofs will be done in exercises, so it is your chance to do some more "diagram chasing".
 
 
+In $\catSet$,\footnote{Recall it is supposed to be the archetypal "topos".} the "power object" of the "terminal set" $\termset$ is the set with two elements, $\emptyset \subseteq \termset$ and $\termset \subseteq \termset$. Now, $\gamma = \id_{\termset} : \termset \rightarrow \termset$ is a "monomorphism", so we can see it as a "subobject" in $\Sub_{\catSet}(\termset)$ or $\Sub_{\catSet}(\termset\times \termset)$ via the "isomorphism@@CAT" $\termset \isoCAT \termset \times \termset$. Using the "universal property" of $\mPcov \termset$, we find that $f_{\gamma}: \termset \rightarrow \mPcov \termset$ sends the single element in $\termset$ to $\termset \in \mPcov \termset$.\footnote{More rigorously, it is the "universal property" of ${\in_{\termset}} \subseteq \termset \times \mPcov \termset$ which contains the only element in the R.H.S. You can check that this the only $f_{\gamma}$ making \eqref{diag:powersettermset} a "pullback".}\begin{marginfigure}
+    \begin{equation}\label{diag:powersettermset}
+        % https://q.uiver.app/?q=WzAsNSxbMCwwLCJcXHRlcm1zZXQiXSxbMCwyLCJcXHRlcm1zZXQgXFx0aW1lcyBcXHRlcm1zZXQiXSxbMSwyLCJcXHRlcm1zZXQgXFx0aW1lcyBcXG1QY292IFxcdGVybXNldCJdLFsxLDAsIlxcaW5fe1xcdGVybXNldH0iXSxbMCwxLCJcXHRlcm1zZXQiXSxbMSwyLCJcXGlkX3tcXHRlcm1zZXR9IFxccHJvZHVjdG0gZl9cXGdhbW1hIiwyXSxbMywyLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDNdLFswLDQsIlxcaWRfe1xcdGVybXNldH0iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFs0LDEsIlxcaXNvQ0FUIiwzLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiIiwwLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+    \begin{tikzcd}
+        \termset & {\in_{\termset}} \\
+        \termset \\
+        {\termset \times \termset} & {\termset \times \mPcov \termset}
+        \arrow["{\id_{\termset} \productm f_\gamma}"', from=3-1, to=3-2]
+        \arrow[hook, from=1-2, to=3-2]
+        \arrow[from=1-1, to=1-2]
+        \arrow["{\id_{\termset}}"', hook, from=1-1, to=2-1]
+        \arrow["\isoCAT"{marking}, draw=none, from=2-1, to=3-1]
+        \arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-2]
+    \end{tikzcd}
+    \end{equation}
+\end{marginfigure}
 
-\section{Generalization}%TODO: exercises asking to compute the opposite categories.
+Notice that $f_\gamma$ is (up to "isomorphism@@CAT") the same function as the "subobject classifier" $\top: \termset \rightarrow \{\bot,\top\}$. In fact, in every "topos", you can find the "subobject classifier" this way.
+\begin{exmp}[$\catDGph$]
+    %TODO: find subobject classifier.
+    %TODO: at first glance it looks weird, but then you notice, for an object: two options either in or out. For an arrow: 5 options. out -> source and target can be in our out. in -> source and target must be in.
+\end{exmp}
+%TODO: how to obtain exponentials using power objects and limits. See 4.1 A topos is cartesian closed in BarrWells for inspiration.
 
-Diagrams \eqref{diag:freemon}, \eqref{diag:abelianization}, \eqref{diag:basis}, \eqref{diag:exponent}, \eqref{diag:upsubobjectclassifier} and \eqref{diag:uppowerobject} look so similar that you can try to infer the following definition unifying all these concepts under the term "universal property".\footnote{Although, \eqref{diag:exponent} looks like all arrows have been reversed, so, you guessed it, it will be an instance of the "dual@@CAT" notion.}
+%TODO: Conversely, if we have exponentials and subobject classifiers, we can get power objects. Say that PX = Hom(X,2), to set off the exercise about equivalent defns.
+%TODO: exercise about equivalent definitions of toposes. with hints at how to prove it.
+
+\subsection{Natural Numbers Object}
+We end this section with a simpler example still related to "toposes" to some extent. Without going into the details, "topos theory" is a framework to study mathematical logic and set theory with a categorical point of view.\footnote{Ok, just a bit of informal \href{https://en.wikipedia.org/wiki/History_of_topos_theory}{details...}
+
+Grothendieck first defined a more constrained version of "topos" to help his research in algebraic geometry.
+
+Lawvere and Tierney enlarged the notion of "topos" to the definition we gave, initiating a deep dive into the strong link between logic and "toposes".
+
+Later, Caramello launched a research programme on ``"toposes" as bridges'' that uses "toposes" to formally translate results and concepts between mathematical theories.} One of the fundamental building blocks of logic and set theory is the set of natural numbers $\N = \{0,1,2,\dots\}$ and the principle of induction tied to it. Let us restate the latter categorically.
+
+The set $\N$ comes with a distinguished element $0$ that starts off inductive arguments. It corresponds to the function $\mathsf{0}: \termset \rightarrow \N$ that picks out $0$. For the inductive step, we rely on the function $\succ: \N \rightarrow \N$ that takes $n$ to $n+1$.\footnote{The name $\succ$ refers to $n+1$ being the \textit{successor} of $n$ in $\N$.} The "universal property" of $\N$ is that for any pair of functions $z: \termset \rightarrow X$, $s: X \rightarrow X$, there exists a unique $f: \N \rightarrow X$ making \eqref{diag:upnno} "commute".
+\begin{equation}\label{diag:upnno}
+    % https://q.uiver.app/?q=WzAsNSxbMCwwLCJcXHRlcm1zZXQiXSxbMSwwLCJcXE4iXSxbMiwwLCJcXE4iXSxbMSwxLCJYIl0sWzIsMSwiWCJdLFswLDEsIlxcbWF0aHNmezB9Il0sWzEsMiwiXFxzdWNjIl0sWzAsMywieiIsMl0sWzMsNCwicyIsMl0sWzIsNCwiZiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDMsImYiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\begin{tikzcd}
+	\termset & \N & \N \\
+	& X & X
+	\arrow["{\mathsf{0}}", from=1-1, to=1-2]
+	\arrow["\succ", from=1-2, to=1-3]
+	\arrow["z"', from=1-1, to=2-2]
+	\arrow["s"', from=2-2, to=2-3]
+	\arrow["f", dashed, from=1-3, to=2-3]
+	\arrow["f", dashed, from=1-2, to=2-2]
+\end{tikzcd}
+\end{equation}
+The function $f$ is defined inductively. We let $f(0)$ be the element of $X$ in the image of $z$ so that the triangle "commutes", then we let $f(n+1) = s(f(n))$ to ensure the square "commutes". This means for any $n \in \N$, $f(n) = s^n(z)$ where $s^n$ denotes the "composition" $s \circ \stackrel{n}{\cdots} \circ s$ with $s^0 = \id_X$. We abstract away from $\catSet$.
+\begin{defn}["NNO"]
+    \AP In a "category" $\mathbf{C}$ with a "terminal" "object" $\terminal$, the ""natural numbers object"" or "NNO" (if it exists) is an "object" $\NNO \in \obj{\mathbf{C}}$ along with two "morphisms" $\mathsf{0}: \terminal \rightarrow \NNO$ and $\succ: \NNO \rightarrow \NNO$ satisfying the following "universal property": for any pair of "morphisms" $z: \terminal \rightarrow X$ and $s: X \rightarrow X$, there exists a unique "morphism" $!: \NNO \rightarrow X$ making \eqref{diag:upnno2} "commute".\begin{marginfigure}
+        \begin{equation}\label{diag:upnno2}
+            % https://q.uiver.app/?q=WzAsNSxbMCwwLCJcXHRlcm1zZXQiXSxbMSwwLCJcXE5OTyJdLFsyLDAsIlxcTk5PIl0sWzEsMSwiWCJdLFsyLDEsIlgiXSxbMCwxLCJcXG1hdGhzZnswfSJdLFsxLDIsIlxcc3VjYyJdLFswLDMsInoiLDJdLFszLDQsInMiLDJdLFsyLDQsIiEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSwzLCIhIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\begin{tikzcd}
+	\terminal & \NNO & \NNO \\
+	& X & X
+	\arrow["{\mathsf{0}}", from=1-1, to=1-2]
+	\arrow["\succ", from=1-2, to=1-3]
+	\arrow["z"', from=1-1, to=2-2]
+	\arrow["s"', from=2-2, to=2-3]
+	\arrow["{!}", dashed, from=1-3, to=2-3]
+	\arrow["{!}", dashed, from=1-2, to=2-2]
+\end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+\end{defn}
+\begin{exer}\label{exer:universal:nnoposet}\marginnote{\hyperref[soln:universal:nnoposet]{See solution.}}
+    Show that the "NNO" in $\catPoset$ is $(\N,\leq)$ with the same zero and successor functions (now seen as "morphisms" in $\catPoset$).
+\end{exer}
+%TODO: make sure we cannot. otherwise say will not
+We cannot summarize the universal property of an "NNO" using a diagram exactly like the others. Still, the definition really feels like a "universal property", so we should not forget this when generalizing what we have seen in all examples above.
+
+% But, if we note that \eqref{diag:upnno2} "commuting" is equivalent to \eqref{diag:upnno3} "commuting", we can draw \eqref{diag:upnnocommacat}.\begin{marginfigure}
+%     \begin{equation}\label{diag:upnnocommacat}
+%         % https://q.uiver.app/?q=WzAsNixbMCwyLCJcXHRlcm1pbmFsIFxcY29wcm9kdWN0IFxcTk5PIl0sWzIsMiwiXFxOTk8iXSxbMCw0LCJcXHRlcm1pbmFsIFxcY29wcm9kdWN0IFgiXSxbMiw0LCJYIl0sWzEsMCwiXFxOTk8iXSxbMSwxLCJYIl0sWzAsMSwiXFxjb3BhaXJ7XFxtYXRoc2Z7MH0sXFxzdWNjfSJdLFsyLDMsIlxcY29wYWlye3osc30iLDJdLFsxLDMsIiEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwyLCJcXGlkX3tcXHRlcm1pbmFsfSBcXGNvcHJvZHVjdG0gISIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs0LDUsIiEiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwwLCJcXHRlcm1pbmFsIFxcY29wcm9kdWN0IFxccGxhY2Vob2xkZXIiLDIseyJvZmZzZXQiOjUsImN1cnZlIjoyLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFs1LDEsIlxcaWRfXFxtYXRoYmZ7Q30iLDAseyJvZmZzZXQiOi01LCJjdXJ2ZSI6LTIsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6InNxdWlnZ2x5In19fV1d
+% \begin{tikzcd}[sep=1em]
+% 	& \NNO \\
+% 	& X \\
+% 	{\terminal \coproduct \NNO} && \NNO \\
+% 	\\
+% 	{\terminal \coproduct X} && X
+% 	\arrow["{\copair{\mathsf{0},\succ}}", from=3-1, to=3-3]
+% 	\arrow["{\copair{z,s}}"', from=5-1, to=5-3]
+% 	\arrow["{!}", dashed, from=3-3, to=5-3]
+% 	\arrow["{\id_{\terminal} \coproductm {!}}"', dashed, from=3-1, to=5-1]
+% 	\arrow["{!}"', dashed, from=1-2, to=2-2]
+% 	\arrow["{\terminal \coproduct \placeholder}"', shift right=5, curve={height=12pt}, squiggly, from=2-2, to=3-1]
+% 	\arrow["{\id_\mathbf{C}}", shift left=5, curve={height=-12pt}, squiggly, from=2-2, to=3-3]
+% \end{tikzcd}
+%     \end{equation}
+% \end{marginfigure}
+% \begin{equation}\label{diag:upnno3}
+%     % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXHRlcm1pbmFsIFxcY29wcm9kdWN0IFxcTk5PIl0sWzEsMCwiXFxOTk8iXSxbMCwxLCJcXHRlcm1pbmFsIFxcY29wcm9kdWN0IFgiXSxbMSwxLCJYIl0sWzAsMSwiXFxjb3BhaXJ7XFxtYXRoc2Z7MH0sXFxzdWNjfSJdLFsyLDMsIlxcY29wYWlye3osc30iLDJdLFsxLDMsIiEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwyLCIhIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+% \begin{tikzcd}
+% 	{\terminal \coproduct \NNO} & \NNO \\
+% 	{\terminal \coproduct X} & X
+% 	\arrow["{\copair{\mathsf{0},\succ}}", from=1-1, to=1-2]
+% 	\arrow["{\copair{z,s}}"', from=2-1, to=2-2]
+% 	\arrow["{!}", dashed, from=1-2, to=2-2]
+% 	\arrow["{!}"', dashed, from=1-1, to=2-1]
+% \end{tikzcd}
+% \end{equation}
+
+
+\section{Generalization}
+Diagrams \eqref{diag:freemon}, \eqref{diag:abelianization}, \eqref{diag:basis}, \eqref{diag:exponent}, \eqref{diag:upsubobjectclassifier} and \eqref{diag:uppowerobject} look so similar that you can try to infer the following definition unifying all these concepts under one roof.\footnote{Although, \eqref{diag:exponent} looks like all arrows have been reversed, so, you guessed it, it will be an instance of the "dual@@CAT" notion.}
 
 \begin{defn}[Universal morphism]
-    If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a functor and $X \in \obj{\mathbf{C}}$. \AP A ""universal morphism"" from $X$ to $F$ a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag:univmorphalt}. %TODO: Detail the equivalently: uniqueness of f inside D because we defined morphisms in the comma category as coming from D (not simply being the image of F)
+    If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a functor and $X \in \obj{\mathbf{C}}$. \AP A ""universal morphism"" from $X$ to $F$ is a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag:univmorphalt}. 
     \begin{equation}\label{diag:univmorphalt}
         \begin{tikzcd}
             & X & FA & {} & A & {} \\
@@ -234,7 +545,7 @@ Diagrams \eqref{diag:freemon}, \eqref{diag:abelianization}, \eqref{diag:basis}, 
         \end{tikzcd}
     \end{equation}
     
-The "dual@@CAT" notion is a "universal morphism" from $F$ to $X$.\footnote{The "duality@@CAT" is clear from how \eqref{diag:univmorphaltdual} is just \eqref{diag:univmorphalt} with all "morphisms" reversed. More abstractly, we can say that a "universal morphism" from $F$ to $X$ is a "universal morphism" from $X\in \op{\mathbf{C}}$ to $\op{F}:\op{D}\rightsquigarrow \op{C}$.} It is a "morphism" $a: F(A) \rightarrow X$ such that for any other "morphism" $F(B) \rightarrow X$, there is a unique "morphism" $f:B \rightarrow A$ in $\mathbf{D}$ satisfying $a \circ F(f) = b$. This is summarized below in \eqref{diag:univmorphaltdual}.
+The "dual@@CAT" notion is a "universal morphism" from $F$ to $X$.\footnote{The "duality@@CAT" is clear from how \eqref{diag:univmorphaltdual} is just \eqref{diag:univmorphalt} with all "morphisms" reversed. More abstractly, we can say that a "universal morphism" from $F$ to $X$ is a "universal morphism" from $X\in \op{\mathbf{C}}$ to $\op{F}:\op{\mathbf{D}}\rightsquigarrow \op{\mathbf{C}}$.} It is a "morphism" $a: F(A) \rightarrow X$ such that for any other "morphism" $F(B) \rightarrow X$, there is a unique "morphism" $f:B \rightarrow A$ in $\mathbf{D}$ satisfying $a \circ F(f) = b$. This is summarized below in \eqref{diag:univmorphaltdual}.
     \begin{equation}\label{diag:univmorphaltdual}
         % https://q.uiver.app/?q=WzAsNyxbMSwwLCJGQSJdLFswLDAsIkEiXSxbMSwxLCJGQiJdLFszLDEsIkIiXSxbMywwLCJBIl0sWzIsMF0sWzQsMF0sWzAsMSwiYSIsMl0sWzIsMCwiRmYiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJiIl0sWzMsNCwiZiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7RH0iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcbWF0aGJme0N9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEwLDgsIkYiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0Ijo0MH0sImxldmVsIjoxfV1d
 \begin{tikzcd}
@@ -250,24 +561,33 @@ The "dual@@CAT" notion is a "universal morphism" from $F$ to $X$.\footnote{The "
 \end{tikzcd}
     \end{equation} 
 \end{defn}
-\begin{defn}[Universal property]
-    \AP A ""universal property"" is the property of being a "universal morphism".
-\end{defn}
+
 \begin{exmps}\label{exmps:allup}
     In practice and in the literrature, we often say that some construction satisfies a "universal property" without referring to the actual "universal morphism". For example, we say that the "free monoid" satisfies a "universal property", while the less ambiguous thing to say is that the inclusion of a set $A$ into the "free monoid" $\freemon{A}$ is a "universal morphism" from the set $A$ to the "fogetful functor" $U: \catMon \rightsquigarrow \catSet$.\footnote{You probably agree that the latter is a mouthful, but the former can feel very vague, especially when you are not familiar with the construction or "universal properties" in general.}
     Let us translate the other examples we gave above with this new terminology.
     \begin{enumerate}
         \item The quotient map from a group $G$ to its "abelianization" $\ab{G}$ is the "universal morphism" from $G$ to the "forgetful functor" $\catAb \rightsquigarrow \catGrp$.
         \item The set $S \subseteq V$ is a "basis" for the "vector space" $V$ when the inclusion $S \hookrightarrow V$ is the "universal morphism" from $S$ to the "forgetful functor" $\catVect{k} \rightsquigarrow \catSet$.
-        \item An "exponential object" is an "object" $A^X$ along with a "universal morphism" $\ev$ from the "functor" $\placeholder\product X$ to $A$.\footnote{This is an example of a "universal morphism" from a "functor" to an "object", whereas all the other examples are "universal morphisms" from an "object" to a "functor".}
-        \item A "subobject classifier" is a "morphism" $\top: \terminal \hookrightarrow \Omega$ such that the corresponding function $\top: \terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ is a "universal morphism" from $\terminal$ to the "functor" $\Sub_{\mathbf{C}}$.
-        \item A "power object" of $X$ is an object $\Power X$ along with a "universal morphism" $\ni_X$ from $\terminal$ to $\Sub_{\mathbf{C}}(\placeholder\product X)$.
+        \item An "exponential object" is an "object" $A^X$ along with the "universal morphism" $\ev$ from the "functor" $\placeholder\product X$ to $A$.\footnote{This is an example of a "universal morphism" from a "functor" to an "object", whereas all the other examples are "universal morphisms" from an "object" to a "functor".}
+        \item A "subobject classifier" is a "morphism" $\top: \terminal \hookrightarrow \Omega$ such that the corresponding function $\top: \terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ is the "universal morphism" from $\terminal$ to the "functor" $\Sub_{\mathbf{C}}$.
+        \item A "power object" of $X$ is an object $\Power X$ along with the "universal morphism" $\in_X$ from $\terminal$ to $\Sub_{\mathbf{C}}(X\product \placeholder)$.
     \end{enumerate}
 \end{exmps}
-Another common practice is to use the word free in situations where we have a "universal morphism" to a "forgetful functor" (just like the "free monoid"). For instance, one could say that $\ab{G}$ is the free "abelian group" over $G$, or that $V$ is the free "vector sapce" over its "basis". When you have two "categories" with an obvious "forgetful functor" between them, it can be useful to figure out if you can construct free objects. We will get back to this in Chapter \ref{chap:adjoints}.
+Another common practice is to use the word free in situations where we have a "universal morphism" to a "forgetful functor" (just like the "free monoid"). For instance, one could say that $\ab{G}$ is the free "abelian group" over $G$, or that $V$ is the free "vector space" over its "basis". When you have two "categories" with an obvious "forgetful functor" between them, it can be useful to figure out if you can construct free objects. We will get back to this in Chapter \ref{chap:adjoints}.
+
+A first approximation of the definition of "universality" is to say that a "universal property" is the property of being a "universal morphism" from $X$ to $F$ or from $F$ to $X$. Unfortunately, this is too constrained. For instance, as we have said, the "universal property" of "NNOs" does not correspond to a "universal morphism" like that. Another example is "subobject classifiers" in "categories" that are not "well-powered". In such "categories", $\Sub$ is not a "functor" into $\catSet$,\footnote{There might be another suitable codomain for that "functor", but let us not think too hard about "size issues@collection".} so we cannot have a "universal morphism" from $X$ to $\Sub$.
+
+In the next section, we will see that "universal morphisms" are "initial" or "terminal" "objects" in a "comma category". It turns out that in the most general terms, being "universal" is best defined as being "initial" or "terminal" is some "category". It may seem vague at first, but this perfectly describes all the "universal properties" we have used so far that fit the template ``for all ... there exists a unique "morphism" ...''
+\begin{defn}["Universal property"]
+    \AP A ""universal property"" is the property of being "initial" or "terminal" in a "category".\footnote{This rather underwhelming definition is also what led me to postpone it to this point, after we have seen many examples and uses of "universal properties".}
+\end{defn}
+It readily follows (using Proposition \ref{prop:initialunique} and Corollary \ref{cor:terminalunique}) that "universal properties" determine things up to "isomorphism@@CAT".
+\begin{exer}\label{exer:universal:initialsubclass}\marginnote{\hyperref[soln:universal:initialsubclass]{See solution.}}
+    Show that in any "category" $\mathbf{C}$ with a "terminal" "object" $\terminal$ (even if $\mathbf{C}$ is not "well-powered"), we can define a "category" whose "objects" are "monomorphisms" in $\mathbf{C}$ and $\top: X \hookrightarrow \Omega$ is "terminal" if and only if it is the "subobject classifier" in $\mathbf{C}$. In particular, if $\top$ is "terminal" in that "category", then $X$ is "terminal" in $\mathbf{C}$.
+\end{exer}
 
 \section{Comma Categories}
-Before moving on, we are going to have some fun with new definitions that let us construct new "categories" out of "categories" and "functors". This section could have appeared in earlier chapters, but those were already dense, and this section ends with a more concise definition of "universal morphisms".
+Before moving on, we are going to have some fun with new definitions that let us construct new "categories" out of "categories" and "functors". This section could have appeared in earlier chapters, but those were already dense, and this section ends with a more concise definition of "universal morphisms" as "initial" or "terminal" "objects" in "comma categories".
 \begin{defn}[Comma category]\label{defn:comma}
     \AP Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, there is a "category" $\comcat{F}{G}$,\footnote{Some authors denote this "category" $F/G$.} called the ""comma category"", whose "objects" are triples $(X, Y, \alpha)$ with $X \in \obj{\mathbf{D}}$, $Y \in \obj{\mathbf{E}}$ and $\alpha : F(X) \rightarrow G(Y)$ (in $\mor{\mathbf{C}}$), and "morphisms" between $(X_1, Y_1, \alpha)$ and $(X_2, Y_2, \beta)$ are pairs of "morphisms" $f: X_1 \rightarrow X_2$ in $\mor{\mathbf{D}}$ and $g: Y_1 \rightarrow Y_2$ in $\mor{\mathbf{E}}$ yielding a "commutative" square as in \eqref{diag:morphicomcat}.
     \begin{equation}\label{diag:morphicomcat}
@@ -276,11 +596,59 @@ Before moving on, we are going to have some fun with new definitions that let us
         G(Y_1) \arrow[r, "G(g)"'] & G(Y_2)
     \end{tikzcd}
     \end{equation}
+    The "identity morphism" on $(X,Y,\alpha)$ is the pair $(\id_X, \id_Y)$ making \eqref{diag:identitycomma} "commute". The "composition" of $(f,g)$ and $(f',g')$ is $(f'\circ f,g'\circ f)$, it makes the following "commute" by "paving" with the "commutative" squares induced by $(f,g)$ and $(f',g')$.\begin{marginfigure}[-2\baselineskip]
+        \begin{equation}\label{diag:identitycomma}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJGWCJdLFswLDEsIkdZIl0sWzEsMCwiRlgiXSxbMSwxLCJHWSJdLFswLDEsIlxcYWxwaGEiLDJdLFswLDIsIkZcXGlkX1ggPSBcXGlkX3tGWH0iXSxbMSwzLCJHXFxpZF9ZID0gXFxpZF97R1l9IiwyXSxbMiwzLCJcXGFscGhhIl1d
+    \begin{tikzcd}[column sep=4em]
+        FX & FX \\
+        GY & GY
+        \arrow["\alpha"', from=1-1, to=2-1]
+        \arrow["{F\id_X = \id_{FX}}", from=1-1, to=1-2]
+        \arrow["{G\id_Y = \id_{GY}}"', from=2-1, to=2-2]
+        \arrow["\alpha", from=1-2, to=2-2]
+    \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
+    \begin{equation}\label{diag:composecomma}
+        % https://q.uiver.app/?q=WzAsNixbMCwwLCJGWF8xIl0sWzAsMiwiR1lfMSJdLFsxLDAsIkZYXzIiXSxbMSwyLCJHWV8yIl0sWzIsMCwiRlhfMyJdLFsyLDIsIkdZXzMiXSxbMCwxLCJcXGFscGhhIiwyXSxbNCw1LCJcXGdhbW1hIl0sWzAsMiwiRmYiLDJdLFsxLDMsIkdnIl0sWzIsNCwiRmYnIiwyXSxbMyw1LCJHZyciXSxbMCw0LCJGKGYnXFxjaXJjIGYpIiwwLHsiY3VydmUiOi0yfV0sWzEsNSwiRyhnJ1xcY2lyYyBnKSIsMix7ImN1cnZlIjoyfV1d
+        \begin{tikzcd}
+            {FX_1} & {FX_2} & {FX_3} \\
+            \\
+            {GY_1} & {GY_2} & {GY_3}
+            \arrow["\alpha"', from=1-1, to=3-1]
+            \arrow["\gamma", from=1-3, to=3-3]
+            \arrow["Ff"', from=1-1, to=1-2]
+            \arrow["Gg", from=3-1, to=3-2]
+            \arrow["{Ff'}"', from=1-2, to=1-3]
+            \arrow["{Gg'}", from=3-2, to=3-3]
+            \arrow["{F(f'\circ f)}", curve={height=-12pt}, from=1-1, to=1-3]
+            \arrow["{G(g'\circ g)}"', curve={height=12pt}, from=3-1, to=3-3]
+        \end{tikzcd}
+    \end{equation} 
 \end{defn}
-%We mention them here because it is the perfect time, but not related to universal properties.
+\begin{exmp}["NNO"]
+    Let $\mathbf{C}$ be a "category" with a "terminal" "object" and a "NNO", and let $\terminal \coproduct \placeholder: \mathbf{C} \rightsquigarrow \mathbf{C}$ be the "maybe functor". The "natural numbers object" is the "initial" "object" in $\comcat{(\terminal\coproduct\placeholder)}{\id_{\mathbf{C}}}$. The "morphisms" $\mathsf{0}: \terminal \rightarrow \NNO$ and $\succ: \NNO \rightarrow \NNO$ can be "copaired" in $\copair{\mathsf{0}, \succ}: \terminal \coproduct\NNO \rightarrow \NNO$ that is an "object" of this "comma category". An arbitrary "object" of $\comcat{(\terminal\coproduct\placeholder)}{\id_{\mathbf{C}}}$ is a "morphism" $f: \terminal\coproduct X \rightarrow X$ which we can decompose as $\copair{f\circ \coprojection_{\terminal}, f\circ \coprojection_X}$. Writing $z = f\circ \coprojection_{\terminal}$ and $s = f\circ \coprojection_X$, by the "universal property" of the "NNO", there is a unique "morphism" making \eqref{diag:upnno2} "commute". Equivalently, \eqref{diag:upnno3} "commutes",\footnote{If \eqref{diag:upnno2} "commutes", we have $z= {!}\circ \mathsf{0}$ and $s \circ {!} = {!}\circ \succ$. Thus, we have
+    \begin{align*}
+        \copair{z,s} \circ (\id_{\terminal}\coproductm {!})&= \copair{z,s \circ {!}}\\
+        &= \copair{{!}\circ \mathsf{0}, {!}\circ \succ}\\
+        &= {!}\circ \copair{\mathsf{0},\succ}.
+    \end{align*}
+    Conversely, if \eqref{diag:upnno3} "commutes", the same derivation shows $\copair{z,s \circ {!}}= \copair{{!}\circ \mathsf{0}, {!}\circ \succ}$. By Corollary \ref{cor:cohomcoprod}, we must have $z= {!}\circ \mathsf{0}$ and $s \circ {!} = {!}\circ \succ$.} which means $!$ is the unique "morphism" from $\copair{\mathsf{0},\succ}$ to $f$ in the "comma category" $\comcat{(\terminal\coproduct\placeholder)}{\id_{\mathbf{C}}}$.
+    \begin{equation}\label{diag:upnno3}
+    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXHRlcm1pbmFsIFxcY29wcm9kdWN0IFxcTk5PIl0sWzAsMSwiXFxOTk8iXSxbMSwwLCJcXHRlcm1pbmFsIFxcY29wcm9kdWN0IFgiXSxbMSwxLCJYIl0sWzAsMSwiXFxjb3BhaXJ7XFxtYXRoc2Z7MH0sXFxzdWNjfSIsMl0sWzIsMywiZj1cXGNvcGFpcnt6LHN9Il0sWzEsMywiISIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFswLDIsIlxcaWRfe1xcdGVybWluYWx9XFxjb3Byb2R1Y3RtIHshfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\begin{tikzcd}
+	{\terminal \coproduct \NNO} & {\terminal \coproduct X} \\
+	\NNO & X
+	\arrow["{\copair{\mathsf{0},\succ}}"', from=1-1, to=2-1]
+	\arrow["{f=\copair{z,s}}", from=1-2, to=2-2]
+	\arrow["{!}"', dashed, from=2-1, to=2-2]
+	\arrow["{\id_{\terminal}\coproductm {!}}", dashed, from=1-1, to=1-2]
+\end{tikzcd}
+    \end{equation}
+\end{exmp}
 \begin{defn}[Arrow category]
-    In the setting of Definition \ref{defn:comma}, if $F = G = \id_{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{\id_{\mathbf{C}}}$ is called the ""arrow category"" of $\mathbf{C}$ and denoted $\arrowcat{\mathbf{C}}$. Its "objects" are "morphisms" in $\mathbf{C}$ and its "morphisms" are "commutative" squares in $\mathbf{C}$.\footnote{Less concisely, a "morphism" $\phi: f \rightarrow g$ between "morphisms" $f: X \rightarrow Y$ and $g: X' \rightarrow Y'$ is a pair of "morphisms" $\phi_X: X \rightarrow X'$ and $\phi_Y: Y \rightarrow Y'$ making \eqref{diag:comutesquarearrow} "commute".}
-    \begin{marginfigure}\begin{equation}\label{diag:commutesquarearrow}
+    In the setting of Definition \ref{defn:comma}, if $F = G = \id_{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{\id_{\mathbf{C}}}$ is called the ""arrow category"" of $\mathbf{C}$ and denoted $\arrowcat{\mathbf{C}}$. Its "objects" are "morphisms" in $\mathbf{C}$ and its "morphisms" are "commutative" squares in $\mathbf{C}$.\footnote{Less concisely, a "morphism" $\phi: f \rightarrow g$ between "morphisms" $f: X \rightarrow Y$ and $g: X' \rightarrow Y'$ is a pair of "morphisms" $\phi_X: X \rightarrow X'$ and $\phi_Y: Y \rightarrow Y'$ making \eqref{diag:comutesquarearrow} "commute".} It may remind you of the "category" defined in Exercise \ref{exer:universal:initialsubclass}.
+    \begin{marginfigure}[-2\baselineskip]\begin{equation}\label{diag:commutesquarearrow}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiWCciXSxbMSwwLCJZIl0sWzEsMSwiWSciXSxbMCwxLCJcXHBoaV9YIiwyXSxbMCwyLCJmIl0sWzIsMywiXFxwaGlfWSJdLFsxLDMsImciLDJdXQ==
         \begin{tikzcd}
             X & Y \\
@@ -291,7 +659,7 @@ Before moving on, we are going to have some fun with new definitions that let us
             \arrow["g"', from=2-1, to=2-2]
         \end{tikzcd}
     \end{equation}\end{marginfigure}
-\end{defn}%TODO: add example?
+\end{defn}
 \begin{exer}\label{exer:universal:arrowcatfunctors}\marginnote{\hyperref[soln:universal:arrowcatfunctors]{See solution.}}
     Let $\mathbf{C}$ be a "category" (note the change of font to distinguish the "functors" from their action).
     \begin{enumerate}
@@ -300,15 +668,31 @@ Before moving on, we are going to have some fun with new definitions that let us
         \item Show that $\intro*\targetarr:\arrowcat{\mathbf{C}} \rightsquigarrow \mathbf{C}$ sending $f \in \obj{\arrowcat{\mathbf{C}}}$ to $\target(f)$ is "functorial".
     \end{enumerate}
 \end{exer}
-%TODO: show that C -> Arr(C) is a functor Cat -> Cat
+\begin{exer}\label{exer:universal:arrfunctor}\marginnote{\hyperref[soln:universal:arrfunctor]{See solution.}}
+    Show the assignment $\mathbf{C} \mapsto \arrowcat{\mathbf{C}}$ yields a "functor" $\catCat \rightsquigarrow \catCat$.
+\end{exer}
 \begin{defn}[Slice category]
     In the setting of Definition \ref{defn:comma}, if $F = \id_{\mathbf{C}}$ and $G= \constFunc{X}: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $G(\bullet) = X \in \obj{\mathbf{C}}$, \AP then $\comcat{\id_{\mathbf{C}}}{\constFunc{X}}$ is called the ""slice category"" over $X$ and denoted $\slice{\mathbf{C}}{X}$.\footnote{Some authors call this "category" $\mathbf{C}$ over $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "target" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
     \begin{equation}\label{diag:slice}
-        \begin{tikzcd} 
+         \begin{tikzcd}
             A \arrow[rr] \arrow[rd] & & B \arrow[ld]\\
             & X &
         \end{tikzcd}
     \end{equation}
+    "Identity morphisms" are "commutative" triangles with the top "morphism" being "identity" and "composition" is done by combining triangles as in \eqref{diag:composeslice}.\begin{marginfigure}
+        \begin{equation}\label{diag:composeslice}
+            % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzEsMSwiWCJdLFsxLDAsIkIiXSxbMiwwLCJDIl0sWzAsMV0sWzIsMV0sWzMsMV0sWzAsMl0sWzIsM11d
+        \begin{tikzcd}
+            A & B & C \\
+            & X
+            \arrow[from=1-1, to=2-2]
+            \arrow[from=1-2, to=2-2]
+            \arrow[from=1-3, to=2-2]
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+        \end{tikzcd}
+        \end{equation}
+    \end{marginfigure}
 \end{defn}
 \begin{exer}[\NOW]\label{exer:universal:sliceterminal}\marginnote{\hyperref[soln:universal:sliceterminal]{See solution.}}
     Suppose $\mathbf{C}$ has a "terminal" "object" $\terminal$, what is $\slice{\mathbf{C}}{\terminal}$?
@@ -325,10 +709,13 @@ Before moving on, we are going to have some fun with new definitions that let us
         \arrow["f", from=1-1, to=1-3]
     \end{tikzcd}
     \end{equation}
-    Equivalently, $f$ must satisfy $a \in P_B \implies f(a) \in P_B$. Logically-minded people might call $\slice{\catSet}{\Omega}$ the "category" of predicates and predicate-preserving functions.
+    Equivalently, $f$ must satisfy $a \in P_B \implies f(a) \in P_B$. Logically-minded people might call $\slice{\catSet}{\Omega}$ the "category" of predicates and predicate-preserving functions. We can also view a predicate as a unary relation on $A$, and we recognize $\slice{\catSet}{\Omega}$ is the "category" $\catnRel{1}$.
 \end{exmp}
+\begin{exer}\label{exer:universal:nrelslice}\marginnote{\hyperref[soln:universal:nrelslice]{See solution.}}
+    Let $\mathbf{C}$ be a "category" with all finite "products" and fix $n \in \N$. Show the assignment $X \mapsto X^n = X\product \stackrel{n}{\cdots} \product X$ is "functorial". Using this "functor" and intuition from the previous example, define $\catnRel{n}$ as a "comma category".
+\end{exer}
 \begin{defn}[Coslice category]
-    In the setting of Definition \ref{defn:comma}, if $G = \id_{\mathbf{C}}$ and $F= \constFunc{X}: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $F(\bullet) = X \in \obj{\mathbf{C}}$, then $\comcat{\constFunc{X}}{\id_{\mathbf{C}}}$ is called the ""coslice category"" under $X$ and denoted $\coslice{X}{\mathbf{C}}$.\footnote{Some authors call this "category" $\mathbf{C}$ under $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "source" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:slice}.
+    In the setting of Definition \ref{defn:comma}, if $G = \id_{\mathbf{C}}$ and $F= \constFunc{X}: \termcat \rightsquigarrow \mathbf{C}$ is a "constant functor" selecting one "object" $F(\bullet) = X \in \obj{\mathbf{C}}$, then $\comcat{\constFunc{X}}{\id_{\mathbf{C}}}$ is called the ""coslice category"" under $X$ and denoted $\coslice{X}{\mathbf{C}}$.\footnote{Some authors call this "category" $\mathbf{C}$ under $X$.} Its "objects" are "morphisms" in $\mathbf{C}$ with "source" $X$ and its "morphisms" are "commutative" triangles with $X$ as a tip as in \eqref{diag:coslice}.\footnote{We leave you to "dualize@@CAT" the definition of "identities" and "composition" from the definition of "slice categories".}
     \begin{equation}\label{diag:coslice}
         \begin{tikzcd}
             & X \arrow[ld] \arrow[rd] &\\
@@ -350,16 +737,18 @@ Before moving on, we are going to have some fun with new definitions that let us
     \end{equation}
     Equivalently, $f$ must send $a$ to $b$, i.e., $f(a) = b$. You might now recognize that $\coslice{\terminal}{\catSet}$ is really the "category" $\catPtd$ in disguise.
 \end{exmp}
+This example suggests we can define an abstract and general way of defining ``pointed'' things. However, recall that sometimes, $\terminal$ is not the right "object" to talk about elements. For instance, in $\catGrp$, $\terminal$ is also "initial" so, by the "dual@@CAT" to Exercise \ref{exer:universal:sliceterminal}, $\coslice{\terminal}{\catGrp}$ is the same thing as $\catGrp$. Still, we can easily define the "category" $\catGrp_*$ of pointed "groups": its "objects" are pairs $(G,g)$ where $G$ is a "group" and $g\in G$, and "morphisms" $(G,g) \rightarrow (H,h)$ are "homomorphisms@@GRP" $f: G \rightarrow H$ satisfying $f(g) = h$.
+\begin{exer}\label{exer:universal:pointedgrp}\marginnote{\hyperref[soln:universal:pointedgrp]{See solution.}}
+    Let $\Z$ be the "group" of integers equipped with addition. Show that one can define the "category" $\catGrp_*$ as $\coslice{\Z}{\catGrp}$.
+\end{exer}
 \begin{exer}\label{exer:universal:termslice}\marginnote{\hyperref[soln:universal:termslice]{See solution.}}
     Show that for any "category" $\mathbf{C}$ and "object" $X \in \obj{\mathbf{C}}$, the "slice category" $\slice{\mathbf{C}}{X}$ has a "terminal" "object". State and prove the "dual@@CAT" statement.
 \end{exer}
+
 \begin{exer}\label{exer:universal:productslice}\marginnote{\hyperref[soln:universal:productslice]{See solution.}}
     Show that the "product" of $f:A \rightarrow X$ and $g: B \rightarrow X$ in $\slice{\mathbf{C}}{X}$ exists if and only if the "pullback" of $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & X & B \arrow[l, "g"'] \end{tikzcd}$ exists in $\mathbf{C}$. State and prove the "dual@@CAT" statement.
 \end{exer}
-
-\begin{exmp}
-    %TODO: similar example to predicates but with binary relations, and n-ary relations. See the binary ones as supercategories of poset.
-\end{exmp}
+These results can be summarized by saying that "pullbacks" are "products" in the "slice category", and "pushouts" are "coproducts" in the "coslice category". This allows us to define arbitrary (not binary) "pullbacks" and "pushouts" as arbitrary "products" and "coproducts" in the "slice" and "coslice" "categories".\footnote{In the literature, these are called \textbf{fibered products} and \textbf{fibered sums} respectively.}
 \begin{exer}\label{exer:universal:opcomma}\marginnote{\hyperref[soln:universal:opcomma]{See solution.}}
     Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, show that an "initial" "object" in $\comcat{F}{G}$ is a "terminal" "object" in $\comcat{\op{G}}{\op{F}}$.
 \end{exer}
@@ -389,8 +778,11 @@ Back to "universal properties". We give a more concise definition.
 \begin{proof}
     We said that a "universal morphism" from $F$ to $X$ is a "universal morphism" from $X \in \op{\mathbf{C}}$ to $\op{F}$. By the previous result, it is an "initial" "object" in $\comcat{\constFunc{X}}{\op{F}}$. By Exercise \ref{exer:universal:opcomma}, it is a "terminal" "object" in $\comcat{F}{\constFunc{X}}$.
 \end{proof}
-
+In case a "universal property" is realized by a "universal morphism", we can formally prove that this property determines an "object" up to "isomorphism@@CAT".
+\begin{exer}[\NOW]\label{exer:universal:univunique}\marginnote{\hyperref[soln:universal:univunique]{See solution.}}
+    Show that if there is a "universal morphism" from $X$ to $F$ and one from $Y$ to $F$, then $X \isoCAT Y$. State and prove the "dual@@CAT" statement.
+\end{exer}
+%TODO: maybe exercises on the category of elements. e.g. category of elements of Hom functor is slice category. Preparation for Yoneda lemma basically.
 We have to postpone to Chapter \ref{chap:yoneda} showing that, as we have claimed, any "(co)@colimit""limit" satisfies a "universal property". Still, you might have noticed that our definition of "universal property" also uses a special case of "(co)@colimit""limits", that is, "initial" and "terminal" "objects". What is more, in the following chapters, we will introduce a couple more concepts which often coincide\footnote{By \textit{coincide}, we mean that one is a special case of the other or vice-versa or both directions.} with the concepts of "(co)@colimit""limits" and "universal properties".
 
-%TODO: maybe do diagram chasing part 2
 \end{document}

@@ -327,6 +327,8 @@
 \end{proof}
 \section{Solutions to Chapter \ref{chap:universal}}
 \begin{proof}[Solution to Exercise \ref{exer:universal:prodXfunc}]\label{soln:universal:prodXfunc}
+    If $\mathbf{C}$ has all "binary products", we recall from Footnote \ref{foot:productfunctor} that sending $(X,Y)$ to $X\product Y$ is a "functor", and we use Exercise \ref{exer:catfunc:placeholder} to define $\placeholder \product X$. If $\mathbf{C}$ only has "binary products" with $X$, we do this manually.
+    
     We define $\placeholder\product X$ on "morphisms" by sending $f: Y \rightarrow Y' \in \mor{\mathbf{C}}$ to $f \productm \id_X : Y \product X \rightarrow Y'\productm X$. "Functoriality" follows from the definition of $\productm$ on "morphisms". Indeed, $\id_Y \productm \id_X$ is the only "morphism" making \eqref{diag:idprodXfunc} "commute" and $(g \circ f) \productm \id_X$ is the only "morphism" making \eqref{diag:compprodXfunc} "commute".\begin{marginfigure}Recall that if $f: A \rightarrow A'$ and $g: B \rightarrow B'$, $f\productm g: A \product B \rightarrow A'\product B'$ is the unique "morphism" making the diagram below "commute":
         \begin{equation*}
             % https://q.uiver.app/?q=WzAsNixbMSwwLCJBXFxwcm9kdWN0IEIiXSxbMCwwLCJBIl0sWzAsMSwiQSciXSxbMSwxLCJBJ1xccHJvZHVjdCBCJyJdLFsyLDAsIkIiXSxbMiwxLCJCJyJdLFswLDEsIlxccHJvamVjdGlvbl9BIiwyXSxbMSwyLCJmIiwyXSxbMCwzLCJmXFxwcm9kdWN0bSBnIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsMiwiXFxwcm9qZWN0aW9uX3tBJ30iXSxbMCw0LCJcXHByb2plY3Rpb25fQiJdLFs0LDUsImciXSxbMyw1LCJcXHBpX0IiLDJdXQ==
@@ -425,6 +427,9 @@
         \end{equation}\end{marginfigure}
         \item On "morphisms", $\target$ sends a "commutative" square $\phi: f \rightarrow g$ to the "morphism" $\target(f) \rightarrow \target(g)$ in the square, we denote it $\target(\phi)$. With a similar argument to the second point, we conclude that $\target$ is a "functor".
     \end{enumerate}
+\end{proof}
+\begin{proof}[Solution to Exercise \ref{exer:universal:nrelcomma}]\label{soln:universal:nrelcomma}
+    %TODO: show that it is a functor with induction. Diagonal is a functor compose with product that is a functor. Check base cases too of course
 \end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:universal:termslice}]\label{soln:universal:termslice}
     The "terminal" "object" of $\slice{\mathbf{C}}{X}$ is the "identity morphism" $\id_X : X \rightarrow X$. For any "object" of the "slice category" $f:A \rightarrow X$, we have the "commutative" triangle \eqref{diag:soltermslice} with $!=f$. Uniqueness of $!$ follows from $\id_X \circ ! = f \implies ! = f$.\begin{marginfigure}

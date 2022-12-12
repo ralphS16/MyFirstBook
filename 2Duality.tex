@@ -172,7 +172,7 @@ The "dual@@CAT" versions of Propositions \ref{prop:mon1} and \ref{prop:mon2} als
 \begin{proof}
 	Since $\op{f_2} \circ \op{f_1} = \op{(f_1 \circ f_2)}$ is "monic", the result for "monomorphisms" implies $\op{f_1}$ is "monic" and hence $f_1$ is "epic".
 \end{proof}
-\begin{exmp}[$\catSet$]
+\begin{exmp}[$\catSet$]\label{exmp:monicset}
 	We mentioned that "monomorphisms" are like generalizations of injective functions, and you may have guessed that "epimorphisms" are, in the same sense, generalizations of surjective functions. Let us make this precise.
 	\begin{itemize}
 		\item A function $f:A\rightarrow B$ is a "monomorphism" in $\catSet$ if and only if it is injective:\footnote{As a consequence, since all injective functions have a "left inverse", all the "monomorphisms" in $\catSet$ are "split@split monomorphism".}
@@ -224,7 +224,7 @@ Conversely, an "epimorphism" is not necessarily surjective. For example, the inc
 	The results shown about "monic" and "epic" "morphisms"\footnote{Proposition \ref{prop:mon1} and \ref{prop:ep1}.} imply that any "isomorphism@@CAT" is "monic" and "epic". However, the converse is not true as witnessed by the inclusion "morphism" $i$ described in Example \ref{exmp:monepiMON}.\footnote{This is not akin to the situation in $\catSet$ because, there, all "monomorphisms" and "epimorphisms" are "split" (assuming the axiom of choice).} \AP A "category" where all "monic" and "epic" "morphisms" are "isomorphisms@@CAT" (e.g.: $\catSet$) is called ""balanced"". \AP If there exists an "isomorphism@@CAT" between two objects $A$ and $B$, then they are ""isomorphic@@CAT"", denoted $A \isoCAT B$. \AP "Isomorphic@@CAT" objects are also "isomorphic@@CAT" in the "opposite" "category",\footnote{Because the "left inverse" becomes the "right inverse" and vice-versa.} that is, the concept of ""isomorphism@@CAT"" is ""self-dual"".
 	
 	For most intents and purposes, we will not distinguish between "isomorphic@@CAT" "objects" in a "category" because all the properties we care about will hold for one if and only if they hold for the other. This attitude should be somewhat familiar if you have done a bit of abstract algebra because it is natural to substitute the "group" $\Z/2\Z \times \Z/3\Z$ for $\Z/6\Z$ or $k^n$ for an $n$--dimensional "vector space" over $k$. It is less natural in $\catSet$ because, for instance, it equates the sets $\{0,1\}$ and $\{a,b\}$ which may be too coarse-grained for our intuition.
-\end{rem}
+\end{rem} %TODO: continue this dicussion, isomorphisms are really important. Talk about evil stuff, and 
 
 \begin{exmp}[$\catSet$]
 	A function $f: X \rightarrow Y$ in $\mor{\catSet}$ has an "inverse" $f^{-1}$ if and only if $f$ is bijective, thus "isomorphisms@@CAT" in $\catSet$ are bijections. As a consequence, we have $A \isoCAT B$ if and only if $\cardinal{A} = \cardinal{B}$.\footnote{This is in fact the definition of cardinality.}
@@ -248,8 +248,8 @@ Conversely, an "epimorphism" is not necessarily surjective. For example, the inc
 \begin{exmps}[Concrete categories]\label{exmps:isoconcrete}
 	In a "concrete" "category" $\mathbf{C}$ with "forgetful" "functor" $U$, the underlying function of an "isomorphism@@CAT" $f$ must bijective because $U(f^{-1})$ is the inverse of $Uf$. This condition may be sufficient or not.
 	\begin{enumerate}
-		\item It is a simple exercise in an algebra class to show that "isomorphisms@@CAT" in the "categories" $\catMon$, $\catGrp$, $\catRing$, $\catField$ and $\catVect{k}$ simply bijective "homomorphisms@@MON".\footnote{In fact, "isomorphisms@@CAT" are commonly defined as bijective "homomorphisms@@MON" in said algebra class.}
-		\item\label{exmp:isoposet} In $\catPoset$, an "isomorphisms@@CAT" between $(A,\leq_A)$ and $(B,\leq_B)$ is a bijective function $f: A \rightarrow B$ satisfying $a\leq_A a' \Leftrightarrow f(a) \leq_B f(a')$. Such a function is clearly "monotone", but its inverse is also "monotone" as for any $b\leq_B b'$, we have $ff^{-1}(b) \leq_B ff^{-1}(b') \implies f^{-1}(b) \leq_A f^{-1}(b')$.
+		\item It is a simple exercise in an algebra class to show that "isomorphisms@@CAT" in the "categories" $\catMon$, $\catGrp$, $\catRing$, $\catField$ and $\catVect{k}$ are simply bijective "homomorphisms@@MON".\footnote{In fact, "isomorphisms@@CAT" are commonly defined as bijective "homomorphisms@@MON" in said algebra class.}
+		\item\label{exmp:isoposet} In $\catPoset$, an "isomorphism@@CAT" between $(A,\leq_A)$ and $(B,\leq_B)$ is a bijective function $f: A \rightarrow B$ satisfying $a\leq_A a' \Leftrightarrow f(a) \leq_B f(a')$. Such a function is clearly "monotone", but its inverse is also "monotone" as for any $b\leq_B b'$, we have $ff^{-1}(b) \leq_B ff^{-1}(b') \implies f^{-1}(b) \leq_A f^{-1}(b')$.
 		\itemAP In $\catTop$, it is not enough to have a bijective "continuous" function, we need to require that it has a "continuous" "inverse".\footnote{Consider $X = \{0,1\}$ with the two extreme "topologies" $\topo_{\codisc} = \{\emptyset,X\}$ and $\topo_{\disc} = \mP X$. The identity map $\id_X : (X, \topo_{\disc}) \rightarrow (X,\topo_{\codisc})$ is clearly bijective and "continuous", but its inverse is not "continuous". A similar example shows that a bijective "monotone" function is not necessarily a "poset" "isomorphism@@CAT".} Such functions are called ""homeomorphisms"".
 	\end{enumerate}
 \end{exmps}
@@ -264,7 +264,7 @@ Conversely, an "epimorphism" is not necessarily surjective. For example, the inc
 \end{rem}
 An "object" is "initial" in a "category" $\mathbf{C}$ if and only if it is "terminal" in $\op{\mathbf{C}}$, so these two concepts are "dual@@CAT". \AP Also, if an "object" is "initial" and "terminal", we say it is a ""zero"" "object" and usually denote it $\zero$.\footnote{Clearly, the concept of "zero" "object" is "self-dual".}
 \begin{exmp}[$\catSet$]
-	Let $X$ be a set, there is a unique function from the empty set into $X$, it is the empty function.\footnote{Recall (or learn here) that a function $f: A \rightarrow B$ is defined via subset of $f \subseteq A \times B$ that satisfies $\forall a \in A, \exists! b\in B, (a,b) \in f$. When $A$ is empty, $A \times B$ is empty and the only subset $\emptyset \subseteq A\times B$ satisfies the condition vacuously. In passing, when $B$ is empty but $A$ is not, the unique subset of $A \times B$ does not satisfy the condition, so there is no function $A \rightarrow \emptyset$.} We deduce that the empty set is the "initial" "object" in $\catSet$, hence the notation $\initial$. For the "terminal" "object", we observe that there is a unique function $X \rightarrow \{\ast\}$ sending all elements of $X$ to $\ast$, thus $\{\ast\}$ is "terminal" in $\catSet$.
+	Let $X$ be a set, there is a unique function from the empty set into $X$, it is the empty function.\footnote{Recall (or learn here) that a function $f: A \rightarrow B$ is defined via subset of $f \subseteq A \times B$ that satisfies $\forall a \in A, \exists! b\in B, (a,b) \in f$. When $A$ is empty, $A \times B$ is empty and the only subset $\emptyset \subseteq A\times B$ satisfies the condition vacuously. In passing, when $B$ is empty but $A$ is not, the unique subset of $A \times B$ does not satisfy the condition, so there is no function $A \rightarrow \emptyset$.} We deduce that the empty set is the "initial" "object" in $\catSet$, hence the notation $\initial$. \AP For the "terminal" "object", we observe that there is a unique function $X \rightarrow \{\ast\}$ sending all elements of $X$ to $\ast$, thus $\intro*\termset = \{\ast\}$ is "terminal" in $\catSet$.
 \end{exmp}
 In this example, we could have chosen any singleton to show it is "terminal". However, that choice is irrelevant to a good category theorist because just as any two singletons are "isomorphic@@CAT" (because they have the same cardinality), any two "terminal" "objects" are "isomorphic@@CAT".
 \begin{prop}\label{prop:initialunique}
@@ -286,6 +286,9 @@ Rewording the last two results, we can say that "initial" (resp. "terminal") "ob
 \begin{exmp}[$\catMet$]\label{exmp:terminitmet}
 	The "terminal" "object" in $\catMet$ is the space with only one point $\ast$. The distance is determined by the axioms on a "metric", because $d_{\terminal}(\ast,\ast)$ must be equal to $0$.\footnote{The function sending all of $X$ to $\ast$ is nonexpansive whatever the distance $d$ on $X$ because $d(x,y) \geq 0 = d_{\terminal}(\ast,\ast)$.} The "initial" "object" in $\catMet$ is the empty space, for the same reason that $\emptyset$ is "initial" in $\catSet$.
 \end{exmp}
+\begin{exer}\label{exer:duality:zeroinptd}\marginnote{\hyperref[soln:duality:zeroinvect]{See solution.}}
+	Find the "initial" and "terminal" "objects" in $\catPtd$.
+\end{exer}
 \begin{exer}\label{exer:duality:zeroinvect}\marginnote{\hyperref[soln:duality:zeroinvect]{See solution.}}
 	Find the "initial" and "terminal" "objects" in $\catVect{k}$.
 \end{exer}
@@ -443,12 +446,19 @@ The next exercise generalizes the "poset" of subsets of $X$ $(\mP X, \subseteq)$
 \begin{exer}\label{exer:duality:posetsubset}\marginnote{\hyperref[soln:duality:posetsubset]{See solution.}}
 	Show that the correspondence between $\mP X$ and $\Sub_{\catSet}(X)$ from Example \ref{exmp:subobjsubset} is an "isomorphism@@CAT" of "posets" $(\mP X, \subseteq) \cong (\Sub_{\catSet}(X), \leq)$.\footnote{We saw what "poset" "isomorphisms@@CAT" were in Example \ref{exmps:isoconcrete}.\ref{exmp:isoposet}.}
 \end{exer}
+\begin{exer}\label{exer:duality:subobjccat}\marginnote{\hyperref[soln:duality:subobjccat]{See solution.}}
+	Show that a "subobject" in $\catCat$ is a "subcategory".
+\end{exer}
 We can use "duality@@CAT" to obtain (for free) the notion of "quotient objects".
 \begin{defn}[Quotients]
 	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, there is an equivalence relation $\sim$ on "epimorphisms" with "source" $X$ defined by \[q \sim q' \Leftrightarrow \exists \text{ "isomorphism@@CAT" } i,  q = i \circ q'.\]
 	\AP A ""quotient object"" (or simply "quotient@@CAT") of $X$ is an equivalence class of the relation $\sim$ defined above.\footnote{We will often abusively refer to a "quotient@@CAT" simply with an "epimorphism" $X \twoheadrightarrow Y$.} The "collection" of "quotients@@CAT" of $X$ is denoted $\Quot_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Quot_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""co-well-powered"". There is a "partial order" $\leq$ on $\Quot_{\mathbf{C}}(X)$ defined by 
 	\[[q] \leq [q'] \Leftrightarrow \exists \text{ "morphism" } k,  q = k \circ q'.\]
 \end{defn}
+The terminology for this "dual@@CAT" notion is motivated by the following exercise.
+\begin{exer}\label{exer:duality:quotientgrp}\marginnote{\hyperref[soln:duality:quotientgrp]{See solution.}}
+	Show that a "quotient object" of $G \in \obj{\catGrp}$ is a "quotient group" of $G$.
+\end{exer}
 %TODO: example in groups. (need to state first isomorphism theorem)
 %TODO: add other stuff when needed later.
 

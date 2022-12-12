@@ -5,6 +5,7 @@
 %TODO: use each limit at least once in a categorical context, equalizer of idempotents etc..
 %TODO: say we will be loose on equality and isoCAT because limits are defined up to unique iso.
 %TODO: change the pullback diagrams to quiver.
+%TODO: say that diagram chasing can feel guided by the types.
 The unifying power of categorical abstraction is arguably its biggest benefit. Indeed, it is often the case that many mathematical objects or results from different fields fit under the same categorical definition or fact. In my opinion, category theory is at its peak of elegance when a complex idea becomes close to trivial when viewed categorically, and when this same view helps link together the intuitions behind many ideas throughout mathematics.
 
 The next two chapters concern one particular instance of this power: "universal" constructions. Along with Chapter \ref{chap:yoneda}, these three chapters constitute the heart of our investigation into a philosophical idea central to category theory:\footnote{We already hinted at it in Chapter \ref{chap:catfunc}. I am not a good philosopher of mathematics, but I believe this statement is a fundamental belief in structuralism.}
@@ -19,6 +20,8 @@ In the sequel, $\mathbf{C}$ denotes a "category". %TODO: see if last sentence is
 
 \section{Examples}
 Before giving the definition of "(co)@colimit""limits" which is very abstract, we present several examples of how they are used. These are very interesting on their own because they show you how a lot of things mathematicians care about in different contexts can be seen as the same abstract construction. Still, keep in mind that, after adding another level of abstraction, we will bring all these examples together as instances of "(co)@colimit""limits".
+
+%TODO: a word on how stuff is always up to isomorphism, and say this is another key point of categorical thinking. Exercise: if A = A' and B = B', then A\times B = A' \times B'.
 \subsection{Products}
 Given two sets $S$ and $T$, the most common construction of the Cartesian product $S \times T$ is conceptually easy: you take all pairs of elements $S$ and $T$, that is,
 \[S\times T := \left\{ (s,t) \mid s \in S, t \in T\right\}.\]
@@ -59,16 +62,30 @@ This function maps $x \in X$ to an element in $S\times T$ that makes the same ch
     \[\forall x\in X, \projection_A(!(x)) = f_A(x) \text{ and } \projection_B(!(x)) = f_B(x).\]
     Equivalently, $!(x) = (f_A(x), f_B(x))$. Since this uniquely determines $!$, $A \times B$ is indeed the "binary product".
 \end{exmp}
-\begin{exmps}
+\begin{exmp}
     Most of the constructions throughout mathematics with the name \textit{product} can also be realized with a categorical "product@bproduct". Examples include the "product" of "groups", "rings" or "vector spaces", the product of topologies, etc. The fact that all these constructions are based on the Cartesian product of the underlying sets is a corollary of a deeper result about the "forgetful" "functors" that all these "categories" have in common.\footnote{We show in Chapter \ref{chap:adjoints} that these "forgetful" "functors" are "right adjoints" and thus they "preserve" "binary products" (Proposition \ref{prop:adjproduct}).}
 
+    Let us give the details for $\catMon$, they can be easily adapted for the other "categories" of algebraic objects ("groups", "rings", "vector spaces") --- this does not translate so readily for the "product@bproduct" of two "topological spaces". 
+
+    %TODO: product of Mon.
+\end{exmp}
+\begin{exmp}
     In another flavor, let $X$ be a "topological space" and $\catOpens(X)$ be the "category" of "opens". If $A, B \subseteq X$ are "open", what is their "product@bproduct"? Following Definition \ref{defn:binprod}, the existence of $\projection_A$ and $\projection_B$ imply that $A\product B$\footnote{Recall that $\product$ denotes the categorical "product@bproduct", not the Cartesian product of sets.} is included in both sets, or equivalently $A \product B \subseteq A \cap B$.
     
     Moreover, for any "open set" $X$ included in $A$ and $B$ (via $f_A$ and $f_B$), $X$ should be included in $A \product B$ (via $!$).\footnote{Notice that uniqueness of $!$ is already given in a "posetal" "category".} In particular, $X$ can be $A \cap B$ (it is "open" by definition of a "topology"), thus $A \cap B \subseteq A \product B$. In conclusion, the "product@bproduct" of two "open sets" is their intersection. In an arbitrary "poset", the same argument is used to show the "product@bproduct" is the "greatest lower bound"/"infimum"/"meet".
-\end{exmps}
+\end{exmp}
 \begin{rem}
     Given two "objects" in an arbitrary "category", their "product@bproduct" does not necessarily exist. Nevertheless, when it exists, one can (and we will) show that it is unique up to unique "isomorphism".\footnote{The uniqueness of the "isomorphism@CAT" is under the condition that it preserves the structure of the "product@bproduct". We will clear up this subtlety in Remark \ref{rem:uniqueiso}.} Thus, in the sequel, we will speak of \textit{the} "product@bproduct" of two "objects" and similarly for other constructions presented in this chapter. Moreover, we will often refer to the "object" $A \product B$ alone (without the "projections") as the "product@bproduct".
 \end{rem}
+\begin{exer}\label{exer:limits:prodorder}\marginnote{\hyperref[soln:limits:prodorder]{See solution.}}
+    Let $(A,R)$ and $(B,S)$ be two "objects" in $\catnRel{2}$.\footnote{i.e. $A$ and $B$ are sets and $R\subseteq A\times A$ and $S\subseteq B\times B$.} \AP We denote $R\intro*\andrel S$ the binary relation on $A\times B$ defined by (we write the relations infix like for "orders") 
+    \[(a,b) \mathbin{R\andrel S} (a',b') \Leftrightarrow a \mathbin{R} a' \text{ and } b \mathbin{S} b'.\]
+    \begin{enumerate}
+        \item Show that $(A\times B, R\andrel S)$ is the "product@bproduct" of $(A,R)$ and $(B,S)$ in $\catnRel{2}$.
+        \item Show that if $R$ and $S$ are "reflexive"/"transitive"/"antisymmetric", then so is $R\andrel S$.
+        \item Conclude that, in both $\catPoset$ and $\catPre$, the "product@bproduct" of any two "objects" exists.
+    \end{enumerate} 
+\end{exer}
 \begin{exer}\label{exer:limits:prodrel}\marginnote{\hyperref[soln:limits:prodrel]{See solution.}}
     Let $A$ and $B$ be two sets, find their "product@bproduct" in the "category" $\catRel$.
 \end{exer}
@@ -124,12 +141,12 @@ Before reaching even more generality, it is sane to check that we can prove some
         \end{tikzcd}
         \end{equation}
     \end{marginfigure}
-    \begin{gather*}
-        \projection_A \circ {!} = \projection_A \circ \pair{\projection_A, \projection_B \circ \projection_{B \product C}} \circ {!} = \projection_A \circ p_{A\product B}\\
-        \projection_B \circ \projection_{B\product C} \circ {!} = \projection_B \circ \pair{\projection_A, \projection_B \circ \projection_{B \product C}} \circ {!} = \projection_B \circ p_{A\product B}\\
-        \projection_C \circ \projection_{B\product C} \circ {!} = p_C.
-    \end{gather*}
-    The last two equations tell us that $\projection_{B\product C} \circ !$ must make \eqref{diag:prodassocright} "commute".
+    \begin{align*}
+        \projection_A \circ {!} &= \projection_A \circ \pair{\projection_A, \projection_B \circ \projection_{B \product C}} \circ {!} = \projection_A \circ p_{A\product B}\\
+        \projection_B \circ \projection_{B\product C} \circ {!} &= \projection_B \circ \pair{\projection_A, \projection_B \circ \projection_{B \product C}} \circ {!} = \projection_B \circ p_{A\product B}\\
+        \projection_C \circ \projection_{B\product C} \circ {!} &= p_C.
+    \end{align*}
+    The last two equations tell us that $\projection_{B\product C} \circ {!}$ must make \eqref{diag:prodassocright} "commute".
     \begin{equation}\label{diag:prodassocright}
         % https://q.uiver.app/?q=WzAsNixbMCwyLCJCIl0sWzIsMiwiQyJdLFswLDEsIkFcXHByb2R1Y3QgQiJdLFsxLDEsIkFcXHByb2R1Y3QgKEJcXHByb2R1Y3QgQykiXSxbMSwyLCJCXFxwcm9kdWN0IEMiXSxbMSwwLCJYIl0sWzMsNCwiXFxwcm9qZWN0aW9uX3tCXFxwcm9kdWN0IEN9IiwyXSxbMiwwLCJcXHByb2plY3Rpb25fQiIsMl0sWzQsMCwiXFxwcm9qZWN0aW9uX0IiXSxbNCwxLCJcXHByb2plY3Rpb25fQyIsMl0sWzUsMiwicF97QVxccHJvZHVjdCBCfSIsMl0sWzUsMSwicF9DIiwwLHsiY3VydmUiOi0yfV0sWzUsMywiISIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
     \begin{tikzcd}
@@ -211,8 +228,9 @@ Here are three more properties of Cartesian products that generalize to categori
 \end{exer}
 In $\catSet$, the function $\Product_{i \in I} f_i$ acts on tuples in $\Product_{i \in I}X_i$ by applying $f_i$ to the $i$th coordinate for every $i$.
 \begin{exer}\label{exer:limits:prodmediatecomposed}\marginnote{\hyperref[soln:limits:prodmediatecomposed]{See solution.}}
-    Let $X$, $Y$ and $\{X_i\}_{i \in I}$ be "objects" of $\mathbf{C}$ such that $\Product_{i \in I} X_i$ exists. For any family $f_i: X \rightarrow X_i$ and $g: Y \rightarrow X$ show that $\pair{f_i}_{i \in I} \circ g = \pair{f_i \circ g}_{i \in I}$. Conclude that for families $\{f_i : X_i \rightarrow Y_i\}_{i \in I}$ and $\{g_i : Z_i \rightarrow X_i\}_{i \in I}$, $\left( \Product f_i \right) \circ \left( \Product g_i \right) = \Product (f_i \circ g_i)$.\footnote{It may be useful to restate this in the binary case. For any $f: X \rightarrow Y$, $f': X' \rightarrow Y'$, $g:Z \rightarrow X$ and $g': Z' \rightarrow X'$, we have
-    \[(f \productm f') \circ (g \productm g') = (f \circ g) \productm (g \circ g').\]}
+    Let $X$, $Y$ and $\{X_i\}_{i \in I}$ be "objects" of $\mathbf{C}$ such that $\Product_{i \in I} X_i$ exists. For any family $f_i: X \rightarrow X_i$ and $g: Y \rightarrow X$ show that $\pair{f_i}_{i \in I} \circ g = \pair{f_i \circ g}_{i \in I}$. Conclude that for families $\{f_i : X_i \rightarrow Y_i\}_{i \in I}$ and $\{g_i : Z_i \rightarrow X_i\}_{i \in I}$, $\left( \Product f_i \right) \circ \left( \Product g_i \right) = \Product (f_i \circ g_i)$.\footnote{\label{foot:productfunctor}It may be useful to restate this in the binary case. For any $f: X \rightarrow Y$, $f': X' \rightarrow Y'$, $g:Z \rightarrow X$ and $g': Z' \rightarrow X'$, we have
+    \[(f \productm f') \circ (g \productm g') = (f \circ g) \productm (g \circ g').\]
+    As a corollary, if $\mathbf{C}$ has all "binary products", we get a "functor" $\mathbf{C}\cattimes \mathbf{C} \rightsquigarrow \mathbf{C}$ sending $(X,Y)$ to $X\product Y$ and $(f,g)$ to $f\productm g$.}
 \end{exer}
 \AP A family of "objects" in $\mathbf{C}$ is also called a ""discrete diagram"" because it corresponds to a "functor" from a "discrete category" (one with no non-"identity morphisms") into $\mathbf{C}$.\footnote{Recall that a "diagram" is a "functor" into $\mathbf{C}$ (Definition \ref{defn:diagram}).} The "product" of a family of "objects" is called the "limit" of the corresponding "diagram". The big takeaway from last chapter is that each time we read a new definition, it is worth to "dualize@@CAT" it. Thus, we ask: what is the "colimit" of a "discrete diagram"?
 \subsection{Coproducts}
@@ -260,7 +278,7 @@ Let us find out what "coproducts" of sets are.
 \end{exer}
 Applying the "duality@@CAT" between "products" and "coproducts" to Proposition \ref{prop:assocprod} and Exercises \ref{exer:limits:prodcommute} and \ref{exer:limits:termneutralprod}, we get the following results.
 \begin{cor}["Dual@@CAT"]
-    Taking binary "coproducts" is commutative and associative, and if $\initial$ is "initial", then $A + \initial \isoCAT A$. 
+    Taking binary "coproducts" is commutative and associative, and if $\initial$ is "initial", then $A + \initial \isoCAT A$.\footnote{While in $\catSet$, we have $A\times \emptyset \isoCAT \emptyset$, this does not generalize to all "categories" with "binary products" and an "initial" "object", e.g. $\catVect{k}$.}
 \end{cor}
 \begin{exer}\label{exer:limits:mediattingcoprodcomposed}\marginnote{\hyperref[soln:limits:mediattingcoprodcomposed]{See solution.}}
     "Dually@@CAT" to Exercise \ref{exer:limits:prodmediatecomposed}, show that if $X$, $Y$ and $\{X_i\}_{i \in I}$ are "objects" of $\mathbf{C}$ such that $\Coproduct_{i \in I} X_i$ exists, then for any family $f_i: X_i \rightarrow X$ and $g: X \rightarrow Y$ show that $g \circ \copair{f_i}_{i \in I} = \copair{g \circ f_i}_{i \in I}$.
@@ -299,7 +317,7 @@ We briefly mentioned that a "product" (resp. "coproduct") is a "limit" (resp. "c
             E \arrow[r, "e"']                         & A \arrow[r, "f", shift left] \arrow[r, "g"', shift right] & B
             \end{tikzcd}
     \end{equation}
-    In other words, $e$ is a "morphism" that "equalizes" $f$ and $g$, and every other $o$ that "equalizes" $f$ and $g$ "factors" through $e$ uniquely. A common notation for $e$ is $\mathrm{eq}(f,g)$. There is also a straightforward generalization to "equalizers" of more than two "morphisms".\footnote{If $\{f_i\}_{i\in I}$ is a family of "parallel" "morphisms", their "equalizer" is a "morphism" $e \in \mor{\mathbf{C}}$ such that \[\forall i, j\in I, f_i \circ e = f_j \circ e,\] and every $o$ with this property "factors through" $e$ in a unique way.}
+    In other words, $e$ is a "morphism" that "equalizes" $f$ and $g$, and every other $o$ that "equalizes" $f$ and $g$ "factors" through $e$ uniquely. A common notation for $e$ is $\mathrm{eq}(f,g)$. There is also a straightforward generalization to "equalizers" of more than two "morphisms".\footnote{\label{foot:equalizemultiple}If $\{f_i\}_{i\in I}$ is a family of "parallel" "morphisms", their "equalizer" is a "morphism" $e \in \mor{\mathbf{C}}$ such that \[\forall i, j\in I, f_i \circ e = f_j \circ e,\] and every $o$ with this property "factors through" $e$ in a unique way.}
 \end{defn}
 \begin{exmp}[$\catSet$]
     Let $f,g:A\rightarrow B$ be two functions and suppose their "equalizer" exists and it is $e:E\rightarrow A$. By "associativity", for any $h:O\rightarrow E$, the composite $e\circ h$ is a candidate for $o$ in diagram \eqref{diag:equalizer} because $f\circ (e \circ h) = g \circ (e \circ h)$. What is more, if $h'$ is such that $e \circ h = e\circ h'$, then $h=h'$ or it would contradict the uniqueness of $!$. We conclude that $e$ is "monic"/injective.\footnote{This argument was independent of the "category", hence we can conclude that an "equalizer" of "parallel" "morphisms" is always "monic".}
@@ -369,7 +387,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
             A \arrow[r, "f", shift left] \arrow[r, "g"', shift right] & B \arrow[r, "d"] \arrow[rd, "q"'] & D \arrow[d, "!", dashed] \\& & B/{\im(f-g)}
         \end{tikzcd}
     \end{equation}
-    We claim that $!$ has an inverse, implying that $D \cong B/{\im(f-g)}$.\footnote{This is not enough to say that $B/{\im(f-g)}$ with the "quotient map" is the "coequalizer", we leave you the task to complete the proof using this "isomorphism" that crucially satisfies $! \circ d = q$.} Indeed, for $\eqclass{x} \in B/{\im(f-g)}$, we must have 
+    We claim that $!$ has an inverse, implying that $D \isoCAT B/{\im(f-g)}$.\footnote{This is not enough to say that $B/{\im(f-g)}$ with the "quotient map" is the "coequalizer", we leave you the task to complete the proof using this "isomorphism" that crucially satisfies $! \circ d = q$.} Indeed, for $\eqclass{x} \in B/{\im(f-g)}$, we must have 
     \[!^{-1}(\eqclass{x}) = {!}^{-1}(q(x)) = {!}^{-1}(!(d(x)))= d(x),\]
     and it is only left to show $!^{-1}$ is well-defined because the inverse of a "homomorphism@@RING" is a "homomorphism@@RING". This follows because if $\eqclass{x} = \eqclass{x'}$, then there exists $y \in \im(f-g)$ such that $x = x' + y$, so \[!^{-1}(x) = d(x) = d(x'+y) = d(x') +d(y) = d(x') + 0 = {!}^{-1}(x').\]
     \AP In the special case that $g$ is the constant $0$ map, $B/{\im(f)}$ is called the ""cokernel"" of $f$, denoted $\coker(f)$.
@@ -444,7 +462,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
     \end{marginfigure} \[\im(h) \subseteq \{(a,b) \in A\product B \mid f(a) = g(b)\}.\]
     Now, let $X$ be the R.H.S., and $s = \projection_A|_X$ and $t = \projection_B|_X$ be the "projections" to $A$ and $B$ respectively restricted to $X \subseteq A\product B$. Our construction ensures $f \circ s = g \circ t$ hence there is a unique $!: X \rightarrow A\pullback{C} B$ satisfying $p_A \circ {!} = \projection_A|_X$ and $p_B \circ {!} = \projection_B|_X$. Viewing $h$ as going in the opposite direction to $!$,\footnote{We just saw that the image of $h$ is contained in $X$, so we can see $h$ as a function $h: A \pullback{C} B \rightarrow X$.} we derive for any $(a,b) \in X$,\footnote{We use the fact that $\projection_A \circ h \circ {!} = p_A \circ {!}$ and similarly for $B$.} \[(h\circ {!})(a,b) = (p_A(!(a,b)), p_B(a,b)) = (\projection_A(a,b), \projection_B(a,b)) = (a,b),\] thus $!$ has a "left inverse" and is injective. Assume towards a contradiction that it is not surjective, then let $y \in A\pullback{C} B$ not be in the image of $!$ and denote $x = {!}(p_A(y), p_B(y))$. Define $!'$ as acting exactly like $!$ except on $(p_A(y),p_B(y))$ where it goes to $y$ instead of $x$. This ensure that $!'$ still makes the diagram "commute", contradicting the uniqueness of $!$.
 
-    As a particular case, when one function in the "cospan" is an inclusion, say, $B \subseteq C$ and $g: B \hookrightarrow C$, the "pullback" is the "preimage" of $B$ under $f$ since \[\left\{  (a,b) \in A \product B\mid f(a) = g(b) = b\right\} \isoCAT \left\{ a \mid f(a) \in B \right\} = f^{-1}(B).\]
+    As a particular case, when one function in the "cospan" is an inclusion, say $g: B \hookrightarrow C$, the "pullback" is the "preimage" of $B$ under $f$ since\footnote{This can be seen as a generalization of the "fibers" defined in Exercise \ref{exer:limits:fiber}: seeing an "element" of $C$ as a function $c : \terminal  \rightarrow C$, the "fiber" $f^{-1}(c)$ is the "pullback" of $c$ along $f$.} \[\left\{  (a,b) \in A \product B\mid f(a) = g(b) = b\right\} \isoCAT \left\{ a \mid f(a) \in B \right\} = f^{-1}(B) \subseteq A.\]
     You can also check that $p_A$ is the inclusion $f^{-1}(B) \hookrightarrow A$ and $p_B$ is $f$ restricted to $f^{-1}(B)$. As a particular case of that, if the "cospan" consists of two inclusions $A \hookrightarrow C \hookleftarrow B$, then its "pullback" is the intersection $A \cap B$ with $p_A$ and $p_B$ being the inclusions.\begin{marginfigure}[-1\baselineskip]\begin{equation*}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFxjYXAgQiJdLFswLDEsIkEiXSxbMSwxLCJDIl0sWzEsMCwiQiJdLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoiYm90dG9tIn19fV0sWzMsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCwxLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6ImJvdHRvbSJ9fX1dLFswLDMsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
         \begin{tikzcd}
@@ -600,6 +618,9 @@ When "dualizing" "products" and "equalizers", the shape of the "diagram" did not
 \begin{exmp}[Rewriting]
     The categorical approach to graph rewriting is full of uses of pushouts. In this example, we will try to give a flavor of a particular method called \href{https://en.wikipedia.org/wiki/Double_pushout_graph_rewriting}{double-pushout rewriting (DPO)} in an almost trivial setting using words instead of graphs. $\square$. %TODO: find something that actually works.
 \end{exmp}
+
+Just as we defined "products" and "coproducts" for more than two "objects", and "equalizers" and "coequalizers" for more than two "morphisms" (Footnote \ref{foot:equalizemultiple}), we could define "pullbacks" (resp. "pushouts") of multiple "morphisms" with the same "target" (resp. "source"). However, it starts to get messy at this point, so we will abstract away from specific examples of "(co)@colimit""limits".\footnote{There is a slick way of doing arbitrary "pullbacks" and "pushouts" (as opposed to the binary ones) that we explore in Exercise \ref{exer:universal:productslice}.}
+
 \section{Generalization}
 There exists many other examples of "(co)@colimit""limits" but these six examples give quite a good idea of what it is to be a "limit" or "colimit". More precisely, we will see in Theorem \ref{thm:prodeqcomplete} and Exercise \ref{exer:limits:termpullcomplete} that any "limit" can be built out of "products" and "equalizers" or "pullbacks" and a "terminal" "object". "Dually@@CAT", we can build "colimits" out of "coproducts" and "coequalizers" or "pushouts" and an "initial" "object".
 
@@ -810,11 +831,20 @@ These are more technical and rigorous than our previous notions of "preservation
 \begin{exer}\label{exer:limits:isopreserve}\marginnote{\hyperref[soln:limits:isopreserve]{See solution.}}
     Show that if $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is an "isomoprhism@@CAT", then $F$ "preserves@@LIM" and "reflects@@LIM" "(co)@colimit""limits" of all "shape".
 \end{exer}
+
+As we already hinted at, oftentimes, "forgetful functors" "preserve" "limits",\footnote{Due to results in Chapter \ref{chap:adjoints}.} we let you prove a very specific instance of this.
+\begin{exer}\label{exer:limits:preserveptd}\marginnote{\hyperref[soln:limits:preserveptd]{See solution.}}
+    Let $U: \catPtd \rightsquigarrow \catSet$ be the "forgetful functor" from "pointed sets" to sets. Show that $U$ "preserves" "products", "equalizers" and "pullbacks".
+\end{exer}
+
+%TODO: more examples of preserving, reflecting and creating with inclusion functors. Mon inside Cat, Poset and Pre inside 2Rel.
+
 \begin{exer}\label{exer:limits:hompreserveprod}\marginnote{\hyperref[soln:limits:hompreserveprod]{See solution.}}
     Fix $A \in \obj{\mathbf{C}}$, show that the "functor" $\Hom_{\mathbf{C}}(A,\placeholder)$ "preserves" "binary products". Namely, if $X,Y \in \obj{\mathbf{C}}$ and $X\times Y$ exists, then \[\Hom_{\mathbf{C}}(A,X\product Y) \isoCAT \Hom_{\mathbf{C}}(A,X)\times \Hom_{\mathbf{C}}(A,Y).\]
 \end{exer}
-\begin{cor}["Dual@@CAT"]
-    Fix $A \in \obj{\mathbf{C}}$, show the "functor" $\Hom_{\mathbf{C}}(\placeholder,A)$ "preserves" binary "coproducts".
+\begin{cor}["Dual@@CAT"]\label{cor:cohomcoprod}
+    Fix $A \in \obj{\mathbf{C}}$, show the "functor" $\Hom_{\mathbf{C}}(\placeholder,A)$ "preserves" binary "coproducts" when viewed as a "functor" $\mathbf{C} \rightsquigarrow \op{\catSet}$, i.e.: 
+    \[\Hom_{\mathbf{C}}(X\coproduct Y,A) \isoCAT \Hom_{\mathbf{C}}(X,A)\times \Hom_{\mathbf{C}}(Y,A).\]
 \end{cor}
 These last two results are strenghtened in Theorem \ref{thm:homcont} and Corollary \ref{cor:cohomcont}. We are not done proving things about "(co)@colimit""limits", but we move on to the next section where we will do these proofs using "diagram chasing".
 \section{Diagram Chasing}
