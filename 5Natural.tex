@@ -91,7 +91,7 @@ Next, an example closer to the general idea of a "natural transformation".
 	\end{align*}
 	We conclude that the diagram "commutes" and that $\det$ is indeed a "natural transformation".\footnote{Modulo the cases $n>2$.}
 \end{exmp}
-\begin{exer}\label{exer:natural:componentwise}\marginnote{\hyperref[soln:natural:componentwise]{See solution.}}
+\begin{exer}{soln:natural:componentwise}\label{exer:natural:componentwise}
 	Let $F, G: \mathbf{C} \cattimes \mathbf{C}' \rightsquigarrow \mathbf{D}$ be two "functors". Show that a family \[\left\{ \phi_{X,Y}: F(X,Y) \rightarrow G(X,Y)\mid X \in \obj{\mathbf{C}}, Y \in \obj{\mathbf{C}'} \right\}\] is a "natural transformation" if and only if for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{C}'}$, both\footnote{Recall the definition of $F(X,\placeholder)$ and $F(\placeholder,Y)$ from Exercise \ref{exer:catfunc:placeholder}.} \[\phi_{X,\placeholder}: F(X,\placeholder) \Rightarrow G(X,\placeholder) \text{ and } \phi_{\placeholder,Y}: F(\placeholder,Y) \Rightarrow G(\placeholder,Y)\] are "natural".
 \end{exer}
 Now, in order to talk about a "category" of "functors", it remains to describe the "composition" of "natural transformations".
@@ -114,7 +114,7 @@ Now, in order to talk about a "category" of "functors", it remains to describe t
 	
 	Therefore, the "category" $\catFunc{\deloop{G}}{\catSet}$ can be identified as the category of $G$--"sets@gset" (sets equipped with an "action" of $G$) with $G$--"equivariant" maps as the "morphisms".
 \end{exmp}
-\begin{exer}[\NOW]\label{exer:natural:natiso}\marginnote{\hyperref[soln:natural:natiso]{See solution.}}
+\begin{exer}{soln:natural:natiso}[\NOW]\label{exer:natural:natiso}
 	\AP "Isomorphisms@@CAT" in a "functor category" are called ""natural isomorphisms"". Show that they are precisely the "natural transformations" whose "components" are all "isomorphisms".\marginnote{"Functors" that are "naturally isomorphic" are essentially the same "functor"; they send the same "object" to "isomorphic@@CAT" "objects" and the same "morphism" to "morphisms" that are well-behaved under "composition" with "isomorphisms@@CAT" between the "source" and "targets".}
 \end{exer}
 
@@ -149,7 +149,7 @@ Now, in order to talk about a "category" of "functors", it remains to describe t
 		\end{marginfigure}
 	\end{enumerate}
 \end{exmps}
-\begin{exer}\label{exer:natural:opcatfun}\marginnote{\hyperref[soln:natural:opcatfun]{See solution.}}
+\begin{exer}{soln:natural:opcatfun}\label{exer:natural:opcatfun}
 	Show that the "opposite" of $\catFunc{\mathbf{C}}{\mathbf{D}}$ is $\catFunc{\op{\mathbf{C}}}{\op{\mathbf{D}}}$.
 \end{exer}
 %TODO: maybe double dual vector space iso to identity to explain how naturality works. dual iso to identity but not naturally because we need a choice of basis. One informal synonym for naturally is without choices/forced on you.
@@ -304,7 +304,7 @@ This follows from $\NAT(\eta,HA,H'A,\phi(A))$.
 	\AP In the setting described in \eqref{diag:horizcompsetting}, we define the ""horizontal composition"" of $\eta$ and $\phi$ by $\eta \horcomp \phi = \eta H' \vertcomp G\phi = G'\phi\vertcomp \eta H$.\footnote{The $\horcomp$ notation is not standard but there are no widespread symbol denoting "horizontal composition". I have mostly seen $\ast$ or plain juxtaposition. Hopefully, you will encounter papers/books clear enough that you can typecheck to find what "composition" is being used.}
 \end{defn}
 One crucial point we have made in earlier chapters is that a notion of "composition" must satisfy "associativity" and have "identities". We will show the former right after you show the latter.
-\begin{exer}\label{exer:natural:horcompidentity}\marginnote{\hyperref[soln:natural:horcompidentity]{See solution.}}
+\begin{exer}{soln:natural:horcompidentity}\label{exer:natural:horcompidentity}
 	Let $H: \mathbf{C}' \rightsquigarrow \mathbf{C}$, $F,F': \mathbf{C} \rightsquigarrow \mathbf{D}$ and $G: \mathbf{D} \rightsquigarrow \mathbf{D}'$ be "functors" and $\phi: F \Rightarrow F'$ be a "natural transformation". Show that $\phi \horcomp \one_{H} = \phi H$ and $\one_{G} \horcomp \phi = G\phi$. Infer that $\one_{\id_{\mathbf{C}}}$ is the "identity" at $\mathbf{C}$ for $\horcomp$.
 \end{exer}
 
@@ -496,7 +496,7 @@ It turns out we can abstract the properties of $\terminal$ and $\times$ that ens
 		\item %TODO: Lawvere metric spaces
 	\end{enumerate}
 \end{exmps}
-\begin{exer}[\NOW]\label{exer:natural:compositionisfunc}\marginnote[1\baselineskip]{\hyperref[soln:natural:compositionisfunc]{See solution.}}
+\begin{exer}{soln:natural:compositionisfunc}[\NOW]\label{exer:natural:compositionisfunc}
 	Show that there is a "functor" $\catFunc{\mathbf{D}}{\mathbf{E}} \cattimes \catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{E}}$ whose action on "objects" is $(F,G) \mapsto F\circ G$.
 \end{exer}%TODO: explain the implications for commutative diagrams of natural transformations and how you will use it.
 %TODO: req exercises: Composing with a constant yields a functor that preserves isomorphisms for use when saying limits are taken pointwise [C x D, E] = [D x C, E]
@@ -675,7 +675,7 @@ The first two examples and many other simple examples of "equivalences" are exam
 	We have shown that $\catFinOrd \eqCat \catFinSet$ and $\catMat{k} \eqCat\catFDVect{k}$ and we leave to you the easy task to check that these are examples of "skeletons".\footnote{Namely, you should show that no two sets in $\catFinOrd$ are "isomorphic@@CAT" and no two spaces in $\catMat{k}$ are "isomorphic@@CAT".}
 \end{exmps}
 A "category" always has a "skeleton" if you assume the axiom of choice and the next result justifies us calling it \textit{the} "skeleton" of a "category". 
-\begin{exer}\label{exer:natural:skeleton}\marginnote{\hyperref[soln:natural:skeleton]{See solution.}}
+\begin{exer}{soln:natural:skeleton}\label{exer:natural:skeleton}
 	Show that all "skeletons" of a "category" are "isomorphic@@CAT".
 \end{exer}
 Here are other more interesting examples of "equivalent" "categories".
@@ -729,7 +729,7 @@ Here are other more interesting examples of "equivalent" "categories".
 		\end{tikzcd}
 	\end{equation}\end{marginfigure}
 \end{exmp}
-\begin{exer}\label{exer:natural:equivsetandequiv}\marginnote{\hyperref[soln:natural:equivsetandequiv]{See solution.}}
+\begin{exer}{soln:natural:equivsetandequiv}\label{exer:natural:equivsetandequiv}
 	%TODO: show that category of sets and functions is equivalent to the category of sets and equiv relation and functions preserving the equiv relation. 
 \end{exer}
 \begin{exmps}[Hard] Examples of significant "equivalences" are all over the place in higher mathematics. However, they require a bit of work to describe them, thus let us only say a few words on them.
@@ -738,10 +738,10 @@ Here are other more interesting examples of "equivalent" "categories".
 		\item The "equivalence" between Boolean lattices and Stone spaces is again seminal in the theory of Stone-type dualities. These can lead to deep connections between topology and logic. One application in particular is the study of the behavior of computer programs through formal semantics.
 	\end{enumerate} %TODO: maybe do a guided exercise for the baby stone duality.
 \end{exmps}
-\begin{exer}\label{exer:natural:equivequiv}
-	Show that "equivalence" of "categories" is an equivalence relation.\marginnote{\hyperref[soln:natural:equivequiv]{See solution.}}
+\begin{exer}{soln:natural:equivequiv}\label{exer:natural:equivequiv}
+	Show that "equivalence" of "categories" is an equivalence relation.
 \end{exer}
-\begin{exer}\label{exer:natural:equivfunccat}
-	Show that $\mathbf{C} \eqCat \mathbf{C}'$ and $\mathbf{D} \eqCat \mathbf{D}'$ implies $\catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}'}$.\marginnote{\hyperref[soln:natural:equivfunccat]{See solution.}}
+\begin{exer}{soln:natural:equivfunccat}\label{exer:natural:equivfunccat}
+	Show that $\mathbf{C} \eqCat \mathbf{C}'$ and $\mathbf{D} \eqCat \mathbf{D}'$ implies $\catFunc{\mathbf{C}}{\mathbf{D}} \eqCat \catFunc{\mathbf{C}'}{\mathbf{D}'}$.
 \end{exer}
 \end{document}

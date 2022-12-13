@@ -31,7 +31,7 @@ Before giving the definition of "(co)@colimit""limits" which is very abstract, w
 Given two sets $S$ and $T$, the most common construction of the Cartesian product $S \times T$ is conceptually easy: you take all pairs of elements $S$ and $T$, that is,
 \[S\times T := \left\{ (s,t) \mid s \in S, t \in T\right\}.\]
 This construction requires to pick out elements in $S$ and $T$, form pairs of elements, and use the \href{https://en.wikipedia.org/wiki/Set-builder_notation}{set-builder notation}. While these steps are straightforward set-theoretically, it is not so clear how one would translate them into categorical language.\footnote{Only working with the "objects" and "morphisms" of the "category" $\catSet$.} You can try to do it for the first step.
-\begin{exer}\label{exer:limits:defelements}\marginnote{\hyperref[soln:limits:defelements]{See solution.}}
+\begin{exer}{soln:limits:defelements}\label{exer:limits:defelements}
     Inside the category $\catSet$, give a categorical definition of an element of a set. Your definition must only refer to "objects" and "morphisms", so it can be generalized to other "categories". Does your definition still correspond to an intuitive notion of elements inside $\catPoset$, $\catGrp$, $\catCat$?
 \end{exer}
 
@@ -82,7 +82,7 @@ This function maps $x \in X$ to an element in $S\times T$ that makes the same ch
 \begin{rem}
     Given two "objects" in an arbitrary "category", their "product@bproduct" does not necessarily exist. Nevertheless, when it exists, one can (and we will) show that it is unique up to unique "isomorphism".\footnote{The uniqueness of the "isomorphism@CAT" is under the condition that it preserves the structure of the "product@bproduct". We will clear up this subtlety in Remark \ref{rem:uniqueiso}.} Thus, in the sequel, we will speak of \textit{the} "product@bproduct" of two "objects" and similarly for other constructions presented in this chapter. Moreover, we will often refer to the "object" $A \product B$ alone (without the "projections") as the "product@bproduct".
 \end{rem}
-\begin{exer}\label{exer:limits:prodorder}\marginnote{\hyperref[soln:limits:prodorder]{See solution.}}
+\begin{exer}{soln:limits:prodorder}\label{exer:limits:prodorder}
     Let $(A,R)$ and $(B,S)$ be two "objects" in $\catnRel{2}$.\footnote{i.e. $A$ and $B$ are sets and $R\subseteq A\times A$ and $S\subseteq B\times B$.} \AP We denote $R\intro*\andrel S$ the binary relation on $A\times B$ defined by (we write the relations infix like for "orders") 
     \[(a,b) \mathbin{R\andrel S} (a',b') \Leftrightarrow a \mathbin{R} a' \text{ and } b \mathbin{S} b'.\]
     \begin{enumerate}
@@ -91,10 +91,10 @@ This function maps $x \in X$ to an element in $S\times T$ that makes the same ch
         \item Conclude that, in both $\catPoset$ and $\catPre$, the "product@bproduct" of any two "objects" exists.
     \end{enumerate} 
 \end{exer}
-\begin{exer}\label{exer:limits:prodrel}\marginnote{\hyperref[soln:limits:prodrel]{See solution.}}
+\begin{exer}{soln:limits:prodrel}\label{exer:limits:prodrel}
     Let $A$ and $B$ be two sets, find their "product@bproduct" in the "category" $\catRel$.
 \end{exer}
-\begin{exer}\label{exer:limits:catprod}\marginnote{\hyperref[soln:limits:catprod]{See solution.}}
+\begin{exer}{soln:limits:catprod}\label{exer:limits:catprod}
     Let $\mathbf{C}$ and $\mathbf{D}$, be two "categories", we defined the "product category" $\mathbf{C} \cattimes \mathbf{D}$ in Definition \ref{defn:prodcat}. Resolve the clash of notations by checking that $\mathbf{C}\cattimes \mathbf{D}$ satisfies the "universal property" of the categorical "product" of $\mathbf{C}$ and $\mathbf{D}$.
 \end{exer}
 
@@ -188,11 +188,11 @@ Before reaching even more generality, it is sane to check that we can prove some
     This has been our first proof using ""diagram chasing"". It is different from "diagram paving" because the goal is to construct "objects" and "morphisms" that make some diagram "commute" (often with a proof of uniqueness of your construction).\footnote{In "diagram paving", you only use "objects" and "morphisms" that are given. One can see "diagram paving" as part of "diagram chasing" because the "commutativity" proofs are done by combining smaller "commutative" diagrams.} Another unfortunate difference is that "diagram chasing" proofs are much harder to typeset. On the board, this proof can be done with one big diagram on which we point out the relevant parts at different moments in the proof. Here, we had to draw four diagrams for this proof in order to emphasize different parts of that huge diagram.
 \end{rem}
 Here are two simpler "diagram chasing" exercises for you to solve. It should help to highlight the important steps of the proof above. To show $A\times (B\times C)$ is the same thing as $(A\times B) \times C$, we showed the former satisfies the "universal property" of the latter. We built the appropriate "projections", and given another "object" with maps to $A\times B$ and $C$, we showed how to construct the "pairing" of these maps, and finally we showed that "pairing" was unique.
-\begin{exer}\label{exer:limits:prodcommute}\marginnote{\hyperref[soln:limits:prodcommute]{See solution.}}
+\begin{exer}{soln:limits:prodcommute}\label{exer:limits:prodcommute}
     Let $A,B \in \obj{\mathbf{C}}$. If $A \product B$ exists, then $B \product A$ exists and both "products@bproduct" are "isomorphic@@CAT". In other words, the "binary product" is commutative.\footnote{Just like the Cartesian product is commutative (up to "isomorphism@@CAT").}
 \end{exer}
 This statement is transparent in the definition of "binary products" because changing $A$ for $B$ in Definition \ref{defn:binprod} has no impact. Still, proving it is more rigorous.
-\begin{exer}\label{exer:limits:termneutralprod}\marginnote{\hyperref[soln:limits:termneutralprod]{See solution.}}
+\begin{exer}{soln:limits:termneutralprod}\label{exer:limits:termneutralprod}
     Let $\terminal$ be the "terminal" "object" in $\mathbf{C}$. Show that for any $A \in \obj{\mathbf{C}}$, the product of $\terminal$ and $A$ is $A$.\footnote{This property is expected because in $\catSet$, $\terminal = \{\ast\}$ and \[\{\ast\} \times A = \{(\ast,a)\mid a \in A\} \isoCAT A.\]}
 \end{exer}
 
@@ -216,7 +216,7 @@ To generalize the categorical "product@bproduct" to more than two "objects", one
 \end{warn}
 Commutativity and now associativity of categorical "products" are true by definition.\footnote{We mean the order of the $X_i$s is not taken into account for the "universal property". As we did for "binary products", we will make this more rigorous in ...} %TODO: find ref to where we do this.
 Here are three more properties of Cartesian products that generalize to categorical "products".
-\begin{exer}[\NOW]\label{exer:limits:functionproduct}\marginnote{\hyperref[soln:limits:functionproduct]{See solution.}}
+\begin{exer}{soln:limits:functionproduct}[\NOW]\label{exer:limits:functionproduct}
     Let $\{f_i : X_i \rightarrow Y_i\}_{i \in I}$ be a family of "morphisms" in $\mathbf{C}$, show that there is a unique "morphism" $\Product_{i \in I} f_i: \Product_{i \in I} X_i \rightarrow\Product_{i \in I} Y_i$ making the following square "commute" for all $j \in I$.
     \begin{equation}\label{diag:prodmorph}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXFByb2R1Y3Rfe2kgXFxpbiBJfSBYX2kiXSxbMSwwLCJcXFByb2R1Y3Rfe2kgXFxpbiBJfSBZX2kiXSxbMSwxLCJZX2oiXSxbMCwxLCJYX2oiXSxbMCwxLCJcXFByb2R1Y3Rfe2kgXFxpbiBJfSBmX2kiXSxbMSwyLCJcXHBpX2oiXSxbMCwzLCJcXHBpX2oiLDJdLFszLDIsImZfaSIsMl1d
@@ -232,7 +232,7 @@ Here are three more properties of Cartesian products that generalize to categori
     \AP We call $\Product_{i \in I} f_i$ the ""product@productm"" of the $f_i$s. In the finite case, we write $f_1 \productm \cdots \productm f_n$.
 \end{exer}
 In $\catSet$, the function $\Product_{i \in I} f_i$ acts on tuples in $\Product_{i \in I}X_i$ by applying $f_i$ to the $i$th coordinate for every $i$.
-\begin{exer}\label{exer:limits:prodmediatecomposed}\marginnote{\hyperref[soln:limits:prodmediatecomposed]{See solution.}}
+\begin{exer}{soln:limits:prodmediatecomposed}\label{exer:limits:prodmediatecomposed}
     Let $X$, $Y$ and $\{X_i\}_{i \in I}$ be "objects" of $\mathbf{C}$ such that $\Product_{i \in I} X_i$ exists. For any family $f_i: X \rightarrow X_i$ and $g: Y \rightarrow X$ show that $\pair{f_i}_{i \in I} \circ g = \pair{f_i \circ g}_{i \in I}$. Conclude that for families $\{f_i : X_i \rightarrow Y_i\}_{i \in I}$ and $\{g_i : Z_i \rightarrow X_i\}_{i \in I}$, $\left( \Product f_i \right) \circ \left( \Product g_i \right) = \Product (f_i \circ g_i)$.\footnote{\label{foot:productfunctor}It may be useful to restate this in the binary case. For any $f: X \rightarrow Y$, $f': X' \rightarrow Y'$, $g:Z \rightarrow X$ and $g': Z' \rightarrow X'$, we have
     \[(f \productm f') \circ (g \productm g') = (f \circ g) \productm (g \circ g').\]
     As a corollary, if $\mathbf{C}$ has all "binary products", we get a "functor" $\mathbf{C}\cattimes \mathbf{C} \rightsquigarrow \mathbf{C}$ sending $(X,Y)$ to $X\product Y$ and $(f,g)$ to $f\productm g$.}
@@ -275,21 +275,21 @@ Let us find out what "coproducts" of sets are.
     \[\Coproduct_{i \in I} V_i = \bigoplus_{i \in I} V_i := \left\{ \vec{v} \in \prod_{i\in I}V_i \mid \vec{v}_i\neq 0 \text{ for finitely many $i$'s} \right\},\]
     where $\coprojection_j: V_j \hookrightarrow \Coproduct_i V_i$ sends $v$ to $\coprojection_j(v) \in \prod_i V_i$ satisfying $\coprojection_j(v)_j = v$ and $\coprojection_j(v)_{j'} = 0$ whenever $j \neq j'$. To verify this, let $\left\{ f_j: V_j \rightarrow X\right\}_{j \in I}$ be a family of "linear maps". We can construct $!$ by defining it on "basis" elements of the "direct sum", which are just the "basis" elements of all $V_j$s seen as elements of the "sum@direct sum" (via the "coprojections").\footnote{It is necessary to require finitely many non-zero entries, otherwise the "basis" of the "coproduct" would not be the union of all bases of the $V_j$s.} Indeed, if $b$ is in the "basis" of $V_j$, we let $!(\coprojection_j(b)) = f_j(b)$. Extending linearly yields a "linear map" $!: \Coproduct_iV_i \rightarrow X$. Uniqueness is clear because if $h:\Coproduct_iV_i \rightarrow X$ differs from $!$ on one of the basis elements, it does not make \eqref{diag:arbitrarycoproduniv} commute.
 \end{exmps}
-\begin{exer}\label{exer:limits:coprodrel}\marginnote{\hyperref[soln:limits:coprodrel]{See solution.}}
+\begin{exer}{soln:limits:coprodrel}\label{exer:limits:coprodrel}
     Let $A$ and $B$ be two sets, show that their "coproduct" exists in the "category" $\catRel$ and find what it is.
 \end{exer}
-\begin{exer}\label{exer:limits:proddualcoprod}\marginnote{\hyperref[soln:limits:proddualcoprod]{See solution.}}
+\begin{exer}{soln:limits:proddualcoprod}\label{exer:limits:proddualcoprod}
     Show that "products" are "dual" to "coproducts", namely, if a "product" of a familiy $\{X_i\}_{i \in I}$ exists in $\mathbf{C}$, then this "object" and the "projections" are the "coproduct" of this family and the "coprojections" in $\op{\mathbf{C}}$ and vice-versa. \AP Conclude that you can define the ""coproduct of morphisms@coproductm"" "dually@@CAT" to Exercise \ref{exer:limits:functionproduct}, we denote them $\Coproduct_{i \in I}f_i$ or $f_1 \coproductm \cdots \coproduct f_n$ in the finite case.
 \end{exer}
 Applying the "duality@@CAT" between "products" and "coproducts" to Proposition \ref{prop:assocprod} and Exercises \ref{exer:limits:prodcommute} and \ref{exer:limits:termneutralprod}, we get the following results.
 \begin{cor}["Dual@@CAT"]
     Taking binary "coproducts" is commutative and associative, and if $\initial$ is "initial", then $A + \initial \isoCAT A$.\footnote{While in $\catSet$, we have $A\times \emptyset \isoCAT \emptyset$, this does not generalize to all "categories" with "binary products" and an "initial" "object", e.g. $\catVect{k}$.}
 \end{cor}
-\begin{exer}\label{exer:limits:mediattingcoprodcomposed}\marginnote{\hyperref[soln:limits:mediattingcoprodcomposed]{See solution.}}
+\begin{exer}{soln:limits:mediattingcoprodcomposed}\label{exer:limits:mediattingcoprodcomposed}
     "Dually@@CAT" to Exercise \ref{exer:limits:prodmediatecomposed}, show that if $X$, $Y$ and $\{X_i\}_{i \in I}$ are "objects" of $\mathbf{C}$ such that $\Coproduct_{i \in I} X_i$ exists, then for any family $f_i: X_i \rightarrow X$ and $g: X \rightarrow Y$ show that $g \circ \copair{f_i}_{i \in I} = \copair{g \circ f_i}_{i \in I}$.
 \end{exer}
 
-\begin{exer}\label{exer:limits:maybefunctor}\marginnote{\hyperref[soln:limits:maybefunctor]{See solution.}}
+\begin{exer}{soln:limits:maybefunctor}\label{exer:limits:maybefunctor}
     Let $\mathbf{C}$ have a "terminal" "object" $\terminal$. Show that the assignment $X \mapsto X\coproduct\terminal$ is "functorial", i.e. define the action of $(\placeholder+\terminal)$ on "morphisms" and show it satisfies the axioms of a "functor".\footnote{\AP We call $(\placeholder\coproduct\terminal)$ the ""maybe functor"".}
 \end{exer}
 
@@ -358,7 +358,7 @@ We briefly mentioned that a "product" (resp. "coproduct") is a "limit" (resp. "c
 \end{proof}
 
 The first two examples had a relatively well-known instantiation in the "category" $\catSet$, namely, "products" are Cartesian products and "coproducts" are disjoint unions. The notion of "equalizer" of two functions, while just as intuitive as the others,\footnote{The "equalizer" of $f,g:A \rightarrow B$ is the subset of $A$ where $f$ and $g$ are equal.} is less common in ``classical'' set theory. However, it still leads to a nice categorical definition of "fiber".
-\begin{exer}\label{exer:limits:fiber}\marginnote{\hyperref[soln:limits:fiber]{See solution.}}
+\begin{exer}{soln:limits:fiber}\label{exer:limits:fiber}
     \AP Let $f: A \rightarrow B$ be a function and $y \in B$, the ""fiber"" of $y$ (under $f$) is $\{x \in A \mid f(x) = y\}$.\footnote{"Fiber" is just a synonym for preimage (usually) taken at a single point.} Give a categorical definition of "fibers" that does not rely on the special case of $\catSet$. Just like in Exercise \ref{exer:limits:defelements}, you should only refer to "objects" and "morphisms". In particular, you can only use the categorical notion of "elements" (Definition \ref{defn:element}). Does your definition still correspond to an intuitive notion of "fibers" inside $\catPoset$, $\catGrp$, $\catCat$?
 \end{exer}
 
@@ -411,10 +411,10 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
     % \end{equation}
     % Thus, one can see $M$ as generated by $A$ subject to $R$ that identify some products of $A$ with the identity. Elements of $R$ are called ""relations"" and the pair $A$ and $R$ is a ""presentation"" of $M$, denoted $M = \langle A \mid R \rangle$. %TODO: examples of presentation.
 \end{exmps}
-\begin{exer}\label{exer:limits:idempcoeq}\marginnote{\hyperref[soln:limits:idempcoeq]{See solution.}}
+\begin{exer}{soln:limits:idempcoeq}\label{exer:limits:idempcoeq}
     Show that an "idempotent" "morphism" $f: A \rightarrow A \in \mor{\mathbf{C}}$ is "split idempotent" if and only if the "coequalizer" of $f$ and $\id_A$ exists.
 \end{exer}
-\begin{exer}\label{exer:limits:cofiber}\marginnote{\hyperref[soln:limits:cofiber]{See solution.}}
+\begin{exer}{soln:limits:cofiber}\label{exer:limits:cofiber}
     Try to "dualize@@CAT" the definition of "fibers" from Exercise \ref{exer:limits:fiber}. What goes wrong?
 \end{exer}
 %TODO: exercise in Rel, find two relations that have no coequalizer, and also equalizer.
@@ -514,7 +514,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
         \end{tikzcd}
     \end{equation}
 \end{exmps}
-\begin{exer}\label{exer:limits:pullbackmono}\marginnote{\hyperref[soln:limits:pullbackmono]{See solution.}}
+\begin{exer}{soln:limits:pullbackmono}\label{exer:limits:pullbackmono}
     Let $f: X \rightarrow Y$ be a "morphism" in $\mathbf{C}$. Show $f$ is "monic" if and only if the square in \eqref{diag:pullbackmono} is a "pullback".\footnote{This result and its "dual" will sometimes be used to treat "monomorphisms" (resp. "epimorphisms") as "limits" (resp. "colimits"). See e.g. Exercise \ref{exer:limits:preservepullbackmono} where you will show that "monomorphisms" are "preserved@@PROP" by "pullback" "preserving@@LIM" "functors" (see Definition \ref{defn:presreflcreatlim}).}
     \begin{equation}\label{diag:pullbackmono}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiWCJdLFsxLDEsIlkiXSxbMSwwLCJYIl0sWzAsMSwiXFxpZF9YIiwyXSxbMSwyLCJmIiwyXSxbMCwzLCJcXGlkX1giXSxbMywyLCJmIl0sWzAsMiwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
@@ -529,7 +529,7 @@ The "equalizer" of $f$ and $g$ is the "limit" of the "diagram" containing only t
         \end{tikzcd}
     \end{equation}
 \end{exer}
-\begin{exer}\label{exer:limits:pullbackisos}\marginnote{\hyperref[soln:limits:pullbackisos]{See solution.}}
+\begin{exer}{soln:limits:pullbackisos}\label{exer:limits:pullbackisos}
     Supposing \eqref{diag:pullbackisoleft} "commutes", show that if the right square is a "pullback" and $i$ and $j$ are "isomosphisms@@CAT", then the rectangle is a "pullback".\footnote{i.e. $X$ along with $h$ and $p_B \circ i$ is a "pullback" of the "cospan"
     \[ Y \xrightarrow{f \circ j} C \xleftarrow{g} B.\]}
     \begin{equation}\label{diag:pullbackisoleft}
@@ -604,7 +604,7 @@ When "dualizing" "products" and "equalizers", the shape of the "diagram" did not
 
     As a particular case, if $C = A\cap B$ and $f$ and $g$ are simply inclusions, then $A \pushout{C} B = A\cup B$ (the \textit{non-disjoint} union).
 \end{exmp}
-\begin{exer}\label{exer:limits:pushoutcoeq}\marginnote{\hyperref[soln:limits:pushoutcoeq]{See solution.}}
+\begin{exer}{soln:limits:pushoutcoeq}\label{exer:limits:pushoutcoeq}
     Show that if \eqref{diag:pushoutcoeq} is a "pushout" square, then $d$ is the "coequalizer" of $f$ and $g$. State and prove the "dual@@CAT" statement.
     \begin{equation}\label{diag:pushoutcoeq}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzAsMSwiQiJdLFsxLDAsIkIiXSxbMSwxLCJEIl0sWzAsMSwiZiIsMl0sWzAsMiwiZyJdLFsyLDMsImQiXSxbMSwzLCJkIiwyXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
@@ -788,7 +788,7 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
         A "morphism" of "cocones" $f$ from $\{!_n\}$ to $\{\psi_n\}$ must satisfy $f(!_n(x)) = \psi_n(x) = \psi_n(y)$, so the only possible choice is the function sending $\ast$ to $\psi(x) = \psi(y)$.
     \end{enumerate}
 \end{exmps}
-\begin{exer}[Trivial (co)limits]\label{exer:limits:trivialcolim}\marginnote{\hyperref[soln:limits:trivialcolim]{See solution.}}
+\begin{exer}{soln:limits:trivialcolim}[Trivial (co)limits]\label{exer:limits:trivialcolim}
     Show the following "(co)@colimit""limits" always exist and find what they are.
     \begin{enumerate}
         \item The "limit" of a "diagram" with only one "morphism".
@@ -798,7 +798,7 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
     \end{enumerate}
 \end{exer}
 Instantiating our examples "(co)@colimit""limits" in "posets" was rather simple because they are "thin categories", and every "diagram" in a "thin category" is "commutative". This generalizes to all "(co)@colimit""limits".
-\begin{exer}\label{exer:limits:coliminposet}\marginnote{\hyperref[soln:limits:coliminposet]{See solution.}}
+\begin{exer}{soln:limits:coliminposet}\label{exer:limits:coliminposet}
     Let $\mathbf{C}$ be a "posetal" category. Show that the "limit" (resp. "colimit") of any "diagram" $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ is the "infimum" (resp. "supremum") of all points in the image of $F$. 
 \end{exer}
 \subsection{Results}
@@ -816,7 +816,7 @@ Instantiating our examples "(co)@colimit""limits" in "posets" was rather simple 
 
 Recall the definition of "preserve@@PROP" and "reflect@@PROP" we gave in Definition \ref{defn:presreflprop}. With the framework of "(co)@colimit""limits", we can give more formal related definitions.
 
-\begin{exer}[\NOW]\label{exer:limits:composecone}\marginnote{\hyperref[soln:limits:composecone]{See solution.}}
+\begin{exer}{soln:limits:composecone}[\NOW]\label{exer:limits:composecone}
     Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $D: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". The "composition" $F \circ D$ is a "diagram" of "shape" $\mathbf{J}$ in $\mathbf{C}'$. Show that sending a "cone" $\{\psi_X: A \rightarrow DX\}_{X\in \obj{\mathbf{J}}}$ over $F$ to $\{F\psi_X : FA \rightarrow FDX\}_{X \in \obj{\mathbf{J}}}$ is a "functor" $F_D: \cone(D) \rightsquigarrow \cone(F\circ D)$. "Dually@@CAT", construct the "functor" $F^D: \cocone(D) \rightsquigarrow \cocone(F \circ D)$.
 \end{exer}
 In words, $F\circ D$ is the "diagram" $D$ where we applied $F$ to all "objects" and "morphisms". Then, $F_D$ takes a "cone over" $D$ and applies $F$ to every "object" and "morphism" in it to obtain a "cone over" $F \circ D$.\footnote{Similarly for $F^D$.} This allows us to define "preservation" and "reflection" of "(co)@colimit""limits", as well as "creation".
@@ -830,21 +830,21 @@ In words, $F\circ D$ is the "diagram" $D$ where we applied $F$ to all "objects" 
     We leave to you the "dualization@@CAT" of this definition.\footnote{Replace "cone" by "cocone" and "limit" by "colimit".}
 \end{defn}
 These are more technical and rigorous than our previous notions of "preservation@@PROP" and "reflection@@PROP" of properties, but the intuition should stay the same. In practice, "preservation@@LIM" is used way more often,\footnote{In this book, we will not use the other two.} so let us practice a bit.
-\begin{exer}\label{exer:limits:preservepullbackmono}\marginnote{\hyperref[soln:limits:preservepullbackmono]{See solution.}}
+\begin{exer}{soln:limits:preservepullbackmono}\label{exer:limits:preservepullbackmono}
     Show that if $F$ "preserves@@LIM" "pullbacks" (i.e.: $F$ "preserves@@LIM" "limits" of "cospans"), then $F$ "preserves@@PROP" "monomorphisms". State and prove the "dual@@CAT" statement.
 \end{exer}
-\begin{exer}\label{exer:limits:isopreserve}\marginnote{\hyperref[soln:limits:isopreserve]{See solution.}}
+\begin{exer}{soln:limits:isopreserve}\label{exer:limits:isopreserve}
     Show that if $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is an "isomoprhism@@CAT", then $F$ "preserves@@LIM" and "reflects@@LIM" "(co)@colimit""limits" of all "shape".
 \end{exer}
 
 As we already hinted at, oftentimes, "forgetful functors" "preserve" "limits",\footnote{Due to results in Chapter \ref{chap:adjoints}.} we let you prove a very specific instance of this.
-\begin{exer}\label{exer:limits:preserveptd}\marginnote{\hyperref[soln:limits:preserveptd]{See solution.}}
+\begin{exer}{soln:limits:preserveptd}\label{exer:limits:preserveptd}
     Let $U: \catPtd \rightsquigarrow \catSet$ be the "forgetful functor" from "pointed sets" to sets. Show that $U$ "preserves" "products", "equalizers" and "pullbacks".
 \end{exer}
 
 %TODO: more examples of preserving, reflecting and creating with inclusion functors. Mon inside Cat, Poset and Pre inside 2Rel.
 
-\begin{exer}\label{exer:limits:hompreserveprod}\marginnote{\hyperref[soln:limits:hompreserveprod]{See solution.}}
+\begin{exer}{soln:limits:hompreserveprod}\label{exer:limits:hompreserveprod}
     Fix $A \in \obj{\mathbf{C}}$, show that the "functor" $\Hom_{\mathbf{C}}(A,\placeholder)$ "preserves" "binary products". Namely, if $X,Y \in \obj{\mathbf{C}}$ and $X\times Y$ exists, then \[\Hom_{\mathbf{C}}(A,X\product Y) \isoCAT \Hom_{\mathbf{C}}(A,X)\times \Hom_{\mathbf{C}}(A,Y).\]
 \end{exer}
 \begin{cor}["Dual@@CAT"]\label{cor:cohomcoprod}
@@ -1055,7 +1055,7 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
     \end{equation}
 \end{cor}
 %TODO: figure out what to do with this exercise. Footnote is confusing and maybe too easy for this part.
-\begin{exer}\label{exer:limits:isopullback}\marginnote{\hyperref[soln:limits:isopullback]{See solution.}}
+\begin{exer}{soln:limits:isopullback}\label{exer:limits:isopullback}
     Show that \eqref{diag:pullidentity} is a "pullback" square. Let $i: A' \rightarrow A$ be an "isomorphism@@CAT", show that \eqref{diag:pulliso} is a "pullback" square.\footnote{We can summarize the first square by saying that the "pullback" of any "morphism" "along@apull" the "identity" gives back the original "morphism". The second square is basically a converse to the statement ``"pullbacks" are unique up to "isomorphism@@CAT"'' in this very special case.}\\%TODO: explain better.
     \begin{minipage}{0.49\textwidth}
         \begin{equation}\label{diag:pullidentity}
@@ -1236,7 +1236,7 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
 \begin{defn}
     \AP A "functor" $\mathbf{C} \rightsquigarrow \mathbf{D}$ is said to be (""finitely@finitely continuous"") ""(co)continuous@continuous"" if it "preserves@@LIM" all (finite) "(co)@colimit""limits".
 \end{defn}
-\begin{exer}\label{exer:limits:preservinglim}\marginnote{\hyperref[soln:limits:preservinglim]{See solution.}}
+\begin{exer}{soln:limits:preservinglim}\label{exer:limits:preservinglim}
     Show that a "functor" is "continuous" if and only if it "preserves@@LIM" "products" and "equalizers". State and prove the "dual@@CAT" statement.
 \end{exer}
 \begin{thm}\label{thm:homcont}
@@ -1280,8 +1280,8 @@ X \arrow[rdd, "p_{A'}"', bend right] \arrow[rd, "{!}_A"', dashed] \arrow[rrd, "p
 % \begin{rem}
 %     Recall that we defined diagrams as functors with domain begin usually small or finite. In this definition, we must ensure that (co)limits are \textbf{small} if we want this notion to make sense. In fact, one can show (c.f. Exercise \ref{exer-complete}) that if a category has limits of all sizes, then $\Hom_{\mathbf{C}}(X,Y)$ has at most one element for all $X,Y \in \mathbf{C}_0$.
 % \end{rem}
-\begin{exer}\label{exer:limits:termpullcomplete}
-    Show that a "category" with all "pullbacks" and a "terminal" "object" is "finitely complete".\marginnote{\hyperref[soln:limits:termpullcomplete]{See solution.}}
+\begin{exer}{soln:limits:termpullcomplete}\label{exer:limits:termpullcomplete}
+    Show that a "category" with all "pullbacks" and a "terminal" "object" is "finitely complete".
 \end{exer}%TODO: simple way and hard way. Is the hard way really possible? It probably just simulates the hard way for equalizers and products.
 \begin{cor}["Dual@@CAT"]
     A "category" with all "pushouts" and an "initial" "object" is "finitely cocomplete".

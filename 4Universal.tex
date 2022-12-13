@@ -80,7 +80,7 @@ Hence, $G'$ is contained in the "kernel@GRP" of $h$. By the fundamental theorem 
     \end{equation}
 \end{defn}
 We can verify that this characterizes the "abelianization" of $G$ up to "isomorphism@@GRP".\footnote{Compare with what we proved for "free monoids".}
-\begin{exer}\label{exer:universal:uniqueabelianization}\marginnote{\hyperref[soln:universal:uniqueabelianization]{See solution.}}
+\begin{exer}{soln:universal:uniqueabelianization}\label{exer:universal:uniqueabelianization}
     Let $p: G \rightarrow H$ satisfy the "universal property" of $\pi: G \rightarrow \ab{G}$. Show that $\ab{G} \isoCAT H$.
 \end{exer}
 
@@ -119,11 +119,11 @@ This opposite point of view can be misleading. If we try to prove that this char
     \end{equation}
 \end{defn}
 The previous three examples of "universal properties" are all categorifications of a free construction. Here are two others we leave you to work out on your own.
-\begin{exer}\label{exer:universal:freeposet}\marginnote{\hyperref[soln:universal:freeposet]{See solution.}}
+\begin{exer}{soln:universal:freeposet}\label{exer:universal:freeposet}
     What is the free "partial order" over a set $S$?
 \end{exer}
 Recall that we can see a "category" as a "directed graph" with extra structure using the "forgetful functor" $U:\catCat \rightsquigarrow \catDGph$ that forgets about "composition" and "identities". From any "directed graph" $G$, we can construct a "category" of paths of $G$, denoted by $\mathbf{P}G$. The "objects" of $\mathbf{P}G$ are those of $G$, and the "morphisms" in $\Hom_{\mathbf{P}G}(A,B)$ are "paths" from $A$ to $B$ in $G$. The "composition" of two "paths" $A \xrightarrow{f_1} \cdots \xrightarrow{f_n} B$ and $B \xrightarrow{g_1} \cdots \xrightarrow{g_m} C$ is the concatenated "path" $A \xrightarrow{f_1} \cdots \xrightarrow{f_n} B \xrightarrow{g_1} \cdots \xrightarrow{g_m} C$, and the "identity" on $A$ is the empty "path" going from $A$ to $A$.\footnote{Of course, concatenating a "path" with the empty "path" does nothing.}
-\begin{exer}\label{exer:universal:freecat}\marginnote{\hyperref[soln:universal:freecat]{See solution.}}
+\begin{exer}{soln:universal:freecat}\label{exer:universal:freecat}
     Show that $\mathbf{P}G$ is the free "category" over the "directed graph" $G$. Moreover, show that when $G$ has a single "object", $\mathbf{P}G$ is the "delooping" of the "free monoid" $\freemon{\mor{G}}$. 
 \end{exer}
 
@@ -132,7 +132,7 @@ This section and the following two are motivated by important constructions in $
 \begin{rem}
     Let me repeat that there is a choice to make when doing such categorifications. Given a classical construction, we need to decide what is the core idea that we want to keep when we abstract away from concrete details. If this core idea allows you to recover the original construction when instantiating back in $\catSet$, then your abstraction is appropriate, but it might not be the only one.
 \end{rem}
-\begin{exer}\label{exer:universal:prodXfunc}\marginnote{\hyperref[soln:universal:prodXfunc]{See solution.}}
+\begin{exer}{soln:universal:prodXfunc}\label{exer:universal:prodXfunc}
     Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that for any $Y \in \obj{\mathbf{C}}$, $Y \product X$ exists. Show that $\placeholder\product X$ is a "functor" $\mathbf{C} \rightsquigarrow \mathbf{C}$.
 \end{exer} 
 Let $A$ and $X$ be sets, $A^X$ commonly denotes the set of functions $X \rightarrow A$. In particular, $\catSet$ is "locally small" and $\Hom_{\catSet}(A,B)$ is a set, i.e., an "object" of $\catSet$. This is a somewhat exceptional situation, but there are other "categories" where "hom-sets" can actually be viewed as "objects" of the "category".\footnote{For instance, the set of "linear maps" $V \rightarrow W$ is a "vector space" where addition and scalar multiplication is done pointwise.}
@@ -162,21 +162,21 @@ This is entirely categorical, so we can define "exponential objects" as follows.
     Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $\placeholder\product X$ is a "functor".\footnote{i.e.: all "binary products" with $X \in \obj{\mathbf{C}}$ exist.} For $A \in \obj{\mathbf{C}}$, the ""exponential"" $A^X$ (if it exists) is an "object" $A^X$ along with a "morphism" $\ev: A^X \product X \rightarrow A$ such that for all $g: B\product X \rightarrow A$, there is a unique $\curry{g}:B \rightarrow A^X$ making \eqref{diag:exponent} "commute".
 \end{defn}
 Informally, one can think of $A^X$ as an "object" which behaves like $\Hom_{\mathbf{C}}(A,X)$. The terminology \textbf{internal hom} is often used (sometimes in more general contexts).
-\begin{exer}\label{exer:universal:expovect}\marginnote{\hyperref[soln:universal:expovect]{See solution.}}
+\begin{exer}{soln:universal:expovect}\label{exer:universal:expovect}
     Let $k$ be a "field", and $V$ and $W$ be "vector spaces" over $k$. Show that the "vector space" $\Hom_{\catVect{k}}(V,W)$ equipped with pointwise addition and scalar multiplication of "linear maps" is the "exponential" $W^V$.
 \end{exer}
-\begin{exer}\label{exer:universal:expounique}\marginnote{\hyperref[soln:universal:expounique]{See solution.}}
+\begin{exer}{soln:universal:expounique}\label{exer:universal:expounique}
     Show that if $e: Y \product X \rightarrow A$ satisfies the same "universal property" as $\ev$, then $Y \isoCAT A^X$.\footnote{We will stop proving that "universal properties" determine "objects" up to "isomorphisms@@CAT", the abstract result (stating that works for all "universal properties") is Corollary \ref{cor:univpropiso}.}
 \end{exer}
 \begin{defn}[Cartesian closed]
     \AP When a "category" $\mathbf{C}$ has all "exponentials" $A^X$ for all $A,X \in \obj{\mathbf{C}}$ (in particular, it has all "binary products"), we say it is ""cartesian closed"".
 \end{defn}
 The "category" of sets is "cartesian closed". Here is an exercise calling back to when we showed many familiar properties of Cartesian products generalized to "binary products".
-\begin{exer}\label{exer:universal:propexpon}\marginnote{\hyperref[soln:universal:propexpon]{See solution.}}
+\begin{exer}{soln:universal:propexpon}\label{exer:universal:propexpon}
     Let $\mathbf{C}$ be a "category" with a "terminal" "object" $\terminal$, and let $X \in \obj{\mathbf{C}}$. Show that $X$ is the "exponential" $X^{\terminal}$ and $\terminal$ is the "exponential" $\terminal^X$,\footnote{Other properties about "exponentials" in $\catSet$ can be generalized (e.g. $(X^Y)^Z \isoCAT X^{Y\times Z}$), but we will wait until we see the "Yoneda lemma" to give more elegant proofs.} i.e. find the "evaluation" "morphisms" and prove they satisfy the right "universal property".
 \end{exer}
 \subsection{Subobject Classifier}
-\begin{exer}\label{exer:universal:subobjfunctor}\marginnote{\hyperref[soln:universal:subobjfunctor]{See solution.}}
+\begin{exer}{soln:universal:subobjfunctor}\label{exer:universal:subobjfunctor}
     Let $\mathbf{C}$ be a "well-powered" "category" with all "pullbacks". We define $\Sub_{\mathbf{C}}$ on "morphisms": it sends $f: X \rightarrow Y$ to $\pull{f}{\placeholder}: \Sub_{\mathbf{C}}(Y) \rightarrow \Sub_{\mathbf{C}}(X)$ sending $m: I \hookrightarrow Y$ to $\pull{f}{m}$, the "pullback" of $m$ "along" $f$ as depicted in \eqref{diag:pullbackalongf}. Show that this is well-defined (recall that a "subobject" of $Y$ is an equivalence class of "monomorphisms") and makes $\Sub_{\mathbf{C}}$ into a "functor" $\op{\mathbf{C}} \rightsquigarrow \mathbf{Set}$.\begin{marginfigure}\begin{equation}\label{diag:pullbackalongf}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJKIl0sWzAsMSwiWCJdLFsxLDEsIlkiXSxbMSwwLCJJIl0sWzAsMSwiXFxwdWxse2Z9e1xcaW90YX0iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsxLDIsImYiLDJdLFswLDNdLFszLDIsIlxcaW90YSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
 \begin{tikzcd}
@@ -319,7 +319,7 @@ Note that we obtain $f_\gamma$ from $\gamma$ instead of $\Gamma_f$ from $f$ (lik
 \end{exmp}
 
 Again, we want to draw a diagram that summarizes this "universal property". Just like for "subobject classifiers", we have to check $f_\gamma$ is the same as $f_{\gamma'}$ when $\gamma$ and $\gamma'$ are representatives for the same "subobject".
-\begin{exer}\label{exer:universal:welldefinedpowerchar}\marginnote{\hyperref[soln:universal:welldefinedpowerchar]{See solution.}}
+\begin{exer}{soln:universal:welldefinedpowerchar}\label{exer:universal:welldefinedpowerchar}
     Let ${\in_X} \hookrightarrow X\product \Power X$ be the "power object" of $X \in \obj{\mathbf{C}}$. Show that if $\gamma$ and $\gamma'$ are two "monomorphisms" equal in $\Sub_{\mathbf{C}}(X\product Y)$, then $f_\gamma = f_{\gamma'}$.
 \end{exer}
 We can conclude that if $\mathbf{C}$ is "well-powered" and has a "terminal" "object", the "power object" of $X\in \obj{\mathbf{C}}$ is a "monomorphism" ${\in_X} \hookrightarrow X\product \Power X$ such that for any "subobject" $\gamma$ of $X\product Y$, there is a unique "morphism" $f_\gamma: Y \rightarrow \Power X$ satisfying $\pull{(\id_X \productm f_\gamma)}{\in_X} = \gamma$. This is summarized in \eqref{diag:uppowerobject}.
@@ -345,7 +345,7 @@ Adapting the solution to Exercise \ref{exer:duality:subobjccat}, we find that th
 Again taking inspiration from $\catCat$, Definition \ref{defn:prodcat} (see also Exercise \ref{exer:limits:catprod}) tells us how to define "binary products" of "graphs" if we forget about the "composition" and "identities".\footnote{In other words, the "forgetful functor" $\catCat \rightsquigarrow \catDGph$ "preserves@@LIM" "binary products".}
 
 We have not yet defined "pullbacks" in $\catCat$, but we will do it only for $\catDGph$ here because it is easier.
-\begin{exer}\label{exer:universal:dgphpullbacks}\marginnote{\hyperref[soln:universal:dgphpullbacks]{See solution.}}
+\begin{exer}{soln:universal:dgphpullbacks}\label{exer:universal:dgphpullbacks}
     Given two "morphisms" $f: A \rightarrow C$ and $g:B \rightarrow C$ in $\catDGph$, find the "pullback" $A\pullback{C} B$. Show that the "functors" $\obj{(\placeholder)}:\catDGph \rightsquigarrow \catSet$ and $\mor{(\placeholder)}: \catDGph \rightsquigarrow \catSet$\footnote{These are defined like for $\catCat$ in Exercise \ref{exer:catfunc:forgetfulcat}.} "preserve@@LIM" "pullbacks".
 \end{exer}
 The second part of this exercise is a hint for the first part, and it is what we will use shortly. "Unrolling", it means the "objects" and "arrows" of $A\pullback{C} B$ are defined as follows:
@@ -493,7 +493,7 @@ The function $f$ is defined inductively. We let $f(0)$ be the element of $X$ in 
         \end{equation}
     \end{marginfigure}
 \end{defn}
-\begin{exer}\label{exer:universal:nnoposet}\marginnote{\hyperref[soln:universal:nnoposet]{See solution.}}
+\begin{exer}{soln:universal:nnoposet}\label{exer:universal:nnoposet}
     Show that the "NNO" in $\catPoset$ is $(\N,\leq)$ with the same zero and successor functions (now seen as "morphisms" in $\catPoset$).
 \end{exer}
 %TODO: make sure we cannot. otherwise say will not
@@ -587,7 +587,7 @@ In the next section, we will see that "universal morphisms" are "initial" or "te
     \AP A ""universal property"" is the property of being "initial" or "terminal" in a "category".\footnote{This rather underwhelming definition is also what led me to postpone it to this point, after we have seen many examples and uses of "universal properties".}
 \end{defn}
 It readily follows (using Proposition \ref{prop:initialunique} and Corollary \ref{cor:terminalunique}) that "universal properties" determine things up to "isomorphism@@CAT".
-\begin{exer}\label{exer:universal:initialsubclass}\marginnote{\hyperref[soln:universal:initialsubclass]{See solution.}}
+\begin{exer}{soln:universal:initialsubclass}\label{exer:universal:initialsubclass}
     Show that in any "category" $\mathbf{C}$ with a "terminal" "object" $\terminal$ (even if $\mathbf{C}$ is not "well-powered"), we can define a "category" whose "objects" are "monomorphisms" in $\mathbf{C}$ and $\top: X \hookrightarrow \Omega$ is "terminal" if and only if it is the "subobject classifier" in $\mathbf{C}$. In particular, if $\top$ is "terminal" in that "category", then $X$ is "terminal" in $\mathbf{C}$.
 \end{exer}
 
@@ -665,7 +665,7 @@ Before moving on, we are going to have some fun with new definitions that let us
         \end{tikzcd}
     \end{equation}\end{marginfigure}
 \end{defn}
-\begin{exer}\label{exer:universal:arrowcatfunctors}\marginnote{\hyperref[soln:universal:arrowcatfunctors]{See solution.}}
+\begin{exer}{soln:universal:arrowcatfunctors}\label{exer:universal:arrowcatfunctors}
     Let $\mathbf{C}$ be a "category" (note the change of font to distinguish the "functors" from their action).
     \begin{enumerate}
         \item Show that $\intro*\idarr:\mathbf{C} \rightsquigarrow \arrowcat{\mathbf{C}}$ sending $X \in \obj{\mathbf{C}}$ to $\id_X$ is "functorial".
@@ -673,7 +673,7 @@ Before moving on, we are going to have some fun with new definitions that let us
         \item Show that $\intro*\targetarr:\arrowcat{\mathbf{C}} \rightsquigarrow \mathbf{C}$ sending $f \in \obj{\arrowcat{\mathbf{C}}}$ to $\target(f)$ is "functorial".
     \end{enumerate}
 \end{exer}
-\begin{exer}\label{exer:universal:arrfunctor}\marginnote{\hyperref[soln:universal:arrfunctor]{See solution.}}
+\begin{exer}{soln:universal:arrfunctor}\label{exer:universal:arrfunctor}
     Show the assignment $\mathbf{C} \mapsto \arrowcat{\mathbf{C}}$ yields a "functor" $\catCat \rightsquigarrow \catCat$.
 \end{exer}
 \begin{defn}[Slice category]
@@ -699,7 +699,7 @@ Before moving on, we are going to have some fun with new definitions that let us
         \end{equation}
     \end{marginfigure}
 \end{defn}
-\begin{exer}[\NOW]\label{exer:universal:sliceterminal}\marginnote{\hyperref[soln:universal:sliceterminal]{See solution.}}
+\begin{exer}{soln:universal:sliceterminal}[\NOW]\label{exer:universal:sliceterminal}
     Suppose $\mathbf{C}$ has a "terminal" "object" $\terminal$, what is $\slice{\mathbf{C}}{\terminal}$?
 \end{exer}
 \begin{exmp}
@@ -716,7 +716,7 @@ Before moving on, we are going to have some fun with new definitions that let us
     \end{equation}
     Equivalently, $f$ must satisfy $a \in P_B \implies f(a) \in P_B$. Logically-minded people might call $\slice{\catSet}{\Omega}$ the "category" of predicates and predicate-preserving functions. We can also view a predicate as a unary relation on $A$, and we recognize $\slice{\catSet}{\Omega}$ is the "category" $\catnRel{1}$.
 \end{exmp}
-\begin{exer}\label{exer:universal:nrelslice}\marginnote{\hyperref[soln:universal:nrelslice]{See solution.}}
+\begin{exer}{soln:universal:nrelslice}\label{exer:universal:nrelslice}
     Let $\mathbf{C}$ be a "category" with all finite "products" and fix $n \in \N$. Show the assignment $X \mapsto X^n = X\product \stackrel{n}{\cdots} \product X$ is "functorial". Using this "functor" and intuition from the previous example, define $\catnRel{n}$ as a "comma category".
 \end{exer}
 \begin{defn}[Coslice category]
@@ -743,18 +743,18 @@ Before moving on, we are going to have some fun with new definitions that let us
     Equivalently, $f$ must send $a$ to $b$, i.e., $f(a) = b$. You might now recognize that $\coslice{\terminal}{\catSet}$ is really the "category" $\catPtd$ in disguise.
 \end{exmp}
 This example suggests we can define an abstract and general way of defining ``pointed'' things. However, recall that sometimes, $\terminal$ is not the right "object" to talk about elements. For instance, in $\catGrp$, $\terminal$ is also "initial" so, by the "dual@@CAT" to Exercise \ref{exer:universal:sliceterminal}, $\coslice{\terminal}{\catGrp}$ is the same thing as $\catGrp$. Still, we can easily define the "category" $\catGrp_*$ of pointed "groups": its "objects" are pairs $(G,g)$ where $G$ is a "group" and $g\in G$, and "morphisms" $(G,g) \rightarrow (H,h)$ are "homomorphisms@@GRP" $f: G \rightarrow H$ satisfying $f(g) = h$.
-\begin{exer}\label{exer:universal:pointedgrp}\marginnote{\hyperref[soln:universal:pointedgrp]{See solution.}}
+\begin{exer}{soln:universal:pointedgrp}\label{exer:universal:pointedgrp}
     Let $\Z$ be the "group" of integers equipped with addition. Show that one can define the "category" $\catGrp_*$ as $\coslice{\Z}{\catGrp}$.
 \end{exer}
-\begin{exer}\label{exer:universal:termslice}\marginnote{\hyperref[soln:universal:termslice]{See solution.}}
+\begin{exer}{soln:universal:termslice}\label{exer:universal:termslice}
     Show that for any "category" $\mathbf{C}$ and "object" $X \in \obj{\mathbf{C}}$, the "slice category" $\slice{\mathbf{C}}{X}$ has a "terminal" "object". State and prove the "dual@@CAT" statement.
 \end{exer}
 
-\begin{exer}\label{exer:universal:productslice}\marginnote{\hyperref[soln:universal:productslice]{See solution.}}
+\begin{exer}{soln:universal:productslice}\label{exer:universal:productslice}
     Show that the "product" of $f:A \rightarrow X$ and $g: B \rightarrow X$ in $\slice{\mathbf{C}}{X}$ exists if and only if the "pullback" of $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & X & B \arrow[l, "g"'] \end{tikzcd}$ exists in $\mathbf{C}$. State and prove the "dual@@CAT" statement.
 \end{exer}
 These results can be summarized by saying that "pullbacks" are "products" in the "slice category", and "pushouts" are "coproducts" in the "coslice category". This allows us to define arbitrary (not binary) "pullbacks" and "pushouts" as arbitrary "products" and "coproducts" in the "slice" and "coslice" "categories".\footnote{In the literature, these are called \textbf{fibered products} and \textbf{fibered sums} respectively.}
-\begin{exer}\label{exer:universal:opcomma}\marginnote{\hyperref[soln:universal:opcomma]{See solution.}}
+\begin{exer}{soln:universal:opcomma}\label{exer:universal:opcomma}
     Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, show that an "initial" "object" in $\comcat{F}{G}$ is a "terminal" "object" in $\comcat{\op{G}}{\op{F}}$.
 \end{exer}
 
@@ -784,7 +784,7 @@ Back to "universal properties". We give a more concise definition.
     We said that a "universal morphism" from $F$ to $X$ is a "universal morphism" from $X \in \op{\mathbf{C}}$ to $\op{F}$. By the previous result, it is an "initial" "object" in $\comcat{\constFunc{X}}{\op{F}}$. By Exercise \ref{exer:universal:opcomma}, it is a "terminal" "object" in $\comcat{F}{\constFunc{X}}$.
 \end{proof}
 In case a "universal property" is realized by a "universal morphism", we can formally prove that this property determines an "object" up to "isomorphism@@CAT".
-\begin{exer}[\NOW]\label{exer:universal:univunique}\marginnote{\hyperref[soln:universal:univunique]{See solution.}}
+\begin{exer}{soln:universal:univunique}[\NOW]\label{exer:universal:univunique}
     Show that if there is a "universal morphism" from $X$ to $F$ and one from $Y$ to $F$, then $X \isoCAT Y$. State and prove the "dual@@CAT" statement.
 \end{exer}
 %TODO: maybe exercises on the category of elements. e.g. category of elements of Hom functor is slice category. Preparation for Yoneda lemma basically.

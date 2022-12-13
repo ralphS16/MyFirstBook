@@ -83,7 +83,7 @@ It can take a bit of time to get comfortable with "Hom functors". For now, we on
 	We know that $\Hom_{\catVect{k}}(V,k) = \dual{V}$ can be seen as a "vector space" and it is easy to check that "pre-composition" by $T$ is a "linear map" $\dual{W} \rightarrow \dual{V}$. Therefore, we find that the assignment $V \mapsto \dual{V} = \Hom_{\catVect{k}}(\placeholder,k)$ is a "contravariant functor" $\catVect{k} \rightsquigarrow \catVect{k}$.
 \end{exmp}
 We will not dwell too long on "contravariant functors" as we will see right away how they can be avoided, but first, let us give a reason why we want to avoid them.
-\begin{exer}\label{exer:duality:composecontra}\marginnote{\hyperref[soln:duality:composecontra]{See solution.}}
+\begin{exer}{soln:duality:composecontra}\label{exer:duality:composecontra}
 	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$, $G: \mathbf{D} \rightsquigarrow \mathbf{E}$ be "contravariant functors", and $G \circ F:\mathbf{C} \rightsquigarrow \mathbf{E}$ be their "composition@@FUNC" defined by $G_0 \circ F_0$ on "objects" and $G_1 \circ F_1$ on "morphisms". Show that $G \circ F$ is a \emph{"covariant"} "functor".\footnote{We conclude that we cannot straightforwardly compose "contravariant functors". This alone makes the following alternative more desirable because we want "functors" to be "morphisms" in a "category", hence they must be composable.} Using diagrams will be easier.
 \end{exer}
 \section{Opposite Category}
@@ -115,7 +115,7 @@ In the rest of this book, we choose to work with "covariant" "functors" of type 
 	This will be called the $\Hom$ ""bifunctor@hombif"".
 \end{enumerate}
 \end{exmps}
-\begin{exer}\label{exer:duality:oppositefunc}\marginnote{\hyperref[soln:duality:oppositefunc]{See solution.}}
+\begin{exer}{soln:duality:oppositefunc}\label{exer:duality:oppositefunc}
 	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor", show that its "dual@@CAT" $\op{F}$ defined by $\op{A} \mapsto \op{(FA)}$ on "objects" and $\op{f} \mapsto \op{(Ff)}$ on "morphisms" is a "functor" $\op{\mathbf{C}} \rightsquigarrow \op{\mathbf{D}}$. 
 \end{exer}
 \begin{rem}\label{rem:hombifunctor}
@@ -210,10 +210,10 @@ Conversely, an "epimorphism" is not necessarily surjective. For example, the inc
 	h(-n)h(n) = h(-n+n) = h(0) = 1_M,
 \end{gather*} but then $g(-n) = h(-n)h(n)g(-n) = h(-n)$.
 \end{exmp}
-\begin{exer}\label{exer:duality:monicCat}\marginnote{\hyperref[soln:duality:monicCat]{See solution.}}
+\begin{exer}{soln:duality:monicCat}\label{exer:duality:monicCat}
 	Show that a "monomorphism" in $\catCat$ is a "functor" that is "faithful" and injective on "objects", it is called an ""embedding@@CAT"".\footnote{Finding a nice characterization of "epimorphisms" in $\catCat$ is an open question as far as I know.} %TODO: check this.
 \end{exer}
-\begin{exer}\label{exer:duality:altdefmonepi}\marginnote{\hyperref[soln:duality:altdefmonepi]{See solution.}}
+\begin{exer}{soln:duality:altdefmonepi}\label{exer:duality:altdefmonepi}
 	Show that a "morphism" $f\in \mor{\mathbf{C}}$ is "monic" if and only if the function $\Hom_{\mathbf{C}}(A,f) = f \circ \placeholder$ is injective for all $A \in \obj{\mathbf{C}}$. "Dually@@CAT", show that $f$ is "epic" if and only if the function $\Hom_{\op{\mathbf{C}}}(\op{A},\op{f}) = \Hom_{\mathbf{C}}(f,A) = \placeholder \circ f$ is injective for all $A \in \obj{\mathbf{C}}$.
 \end{exer}
 \begin{rem}
@@ -222,7 +222,7 @@ Conversely, an "epimorphism" is not necessarily surjective. For example, the inc
 \begin{defn}[Isomorphism]\label{defn:isomorphism}
 	\AP Let $\mathbf{C}$ be a "category", a "morphism" $f:A\rightarrow B$ is said to be an ""isomorphism@@CAT"" if there exists a "morphism" $f^{-1}: B\rightarrow A$ such that $f\circ f^{-1} = \id_B$ and $f^{-1}\circ f = \id_A$.\footnote{\AP Then $f^{-1}$ is called the ""inverse"" of $f$. One can check that if $f'$ is a "left inverse" of $f$ and $f''$ is a "right inverse", then $f' = f'' = f^{-1}$. Hence, the "inverse" is unique.}
 \end{defn}
-\begin{exer}\label{exer:duality:composemor}\marginnote{\hyperref[soln:duality:composemor]{See solution.}}
+\begin{exer}{soln:duality:composemor}\label{exer:duality:composemor}
 	Show that the property of being "monic"/"epic"/an "isomorphism@@CAT" is invariant under "composition", i.e., if $f$ and $g$ are "composable" "monomorphisms", then $f \circ g$ is "monic" and similarly for "epimorphisms" and "isomorphisms@@CAT".
 \end{exer}
 \begin{rem}
@@ -282,7 +282,7 @@ In this example, we could have chosen any singleton to show it is "terminal". Ho
 	Let $\mathbf{C}$ be a "category" and $A,B\in \obj{\mathbf{C}}$ be "terminal", then $A \isoCAT B$.\footnote{From now on, I let you prove many "dual@@CAT" results on your own --- I will try to continue doing the complicated ones. They are not necessarily great exercises, but you can certainly do them if you want to follow this book at a slower pace.}
 \end{cor}
 Rewording the last two results, we can say that "initial" (resp. "terminal") "objects" are unique up to "isomorphisms@@CAT". However, the situation is quite nicer. "Initial" (resp. "terminal") "objects" are unique up to  \textit{unique} "isomorphisms@@CAT". Indeed, if there is an "isomorphism@@CAT" $f: A \rightarrow B$ and $A$ and $B$ are "initial" (resp. "terminal"), then, by definition, $f$ is the unique "morphism" in $\Hom_{\mathbf{C}}(A,B)$. %TODO: Note that the uniqueness of isomorphism is stronger than a simple isomorphism (try to give more intuition about this with an example)
-\begin{exer}\label{exer:duality:inittermcat}\marginnote{\hyperref[soln:duality:inittermcat]{See solution.}}
+\begin{exer}{soln:duality:inittermcat}\label{exer:duality:inittermcat}
 	Show that in $\catCat$, the "initial" "object" is the empty "category" (no "objects" and no "morphisms") and the "terminal" "object" is the "category" with one "object" $\termcat$ (hence the agreeing notation).\footnote{\textbf{Hint}: the unique functor $\termmorph:\mathbf{C} \rightarrow \termcat$ is the "constant functor" at the "object" $\bullet \in \obj{\termcat}$.}
 \end{exer}
 \begin{exmp}[$\catGrp$]
@@ -291,13 +291,13 @@ Rewording the last two results, we can say that "initial" (resp. "terminal") "ob
 \begin{exmp}[$\catMet$]\label{exmp:terminitmet}
 	The "terminal" "object" in $\catMet$ is the space with only one point $\ast$. The distance is determined by the axioms on a "metric", because $d_{\terminal}(\ast,\ast)$ must be equal to $0$.\footnote{The function sending all of $X$ to $\ast$ is nonexpansive whatever the distance $d$ on $X$ because $d(x,y) \geq 0 = d_{\terminal}(\ast,\ast)$.} The "initial" "object" in $\catMet$ is the empty space, for the same reason that $\emptyset$ is "initial" in $\catSet$.
 \end{exmp}
-\begin{exer}\label{exer:duality:zeroinptd}\marginnote{\hyperref[soln:duality:zeroinvect]{See solution.}}
+\begin{exer}{soln:duality:zeroinvect}\label{exer:duality:zeroinptd}
 	Find the "initial" and "terminal" "objects" in $\catPtd$.
 \end{exer}
-\begin{exer}\label{exer:duality:zeroinvect}\marginnote{\hyperref[soln:duality:zeroinvect]{See solution.}}
+\begin{exer}{soln:duality:zeroinvect}\label{exer:duality:zeroinvect}
 	Find the "initial" and "terminal" "objects" in $\catVect{k}$.
 \end{exer}
-\begin{exer}\label{exer:duality:terminalinitial}\marginnote{\hyperref[soln:duality:terminalinitial]{See solution.}}
+\begin{exer}{soln:duality:terminalinitial}\label{exer:duality:terminalinitial}
 	Find a "category" with only two "objects" $X$ and $Y$ such that
 	\begin{enumerate}[(a)]
 		\item $X$ is "initial" but not "terminal" and $Y$ is "terminal" but not "initial".
@@ -332,10 +332,10 @@ Rewording the last two results, we can say that "initial" (resp. "terminal") "ob
 	\end{enumerate}
 \end{exmps}
 
-\begin{exer}\label{exer:duality:morterminal}\marginnote{\hyperref[soln:duality:morterminal]{See solution.}}
+\begin{exer}{soln:duality:morterminal}\label{exer:duality:morterminal}
 	Let $\mathbf{C}$ be a "category" with a "terminal" "object" $\terminal$. Show that any "morphism" $f: \terminal \rightarrow X$ is "monic". State and prove the "dual@@CAT" statement.
 \end{exer}
-\begin{exer}\label{exer:duality:productterminal}\marginnote{\hyperref[soln:duality:productterminal]{See solution.}}
+\begin{exer}{soln:duality:productterminal}\label{exer:duality:productterminal}
 	Let $\mathbf{C}$ and $\mathbf{D}$ be "categories", and $\terminal_{\mathbf{C}}$ and $\terminal_{\mathbf{D}}$ be "terminal" "objects" in $\mathbf{C}$ and $\mathbf{D}$ respectively. Show that $(\terminal_{\mathbf{C}},\terminal_{\mathbf{D}})$ is "terminal" in the $\mathbf{C} \cattimes \mathbf{D}$. State and prove the "dual@@CAT" statement.
 \end{exer}
 \begin{exmp}\label{exmp:unions}
@@ -383,7 +383,7 @@ Since "diagrams" are defined as "functors", they interact well with other "funct
 	If $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is "faithful", then $F$ "reflects@@PROP" "commutativity". Let $D: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram" and suppose $F \circ D$ is "commutative". As in Definition \ref{defn:commutative}, take a "path" in the image of $D$ of "length" greater than one that "composes@comppaths" to $p_1: A \rightarrow B$ and another "path" that "composes@comppaths" to $p_2 : A \rightarrow B$. After applying $F$, "commutativity" of $F\circ D$ ensures the two "paths" "compose@comppaths" to the same "morphism" $p \in \Hom_{\mathbf{D}}(FA, FB)$. Moreover, $p$ is the image of both $p_1$ and $p_2$, and since $F$ is "faithful", we conclude that $p_1 = p_2$.
 \end{exmp}
 The following two exercises are a quick investigation in "preservation@@PROP" and "reflection@@PROP" of simple properties we have seen in this chapter.
-\begin{exer}\label{exer:duality:preserving}\marginnote{\hyperref[soln:duality:preserving]{See solution.}}
+\begin{exer}{soln:duality:preserving}\label{exer:duality:preserving}
 	\begin{enumerate}
         \item Find an example of "functor" which does not "preserve@@PROP" "monomorphisms".\footnote{We can see a "morphism" as a "diagram" of "shape" $\cattwo$ because a "functor" $\cattwo \rightsquigarrow \mathbf{C}$ amounts to a choice of a "morphism" in $\mathbf{C}$. Thus, a "functor" $F$ "preserves@@PROP" "monomorphisms" if and only if whenever $f$ is "monic", $F(f)$ also is.}
         \item Show that if $f \in \mathbf{C}_1$ is a "split monomorphism", then $F(f)$ is also a "split monomorphism", i.e.: any "functor" "preserves@@PROP" "split monomorphisms".
@@ -391,7 +391,7 @@ The following two exercises are a quick investigation in "preservation@@PROP" an
         \item Infer that all "functors" "preserve@@PROP" "isomorphisms@@CAT", in particular "functors" send "isomorphic@@CAT" "objects" to "isomorphic@@CAT" "objects".
     \end{enumerate}
 \end{exer}
-\begin{exer}\label{exer:duality:reflecting}\marginnote{\hyperref[soln:duality:reflecting]{See solution.}}
+\begin{exer}{soln:duality:reflecting}\label{exer:duality:reflecting}
 	\begin{enumerate}
 		\item Find an example of "functor" which does not "reflect@@PROP" "monomorphisms".\footnote{A "functor" "reflects" "monomorphisms" if whenever $Ff$ is "monic", $f$ also is.}
 		\item Show that if $F$ is "faithful", then $F$ "reflects@@PROP" "monomorphisms".
@@ -417,7 +417,7 @@ The following two exercises are a quick investigation in "preservation@@PROP" an
 %     Denoting $[m]$ the equivalence class of $m$, $\text{Sub}_{\mathbf{C}}(X)$ has a poset structure defined by \[m \leq m' \Leftrightarrow \exists \text{ morphism } k, m = m'k.\]
 %     Show that $\sim$ is an equivalence relation and $\leq$ is a partial order on $\text{Sub}_{\mathbf{C}}(X)$.
 We have seen how to \textit{categorify}\footnote{Categorification is an imprecise term referring to the process of casting an idea in a more categorical language. Depending on the original idea and the context where it is used, there can be many ways to describe it with a categorical mind. In the following two chapters, we will spend some time categorifying several set-theoretical notions.} unions and intersections of subsets in Example \ref{exmp:unions}. The next set theoretical notion we categorify is subsets. A subset $I \subseteq S$ can be identified with the inclusion function $I \hookrightarrow S$, and since the latter is injective, we may want to consider "monomorphisms" with "target" $S$ to be some kind of generalized subset. Observe however that an injection $I \hookrightarrow S$ is not necessarily an inclusion function. This does not matter because, in reality, we are interested in the image of this injection. We run into another obstacle because if two injections into $S$ have the same image, they represent the same subset. We overcome this using the following exercise.
-\begin{exer}\label{exer:duality:equivsubobj}\marginnote{\hyperref[soln:duality:equivsubobj]{See solution.}}
+\begin{exer}{soln:duality:equivsubobj}\label{exer:duality:equivsubobj}
 	\begin{marginfigure}[1\baselineskip]
 		Two "monomorphisms" related by $\sim$.
 		\begin{equation*}
@@ -443,15 +443,15 @@ We have seen how to \textit{categorify}\footnote{Categorification is an imprecis
 	($\Leftarrow$) Suppose $\im(i)=\im(j)$, we define $f:I \rightarrow J = x \mapsto j^{-1}(i(x))$, where $j^{-1}$ is the "left inverse" of $j$. It is clear that $i = j \circ f$ and a quick computation shows $f$ is an "isomorphism@@CAT" with "inverse" $x\mapsto i^{-1}(j(x))$, where $i^{-1}(x)$ is the "left inverse" of $i$.} We conclude that the correspondence between $\Sub_{\catSet}(X)$ and $\mPcov(X)$ sends $[i]$ to the image of $i$ and $I\subseteq X$ to the equivalence class of the inclusion $i: I \hookrightarrow X$.
 \end{exmp}
 The next exercise generalizes the "poset" of subsets of $X$ $(\mP X, \subseteq)$.
-\begin{exer}\label{exer:duality:posetsubobj}\marginnote[\baselineskip]{\hyperref[soln:duality:posetsubobj]{See solution.}}
+\begin{exer}{soln:duality:posetsubobj}\label{exer:duality:posetsubobj}
 	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, we define the relation $\leq$ on $\Sub_{\mathbf{C}}(X)$: 
 	\[[m] \leq [m'] \Leftrightarrow \exists \text{ "morphism" } k,  m = m' \circ k.\]
 	Show that $\leq$ is a well-defined "partial order".
 \end{exer}
-\begin{exer}\label{exer:duality:posetsubset}\marginnote{\hyperref[soln:duality:posetsubset]{See solution.}}
+\begin{exer}{soln:duality:posetsubset}\label{exer:duality:posetsubset}
 	Show that the correspondence between $\mP X$ and $\Sub_{\catSet}(X)$ from Example \ref{exmp:subobjsubset} is an "isomorphism@@CAT" of "posets" $(\mP X, \subseteq) \cong (\Sub_{\catSet}(X), \leq)$.\footnote{We saw what "poset" "isomorphisms@@CAT" were in Example \ref{exmps:isoconcrete}.\ref{exmp:isoposet}.}
 \end{exer}
-\begin{exer}\label{exer:duality:subobjccat}\marginnote{\hyperref[soln:duality:subobjccat]{See solution.}}
+\begin{exer}{soln:duality:subobjccat}\label{exer:duality:subobjccat}
 	Show that a "subobject" in $\catCat$ is a "subcategory".
 \end{exer}
 We can use "duality@@CAT" to obtain (for free) the notion of "quotient objects".
@@ -461,7 +461,7 @@ We can use "duality@@CAT" to obtain (for free) the notion of "quotient objects".
 	\[[q] \leq [q'] \Leftrightarrow \exists \text{ "morphism" } k,  q = k \circ q'.\]
 \end{defn}
 The terminology for this "dual@@CAT" notion is motivated by the following exercise.
-\begin{exer}\label{exer:duality:quotientgrp}\marginnote{\hyperref[soln:duality:quotientgrp]{See solution.}}
+\begin{exer}{soln:duality:quotientgrp}\label{exer:duality:quotientgrp}
 	Show that a "quotient object" of $G \in \obj{\catGrp}$ is a "quotient group" of $G$.
 \end{exer}
 %TODO: example in groups. (need to state first isomorphism theorem)

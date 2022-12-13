@@ -354,7 +354,7 @@ We can restate the end result of the discussion above as $\KLF{M} \adjoint \KLU{
         &= Kg \circ Kf
     \end{align*}
 \end{proof}
-\begin{exer}\label{exer:monads:adjmorphcommute}\marginnote{\hyperref[soln:monads:adjmorphcommute]{See solution.}}
+\begin{exer}{soln:monads:adjmorphcommute}\label{exer:monads:adjmorphcommute}
     Let $K: L\adjoint R \rightarrow L'\adjoint R'$ be a "morphism" in $\Adj{M}$, $\varepsilon$ and $\varepsilon'$ be the "counits@@ADJ" of the "source" and "target" respectively. Show that $K\varepsilon = \varepsilon'K$.
 \end{exer}
 \subsection{Eilenberg--Moore Category $\EM{\mathbf{C}}{M}$}
@@ -500,7 +500,7 @@ The following picture summarizes the last two sections.
 \end{equation}
 
 With the following two results, one can see the "Kleisli category" inside the "Eilenberg--Moore category" as the "full@@CAT" "subcategory" of "free algebras".
-\begin{exer}\label{exer:monads:comparisonkem}\marginnote{\hyperref[soln:monads:comparisonkem]{See solution.}}
+\begin{exer}{soln:monads:comparisonkem}\label{exer:monads:comparisonkem}
     Show that the unique "morphism" $\KLF{M} \adjoint \KLU{M} \rightarrow \EMF{M} \adjoint \EMU{M}$ is the "functor" $\KL{\mathbf{C}}{M} \rightsquigarrow \EM{\mathbf{C}}{M}$ sending $A\in \obj{\mathbf{C}}$ to $(MA,\mu_A)$ and $f: A \kmor B$ to $\mu_B \circ Mf$.
 \end{exer}
 \begin{prop}
@@ -847,7 +847,7 @@ If $\lambda: M \widehat{M} \Rightarrow \widehat{M}M$ is a monad distributive law
     We will exhibit a monad distributive law of $M$ over $(\placeholder\coproduct\terminal)$. We claim \[\iota_X : MX\coproduct\terminal \rightarrow M(X+1) = [M(\inl^{X\coproduct\terminal}), \eta_{X\coproduct\terminal} \circ \inr^{X\coproduct\terminal}]\]
     is a monad distributive law $\iota: (\placeholder\coproduct\terminal)M \Rightarrow M(\placeholder\coproduct\terminal)$. Then, it follows by Proposition \ref{prop:composemonad}.
 \end{proof}
-\begin{exer}\label{exer:monads:monadpointed}\marginnote{\hyperref[soln:monads:monadpointed]{See solution.}}
+\begin{exer}{soln:monads:monadpointed}\label{exer:monads:monadpointed}
     Show Proposition \ref{prop:Mp1} with the monad structure on $M(\placeholder\coproduct\terminal)$ given in Corollary \ref{cor-Mp1monad}.% Show that if a monad $M$ on $\catSet$ is "presented" by $(\Sigma,E)$, then the "monad" on $M(\placeholder\coprdouct\terminal)$ given above is "presented" by the same "theory" with an additional constant.
 \end{exer}
 %Examples TODO: monoid and ring via term monads.

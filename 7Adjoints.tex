@@ -146,7 +146,7 @@ To show that $\Phi$ is "natural", we need to show that \eqref{diag:naturalitytra
     The "identity functor" on any "category" is self-"adjoint": $\id_{\mathbf{C}} \adjoint \id_{\mathbf{C}}$. Both the "unit@@ADJ" and "counit@@ADJ" are $\one_{\id_{\mathbf{C}}}$.\footnote{You can prove this easily but it also follows from Proposition \ref{prop:equivadj} and the fact that $\id_{\mathbf{C}}$ is its own "inverse".}
 \end{exmp}
 %TODO: lots of exercises like this to convince yourself that stuff are good up to isomorphisms.
-\begin{exer}\label{exer:adjoints:adjisoadj}\marginnote{\hyperref[soln:adjoints:adjisoadj]{See solution.}}
+\begin{exer}{soln:adjoints:adjisoadj}\label{exer:adjoints:adjisoadj}
     Show that if $\mathbf{C}:L \adjoint R: \mathbf{D}$ is an "adjunction" and $R \isoCAT R'$, then $L \adjoint R'$. State the "dual@@CAT" statement and prove it.
 \end{exer}
 Giving all this data in order to define an "adjunction" is cumbersome and turns out not to be necessary.
@@ -298,7 +298,7 @@ In the rest of this chapter, we will see many examples of "adjunctions" and resu
     \textbf{Right adjoint:} Fix a "topological space" $(X,\topo)$ and a set $Y$. We need to find a "topological space" $(LY,\lambda)$ so that "continuous" functions $(X,\topo) \rightarrow (LY,\lambda)$ are in correspondence with functions $X \rightarrow Y$. Again, there is a trivial "topology" that we can put on $Y$ that makes any function $f:X \rightarrow Y$ "continuous", \AP it is called the ""codiscrete topology"" and contains only the empty set and the full space $Y$.\footnote{Since $\emptyset \cap Y = \emptyset$ and $\emptyset \cup Y$, we conclude that $\{\emptyset,Y\}$ is closed under any union and intersection, hence it is a "topology".} We can check that any function $f: X \rightarrow Y$ is "continuous" relative to the "codiscrete topology" because the $f^{-1}(\emptyset) = \emptyset$ and $f^{-1}(Y) = X$ must be "open" by the definition of a "topology". After checking that sending $Y$ to $(Y,\{\emptyset,Y\})$ and $f: Y \rightarrow Y'$ to $f: (Y,\{\emptyset,Y\}) \rightarrow (Y',\{\emptyset,Y'\})$ is a "functor", we denote it $\mathrm{codisc}$, we can conclude that $U\adjoint \mathrm{codisc}$.
 \end{exmp}
 We found our first chain of "adjunctions" $\mathrm{disc} \adjoint U \adjoint \mathrm{codisc}$. Another interesting one is $\colim_{\mathbf{J}} \adjoint \gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \adjoint \lim_{\mathbf{J}}$ in a "category" $\mathbf{C}$ with all "limits" of shape $\mathbf{J}$. A less interesting one is $\cdots \adjoint \id_{\mathbf{C}} \adjoint \id_{\mathbf{C}} \adjoint \id_{\mathbf{C}} \adjoint \cdots$. Here is a chain of five "adjunctions".
-\begin{exer}\label{exer:adjoints:chainadjCarrow}\marginnote{\hyperref[soln:adjoints:chainadjCarrow]{See solution.}}%TODO:probably give other notation and knowledge
+\begin{exer}{soln:adjoints:chainadjCarrow}\label{exer:adjoints:chainadjCarrow}
     Let $\mathbf{C}$ be a "category" and $\idarr,\sourcearr,\targetarr$ be the "functors" described in Exercise \ref{exer:universal:arrowcatfunctors}. Show they are related by the "adjunctions" $\targetarr \adjoint \idarr \adjoint \sourcearr$. Suppose furthermore that $\mathbf{C}$ has an "initial" "object" $\initial$ and a "terminal" "object" $\terminal$. Show that the "constant functor" at $\id_{\initial}$ is "left adjoint" to $\targetarr$ and the "constant functor" at $\id_{\terminal}$ is "right adjoint" to $\sourcearr$.
 \end{exer}
 As a final example, we show that any "equivalence" gives rise to two "adjunctions". In this sense\footnote{And in another sense related to \href{https://en.wikipedia.org/wiki/Kan_extension}{Kan extensions}.}, one can see a left (resp. right) "adjoint" to a "functor" $F$ as an approximation to a left (resp. right) inverse that is even coarser than a "quasi-inverse".\footnote{Furthermore, it follows from Proposition \ref{prop:leftadjunique} (resp. Corollary \ref{cor:rightadjunique}) that the left (resp. right) "adjoint" of $F$ is the left (resp. right) inverse or "quasi-inverse" when the latter exists.}
@@ -729,7 +729,7 @@ Let us now turn to the many great properties of "adjoint" "functors".
 \begin{cor}
     If a "category" $\mathbf{D}$ is (finitely) "complete" or "cocomplete", then so is $\catFunc{\mathbf{C}}{\mathbf{D}}$ for any "category" $\mathbf{C}$.
 \end{cor}
-\begin{exer}\label{exer:adjoints:alllimitspreserved}\marginnote{\hyperref[soln:adjoints:alllimitspreserved]{See solution.}}
+\begin{exer}{soln:adjoints:alllimitspreserved}\label{exer:adjoints:alllimitspreserved}
     Let $\mathbf{C}$ have all "limits" of shape $\mathbf{J}$ and $\mathbf{C}:L \adjoint R: \mathbf{D}$ be an "adjunction". Using Theorem \ref{thm:limitadj}, Corollary \ref{cor:rightadjunique}, Theorem \ref{thm:adjcomp} and Proposition \ref{prop:adjcompisadj}, show that $R$ "preserves" all "limits" of shape $\mathbf{J}$.
 \end{exer}
 \end{document}

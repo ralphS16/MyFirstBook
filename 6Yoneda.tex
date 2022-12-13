@@ -60,7 +60,7 @@ These examples suggest that "functors" that are "naturally isomorphic" to $\Hom$
 	\end{enumerate}
 \end{exmps}
 In the first item of Examples \ref{exmp:covrep} and \ref{exmp:contrarep}, we made an arbitrary choice of set. That is, we could have taken any singleton in the first case and any set with two elements in the second. More generally, one can show that if $A \isoCAT B$, then $\Hombis_A \isoCAT \Hombis_B$ and $\Hombis^A \isoCAT \Hombis^B$.
-\begin{exer}\label{exer:yoneda:isomeanshomiso}\marginnote{\hyperref[soln:yoneda:isomeanshomiso]{See solution.}}
+\begin{exer}{soln:yoneda:isomeanshomiso}\label{exer:yoneda:isomeanshomiso}
 	Let $A,B \in \obj{\mathbf{C}}$ be "isomorphic@@CAT" "objects". Show that $\Hombis^A \isoCAT \Hombis^B$. "Dually@@CAT", show that $\Hombis_A\isoCAT \Hombis_B$. 
 \end{exer}
 Surprisingly, the converse is also true and it will follow from the "Yoneda lemma", but we prove it on its own first as a warm-up for the proof of the "lemma@yoneda".
@@ -201,7 +201,7 @@ The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We de
 
 \section{Universality as Representability}
 "Representability" is one of the two ways to describe "universal" constructions that we hinted at at the end of Chapter \ref{chap:universal}. In this section, we will explore how any "universal property" is equivalent to "representability" of some "functor". Since "(co)@colimits""limits" and "universal morphisms" are "initial" or "terminal" "objects" in some "category", there is a first trivial way to express "universality" as "representability".
-\begin{exer}[\NOW]\label{exer:yoneda:initisrepr1}\marginnote{\hyperref[soln:yoneda:initisrepr1]{See solution.}}
+\begin{exer}{soln:yoneda:initisrepr1}[\NOW]\label{exer:yoneda:initisrepr1}
 	Let $\mathbf{C}$ be a "category", $X \in \obj{\mathbf{C}}$ and $\terminal: \mathbf{C} \rightsquigarrow \catSet$ be the "constant functor" at the singleton $\terminal = \{\star\}$. Show that $\Hom_{\mathbf{C}}(X,\placeholder) \isoCAT \terminal$ if and only if $X$ is "initial". Dually, $\Hom_{\mathbf{C}}(\placeholder,X) \isoCAT \terminal$ if and only if $X$ is "terminal".\footnote{In the dual statement, the domain of $\terminal$ is $\op{\mathbf{C}}$.}
 \end{exer}
 It turns out this result is not very useful.%TODO: explain why not useful.
@@ -340,7 +340,7 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 	\end{equation}
 \end{proof}
 In the next Proposition, we will generalize this result to see how any "universal morphism" corresponds to some kind of "representability" and we will even give a converse direction. The generalizations of the proof is straightforward, so we suggest you try to get familiar with a specific case in the next exercise.
-\begin{exer}\label{exer:yoneda:expobjectrepr}\marginnote{\hyperref[soln:yoneda:expobjectrepr]{See solution.}}
+\begin{exer}{soln:yoneda:expobjectrepr}\label{exer:yoneda:expobjectrepr}
 	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $\placeholder \product X$ is a "functor". An "object" $A \in \obj{\mathbf{C}}$ has an "exponential" $A^X \in \obj{\mathbf{C}}$ if and only if $\Hom_{\mathbf{C}}(\placeholder \product X, A) \isoCAT \Hom_{\mathbf{C}}(\placeholder,A^X)$.
 \end{exer} %TODO: solve
 \begin{prop}\label{prop:universalrepr}

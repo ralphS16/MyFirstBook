@@ -55,7 +55,21 @@
 \newtheorem{notn}[thm]{Notation}
 \newtheorem{notns}[thm]{Notations}
 \newtheorem{addm}[thm]{Addendum}
-\newtheorem{exer}[thm]{Exercise}
+%Theorem Style for Exercises with link for solution in the left margin.
+%Inspired by https://tex.stackexchange.com/questions/12913/customizing-theorem-name
+
+%Store the length of "SOL" in the same font as when it is used in order to offset this exact amound in the left margin.
+\newlength{\sollen}
+\settowidth{\sollen}{\textbf{\textsf{SOL}} } %note the imporant space that is part of this length
+
+\newcommand{\exersol}{}%Define empty command to use in the exercise environment
+\newtheorem{gexer}[thm]{\exersol}
+\newenvironment{exer}[1]{
+        \renewcommand{\exersol}{\hspace{-\sollen}\hyperref[#1]{\textsf{SOL}} Exercise} %Change the command to include the link in the argument
+        \begin{gexer} %Begin the Exercise environment that uses the now modified command.
+    }{
+        \end{gexer} %End the Exercise environment.
+    }
 
 \theoremstyle{remark}
 \newtheorem{rem}[thm]{Remark}

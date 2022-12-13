@@ -274,7 +274,7 @@ Several simple examples of "large" "categories" arise as "subcategories" of $\ca
 	\end{enumerate}
 	Intuitively, one can see $\mathbf{C}'$ as being obtained from $\mathbf{C}$ by removing some "objects" and "morphisms", but making sure that no "morphism" is left with no "source" or no "target" and that no "path" is left without its \kl[comppaths]{composition}.
 \end{defn}
-\begin{exer}[\NOW]\label{exer:catfunc:countersubcat}\marginnote[1\baselineskip]{\hyperref[soln:catfunc:countersubcat]{See solution.}}
+\begin{exer}{soln:catfunc:countersubcat}[\NOW]\label{exer:catfunc:countersubcat}
 	Find an example of a "category" $\mathbf{C}$ and a "category" $\mathbf{C}'$ that satisfy the first three conditions but not the fourth.
 \end{exer}
 \begin{defn}[Full and wide]
@@ -307,7 +307,7 @@ Several simple examples of "large" "categories" arise as "subcategories" of $\ca
 		\itemAP The "category" of "metric spaces" where "morphisms" are "nonexpansive" functions is denoted by $\intro*\catMet$.\marginnote[-4\baselineskip]{In these last two examples, the choice of "morphisms" to take between spaces is not as clear cut as for the previous examples. For instance, one could ask the "morphism" between "metric spaces" to be "continuous" also, or for "morphisms" between "topological spaces" to map "open sets" to "open sets" (those are called \href{https://en.wikipedia.org/wiki/Open_and_closed_maps}{open maps}). In the end, the choice made depends on the context where the "category" is used.}
 	\end{enumerate}
 \end{exmps}
-\begin{exer}\label{exer:catfunc:nrel}\marginnote{\hyperref[soln:catfunc:nrel]{See solution.}}
+\begin{exer}{soln:catfunc:nrel}\label{exer:catfunc:nrel}
 	An $n$--ary relation on a set $A$ is a subset of $A^n$. Define the "category" $\catnRel{n}$.
 \end{exer}
 Our next example is a "large" "category" that is neither a "subcategory" of $\catSet$ nor a "concrete category".
@@ -405,7 +405,7 @@ Throughout the rest of this book, the goal will essentially be to grow our list 
 		\item[-] If $F_{A,B}$ is bijective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""fully faithful"".
 	\end{itemize}    
 \end{defn}
-\begin{exer}[\NOW]\label{exer:catfunc:inclusionfaithfull}\marginnote{\hyperref[soln:catfunc:inclusionfaithfull]{See solution.}}
+\begin{exer}{soln:catfunc:inclusionfaithfull}[\NOW]\label{exer:catfunc:inclusionfaithfull}
 	Show that the "inclusion functor" $\inclF: \mathbf{C}' \rightsquigarrow \mathbf{C}$ is "faithful". Show it is "full@@FUNC" if and only if $\mathbf{C}'$ is a "full subcategory".
 \end{exer}
 As a generalization of the previous exercise, we note that a "functor" is "full@@FUNC" if and only if its "image@imfunc" is a "full subcategory" of the "target" "category".\footnote{The ""image@imfunc"" of a "functor" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is the "subcategory" of $\mathbf{D}$ containing all "objects" and "morphisms" in the image of $F_0$ and $F_1$.}
@@ -452,7 +452,7 @@ While bijectivity is very strong to compare sets --- it morally says that the el
 		\item Let $(X, \leq)$ and $(Y, \sqsubseteq)$ be "posets", and $F:X\rightsquigarrow Y$ be a functor between their "posetal" "categories". For any $a, b \in X$, if $a\leq b$, then $\Hom_X(a,b)$ contains a single element, thus $\Hom_Y(F(a), F(b))$ must contain a "morphism" as well,\footnote{The image of the element in $\Hom_X(a,b)$ under $F$.} or equivalently $F(a) \sqsubseteq F(b)$. This shows that $F_0$ is an "order-preserving" function on the "posets".
 		
 		Conversely, any "order-preserving" function between $X$ and $Y$ will correspond to a unique "functor" as there is only one "morphism" in all the "hom-sets".\footnote{Given $f:(X,\leq) \rightarrow (Y,\sqsubseteq)$ "order-preserving", the corresponding "functor" between the "posetal" "categories" of $X$ and $Y$ acts like $f$ of the "objects" and sends a "morphism" $a \rightarrow b$ to the unique "morphism" $f(a) \rightarrow f(b)$ which exists because $a\leq b \implies f(a) \sqsubseteq f(b)$.}
-		\begin{exer}\label{exer:catfunc:imagefunctors}\marginnote{\hyperref[soln:catfunc:imagefunctors]{See solution.}}
+		\begin{exer}{soln:catfunc:imagefunctors}\label{exer:catfunc:imagefunctors}
 			Let $A$ and $B$ be two sets, their "powersets" can be seen as "posets" with the "order" $\subseteq$. Thus, we can view $\mP(A)$ and $\mP(B)$ as "posetal" "categories".
 			\begin{itemize}
 				\item[-] Draw (using points and arrows) the "category" corresponding to $\mP(\{0,1,2\})$.
@@ -524,7 +524,7 @@ In this chapter, we introduced a novel structure, namely "categories", that "fun
 	%Almost no argument is needed here as the commutativity of the smaller diagrams clearly implies the commutativity of the combined diagrams. One information that is not shown above is the fact that $(G\circ F)_2 = G_2 \circ F_2$, but it would be pedantic to prove this.
 \end{proof}
 The "category" $\catCat$ is a "concrete category". Intuitively, it is because "categories" are sets with extra sturcture that "functors" preserve. Rigorously, there is a "forgetful functor" $\catCat \rightsquigarrow \catSet$.
-\begin{exer}[\NOW]\label{exer:catfunc:forgetfulcat}\marginnote{\hyperref[soln:catfunc:forgetfulcat]{See solution.}}
+\begin{exer}{soln:catfunc:forgetfulcat}[\NOW]\label{exer:catfunc:forgetfulcat}
 	Show that both assignments $\mathbf{C} \mapsto \obj{\mathbf{C}}$ and $\mathbf{C} \mapsto \mor{\mathbf{C}}$ yield "functors" $\catCat \rightsquigarrow \catSet$.\footnote{Recall that we assumed $\mathbf{C} \in \catCat$ is "small", meaning both $\obj{\mathbf{C}}$ and $\mor{\mathbf{C}}$ are sets.} Their action on "morphism" of "categories" ("functors") is straightforward: the first sends $F$ to $F_0$ and the second sends $F$ to $F_1$. Show that the "functor" $\obj{(\placeholder)}$ is not "faithful", but $\mor{(\placeholder)}$ is.
 \end{exer}
 %TODO: exercise on intermediate forgetful functor from Cat to Gph
@@ -616,10 +616,10 @@ There is one last thing we want to mention to end this chapter. We gave two cent
 	\[\Hom_{\mathbf{C}\cattimes \mathbf{D}}((X,Y),(X',Y')) := \Hom_{\mathbf{C}}(X,X')\times \Hom_{\mathbf{D}}(Y,Y').\]
 	The "identity morphisms" and the "composition" are defined componentwise. Explicitly, for all $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{D}}$, $\id_{(X,Y)} = (\id_X,\id_Y)$, and for all $(f,f')\in \mortwo{\mathbf{C}}$ and $(g,g') \in \mortwo{\mathbf{D}}$, $(f,g) \circ (f',g') = (f\circ f', g \circ g')$.\footnote{We leave you to check that this defines the "composition" for all of $\mortwo{(\mathbf{C} \cattimes \mathbf{D})}$. Namely, if $(f,g)$ and $(f',g')$ are "composable", then $(f,f')$ and $(g,g')$ are "composable".}
 \end{defn}
-\begin{exer}[\NOW]\label{exer:catfunc:product2and2}\marginnote{\hyperref[soln:catfunc:product2and2]{See solution.}}
+\begin{exer}{soln:catfunc:product2and2}[\NOW]\label{exer:catfunc:product2and2}
 	Verify that the "category" depicted in \eqref{diag:commusquare} is appropriately denoted by $\cattwo \cattimes \cattwo$, i.e., that it is the "product category" formed with $\mathbf{C} = \mathbf{D} = \cattwo$.
 \end{exer}
-\begin{exer}\label{exer:catfunc:diagfunc}\marginnote{\hyperref[soln:catfunc:diagfunc]{See solution.}}
+\begin{exer}{soln:catfunc:diagfunc}\label{exer:catfunc:diagfunc}
 	Show that the assignment $\diagFunc_{\mathbf{C}} :\mathbf{C} \rightsquigarrow \mathbf{C}\cattimes \mathbf{C} = X \mapsto (X,X)$ is "functorial", i.e., give its action on "morphisms" and show it satisfies the relevant axioms. We call $\diagFunc_{\mathbf{C}}$ the ""diagonal functor"".
 \end{exer}
 %TODO: exercise : what is a functor BG \times BH \to Set.
@@ -640,10 +640,10 @@ There is one last thing we want to mention to end this chapter. We gave two cent
 			\[(F\functimes G)(\id_{(X,Y)}) = (F\functimes G)(\id_X, \id_Y) = (F\id_X, G\id_Y) = (\id_{FX}, \id_{GY}) = \id_{(FX,GY)}.\]
 	\end{enumerate}
 \end{defn}
-\begin{exer}[\NOW]\label{exer:catfunc:placeholder}\marginnote{\hyperref[soln:catfunc:placeholder]{See solution.}}
+\begin{exer}{soln:catfunc:placeholder}[\NOW]\label{exer:catfunc:placeholder}
 	Let $F: \mathbf{C} \cattimes \mathbf{C}' \rightsquigarrow  \mathbf{D}$ be a "functor". For $X \in \obj{\mathbf{C}}$, we define $F(X, \placeholder): \mathbf{C}' \rightsquigarrow \mathbf{D}$ on "objects" by $Y \mapsto F(X,Y)$ and on "morphisms" by $g\mapsto F(\id_X, g)$.\marginnote{\AP We will often use $\placeholder$ as a ""placeholder"" for an input so the latter remains nameless. For instance, $f(\placeholder,\placeholder)$ means $f$ takes two inputs. The type of the inputs and outputs will be made clear in the context.} Show that $F(X,\placeholder)$ is a "functor". Define $F(\placeholder, Y)$ similarly.
 \end{exer}
-\begin{exer}\label{exer:catfunc:funccomponent}\marginnote{\hyperref[soln:catfunc:funccomponent]{See solution.}}
+\begin{exer}{soln:catfunc:funccomponent}\label{exer:catfunc:funccomponent}
 	Let $F: \mathbf{C} \cattimes \mathbf{C}' \rightarrow \mathbf{D}$ be an action defined on "objects" and "morphisms" satisfying \[F(f,g) = F(f,\id_{\target(g)}) \circ F(\id_{\source(f)},g) = F(\id_{\target(f)},g) \circ F(f,\id_{\source(g)}).\] Show that if for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{C}'}$, $F(X, \placeholder)$ and $F(\placeholder,Y)$ as defined above are "functors", then $F$ is a "functor". In other words, the "functoriality" of $F$ can be proven componentwise.
 \end{exer}
 In the next chapters, we will present other interesting constructions of "categories", but we can stop here for now.
