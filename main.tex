@@ -12,6 +12,7 @@
 \usepackage{stmaryrd}
 \usepackage{multicol}
 \usepackage{booktabs}
+\usepackage{etoc}
 \usepackage{etoolbox}
 \usepackage{verbatim}
 \usepackage{subfiles}
@@ -200,7 +201,6 @@
 \newrobustcmd{\codisc}{\kl(TOP)[codiscrete]{\bot}}
 \newrobustcmd{\interior}[1]{{\kern0pt#1}^{\kl[interior]{\mathrm{o}}}}
 \newrobustcmd{\comple}{{\kl[complement]{c}}}
-\newrobustcmd{\closure}[1]{{\kern0pt#1}^{\kl[closure]{-}}}
 \newrobustcmd{\ball}{{\kl[open ball]{B}}}
 \newrobustcmd{\quotRING}[2]{{#1}\kl(RING)[quotient]{/}{#2}}
 \newrobustcmd{\quotGRP}[2]{{#1}\kl(GRP)[quotient]{/}{#2}}
@@ -241,6 +241,24 @@
 \newrobustcmd{\andrel}{\mathbin{\kl[andrel]{\wedge}}}
 \renewrobustcmd{\succ}{\mathsf{succ}}
 \newrobustcmd{\NNO}{\mathfrak{N}}
+
+%Special macro for knowledge link on overline
+%I create variables for storing a box (some fixed piece of math), its height and its width
+\newsavebox{\closebox}
+\newlength{\closeheight}
+\newlength{\closewidth}
+
+\newcommand{\closure}[1]{ %New command with 1 argument
+    \savebox{\closebox}{$ #1 $} %Save the content of the argument inside the box
+    \settoheight{\closeheight}{\usebox{\closebox}} %Retrieve the height of the box
+    \settowidth{\closewidth}{\usebox{\closebox}} %Retrieve the width of the box
+    \ooalign{ %Some environment that lets me put two things at the same position.
+        \raisebox{\closeheight+0.1em} %Raise just above the box
+                {\kl[closed]{\rule{\closewidth}{0.5pt}}% Draw a rule with a knowledge (or other) link
+            }\cr%Reset position
+        \usebox{\closebox}%Put the content of the box.
+    }
+}
 
 \newcommand{\Str}{\textsf{Str}}
 \newcommand{\head}{\textsf{head}}
@@ -345,6 +363,7 @@
 %TODO: hookarrow to other notation. keep hook arrow for actual inclusions. Make them knowledge.
 %TODO: explain what unroll means and how we will often use it. Make sure the knowledge unroll is consistently used.
 %TODO: When I say, we leave you to check. It means at this point, I expect a post-rigorous check will convince you. Make some knowledge for this sentence.
+%TODO: add small table of contents for each chapter in the margin.
 \setcounter{tocdepth}{1}
 \tableofcontents
 \counterwithout{equation}{chapter}

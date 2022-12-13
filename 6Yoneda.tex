@@ -3,6 +3,11 @@
 %TODO: why I love category theory: % ---- Chap Yoneda: in CT, 99% of the time, you know what to do. Compared to other disciplines where it is harder to find the right method. e.g.: combinatorics: it is practically impossible to find the right way to see your problem. Most of the time (100% of the time in this book) if you don't know what to do, just go back and read the definitions of each part of the problem and try again. This chapter has difficult proofs but a lot of the time, you don't have that many choice. In fact, in the proof of Yoneda, a most important result, stating the result is 99% of the proof done.
 \chapter{Yoneda Lemma}\label{chap:yoneda}
 %TODO: try to talk about representing elements and rephrase yoneda lemma like nat trans is completely determined by representing element and choice of image and of representing element.
+\marginnote[-6\baselineskip]{
+	\etocsettocstyle{}{}
+	\etocsettocdepth{1}
+	\localtableofcontents
+}
 \section{Representable Functors}
 Throughout this chapter, let $\mathbf{C}$ be a "locally small" "category". Recall that for an "object" $A \in \obj{\mathbf{C}}$, there are two $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$. The "covariant" one, $\Hom_{\mathbf{C}}(A, \placeholder)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to $f \circ (\placeholder)$. The "contravariant" one, $\Hom_{\mathbf{C}}(\placeholder,A)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f: B\rightarrow B'$ to $(\placeholder) \circ f$. In order to lighten the notation, we denote these functors $\Hombis^A$ and $\Hombis_A$ respectively.\footnote{It might seem like this contradicts the notation used so far because $\Hombis^A$ is "covariant" and $\Hombis_A$ "contravariant". However, this is not their \textit{variance} in the parameter $A$, and we will show that in fact, the \textit{variances} in $A$ are opposites.}%TODO: write better.
 

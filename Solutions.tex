@@ -1,6 +1,11 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
 \chapter{Solutions to Exercises}\label{chap:solutions}
+\marginnote[-6\baselineskip]{
+	\etocsettocstyle{}{}
+	\etocsettocdepth{1}
+	\localtableofcontents
+}
 \section{Solutions to Chapter \ref{chap:catfunc}}
 \begin{proof}[Solution to Exercise \ref{exer:catfunc:countersubcat}]\label{soln:catfunc:countersubcat}
     Take any "monoid" $M$ with an idempotent element $x\neq 1_M$ (it satisfies $x\cdot x = x$). Letting $\mathbf{C}$ be $\deloop{M}$ and $\mathbf{C}'$ contain the "object" $\deloopobject$ and only the "morphism" $x$ yields a suitable example because the "identity" in $\mathbf{C}'$ is $x$.

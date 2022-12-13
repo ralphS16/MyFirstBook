@@ -1,6 +1,11 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
 \chapter{Duality}\label{chap:duality}
+\marginnote[-6\baselineskip]{
+	\etocsettocstyle{}{}
+	\etocsettocdepth{1}
+	\localtableofcontents
+}
 The concept of duality is ubiquitous throughout mathematics. It can relate two perspectives of the same object as for "dual@@VECT" "vector spaces", two complementary optimization problems such as a maximization and a minimization linear program and even two seemingly unrelated subjects like topology and logic (\href{https://en.wikipedia.org/wiki/Stone_duality}{Stone duality}). While this vague principle of duality is behind many groundbreaking results, the duality in question here is categorical "duality@@CAT" and it is a bit more precise.%TODO: ref.
 
 Informally, there is nothing more to say than ``Take all the diagrams in a definition/theorem, reverse the arrows and reap the benefits of the "dual@@CAT" concept/result.''\footnote{In my opinion, this is already a very good reason to learn category theory because we can basically get twice as much math as before by framing things with a categorical language.} The more formal version will follow after we first exhibit the principle in action.
