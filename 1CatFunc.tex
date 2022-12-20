@@ -12,6 +12,7 @@
 As you will soon realize, many common mathematical objects can be viewed as "categories" or parts of a "category", and often in several ways. Hence, there can be many starting points to motivate category theory even after restricting ourselves to the background of an undergraduate student in mathematics (see Chapter \ref{chap:prelim}). I do not want to spend much time in the realm of informal explanations, so we will start from the notion of "directed graphs", quickly get to the definition of a "category" and begin an enumeration of examples which will carry on (implicitly) for the rest of the book. We will also define functors which are to categories what homomorphisms are to groups (or rings, etc.), and list a bunch of examples.
 \section{Categories}
 
+%TODO: mention quiver, for the great name and for the web application.
 \begin{defn}[Directed graph]
 	\AP A ""directed graph"" $G$ consists of a "collection" of ""nodes"" or ""objects"" denoted $\obj{G}$ and a "collection" of ""arrows"" or ""morphisms"" denoted $\mor{G}$ along with \AP two maps $\source,\target: \mor{G} \rightarrow \obj{G}$, so that each "arrow" $f \in \mor{G}$ has a ""source"" $\source(f)$ and a ""target"" $\target(f)$.\begin{marginfigure}We draw a "morphism" as an arrow, the "source" being its tail and "target" being its head:\begin{equation*}
 		% https://q.uiver.app/?q=WzAsMixbMCwwLCJcXHNvdXJjZShmKSJdLFsxLDAsIlxcdGFyZ2V0KGYpIl0sWzAsMSwiZiJdXQ==
@@ -405,8 +406,15 @@ Throughout the rest of this book, the goal will essentially be to grow our list 
 		\item[-] If $F_{A,B}$ is bijective for any $A,B \in \obj{\mathbf{C}}$, then $F$ is ""fully faithful"".
 	\end{itemize}    
 \end{defn}
-\begin{exer}{soln:catfunc:inclusionfaithfull}[\NOW]\label{exer:catfunc:inclusionfaithfull}
+\begin{exer}{soln:catfunc:inclusionfaithful}[\NOW]\label{exer:catfunc:inclusionfaithful}
 	Show that the "inclusion functor" $\inclF: \mathbf{C}' \rightsquigarrow \mathbf{C}$ is "faithful". Show it is "full@@FUNC" if and only if $\mathbf{C}'$ is a "full subcategory".
+\end{exer}
+\begin{exer}{soln:catfunc:compfullfaithful}\label{exer:catfunc:compfullfaithful}
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $G: \mathbf{D} \rightsquigarrow \mathbf{E}$. Show that
+	\begin{itemize}
+		\item[-] if $G \circ F$ is "faithful", then $F$ is "faithful", and
+		\item[-] if $G\circ F$ is "full", then $G$ is "full". 
+	\end{itemize}
 \end{exer}
 As a generalization of the previous exercise, we note that a "functor" is "full@@FUNC" if and only if its "image@imfunc" is a "full subcategory" of the "target" "category".\footnote{The ""image@imfunc"" of a "functor" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ is the "subcategory" of $\mathbf{D}$ containing all "objects" and "morphisms" in the image of $F_0$ and $F_1$.}
 \begin{rem}
@@ -471,13 +479,13 @@ While bijectivity is very strong to compare sets --- it morally says that the el
 		\[ F(g^{-1}) \circ F(g) = F(g^{-1}g) = F(1_G) = \id_S = F(1_G) = F(gg^{-1}) = F(g) \circ F(g^{-1}),\]
 		the function $F(g)$ is a bijection (its inverse is $F(g^{-1})$) and we conclude $F_1$ is the "permutation representation" of the "group action" defined by $g \act s = F(g)(s)$ for all $g \in G$ and $s \in S$.
 
-		Given a "group action" on a set $S$, we leave you to show that letting $F_0 = \deloopobject \mapsto S$ and $F_1$ be the "permutation representation" of the "action@@GRP" yields a "functor" $F:\deloop{G} \rightsquigarrow \catSet$.
+		Given a "group action" on a set $S$, we leave you to show that letting $F_0 = \deloopobject \mapsto S$ and $F_1$ be the "permutation representation" of the "action@@GRP" yields a "functor" $F:\deloop{G} \rightsquigarrow \catSet$.%TODO: don't leave you to show.
 		
 		\item In the previous example, replacing $\catSet$ with $\catVect{k}$, one obtains $k$-linear representations of $G$ instead of "actions@@GRP" of $G$.\footnote{You might not know about linear representations, we just mention them in passing.}
 	\end{enumerate}
 \end{exmps}
 \begin{rem}[Non-examples]
-    From this long (and yet hardly exhaustive) list, one might get the feeling that every important mathematical transformation is a "functor". This is not the case, so we wanted to show where "functoriality" can fail and hopefully give you a bit of intuition about why they fail. Here are two instances showcasing the two most common ways (in my experience) you can decide that a mapping is not "functorial".
+    From this long (and yet hardly exhaustive) list, one might get the feeling that every important mathematical transformation is a "functor". This is not the case, so I wanted to show where "functoriality" can fail and hopefully give you a bit of intuition about why they fail. Here are two instances showcasing the two most common ways (in my experience) you can decide that a mapping is not "functorial".
     
     Let us define $F: \catFDVect{k} \rightsquigarrow \catSet$ which assigns to any "vector space" over $k$ a choice of "basis". There is no non-trivializing way to define an action of $F$ on "linear maps" which make $F$ into a "functor". One informal reason for this failure is that we cannot choose "bases" globally, so $F$ is defined locally and its parts cannot be glued together.\footnote{If you feel like you are making a non-canonical choice for every "object", there is a good chance you are not dealing with a "functor".}
 	

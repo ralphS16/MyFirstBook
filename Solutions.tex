@@ -145,7 +145,7 @@
     \end{enumerate}
 \end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:duality:equivsubobj}]\label{soln:duality:equivsubobj}
-    Let us have three "monomorphisms" $m: Y \hookrightarrow X$, $n: Z \hookrightarrow X$ and $o: W \hookrightarrow X$.
+    Let us have three "monomorphisms" $m: Y \mono X$, $n: Z \mono X$ and $o: W \mono X$.
 
     \textbf{Reflexivity:} We have $m \circ \id_Y = m$ thus $m \sim m$.
 
@@ -154,7 +154,7 @@
     \textbf{Transitivity:} If $m\sim n$ and $n\sim o$, then there exist "isomorphisms@@CAT" $i: Y \rightarrow Z$ and $i': W \rightarrow Z$ satisfying $m = n \circ i$ and $n = o \circ i'$. Therefore, we have $m =  o \circ i' \circ i$ which implies $m \sim o$.\footnote{Recall that the "composition" of two "isomorphisms@@CAT" is an "isomorphism@@CAT".}
 \end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:duality:posetsubobj}]\label{soln:duality:posetsubobj}
-    Let us have five "monomorphisms" $m: Y \hookrightarrow X$, $m:Y' \hookrightarrow X$, $n: Z \hookrightarrow X$, $n': Z' \hookrightarrow X$ and $o: W \hookrightarrow X$.\footnote{Recall that we often use $m$ to refer to $[m]$.}
+    Let us have five "monomorphisms" $m: Y \mono X$, $m:Y' \mono X$, $n: Z \mono X$, $n': Z' \mono X$ and $o: W \mono X$.\footnote{Recall that we often use $m$ to refer to $[m]$.}
 
     \textbf{Well-defined:} Suppose that $m \leq n$, $m' \sim m$ and $n\sim n'$, namely, there is a "morphism" $k: Y \rightarrow Z$ and "isomorphisms@@CAT" $i: Y \circ Y'$ and $i': Z' \rightarrow Z$ such that $m = n \circ k$, $m' = m \circ i$ and $n = n' \circ i'$. Combining these equalities yields $m' = n' \circ i' \circ  k \circ i$ which witnesses $m' \leq n'$.
 
@@ -214,7 +214,7 @@
             \end{tikzcd}
         \end{equation}
     \end{marginfigure}
-    ($\Leftarrow$) For any $g,h : Z \rightarrow X$ satisfying $f \circ g = f \circ h$, the "universal property" of the "pullback" tells us there is a unique $!:Z \rightarrow X$ making \eqref{diag:solpullbackmono} "commute". Since $!$ satisfies $g = \id_X \circ ! = h$, we conclude $g = ! = h$, thus $f$ is a "monomorphism".
+    ($\Leftarrow$) For any $g,h : Z \rightarrow X$ satisfying $f \circ g = f \circ h$, the "universal property" of the "pullback" tells us there is a unique $!:Z \rightarrow X$ making \eqref{diag:solpullbackmono} "commute". Since $!$ satisfies $g = \id_X \circ {!} = h$, we conclude $g = {!} = h$, thus $f$ is a "monomorphism".
     \begin{marginfigure}[1\baselineskip]
         \begin{equation}\label{diag:pushoutepic}
             \begin{tikzcd}
@@ -382,7 +382,7 @@
         \end{minipage}
 \end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:universal:subobjfunctor}]\label{soln:universal:subobjfunctor}
-    First, we know that the "pullback" of the "monomorphism" $m$ "along@apull" $f$ is "monic" by Theorem \ref{thm:pullmono}. Next, for $n: I' \hookrightarrow X \in \Sub_{\mathbf{C}}(Y)$, we need to show $[m] = [n]$ implies $[\pull{f}{m}] = [\pull{f}{n}]$.\footnote{Recall that $[m] = [n]$ when there is an "isomorphism@@CAT" $i$ satifying $n = m \circ i$.} In \eqref{diag:subcfunctor}, we need to show there is an "isomorphism@@CAT" $i': J \rightarrow J'$ making everything "commute".
+    First, we know that the "pullback" of the "monomorphism" $m$ "along@apull" $f$ is "monic" by Theorem \ref{thm:pullmono}. Next, for $n: I' \mono X \in \Sub_{\mathbf{C}}(Y)$, we need to show $[m] = [n]$ implies $[\pull{f}{m}] = [\pull{f}{n}]$.\footnote{Recall that $[m] = [n]$ when there is an "isomorphism@@CAT" $i$ satifying $n = m \circ i$.} In \eqref{diag:subcfunctor}, we need to show there is an "isomorphism@@CAT" $i': J \rightarrow J'$ making everything "commute".
     \begin{equation}\label{diag:subcfunctor}
         % https://q.uiver.app/?q=WzAsNixbMCwxLCJKIl0sWzEsMiwiWCJdLFszLDIsIlkiXSxbMiwxLCJJIl0sWzMsMCwiSSciXSxbMSwwLCJKJyJdLFswLDEsIlxccHVsbHtmfXttfSIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzEsMiwiZiIsMl0sWzAsMywiaiIsMSx7ImxhYmVsX3Bvc2l0aW9uIjo3MH1dLFszLDIsIm0iLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFs0LDIsIm4iLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFszLDQsImkiLDFdLFs1LDEsIlxccHVsbHtmfXtufSIsMSx7ImxhYmVsX3Bvc2l0aW9uIjozMCwic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNSw0LCJqJyJdXQ==
 \begin{tikzcd}
@@ -536,7 +536,7 @@
 \begin{proof}[Solution to Exercise \ref{exer:natural:compositionisfunc}]\label{soln:natural:compositionisfunc}%TODO: and say how you use it in other exercises.
     On "morphisms", this "functor" must send a pair of "natural transformations" $\eta: F \Rightarrow F'$ and $\phi: G \Rightarrow G'$ to a "natural transformation" $FG \Rightarrow F'G'$. This is exactly what "horizontal composition" does.
     
-    To see that "horizontal composition" is "functorial", first note that $\one_F \horcomp \one_G = \one_{FG}$. Next, the fact that "horizontal composition" commutes with "composition" of "functors" is exactly the "interchange identity".
+    To see that "horizontal composition" is "functorial", first note that $\one_F \horcomp \one_G = \one_{FG}$. Next, the fact that "horizontal composition" commutes with "composition" of "functors" is exactly the "interchange identity". %TODO: another way to see this with the fact that biaction is functor, so you can check that it is functorial in each component.
 \end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:natural:equivequiv}]\label{soln:natural:equivequiv}
     We need to show that $\eqCat$ is reflexive, symmetric and transitive. Symmetry is trivial because the definition of $\mathbf{C} \eqCat \mathbf{D}$ is symmetric. Reflexivity follows from the fact that the "identity functor" on any "category" is "fully faithful" and "essentially surjective".

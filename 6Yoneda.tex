@@ -324,7 +324,7 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 	Let $U: \catMon \rightsquigarrow \catSet$ be the "forgetful functor", $A$ be a set and $\freemon{A}$ be the "free monoid" on $A$, we have $\Hom_{\catSet}(A,U\placeholder) \isoCAT \Hom_{\catMon}(\freemon{A},\placeholder)$.
 \end{prop}
 \begin{proof}
-	We have already shown before Definition \ref{defn:freemon} that sending $h: A \rightarrow M$ to $h^*: \freemon{A} \rightarrow M$ is a bijection.\footnote{In the other direction, $h:\freemon{A} \rightarrow M$ is sent to $U(h) \circ i$ where $i: A \hookrightarrow A^*$ is the inclusion.} Now, we need to show it is "natural" in $M$. For any "monoid homomorphism" $f: M \rightarrow N$, \eqref{diag:freemonrepr} "commutes" (we omitted applications of $U$) because starting with $h: A \rightarrow M$, we have $(f \circ h)^* = f \circ h^*$.\footnote{To check this, let $w = a_1\cdots a_n\in A^*$, we have \begin{align*}
+	We have already shown before Definition \ref{defn:freemon} that sending $h: A \rightarrow M$ to $h^*: \freemon{A} \rightarrow M$ is a bijection.\footnote{In the other direction, $h:\freemon{A} \rightarrow M$ is sent to $U(h) \circ i$ where $i: A \inclusion A^*$ is the inclusion.} Now, we need to show it is "natural" in $M$. For any "monoid homomorphism" $f: M \rightarrow N$, \eqref{diag:freemonrepr} "commutes" (we omitted applications of $U$) because starting with $h: A \rightarrow M$, we have $(f \circ h)^* = f \circ h^*$.\footnote{To check this, let $w = a_1\cdots a_n\in A^*$, we have \begin{align*}
 		(f \circ h)^*(w) &= fh(a_1)\cdots fh(a_n)\\&= f(h(a_1)\cdots h(a_n))\\&= f(h(w)).
 	\end{align*}}
 	\begin{equation}\label{diag:freemonrepr}

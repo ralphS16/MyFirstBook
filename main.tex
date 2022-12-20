@@ -255,6 +255,9 @@
 \newrobustcmd{\andrel}{\mathbin{\kl[andrel]{\wedge}}}
 \renewrobustcmd{\succ}{\mathsf{succ}}
 \newrobustcmd{\NNO}{\mathfrak{N}}
+\newrobustcmd{\mono}{\mathrel{\kl[monic]{\rightarrowtail}}}
+\newrobustcmd{\epi}{\mathrel{\kl[epic]{\twoheadrightarrow}}}
+\newrobustcmd{\inclusion}{\mathrel{\kl[inclusion]{\hookrightarrow}}}
 
 %Special macro for knowledge link on overline
 %I create variables for storing a box (some fixed piece of math), its height and its width
@@ -281,7 +284,7 @@
 \newcommand{\sfmerge}{\textsf{merge}}
 \newcommand{\sfeven}{\textsf{even}}
 
-%Categories
+%Categories %TODO: Change with \mathcommands
 \newrobustcmd{\catSet}{\kl[Set]{\mathbf{Set}}}
 \newrobustcmd{\catSetInj}{\kl[SetInj]{\mathbf{SetInj}}}
 \newrobustcmd{\catSetSurj}{\kl[SetSurj]{\mathbf{SetSurj}}}
@@ -310,6 +313,7 @@
 \newrobustcmd{\catMet}{\kl[Met]{\mathbf{Met}}}
 \newrobustcmd{\catSimplex}{\kl[simplex category]{\mathbf{\Delta}}}
 \newrobustcmd{\catnRel}[1]{\kl[catnRel]{#1\mathbf{Rel}}}
+\newrobustcmd{\catSetoid}{\kl[catSetoid]{\mathbf{Setoid}}}
 %Known Symbols
 
 \newrobustcmd{\R}{\kl[real numbers]{\mathbb{R}}}
@@ -347,37 +351,19 @@
 
 
 %TODO: knowledge for rightsquigarrow.
-%TODO: -- inside names
+%TODO: -- inside names (e.g. Eilenberg--Moore)
 %TODO: put emphasis on principle of equivalence and mention evil.
 %TODO: square bracket notation for equivalence classes.
 %TODO: theorems should not be in italic.
-%TODO: three and a half kinds of exercises : NOW, NOW*, EXP and LEM.
-%TODO: ---- My goal for NOW exers is that noone gets stuck on those, I apologize in advance if that happens to you. They are basically tautologies, i.e.: I state a result that can be proven only by looking back at the definitions, often combining multiple definitions.
-% NOW* are very easy as well but not tautologies.
-% EXP are fun exercises for getting a bit of experience with the notions
-% LEM are exercises whose result will be required for later.
-% not consistent, just for fun
-%TODO: how you view an object in CT depends on what you want to do with it (e.g.: different ways to see Natural numbers)
 %TODO: say that you will use functoriality implicitly a lot of the times. as in F(g ci f) = Fg ci Ff
-%TODO: when giving links to external notions, also give a reference in Emily's book.
 %TODO: explain that dual corollary is as strong as the prop or theorem. We often do not explain the duality argument but do in the important cases.
 %TODO: i don't think i am gonna say "is equal to" when isomorphic and not equal but I might say "is the".
 %TODO: check ie, i.e., eg, e.g., cf, c.f. Put commas after instead of colons
 %TODO: check footnote before or after commas and points.
-%TODO: there are lots of things in the margin: simple precisions, harder precisions, diagrams that are less important, remarks, etc.
-%TODO: only one downside. My favorite textbook is now written by myself.
 %TODO: at the start of each chapter, put a reason why I love category theory that is related to the chapter.
-%TODO: I don't want to spend too much time motivating category theory because I am pretty sure that in a couple of years I will have changed enough to do so. So I hope that you have read a bit about the motivation behind category theory before stumbling upon this book. O/w, go read [ref].
+
 %TODO: talk about paving diagrams as being a softer version of diagram chasing because there is no need to use universal properties. So diagram paving is a subset of diagram chasing.
-%TODO: When I first tried to learn category theory, I realized there was a blatant gap in the market of category theory textbooks: there was no book made for me. For this reason, I had to look at multiple textbooks in order to learn at my own pace. This book conveniently fills this gap. More helpfully, this book is aimed at...
-%TODO: ask about one-line explainations of cat theory , so that I can expand on them.
-%TODO: category theory is just as hard to explain to someone that does not know about it as mathematics. (Imagine someone that has no idea what maths is, and how useful and efficient it has been) How would you convince someone that doesnt know what mathematics is to learn about it? Very hard to answer and same for category theory, I will try to give a 1% satisfactory answer and I hope this book accounts for the rest of the 99%. In this idea, category theory is not necessarily a language to do maths, we will do maths and use a lot of maths because that is the context of this book but it is not necessary, see PQP.
-%TODO: because lots of proofs are straightforward unrolling of definitions, I did not spend same amount of time on the pedagogy of each proofs, some are dry and straight to the point while other are more fleshed out.
-%TODO: put "see solution" in left margin.
-%TODO: hookarrow to other notation. keep hook arrow for actual inclusions. Make them knowledge.
-%TODO: explain what unroll means and how we will often use it. Make sure the knowledge unroll is consistently used.
-%TODO: When I say, we leave you to check. It means at this point, I expect a post-rigorous check will convince you. Make some knowledge for this sentence.
-%TODO: add small table of contents for each chapter in the margin.
+%TODO:knowledge for arrows. \rightsquigarrow and \Rightarrow (do this at the end.)
 \setcounter{tocdepth}{1}
 \tableofcontents
 \counterwithout{equation}{chapter}

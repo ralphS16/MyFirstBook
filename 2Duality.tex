@@ -77,7 +77,10 @@ Next, there is a couple of "functors" that are key to understand the philosophy 
 		\end{enumerate}
 	\end{enumerate}
 \end{exmp}
-It can take a bit of time to get comfortable with "Hom functors". For now, we only give one example of a "contravariant" "Hom functor", but we will take more time to play with them later in the book.
+It can take a bit of time to get comfortable with "Hom functors". For now, we will give only one example of each kind ("covariant" and "contravariant"), but we will take more time to play with them later in the book.
+\begin{exmp}[Ring of functions]\label{exmp:ringoffunc}
+	%TODO: example for ring of functions.
+\end{exmp}
 \begin{exmp}["Dual vector space"]
 	In the "category" $\catVect{k}$, there is a special "object" $k$,\footnote{We know it is special because we know some linear algebra, but $k$ also has some interesting categorical properties (see Exercise \ref{exer:duality:zeroinvect}).} let us see what the "contravariant functor" $\Hom_{\catVect{k}}(\placeholder, k)$ does. It assigns to any "vector space" $V$ the set of "linear maps" $V \rightarrow k$, that is, the carrier set of the "dual space" $\dual{V}$. It assigns to "linear maps" $T: V \rightarrow W$, the function \[\Hom_{\catVect{k}}(W,k) \rightarrow \Hom_{\catVect{k}}(V,k) = \phi \mapsto \phi \circ T.\]
 	We know that $\Hom_{\catVect{k}}(V,k) = \dual{V}$ can be seen as a "vector space" and it is easy to check that "pre-composition" by $T$ is a "linear map" $\dual{W} \rightarrow \dual{V}$. Therefore, we find that the assignment $V \mapsto \dual{V} = \Hom_{\catVect{k}}(\placeholder,k)$ is a "contravariant functor" $\catVect{k} \rightsquigarrow \catVect{k}$.
@@ -133,7 +136,7 @@ Let us start to illustrate how "duality@@CAT" can be useful while covering impor
 		\bullet \arrow[r, "h"', bend right] \arrow[r, "g", bend left] & \bullet \arrow[r, "f"] & \bullet
 		\end{tikzcd}
 	\end{equation}
-	Standard notation for a "monomorphism" is $ \bullet \hookrightarrow \bullet $ (\verb!\hookrightarrow!).
+	Standard notation for a "monomorphism" is $ \bullet \mono \bullet $ (\verb!\rightarrowtail!).\footnote{\AP Another widespread notation is $\bullet \intro\inclusion \bullet$. I prefer to use the latter when we understand the "morphism" as an ``inclusion'' of the first "object" in the second. These are often "monic".}
 \end{defn}
 \begin{prop}\label{prop:mon1}
 	Let $\mathbf{C}$ be a "category" and $f:A\rightarrow B$ a "morphism", if there exists $f': B\rightarrow A$ such that $f'\circ f = \id_A$,\footnote{\AP We say that $f'$ is a ""left inverse"" of $f$.} then $f$ is a "monomorphism".
@@ -161,7 +164,7 @@ The last two results hint at the fact that "monomorphisms" are analogues to inje
 	\bullet \arrow[r, "f"] & \bullet \arrow[r, "g", bend left] \arrow[r, "h"', bend right] & \bullet
 	\end{tikzcd}
 	\end{equation}
-	Standard notation for an "epimorphism" is $ \bullet \twoheadrightarrow \bullet$ (\verb!\twoheadrightarrow!).
+	Standard notation for an "epimorphism" is $ \bullet \epi \bullet$ (\verb!\twoheadrightarrow!).
 \end{defn}
 The "dual@@CAT" versions of Propositions \ref{prop:mon1} and \ref{prop:mon2} also hold. Although translating our previous proofs to the "dual@@CAT" case is straightforward, we will do the two next proofs relying on "duality@@CAT" to convey the general sketch that works anytime a "dual@@CAT" result needs to be proven.
 \begin{prop}\label{prop:ep1}
@@ -320,7 +323,7 @@ Rewording the last two results, we can say that "initial" (resp. "terminal") "ob
 		
 		\item %TODO: change this for the field with characteristic p or 0.
 		$\nexists$ "terminal", $\exists$ "initial":\footnote{Of course, you could take the opposite of $(\N, \geq)$, that is $(\N, \leq)$, but that is not fun.} Recall the "category" $\mathbf{SetInj}$ of finite sets and injective functions. The empty set is still "initial" but the singletons are not "terminal" because a function from a set $S$ into $\{\ast\}$ is never injective when $\cardinal{S} > 1$.
-		% The "category" \textbf{FinGrpInj} where the "objects" are finite "groups" and the "morphisms" are injective "homomorphisms@@GRP" only contains an "initial" "object" $\{1\}$. Indeed, an injective "homomorphism@@GRP" $G \hookrightarrow H$ can be seen as "subgroup" of $H$ "isomorphic@@GRP" to $G$. The "trivial" "group" $\{1\}$ can only be "isomorphic@@GRP" to the "subgroup" $\{1_H\}$ as any other element has degree more than $1$, so $\{1\}$ is "initial". Moreover, a "group" $G$ cannot be "terminal" as $G \times (\Z/2\Z)$ cannot be "isomorphic@@GRP" to any "subgroup" of $G$.
+		% The "category" \textbf{FinGrpInj} where the "objects" are finite "groups" and the "morphisms" are injective "homomorphisms@@GRP" only contains an "initial" "object" $\{1\}$. Indeed, an injective "homomorphism@@GRP" $G \mono H$ can be seen as "subgroup" of $H$ "isomorphic@@GRP" to $G$. The "trivial" "group" $\{1\}$ can only be "isomorphic@@GRP" to the "subgroup" $\{1_H\}$ as any other element has degree more than $1$, so $\{1\}$ is "initial". Moreover, a "group" $G$ cannot be "terminal" as $G \times (\Z/2\Z)$ cannot be "isomorphic@@GRP" to any "subgroup" of $G$.
 		\item $\nexists$ "terminal", $\nexists$ "initial": Let $G$ be a non-"trivial group", the "delooping" of $G$ has no "terminal" and no "initial" "objects". The "category" $\deloop{G}$ has a single "object" $\deloopobject$ with $\Hom_{\deloop{G}}(\deloopobject, \deloopobject) = G$, so $\deloopobject$ cannot be "initial" nor "terminal" when $\cardinal{G} > 1$.
 		
 		For a more interesting example, consider the "category" $\catField$. Its underlying "directed graph" is disconnected\footnote{There are "objects" with no "morphisms" between them.} because there are no "field homomorphisms" between "fields" of different "characteristic". Therefore, $\catField$ has no "initial" nor "terminal" "objects".
@@ -396,6 +399,7 @@ The following two exercises are a quick investigation in "preservation@@PROP" an
 		\item Find an example of "functor" which does not "reflect@@PROP" "monomorphisms".\footnote{A "functor" "reflects" "monomorphisms" if whenever $Ff$ is "monic", $f$ also is.}
 		\item Show that if $F$ is "faithful", then $F$ "reflects@@PROP" "monomorphisms".
 		\item State and prove the "dual@@CAT" statement.
+		\item Show that if $F$ is "fully faithful", then $F$ "reflects@@PROP" "isomorphisms@@CAT".
 	\end{enumerate}
 \end{exer}
 %TODO: exercise about functors preserving and reflecting initial and terminal objects.
@@ -416,7 +420,7 @@ The following two exercises are a quick investigation in "preservation@@PROP" an
 %     \item Let $X \in \mathbf{C}_0$ be an object, the set \textbf{subobjects} of $X$, denoted $\text{Sub}_{\mathbf{C}}(X)$, is the set of monomorphisms into $X$ quotiented by 
 %     Denoting $[m]$ the equivalence class of $m$, $\text{Sub}_{\mathbf{C}}(X)$ has a poset structure defined by \[m \leq m' \Leftrightarrow \exists \text{ morphism } k, m = m'k.\]
 %     Show that $\sim$ is an equivalence relation and $\leq$ is a partial order on $\text{Sub}_{\mathbf{C}}(X)$.
-We have seen how to \textit{categorify}\footnote{Categorification is an imprecise term referring to the process of casting an idea in a more categorical language. Depending on the original idea and the context where it is used, there can be many ways to describe it with a categorical mind. In the following two chapters, we will spend some time categorifying several set-theoretical notions.} unions and intersections of subsets in Example \ref{exmp:unions}. The next set theoretical notion we categorify is subsets. A subset $I \subseteq S$ can be identified with the inclusion function $I \hookrightarrow S$, and since the latter is injective, we may want to consider "monomorphisms" with "target" $S$ to be some kind of generalized subset. Observe however that an injection $I \hookrightarrow S$ is not necessarily an inclusion function. This does not matter because, in reality, we are interested in the image of this injection. We run into another obstacle because if two injections into $S$ have the same image, they represent the same subset. We overcome this using the following exercise.
+We have seen how to \textit{categorify}\footnote{Categorification is an imprecise term referring to the process of casting an idea in a more categorical language. Depending on the original idea and the context where it is used, there can be many ways to describe it with a categorical mind. In the following two chapters, we will spend some time categorifying several set-theoretical notions.} unions and intersections of subsets in Example \ref{exmp:unions}. The next set theoretical notion we categorify is subsets. A subset $I \subseteq S$ can be identified with the inclusion function $I \inclusion S$, and since the latter is injective, we may want to consider "monomorphisms" with "target" $S$ to be some kind of generalized subset. Observe however that an injection $I \mono S$ is not necessarily an inclusion function. This does not matter because, in reality, we are interested in the image of this injection. We run into another obstacle because if two injections into $S$ have the same image, they represent the same subset. We overcome this using the following exercise.
 \begin{exer}{soln:duality:equivsubobj}\label{exer:duality:equivsubobj}
 	\begin{marginfigure}[1\baselineskip]
 		Two "monomorphisms" related by $\sim$.
@@ -435,12 +439,12 @@ We have seen how to \textit{categorify}\footnote{Categorification is an imprecis
 	Show that $\sim$ is an equivalence relation.
 \end{exer}
 \begin{defn}[Subobject]
-	\AP Let $\mathbf{C}$ be a "category", a ""subobject"" of $X \in \obj{\mathbf{C}}$ is an equivalence class of the relation $\sim$ defined above. We will often abusively refer to a "subobject" simply with a "monomorphism" $Y \hookrightarrow X$ representing the class. The "collection" of "subobjects" of $X$ is denoted $\Sub_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Sub_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""well-powered"".
+	\AP Let $\mathbf{C}$ be a "category", a ""subobject"" of $X \in \obj{\mathbf{C}}$ is an equivalence class of the relation $\sim$ defined above. We will often abusively refer to a "subobject" simply with a "monomorphism" $Y \mono X$ representing the class. The "collection" of "subobjects" of $X$ is denoted $\Sub_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Sub_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""well-powered"".
 \end{defn}
 \begin{exmp}[$\catSet$]\label{exmp:subobjsubset}
-	Let $X \in \obj{\catSet}$, "subobjects" of $X$ correspond to subsets of $X$.\footnote{The notation $\Sub_{\catSet}(X)$ is perfect!} Indeed, any subset $I \subseteq X$ has an inclusion function $i: I \hookrightarrow X$ which is injective, hence "monic". For the other direction, we can show that $i:I \hookrightarrow X$ and $j: J \hookrightarrow X$ are in the same equivalence class in $\Sub_{\catSet}(X)$ if and only if $\im(i) = \im(j)$.\footnote{($\Rightarrow$) If $i \sim j$, then there exists a bijection $f$ such that $i = j \circ f$. It follows that the image of $j$ is the image of $i$.
+	Let $X \in \obj{\catSet}$, "subobjects" of $X$ correspond to subsets of $X$.\footnote{The notation $\Sub_{\catSet}(X)$ is perfect!} Indeed, any subset $I \subseteq X$ has an inclusion function $i: I \inclusion X$ which is injective, hence "monic". For the other direction, we can show that $i:I \mono X$ and $j: J \mono X$ are in the same equivalence class in $\Sub_{\catSet}(X)$ if and only if $\im(i) = \im(j)$.\footnote{($\Rightarrow$) If $i \sim j$, then there exists a bijection $f$ such that $i = j \circ f$. It follows that the image of $j$ is the image of $i$.
 	
-	($\Leftarrow$) Suppose $\im(i)=\im(j)$, we define $f:I \rightarrow J = x \mapsto j^{-1}(i(x))$, where $j^{-1}$ is the "left inverse" of $j$. It is clear that $i = j \circ f$ and a quick computation shows $f$ is an "isomorphism@@CAT" with "inverse" $x\mapsto i^{-1}(j(x))$, where $i^{-1}(x)$ is the "left inverse" of $i$.} We conclude that the correspondence between $\Sub_{\catSet}(X)$ and $\mPcov(X)$ sends $[i]$ to the image of $i$ and $I\subseteq X$ to the equivalence class of the inclusion $i: I \hookrightarrow X$.
+	($\Leftarrow$) Suppose $\im(i)=\im(j)$, we define $f:I \rightarrow J = x \mapsto j^{-1}(i(x))$, where $j^{-1}$ is the "left inverse" of $j$. It is clear that $i = j \circ f$ and a quick computation shows $f$ is an "isomorphism@@CAT" with "inverse" $x\mapsto i^{-1}(j(x))$, where $i^{-1}(x)$ is the "left inverse" of $i$.} We conclude that the correspondence between $\Sub_{\catSet}(X)$ and $\mPcov(X)$ sends $[i]$ to the image of $i$ and $I\subseteq X$ to the equivalence class of the inclusion $i: I \inclusion X$.
 \end{exmp}
 The next exercise generalizes the "poset" of subsets of $X$ $(\mP X, \subseteq)$.
 \begin{exer}{soln:duality:posetsubobj}\label{exer:duality:posetsubobj}
@@ -457,7 +461,7 @@ The next exercise generalizes the "poset" of subsets of $X$ $(\mP X, \subseteq)$
 We can use "duality@@CAT" to obtain (for free) the notion of "quotient objects".
 \begin{defn}[Quotients]
 	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$, there is an equivalence relation $\sim$ on "epimorphisms" with "source" $X$ defined by \[q \sim q' \Leftrightarrow \exists \text{ "isomorphism@@CAT" } i,  q = i \circ q'.\]
-	\AP A ""quotient object"" (or simply "quotient@@CAT") of $X$ is an equivalence class of the relation $\sim$ defined above.\footnote{We will often abusively refer to a "quotient@@CAT" simply with an "epimorphism" $X \twoheadrightarrow Y$.} The "collection" of "quotients@@CAT" of $X$ is denoted $\Quot_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Quot_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""co-well-powered"". There is a "partial order" $\leq$ on $\Quot_{\mathbf{C}}(X)$ defined by 
+	\AP A ""quotient object"" (or simply "quotient@@CAT") of $X$ is an equivalence class of the relation $\sim$ defined above.\footnote{We will often abusively refer to a "quotient@@CAT" simply with an "epimorphism" $X \epi Y$.} The "collection" of "quotients@@CAT" of $X$ is denoted $\Quot_{\mathbf{C}}(X)$. \AP If for any $X \in \obj{\mathbf{C}}$, $\Quot_{\mathbf{C}}(X)$ is a set, we say that $\mathbf{C}$ is ""co-well-powered"". There is a "partial order" $\leq$ on $\Quot_{\mathbf{C}}(X)$ defined by 
 	\[[q] \leq [q'] \Leftrightarrow \exists \text{ "morphism" } k,  q = k \circ q'.\]
 \end{defn}
 The terminology for this "dual@@CAT" notion is motivated by the following exercise.

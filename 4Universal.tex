@@ -29,7 +29,7 @@ Concisely, for any function $h: A \rightarrow M$, there is a unique "homomoprhis
 
 We repeated several times that "universal properties" should determine an "object" up to "isomorphism@@CAT", let us check this. Suppose that a "monoid" $N$ contains $A$ and satisfies the same property, that is for any (set-theoretic) function $h:A \rightarrow M$, there is a unique "homomorphism@@MON" $h^*_N:N \rightarrow M$ with $h^*_N(\mathtt{a}) = h(\mathtt{a})$. We claim that $N$ and $A^*$ are "isomorphic@@MON".
 
-If we take $M = \freemon{A}$, and $h: A \rightarrow \freemon{A} = a \mapsto a$, then we get a "homomorphism@@MON" $h_N^*: N \rightarrow \freemon{A}$ using the property for $N$. If we take $M = N$ and the inclusion $i: A \hookrightarrow N$, then the property of $\freemon{A}$ yields a "homomorphism@@MON" $i^*: \freemon{A} \rightarrow N$. By construction, $h_N^* \circ i^* : \freemon{A} \rightarrow \freemon{A}$ and $i^* \circ h_N^*: N \rightarrow N$ are both "homomorphisms@@MON" that send $\mathtt{a}$ to $\mathtt{a}$.\footnote{Recall that both $\freemon{A}$ and $N$ contains all elements in $A$.} Note that $\id_{\freemon{A}}: \freemon{A} \rightarrow \freemon{A}$ and $\id_N: N \rightarrow N$ are also "homomorphisms@@MON" sending $\mathtt{a}$ to $\mathtt{a}$. By the uniqueness in the "universal property", we conclude
+If we take $M = \freemon{A}$, and $h: A \rightarrow \freemon{A} = a \mapsto a$, then we get a "homomorphism@@MON" $h_N^*: N \rightarrow \freemon{A}$ using the property for $N$. If we take $M = N$ and the inclusion $i: A \inclusion N$, then the property of $\freemon{A}$ yields a "homomorphism@@MON" $i^*: \freemon{A} \rightarrow N$. By construction, $h_N^* \circ i^* : \freemon{A} \rightarrow \freemon{A}$ and $i^* \circ h_N^*: N \rightarrow N$ are both "homomorphisms@@MON" that send $\mathtt{a}$ to $\mathtt{a}$.\footnote{Recall that both $\freemon{A}$ and $N$ contains all elements in $A$.} Note that $\id_{\freemon{A}}: \freemon{A} \rightarrow \freemon{A}$ and $\id_N: N \rightarrow N$ are also "homomorphisms@@MON" sending $\mathtt{a}$ to $\mathtt{a}$. By the uniqueness in the "universal property", we conclude
 \[h_N^* \circ i^* = \id_{\freemon{A}} \text{ and }  i^* \circ h_N^* = \id_N,\]
 that is, $\freemon{A}$ and $N$ are "isomorphic@@MON".
 
@@ -169,7 +169,7 @@ Informally, one can think of $A^X$ as an "object" which behaves like $\Hom_{\mat
     Show that if $e: Y \product X \rightarrow A$ satisfies the same "universal property" as $\ev$, then $Y \isoCAT A^X$.\footnote{We will stop proving that "universal properties" determine "objects" up to "isomorphisms@@CAT", the abstract result (stating that works for all "universal properties") is Corollary \ref{cor:univpropiso}.}
 \end{exer}
 \begin{defn}[Cartesian closed]
-    \AP When a "category" $\mathbf{C}$ has all "exponentials" $A^X$ for all $A,X \in \obj{\mathbf{C}}$ (in particular, it has all "binary products"), we say it is ""cartesian closed"".
+    \AP When a "category" $\mathbf{C}$ has a "terminal object" and all "exponentials" $A^X$ for all $A,X \in \obj{\mathbf{C}}$ (in particular, it has all "binary products"\footnote{It also follows that $\mathbf{C}$ has all finite "products".}), we say it is ""cartesian closed"".
 \end{defn}
 The "category" of sets is "cartesian closed". Here is an exercise calling back to when we showed many familiar properties of Cartesian products generalized to "binary products".
 \begin{exer}{soln:universal:propexpon}\label{exer:universal:propexpon}
@@ -177,15 +177,15 @@ The "category" of sets is "cartesian closed". Here is an exercise calling back t
 \end{exer}
 \subsection{Subobject Classifier}
 \begin{exer}{soln:universal:subobjfunctor}\label{exer:universal:subobjfunctor}
-    Let $\mathbf{C}$ be a "well-powered" "category" with all "pullbacks". We define $\Sub_{\mathbf{C}}$ on "morphisms": it sends $f: X \rightarrow Y$ to $\pull{f}{\placeholder}: \Sub_{\mathbf{C}}(Y) \rightarrow \Sub_{\mathbf{C}}(X)$ sending $m: I \hookrightarrow Y$ to $\pull{f}{m}$, the "pullback" of $m$ "along" $f$ as depicted in \eqref{diag:pullbackalongf}. Show that this is well-defined (recall that a "subobject" of $Y$ is an equivalence class of "monomorphisms") and makes $\Sub_{\mathbf{C}}$ into a "functor" $\op{\mathbf{C}} \rightsquigarrow \mathbf{Set}$.\begin{marginfigure}\begin{equation}\label{diag:pullbackalongf}
+    Let $\mathbf{C}$ be a "well-powered" "category" with all "pullbacks". We define $\Sub_{\mathbf{C}}$ on "morphisms": it sends $f: X \rightarrow Y$ to $\pull{f}{\placeholder}: \Sub_{\mathbf{C}}(Y) \rightarrow \Sub_{\mathbf{C}}(X)$ sending $m: I \mono Y$ to $\pull{f}{m}$, the "pullback" of $m$ "along" $f$ as depicted in \eqref{diag:pullbackalongf}. Show that this is well-defined (recall that a "subobject" of $Y$ is an equivalence class of "monomorphisms") and makes $\Sub_{\mathbf{C}}$ into a "functor" $\op{\mathbf{C}} \rightsquigarrow \mathbf{Set}$.\begin{marginfigure}\begin{equation}\label{diag:pullbackalongf}
         % https://q.uiver.app/?q=WzAsNCxbMCwwLCJKIl0sWzAsMSwiWCJdLFsxLDEsIlkiXSxbMSwwLCJJIl0sWzAsMSwiXFxwdWxse2Z9e1xcaW90YX0iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsxLDIsImYiLDJdLFswLDNdLFszLDIsIlxcaW90YSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
 \begin{tikzcd}
 	J & I \\
 	X & Y
-	\arrow["{\pull{f}{m}}"', hook, from=1-1, to=2-1]
+	\arrow["{\pull{f}{m}}"', tail, from=1-1, to=2-1]
 	\arrow["f"', from=2-1, to=2-2]
 	\arrow[from=1-1, to=1-2]
-	\arrow["m", hook, from=1-2, to=2-2]
+	\arrow["m", tail, from=1-2, to=2-2]
 	\arrow["\pullbackd"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
 \end{tikzcd}
     \end{equation}\end{marginfigure}
@@ -208,12 +208,12 @@ In $\catSet$, recall that "subobjects" are subsets. Hence, letting $\Omega=\{\bo
 \end{equation}
 Crucially, this "pullback" uniquely determines $\charac_I$.\footnote{If $f:X \rightarrow \Omega$ also makes \eqref{diag:pullbackcharac} a "pullback" square, then $f^{-1}(\top) = I$, so $f$ and $\charac_I$ must coincide. The preimage of $f$ on $\top$ determines all of $f$ because there is only one other value in the codomain of $f$.} The role played by the two element set $\{\bot,\top\}$ can now be generalized to other "categories".
 \begin{defn}[Subobject classifier]
-    \AP Let $\mathbf{C}$ be a "category" with a "terminal" object $\terminal$. The ""subobject classifier"" (if it exists) is a "morphism" $\top: \terminal \rightarrow \Omega \in \mor{\mathbf{C}}$ such that for any "monomorphism" $I \hookrightarrow X$ there is a unique "morphism" $\charac_m: X \rightarrow \Omega$ such that \eqref{diag:pullbackcharac} is a "pullback" square. \AP We call $\charac_I$ the ""classifying morphism"" of $I \hookrightarrow X$.
+    \AP Let $\mathbf{C}$ be a "category" with a "terminal" object $\terminal$. The ""subobject classifier"" (if it exists) is a "morphism" $\top: \terminal \rightarrow \Omega \in \mor{\mathbf{C}}$ such that for any "monomorphism" $I \mono X$ there is a unique "morphism" $\charac_m: X \rightarrow \Omega$ such that \eqref{diag:pullbackcharac} is a "pullback" square. \AP We call $\charac_I$ the ""classifying morphism"" of $I \mono X$.
 \end{defn}
 \begin{exmp}[$\catPtd$]
     We find the "subobject classifier" in $\catPtd$.
     
-    Let $(X,x)$ be a "pointed set", we first show that a "subobject" of $(X,x)$ is a subset of $X$ that contains $x$. An argument like the one in Example \ref{exmp:monicset} shows that "monomorphisms" in $\catPtd$ are precisely the injective functions that preserve the point.\footnote{We can also give a more abstract proof. The "forgetful functor" $\catPtd \rightsquigarrow \catSet$ is "faithful" so it "reflects" "monomorphisms" by Exercise \ref{exer:duality:reflecting}. Also, we saw in Exercise \ref{exer:limits:preserveptd} that it "preserves" "pullbacks", hence it "preserves" "monomorphisms" by Exercise \ref{exer:limits:preservepullbackmono}.} Hence, for a subset $I\subseteq X$ with $x \in I$, the inclusion $i: (I,x) \hookrightarrow (X,x)$ is a "monomorphism". Moreover, we can show (as we did in Example \ref{exmp:subobjsubset}) that two "monomorphisms" $(I,i) \hookrightarrow (X,x)$ and $(J,j) \hookrightarrow (X,x)$ are in the same equivalence class of $\Sub_{\catPtd}(X,x)$ if and only if their images coincide (and their image must contain $x$). We conclude that $\Sub_{\catPtd}(X,x)$ is in correspondence with $\{S\subseteq X\mid x \in S\}$.
+    Let $(X,x)$ be a "pointed set", we first show that a "subobject" of $(X,x)$ is a subset of $X$ that contains $x$. An argument like the one in Example \ref{exmp:monicset} shows that "monomorphisms" in $\catPtd$ are precisely the injective functions that preserve the point.\footnote{We can also give a more abstract proof. The "forgetful functor" $\catPtd \rightsquigarrow \catSet$ is "faithful" so it "reflects" "monomorphisms" by Exercise \ref{exer:duality:reflecting}. Also, we saw in Exercise \ref{exer:limits:preserveptd} that it "preserves" "pullbacks", hence it "preserves" "monomorphisms" by Exercise \ref{exer:limits:preservepullbackmono}.} Hence, for a subset $I\subseteq X$ with $x \in I$, the inclusion $i: (I,x) \inclusion (X,x)$ is a "monomorphism". Moreover, we can show (as we did in Example \ref{exmp:subobjsubset}) that two "monomorphisms" $(I,i) \mono (X,x)$ and $(J,j) \mono (X,x)$ are in the same equivalence class of $\Sub_{\catPtd}(X,x)$ if and only if their images coincide (and their image must contain $x$). We conclude that $\Sub_{\catPtd}(X,x)$ is in correspondence with $\{S\subseteq X\mid x \in S\}$.
 
     The "terminal object" $\terminal$ in $\catPtd$ is the singleton $\{\ast\}$ with distinguished point $\ast$. Keeping the same notation $\Omega = \{\bot, \top\}$, we claim the "subobject classifier" is the unique "morphism" $\top: \terminal \rightarrow (\Omega,\top)$,\footnote{The "terminal object" $\terminal$ is also "initial" in $\catPtd$, see Exercise \ref{exer:duality:zeroinptd}.} it sends $\ast$ to $\top$. For any subset $I\subseteq X$ that contains $x \in X$, we define the "classifying morphism" $\charac_I:(X,x) \rightarrow (\Omega,\top)$ as before (see Footnote \ref{foot:characdef}), noting that it is a "morphism" in $\catPtd$ because $x$ belongs to $I$ so is mapped to $\top$. It clearly makes the square in \eqref{diag:characptd} "commute".\footnote{Both paths send everything in $I$ to $\top$.}
     \begin{equation}\label{diag:characptd}
@@ -236,23 +236,23 @@ Crucially, this "pullback" uniquely determines $\charac_I$.\footnote{If $f:X \ri
     It remains to show $\charac_I$ is the only possible "morphism" making that possible. If another "morphism" $\chi'$ does, we apply the "forgetful functor" which "preserves" "pullbacks" (Exercise \ref{exer:limits:preserveptd}) to get a "pullback" in $\catSet$. Because $\top: \terminal \rightarrow \Omega$ is the "subobject classifier" in $\catSet$, $\chi'$ must be the "classifying morphism" which is the "characteristic map" $\charac_I$.
 \end{exmp}
 \begin{marginfigure}[6\baselineskip]\begin{equation}\label{diag:classifierwelldef}
-    % https://q.uiver.app/?q=WzAsNixbMSwwLCJJIl0sWzEsMSwiWCJdLFsyLDEsIlxcT21lZ2EiXSxbMiwwLCJcXHRlcm1pbmFsIl0sWzAsMCwiSSciXSxbMCwxLCJYIl0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwyLCJcXGNoYXJhY19JIiwxXSxbMCwzXSxbMywyLCJcXHRvcCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNSwxLCJcXGlkX1giLDFdLFs0LDAsIlxcc2ltIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzUsMiwiXFxjaGFyYWNfe0knfSIsMix7ImN1cnZlIjo1fV0sWzQsMSwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+    % https://q.uiver.app/?q=WzAsNixbMSwwLCJJIl0sWzEsMSwiWCJdLFsyLDEsIlxcT21lZ2EiXSxbMiwwLCJcXHRlcm1pbmFsIl0sWzAsMCwiSSciXSxbMCwxLCJYIl0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsxLDIsIlxcY2hhcmFjX0kiLDJdLFswLDNdLFszLDIsIlxcdG9wIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFswLDIsIiIsMix7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFs0LDUsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbNSwxLCJcXGlkX1giLDJdLFs0LDAsIlxcc2ltIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzUsMiwiXFxjaGFyYWNfe0knfSIsMix7ImN1cnZlIjo1fV0sWzQsMSwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
 \begin{tikzcd}
 	{I'} & I & \terminal \\
 	X & X & \Omega
-	\arrow[hook, from=1-2, to=2-2]
-	\arrow["{\charac_I}"{description}, from=2-2, to=2-3]
+	\arrow[tail, from=1-2, to=2-2]
+	\arrow["{\charac_I}"', from=2-2, to=2-3]
 	\arrow[from=1-2, to=1-3]
-	\arrow["\top", hook, from=1-3, to=2-3]
+	\arrow["\top", tail, from=1-3, to=2-3]
 	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-2, to=2-3]
-	\arrow[hook, from=1-1, to=2-1]
-	\arrow["{\id_X}"{description}, from=2-1, to=2-2]
+	\arrow[tail, from=1-1, to=2-1]
+	\arrow["{\id_X}"', from=2-1, to=2-2]
 	\arrow["\sim", tail reversed, from=1-1, to=1-2]
-	\arrow["{\charac_{I'}}"', curve={height=20pt}, from=2-1, to=2-3]
+	\arrow["{\charac_{I'}}"', curve={height=30pt}, from=2-1, to=2-3]
 	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
 \end{tikzcd}
 \end{equation}\end{marginfigure}
-Before we can draw a diagram (akin to \eqref{diag:freemon}, \eqref{diag:abelianization}, etc.) summarizing the "universal property" of the "subobject classifier", we need to make sure that the "classifying morphisms" of two "monomorphisms" in the same equivalence class in $\Sub_{\mathbf{C}}(X)$ are equal. Let $I' \hookrightarrow X$ and $I \hookrightarrow X$ represent the same "subobject", namely, there is an "isomorphism@@CAT" $I' \isoCAT I$ making the left square in \eqref{diag:classifierwelldef} "commute". The right square is a "pullback" by hypothesis and the left square is a "pullback" by Exercise \ref{exer:limits:isopullback}. Therefore, the rectangle is a "pullback" by the "pasting lemma", and we see that $\charac_{I'} = \charac_I \circ \id_X$ by uniqueness of the "classifying morphism".
+Before we can draw a diagram (akin to \eqref{diag:freemon}, \eqref{diag:abelianization}, etc.) summarizing the "universal property" of the "subobject classifier", we need to make sure that the "classifying morphisms" of two "monomorphisms" in the same equivalence class in $\Sub_{\mathbf{C}}(X)$ are equal. Let $I' \mono X$ and $I \mono X$ represent the same "subobject", namely, there is an "isomorphism@@CAT" $I' \isoCAT I$ making the left square in \eqref{diag:classifierwelldef} "commute". The right square is a "pullback" by hypothesis and the left square is a "pullback" by Exercise \ref{exer:limits:isopullback}. Therefore, the rectangle is a "pullback" by the "pasting lemma", and we see that $\charac_{I'} = \charac_I \circ \id_X$ by uniqueness of the "classifying morphism".
 
 Now, in a "well-powered" "category" $\mathbf{C}$ that has a "terminal" object and all "pullbacks",\footnote{The definition of "subobject classifier" does not need the "well-poweredness" and the existence of all "pullbacks", but they are necessary to have a "universal property" because it uses the "functor" $\Sub_{\mathbf{C}}$. In any case, "subobject classifiers" are usually used when these conditions are satisfied.} the "subobject classifier" $\top: \terminal \rightarrow \Omega$ is such that for any "subobject" $m$ of $X$, there is a unique "morphism" $\charac_{m}: X \rightarrow \Omega$ satisfying $\pull{\charac_m}{\top} = m$. This is summarized in \eqref{diag:upsubobjectclassifier} where we identify $\top$ with the function $\terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ picking out this "subobject" (recall that any "morphism" out of $\terminal$ is "monic" by Exercise \ref{exer:duality:morterminal}), and similarly for $m$.
 \marginnote[2\baselineskip]{Notice that the dashed arrow gets reversed because $\Sub_{\mathbf{C}}$ is "contravariant". We could also write ``in $\op{\mathbf{C}}$'' and not reverse the arrow.}
@@ -298,8 +298,8 @@ We are ready to give the abstract definition.\begin{marginfigure}[8\baselineskip
     \begin{tikzcd}
         \Gamma & {\in_X} \\
         {X\product Y} & {X\product \Power X}
-        \arrow[hook, from=1-2, to=2-2]
-        \arrow["\gamma"', hook, from=1-1, to=2-1]
+        \arrow[tail, from=1-2, to=2-2]
+        \arrow["\gamma"', tail, from=1-1, to=2-1]
         \arrow["{\id_X \productm f_\gamma}"', dashed, from=2-1, to=2-2]
         \arrow[from=1-1, to=1-2]
         \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
@@ -307,7 +307,7 @@ We are ready to give the abstract definition.\begin{marginfigure}[8\baselineskip
     \end{equation}
 \end{marginfigure}
 \begin{defn}[Power object]
-    Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $X\product \placeholder$ is a "functor". \AP The ""power object"" of $X$ (if it exists) is an "object" $\Power X \in \obj{\mathbf{C}}$ along with a "monomorphism" ${\in_X} \hookrightarrow X \product \Power X$ such that for any "monomorphism" $\gamma: \Gamma \hookrightarrow X\product Y$, there is a unique "morphism" $f_\gamma: Y \rightarrow \Power X$ making \eqref{diag:pullbackpower2} a "pullback" square.
+    Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $X\product \placeholder$ is a "functor". \AP The ""power object"" of $X$ (if it exists) is an "object" $\Power X \in \obj{\mathbf{C}}$ along with a "monomorphism" ${\in_X} \mono X \product \Power X$ such that for any "monomorphism" $\gamma: \Gamma \mono X\product Y$, there is a unique "morphism" $f_\gamma: Y \rightarrow \Power X$ making \eqref{diag:pullbackpower2} a "pullback" square.
 \end{defn}
 Note that we obtain $f_\gamma$ from $\gamma$ instead of $\Gamma_f$ from $f$ (like we did in $\catSet$). In the end, it does not matter because the key property is that there is a correspondence between them. However, in the definition above, the fact that "pullbacks" are unique up to "isomorphisms" implies $\gamma$ is uniquely determined by $f_\gamma$ up to "isomorphism@@CAT",\footnote{More precisely, the "subobject" represented by $\gamma$ is uniquely determined by $\gamma$.} hence we only need to require $f_\gamma$ is uniquely determined by $\gamma$.
 
@@ -320,9 +320,9 @@ Note that we obtain $f_\gamma$ from $\gamma$ instead of $\Gamma_f$ from $f$ (lik
 
 Again, we want to draw a diagram that summarizes this "universal property". Just like for "subobject classifiers", we have to check $f_\gamma$ is the same as $f_{\gamma'}$ when $\gamma$ and $\gamma'$ are representatives for the same "subobject".
 \begin{exer}{soln:universal:welldefinedpowerchar}\label{exer:universal:welldefinedpowerchar}
-    Let ${\in_X} \hookrightarrow X\product \Power X$ be the "power object" of $X \in \obj{\mathbf{C}}$. Show that if $\gamma$ and $\gamma'$ are two "monomorphisms" equal in $\Sub_{\mathbf{C}}(X\product Y)$, then $f_\gamma = f_{\gamma'}$.
+    Let ${\in_X} \mono X\product \Power X$ be the "power object" of $X \in \obj{\mathbf{C}}$. Show that if $\gamma$ and $\gamma'$ are two "monomorphisms" equal in $\Sub_{\mathbf{C}}(X\product Y)$, then $f_\gamma = f_{\gamma'}$.
 \end{exer}
-We can conclude that if $\mathbf{C}$ is "well-powered" and has a "terminal" "object", the "power object" of $X\in \obj{\mathbf{C}}$ is a "monomorphism" ${\in_X} \hookrightarrow X\product \Power X$ such that for any "subobject" $\gamma$ of $X\product Y$, there is a unique "morphism" $f_\gamma: Y \rightarrow \Power X$ satisfying $\pull{(\id_X \productm f_\gamma)}{\in_X} = \gamma$. This is summarized in \eqref{diag:uppowerobject}.
+We can conclude that if $\mathbf{C}$ is "well-powered" and has a "terminal" "object", the "power object" of $X\in \obj{\mathbf{C}}$ is a "monomorphism" ${\in_X} \mono X\product \Power X$ such that for any "subobject" $\gamma$ of $X\product Y$, there is a unique "morphism" $f_\gamma: Y \rightarrow \Power X$ satisfying $\pull{(\id_X \productm f_\gamma)}{\in_X} = \gamma$. This is summarized in \eqref{diag:uppowerobject}.
 \begin{equation}\label{diag:uppowerobject}
     % https://q.uiver.app/?q=WzAsNyxbMSwwLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFhcXHByb2R1Y3RcXFBvd2VyIFgpIl0sWzAsMCwiXFx0ZXJtaW5hbCJdLFsxLDEsIlxcU3ViX3tcXG1hdGhiZntDfX0oWFxccHJvZHVjdCBZKSJdLFszLDEsIlkiXSxbMywwLCJcXFBvd2VyIFgiXSxbMiwwXSxbNCwwXSxbMSwwLCJcXGluX1giXSxbMSwyLCJcXGlvdGEiLDJdLFszLDQsImZfXFxnYW1tYSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7Q30iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcY2F0U2V0IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiXFxwdWxse2ZfXFxnYW1tYX17XFxpZF9YIFxccHJvZHVjdG1cXHBsYWNlaG9sZGVyfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs5LDEyLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFhcXHByb2R1Y3QgXFxwbGFjZWhvbGRlcikiLDIseyJsYWJlbF9wb3NpdGlvbiI6MzAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0Ijo1MH0sImxldmVsIjoxfV1d
 \begin{tikzcd}
@@ -377,11 +377,11 @@ The second part of this exercise is a hint for the first part, and it is what we
         \bullet \arrow[ru] & \bullet \arrow[loop, distance=2em, in=35, out=325] & & & &\bullet \arrow[rrru] &\bullet \arrow[rr, bend right] & \bullet & \bullet
         \end{tikzcd}
     \end{equation*}
-    A subgraph $H \hookrightarrow X \product A$ can be seen as two subsets $H^1$ and $H^2$ of $\obj{X}$\footnote{$H^1$ contains the "objects" of $H$ belonging to the first copy of $X$ in $X\product A$ and $H^2$ contains the "objects" of $H$ in the second copy.} along with a set of "arrows" $H^a\subseteq \mor{X}$ whose "sources" are in $H^1$ and "targets" are in $H^2$. We define $\mor{(\Power X)}$ to be the set of all such triples $(H^1,H^2,H^a)$ to ensure we have $\Hom(A,X) \isoCAT \mor{(\Power X)} \isoCAT \Sub(X\product A)$.
+    A subgraph $H \mono X \product A$ can be seen as two subsets $H^1$ and $H^2$ of $\obj{X}$\footnote{$H^1$ contains the "objects" of $H$ belonging to the first copy of $X$ in $X\product A$ and $H^2$ contains the "objects" of $H$ in the second copy.} along with a set of "arrows" $H^a\subseteq \mor{X}$ whose "sources" are in $H^1$ and "targets" are in $H^2$. We define $\mor{(\Power X)}$ to be the set of all such triples $(H^1,H^2,H^a)$ to ensure we have $\Hom(A,X) \isoCAT \mor{(\Power X)} \isoCAT \Sub(X\product A)$.
 
-    It seems more than likely that $H^1$ and $H^2$, being "objects" of $\Power X$, are the "source" and "target" of the "arrow" $(H^1,H^2,H^a)$. As a sanity check, let us verify that with this definition of "source" and "target" in $\Power X$, the "loops" are in correspondence with "subgraphs" of $X$; that is the first thing we discovered about $\Power X$. If $H^1 = H^2$, then the triple defines the "subgraph" of $X$ containing all the "objects" in $H^1$ (or $H^2$) and all the "arrows" in $H^a$. Conversely, given a "subgraph" of $H \hookrightarrow X$, we let both $H^1$ and $H^2$ be the set of "objects" of $H$ and $H^a$ be the set of "arrows" of $H$.
+    It seems more than likely that $H^1$ and $H^2$, being "objects" of $\Power X$, are the "source" and "target" of the "arrow" $(H^1,H^2,H^a)$. As a sanity check, let us verify that with this definition of "source" and "target" in $\Power X$, the "loops" are in correspondence with "subgraphs" of $X$; that is the first thing we discovered about $\Power X$. If $H^1 = H^2$, then the triple defines the "subgraph" of $X$ containing all the "objects" in $H^1$ (or $H^2$) and all the "arrows" in $H^a$. Conversely, given a "subgraph" of $H \mono X$, we let both $H^1$ and $H^2$ be the set of "objects" of $H$ and $H^a$ be the set of "arrows" of $H$.
     
-    We seem to be on the right track, and we need one last thing in the definition of "power object",\footnote{Before the proof of the "universal property".} the subgraph $\in_X$ of $X\product \Power X$. Since we are almost done, we will totally trust our intuition of what $\in_X$ should be without looking for more justifications. The "objects" of $\in_X$ are pairs $(x,H)$ where $x \in \obj{X}$ and $H\subseteq \obj{X}$, it makes sense to require that $x \in H$. The "arrows" of $\in_X$ are pairs $(f,(H^1,H^2,H^a))$ where $f:x \rightarrow x'$, $x \in H^1$, $x' \in H^2$, it makes sense to require that $f \in H^a$.\footnote{Recall that every "arrow" in $H^a$ has its "source" in $H^1$ and its "target" in $H^2$ just like $f$.} We are ready to prove ${\in_X} \hookrightarrow \Power X$ satisfies the "universal property" of the "power object" of $X$.
+    We seem to be on the right track, and we need one last thing in the definition of "power object",\footnote{Before the proof of the "universal property".} the subgraph $\in_X$ of $X\product \Power X$. Since we are almost done, we will totally trust our intuition of what $\in_X$ should be without looking for more justifications. The "objects" of $\in_X$ are pairs $(x,H)$ where $x \in \obj{X}$ and $H\subseteq \obj{X}$, it makes sense to require that $x \in H$. The "arrows" of $\in_X$ are pairs $(f,(H^1,H^2,H^a))$ where $f:x \rightarrow x'$, $x \in H^1$, $x' \in H^2$, it makes sense to require that $f \in H^a$.\footnote{Recall that every "arrow" in $H^a$ has its "source" in $H^1$ and its "target" in $H^2$ just like $f$.} We are ready to prove ${\in_X} \mono \Power X$ satisfies the "universal property" of the "power object" of $X$.
 
     Let $\Gamma$ be a subgraph of $X\product Y$ with inclusion $\gamma:\Gamma \rightarrow X\product Y$.\footnote{We assume without loss of generality that $\gamma$ is an inclusion (not an arbitrary "monomorphism") to avoid having different names for stuff in $\Gamma$ and stuff in $X\product Y$.} We need to define a "morphism" $f_{\gamma}: Y \rightarrow \Power X$ making \eqref{diag:pullbackpower2} a "pullback" square, and we also need to prove it is unique. Let us use Exercise \ref{exer:universal:dgphpullbacks} to compute the "pullback" for some yet undefined $f_\gamma$, and we will then figure out what constraints we obtain on $f_\gamma$ when requiring that "pullback" to be $\Gamma$. Hopefully, these will uniquely define $f_\gamma$.
 
@@ -402,12 +402,12 @@ The second part of this exercise is a hint for the first part, and it is what we
         \begin{tikzcd}
             \Gamma & G & {\in_X} \\
             & {X\times Y} & {X\times \Power X}
-            \arrow[hook, from=1-3, to=2-3]
-            \arrow[hook, from=1-2, to=2-2]
+            \arrow[tail, from=1-3, to=2-3]
+            \arrow[tail, from=1-2, to=2-2]
             \arrow["{\id_X \productm f_\gamma}"', from=2-2, to=2-3]
             \arrow[from=1-2, to=1-3]
             \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-2, to=2-3]
-            \arrow["\gamma"', hook, from=1-1, to=2-2]
+            \arrow["\gamma"', tail, from=1-1, to=2-2]
             \arrow["\isoCAT"{description}, draw=none, from=1-1, to=1-2]
         \end{tikzcd}
         \end{equation}
@@ -572,9 +572,9 @@ The "dual@@CAT" notion is a "universal morphism" from $F$ to $X$.\footnote{The "
     Let us translate the other examples we gave above with this new terminology.
     \begin{enumerate}
         \item The quotient map from a group $G$ to its "abelianization" $\ab{G}$ is the "universal morphism" from $G$ to the "forgetful functor" $\catAb \rightsquigarrow \catGrp$.
-        \item The set $S \subseteq V$ is a "basis" for the "vector space" $V$ when the inclusion $S \hookrightarrow V$ is the "universal morphism" from $S$ to the "forgetful functor" $\catVect{k} \rightsquigarrow \catSet$.
+        \item The set $S \subseteq V$ is a "basis" for the "vector space" $V$ when the inclusion $S \inclusion V$ is the "universal morphism" from $S$ to the "forgetful functor" $\catVect{k} \rightsquigarrow \catSet$.
         \item An "exponential object" is an "object" $A^X$ along with the "universal morphism" $\ev$ from the "functor" $\placeholder\product X$ to $A$.\footnote{This is an example of a "universal morphism" from a "functor" to an "object", whereas all the other examples are "universal morphisms" from an "object" to a "functor".}
-        \item A "subobject classifier" is a "morphism" $\top: \terminal \hookrightarrow \Omega$ such that the corresponding function $\top: \terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ is the "universal morphism" from $\terminal$ to the "functor" $\Sub_{\mathbf{C}}$.
+        \item A "subobject classifier" is a "morphism" $\top: \terminal \mono \Omega$ such that the corresponding function $\top: \terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ is the "universal morphism" from $\terminal$ to the "functor" $\Sub_{\mathbf{C}}$.
         \item A "power object" of $X$ is an object $\Power X$ along with the "universal morphism" $\in_X$ from $\terminal$ to $\Sub_{\mathbf{C}}(X\product \placeholder)$.
     \end{enumerate}
 \end{exmps}
@@ -588,7 +588,7 @@ In the next section, we will see that "universal morphisms" are "initial" or "te
 \end{defn}
 It readily follows (using Proposition \ref{prop:initialunique} and Corollary \ref{cor:terminalunique}) that "universal properties" determine things up to "isomorphism@@CAT".
 \begin{exer}{soln:universal:initialsubclass}\label{exer:universal:initialsubclass}
-    Show that in any "category" $\mathbf{C}$ with a "terminal" "object" $\terminal$ (even if $\mathbf{C}$ is not "well-powered"), we can define a "category" whose "objects" are "monomorphisms" in $\mathbf{C}$ and $\top: X \hookrightarrow \Omega$ is "terminal" if and only if it is the "subobject classifier" in $\mathbf{C}$. In particular, if $\top$ is "terminal" in that "category", then $X$ is "terminal" in $\mathbf{C}$.
+    Show that in any "category" $\mathbf{C}$ with a "terminal" "object" $\terminal$ (even if $\mathbf{C}$ is not "well-powered"), we can define a "category" whose "objects" are "monomorphisms" in $\mathbf{C}$ and $\top: X \mono \Omega$ is "terminal" if and only if it is the "subobject classifier" in $\mathbf{C}$. In particular, if $\top$ is "terminal" in that "category", then $X$ is "terminal" in $\mathbf{C}$.
 \end{exer}
 
 \section{Comma Categories}
@@ -754,6 +754,8 @@ This example suggests we can define an abstract and general way of defining ``po
     Show that the "product" of $f:A \rightarrow X$ and $g: B \rightarrow X$ in $\slice{\mathbf{C}}{X}$ exists if and only if the "pullback" of $\begin{tikzcd}[cramped, sep=small] A \arrow[r, "f"] & X & B \arrow[l, "g"'] \end{tikzcd}$ exists in $\mathbf{C}$. State and prove the "dual@@CAT" statement.
 \end{exer}
 These results can be summarized by saying that "pullbacks" are "products" in the "slice category", and "pushouts" are "coproducts" in the "coslice category". This allows us to define arbitrary (not binary) "pullbacks" and "pushouts" as arbitrary "products" and "coproducts" in the "slice" and "coslice" "categories".\footnote{In the literature, these are called \textbf{fibered products} and \textbf{fibered sums} respectively.}
+%TODO: Bij: BijSet -> Grp is a functor, and G-sets are objects of G \comma Bij (where G is constant functor).
+%TODO: \id \comma \mPcov is the category 2Rel. Can it be generalied to nRel ?
 \begin{exer}{soln:universal:opcomma}\label{exer:universal:opcomma}
     Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd}, show that an "initial" "object" in $\comcat{F}{G}$ is a "terminal" "object" in $\comcat{\op{G}}{\op{F}}$.
 \end{exer}

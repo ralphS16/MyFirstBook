@@ -164,7 +164,7 @@ As for "monoids" and "groups", the image of a "homomorphism@@RING" is a "subring
 	Let $R$ be a "ring" and $I$ be an "ideal" of $R$, the "addition@@RING" and "multiplication@@RING" of $R$ are well-defined on equivalence classes of $\sim_I$, namely, if $r \sim_I r'$ and $s \sim_I s'$, then $r+s \sim_I r'+s'$ and $rs \sim_I r's'$.\footnote{For "addition@@RING", we can use the same proof as for "quotient@@GRP" "groups" because $I$ is a "normal subgroup" of $(R,+)$ (any "subgroup" of an "abelian group" is "normal"). For "multiplication@@RING", suppose $r+i = r'$ and $s+j = s'$ for $i,j \in I$, then \[r's' = (r+i)(s+j) = rs+rj+is+ij,\] and since $I$ is an "ideal", $rj+is+ij \in I$. We conclude $rs \sim_I r's'$.} \AP The "quotient@@RING" $\quotRING{R}{I}$ is the "ring" whos elements are equivalence classes of $\sim_I$ with the "addition@@RING" $[r]+[s] := [r+s]$, the "multiplication@@RING" $[r]\cdot [s] :=  [r\cdot s]$, $0_{\quotRING{R}{I}} := [0_R]$, and $1_{\quotRING{R}{I}} := [1_R]$.
 \end{defn}
 \begin{defn}[Units]
-	\AP An element of a "ring" is called a ""unit@@RING"" if it has a multiplicative inverse. Namely, $x \in R$ is a "unit@@RING" if there exists $x^{-1}$ such that $xx^{-1} = 1_R = x^{-1}x$. We denote by $\units{R}$ the set of "unit@@RING" of $R$, it is a "group" with the "multiplication@@GRP" inherited from $R$.
+	\AP An element of a "ring" is called a ""unit@@RING"" if it has a multiplicative inverse. Namely, $x \in R$ is a "unit@@RING" if there exists $x^{-1}$ such that $xx^{-1} = 1_R = x^{-1}x$. We denote by $\units{R}$ the set of "units@@RING" of $R$, it is a "group" with the "multiplication@@GRP" inherited from $R$.
 \end{defn}
 \begin{exmp}
 	\AP The "group" of "unit@@RING" of $R^{n\times n}$ is called the ""general linear group"" over $R$ and denoted by $\gln(R)$. It contains all the invertible\footnote{Sometimes called non-singular.} $n\times n$ matrices with entries in $R$.
@@ -419,20 +419,20 @@ Here are more easy results on the "closure" of a subset.
 	\AP A subset $A\subseteq X$ is said to be ""dense"" (in $X$) if any non-empty "open set" intersects $A$ non-trivially, that is, $\forall\emptyset\neq  U  \in \topo, A \cap U \neq \emptyset$.
 \end{defn}
 \begin{prop}[Decomposition]\label{prop:decomptop}
-	Let $A\subseteq X$, then $A = \closure{A} \cap (A \cup (\closure{A})^\comple)$, where $\closure{A}$ is "closed" and $A \cup (\closure{A})^\comple$ is "dense". This results says that any subset of $X$ can be decomposed into a "closed" and a "dense" set.
+	Let $A\subseteq X$, then $A = \closure{A} \cap (A \cup \left(\closure{A}\right)^\comple)$, where $\closure{A}$ is "closed" and $A \cup \left(\closure{A}\right)^\comple$ is "dense". This results says that any subset of $X$ can be decomposed into a "closed" and a "dense" set.
 \end{prop}
 \begin{proof}
 	The equality is clear\footnote{We use (in this order) distributivity of $\cap$ over $\cup$, the fact that a set and its "complement" intersect trivially and the inclusion $A \subseteq \closure{A}$:
     \begin{align*}
-        \closure{A} \cap (A \cup (\closure{A})^\comple) &= (\closure{A} \cap A)\cup (\closure{A} \cap (\closure{A})^\comple)\\&= A \cup \emptyset\\ &= A
-    \end{align*}} and $\closure{A}$ is "closed" by definition. It is left to show that $A \cup (\closure{A})^\comple$ is "dense". Let $U \neq \emptyset$ be an "open set". If $U$ intersects $A$, we are done. Otherwise, we have the following equivalences:\[U \cap A = \emptyset\Leftrightarrow A \subseteq U^\comple \Leftrightarrow \closure{A} \subseteq U^\comple \Leftrightarrow U \subseteq (\closure{A})^\comple,\]
-	where the second $\Rightarrow$ holds because $U^\comple$ is "closed". We conclude $U \cap (\closure{A})^\comple \neq \emptyset$.
+        \closure{A} \cap (A \cup \left(\closure{A}\right)^\comple) &= (\closure{A} \cap A)\cup (\closure{A} \cap \left(\closure{A}\right)^\comple)\\&= A \cup \emptyset\\ &= A
+    \end{align*}} and $\closure{A}$ is "closed" by definition. It is left to show that $A \cup \left(\closure{A}\right)^\comple$ is "dense". Let $U \neq \emptyset$ be an "open set". If $U$ intersects $A$, we are done. Otherwise, we have the following equivalences:\[U \cap A = \emptyset\Leftrightarrow A \subseteq U^\comple \Leftrightarrow \closure{A} \subseteq U^\comple \Leftrightarrow U \subseteq \left(\closure{A}\right)^\comple,\]
+	where the second $\Rightarrow$ holds because $U^\comple$ is "closed". We conclude $U \cap \left(\closure{A}\right)^\comple \neq \emptyset$.
 \end{proof}
 \begin{prop}
 	A subset $A \subseteq X$ is "dense" if and only if $\closure{A} = X$.
 \end{prop}
 \begin{proof}
-	($\Rightarrow$) Since $(\closure{A})^\comple$ is "open" but it intersects trivially the "dense" set $A$, it must be empty, thus $\closure{A}$ is the whole "space@@TOP".
+	($\Rightarrow$) Since $\left(\closure{A}\right)^\comple$ is "open" but it intersects trivially the "dense" set $A$, it must be empty, thus $\closure{A}$ is the whole "space@@TOP".
 	
 	($\Leftarrow$) Let $U$ be an "open set" such that $U \cap A = \emptyset$, then $A$ is contained in the "closed set" $U^\comple$, but this implies $\closure{A} \subseteq U^\comple$,\footnote{Recall that the "closure" of $A$ is the smallest "closed set" containing $A$.} thus $U$ is empty.
 \end{proof}
