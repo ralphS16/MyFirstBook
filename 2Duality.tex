@@ -50,11 +50,11 @@ By modifying Definition \ref{defn:func} to require that $F(f)$ goes in the oppos
 		\item If $A \in \obj{\mathbf{C}}$, then $\idu_{\mathbf{D}}(F(A)) = F(\idu_{\mathbf{C}}(A))$.
 	\end{enumerate}
 \end{defn}
-\begin{exmps}
+\begin{exmps}\label{exmps:contrafunc}
 	Just like their "covariant" counterparts, "contravariant functors" are quite numerous. Here are a couple of simple ones.
 	\begin{enumerate}
 		\item "Contravariant" "functors" $F: (X, \leq) \rightsquigarrow (Y, \sqsubseteq)$ correspond to "order-reversing" functions between the posets $X$ and $Y$ and contravariant functors $F: \deloop{G}\rightsquigarrow \deloop{H}$ correspond to "anti-homomorphisms" between the "groups" $G$ and $H$.
-		\itemAP The ""contravariant powerset functor"" $\mPcontr{\placeholder}: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mPcontr{X}$,\footnote{We use a different notation for the "powerset" to emphasize the difference between $\mPcov$ and $\mPcontr{\placeholder}$.} and a function $f: X\rightarrow Y$ to the preimage map $\mPcontr{f}:\mPcontr{Y}\rightarrow \mPcontr{X}$, the latter sends a subset $S\subseteq Y$ to \[\mPcontr{f}(S) = f^{-1}(S) := \{x \in X \mid f(x) \in S\} \subseteq X.\]
+		\itemAP\label{exmp:contrapowerset} The ""contravariant powerset functor"" $\mPcontr{\placeholder}: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mPcontr{X}$,\footnote{We use a different notation for the "powerset" to emphasize the difference between $\mPcov$ and $\mPcontr{\placeholder}$.} and a function $f: X\rightarrow Y$ to the preimage map $\mPcontr{f}:\mPcontr{Y}\rightarrow \mPcontr{X}$, the latter sends a subset $S\subseteq Y$ to \[\mPcontr{f}(S) = f^{-1}(S) := \{x \in X \mid f(x) \in S\} \subseteq X.\]
 	\end{enumerate}
 \end{exmps}
 Next, there is a couple of "functors" that are key to understand the philosophy put forward by category theory.\footnote{We will talk more about it when covering the "Yoneda lemma" in Chapter \ref{chap:Yoneda}.}

@@ -174,10 +174,10 @@ It is also possible that $F$ and $G$ take more than one parameter.
 \begin{exer}{soln:natural:componentwise}[\NOW]\label{exer:natural:componentwise}
 	Let $F, G: \mathbf{C} \cattimes \mathbf{C}' \rightsquigarrow \mathbf{D}$ be two "functors". Show that a family \[\left\{ \phi_{X,Y}: F(X,Y) \rightarrow G(X,Y)\mid X \in \obj{\mathbf{C}}, Y \in \obj{\mathbf{C}'} \right\}\] is a "natural transformation" if and only if for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{C}'}$, both\footnote{Recall the definition of $F(X,\placeholder)$ and $F(\placeholder,Y)$ from Exercise \ref{exer:catfunc:placeholder}. If only one of $\phi_{X,\placeholder}$ or $\phi_{\placeholder,Y}$ is "natural", we say that $\phi$ is "natural in" $X$ only, respectively $Y$ only. In words, this exercise says that $\phi$ is "natural in" $X$ and $Y$ if and only if it is "natural in" $X$ and "natural in" $Y$.} \[\phi_{X,\placeholder}: F(X,\placeholder) \Rightarrow G(X,\placeholder) \text{ and } \phi_{\placeholder,Y}: F(\placeholder,Y) \Rightarrow G(\placeholder,Y)\] are "natural".
 \end{exer}
-\begin{exmps}[Natural isomorphisms]
+\begin{exmps}[Natural isomorphisms]\label{exmps:natiso}
 	\AP A ""natural isomorphism"" is a "natural transformation" whose "components" are all "isomorphisms@@CAT". We have already encountered several of them.
 	\begin{enumerate}
-	\item When defining "exponentials", we saw that "currying" is a bijection $\Hom_{\mathbf{C}}(B\product X, A) \isoCAT \Hom_{\mathbf{C}}(B,A^X)$. It turns out this is a "natural isomorphism" from the "functor" $\Hom_{\mathbf{C}}(\placeholder\product X,A): \op{\mathbf{C}} \rightsquigarrow \catSet$ to $\Hom_{\mathbf{C}}(\placeholder,A^X): \op{\mathbf{C}} \rightsquigarrow \catSet$. We simply need to check the square below "commutes" for any $f: B \rightarrow B'$.\footnote{Because these "functors" have $\op{\mathbf{C}}$ as a "source", note the reversal the "arrows"}
+	\item\label{exmp:natisocurry} When defining "exponentials", we saw that "currying" is a bijection $\Hom_{\mathbf{C}}(B\product X, A) \isoCAT \Hom_{\mathbf{C}}(B,A^X)$. It turns out this is a "natural isomorphism" from the "functor" $\Hom_{\mathbf{C}}(\placeholder\product X,A): \op{\mathbf{C}} \rightsquigarrow \catSet$ to $\Hom_{\mathbf{C}}(\placeholder,A^X): \op{\mathbf{C}} \rightsquigarrow \catSet$. We simply need to check the square below "commutes" for any $f: B \rightarrow B'$.\footnote{Because these "functors" have $\op{\mathbf{C}}$ as a "source", note the reversal the "arrows"}
 	\begin{equation}\label{diag:natisoexpo}
 		% https://q.uiver.app/?q=WzAsNCxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEInLEFeWCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsQV5YKSJdLFswLDEsIlxcSG9tX3tcXG1hdGhiZntDfX0oQidcXHByb2R1Y3QgWCxBKSJdLFswLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oQlxccHJvZHVjdCBYLEEpIl0sWzAsMSwiXFxwbGFjZWhvbGRlciBcXGNpcmMgZiIsMl0sWzIsMywiXFxwbGFjZWhvbGRlciBcXGNpcmMgKGZcXHByb2R1Y3RtIFxcaWRfWCkiXSxbMiwwLCJnXFxtYXBzdG8gXFxjdXJyeXtnfSIsMl0sWzMsMSwiZ1xcbWFwc3RvIFxcY3Vycnl7Z30iXV0=
 \begin{tikzcd}
@@ -231,7 +231,10 @@ Now, coming back to our idea that "natural transformations" are "morphisms" of "
 	\AP For any two "categories" $\mathbf{C}$ and $\mathbf{D}$, there is a ""functor category"" denoted $\catFunc{\mathbf{C}}{\mathbf{D}}$.\footnote{Some authors denote it $\mathbf{D}^{\mathbf{C}}$, analogously to the "exponential" of sets. In fact, $\catCat$ is "cartesian closed" and $\catFunc{\mathbf{C}}{\mathbf{D}}$ is the "exponential". We give most of the proof in Example \ref{exmp:isocat}.\ref{exmp:curryingfunctors}.} Its "objects" are "functors" from $\mathbf{C}$ to $\mathbf{D}$, its "morphisms" are "natural transformations" between such "functors", and the "composition" is the "vertical composition" defined above. We leave you to check the "associativity" of $\vertcomp$ as it quickly follows from "associativity" of "composition" in $\mathbf{D}$. Similarly, you can verify the "identity morphism" for a "functor" $F$ is $\one_F$.
 \end{defn}
 \begin{exer}{soln:natural:natiso}[\NOW]\label{exer:natural:natiso}
-	Show that "natural isomorphisms" are precisely the "isomorphisms@@CAT" in "functor categories".\marginnote{"Functors" that are "naturally isomorphic" are essentially the same "functor"; they send the same "object" to "isomorphic@@CAT" "objects" and the same "morphism" to "morphisms" that are well-behaved under "composition" with "isomorphisms@@CAT" between the "source" and "targets".} %TODO: say this better
+	Show that "natural isomorphisms" are precisely the "isomorphisms@@CAT" in "functor categories".\marginnote{"Functors" that are "naturally isomorphic" are essentially the same "functor"; they send the same "object" to "isomorphic@@CAT" "objects" and the same "morphism" to "morphisms" that are well-behaved under "composition" with "isomorphisms@@CAT" between the "source" and "targets". This suggests that a "natural isomorphism" between "functors" transfers all the properties, we check some of them in Exercise \ref{exer:natural:natisopreserve}.} %TODO: say this better
+\end{exer}
+\begin{exer}{soln:natural:natisopreserve}\label{exer:natural:natisopreserve}
+	Let $F,G: \mathbf{C} \rightsquigarrow \mathbf{D}$ be two "naturally isomorphic" "functors". Show that if $F$ is "full@@FUNC"/"faithful"/"(co)@cocontinuous""continuous", then so is $G$.
 \end{exer}
 \begin{exmp}\label{exmp:grpactionfunctor}%TODO: redo this example after doing the comma cat example on group actions earlier.
 	Recall that a "left action" of a "group" $G$ on a set $S$ is just a functor $\deloop{G} \rightsquigarrow \catSet$. Now, between two such "functors" $F,F' \in \catFunc{\deloop{G}}{\catSet}$, a "natural transformation" is a single map $\sigma: F(\deloopobject) \rightarrow F'(\deloopobject)$ such that $\sigma \circ F(g) = F'(g) \circ \sigma$ for any $g \in G$. In other words, denoting $\cdot$ for both "group actions" on $F(\deloopobject)$ and on $F'(\deloopobject)$, $\sigma$ satisfies $\sigma(g\cdot x) = g\cdot(\sigma(x))$ for any $g \in G$ and $x \in F(\deloopobject)$. \AP In group theory, such a map is called $G$--""equivariant"".
@@ -276,7 +279,6 @@ Now, coming back to our idea that "natural transformations" are "morphisms" of "
 
 %TODO: maybe comma category as exercise.
 
-%TODO: limits are taken pointwise
 Viewing any "category" as a "functor category" as we did in the previous example has one major consequence formalized in the following results. In short, it says you can infer a lot of things from $\catFunc{\mathbf{C}}{\mathbf{D}}$ by studying $\mathbf{D}$. For instance, if $\mathbf{D}$ has all "binary products", it follows that the "product@bproduct" of "functors" $F$ and $G$ in $\catFunc{\mathbf{C}}{\mathbf{D}}$ is the "functor" sending $X \in \obj{\mathbf{C}}$ to $FX \product GX$ and $f \in \mor{\mathbf{C}}$ to $Ff \productm Gf$.\footnote{Note that this is not the "functor" $F\functimes G$, the latter has type $\mathbf{C}\cattimes \mathbf{C} \rightsquigarrow \mathbf{D}\cattimes \mathbf{D}$.}
 
 \begin{thm}\label{thm:limitspointwise}
@@ -462,6 +464,27 @@ If you are craving some more "diagram chasing" or you want to get more familiar 
 		\end{equation}
 	\end{marginfigure}
 \end{exer}
+%TODO: this means categories [C,D] are nice when D is a nice category. On particular example is D = Set which is complete and cocomplete. [C,Set] and due to some conventions [C^op,Set] are studied a lot. Let's look at one concrete example, DGph = [C^op,Set]. So limits in DGph are taken pointwise.
+%TODO: a dgph is just a set E with sources and targets to V. that looks awfully like a diagram in Set of shape V->-> E. And we saw that is a functor V->->E rsa Set. But what about morphisms, we verify that nat trans are actually graph homs
+\begin{exmp}["(Co)@colimit""limits" in $\catDGph$]\label{exmp:colimdgph}
+	
+\end{exmp}
+
+Another simple application of viewing a "category" as a "functor category" is to look at the evaluation "functors".
+\begin{exer}{soln:natural:evaluationfunctor}\label{exer:natural:evaluationfunctor}
+	For any "object" $X \in \obj{\mathbf{C}}$, show that \emph{evaluation} at $X$ is a "functor" $\placeholder X: \catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \mathbf{D}$. It sends $F$ to $FX$ and $\phi$ to $\phi_X$.
+\end{exer}
+We leave you to check that the "source" and "target" "functors" $\sourcearr, \targetarr: \arrowcat{\mathbf{C}} \rightsquigarrow \mathbf{C}$ are "naturally isomorphic" to the "functors" evaluating at $A \in \obj{\cattwo}$ and $B\in \obj{\cattwo}$ respectively.\footnote{This offers an alternative way to show $\sourcearr$ and $\targetarr$ are "functors" in one go.} Evaluating at the single "object" in $\deloop{G}$ yields a "forgetful functor" $\catFunc{\deloop{G}}{\catSet} \rightsquigarrow \catSet$. It sends a "group action" to the underlying set and an "equivariant" map to the underlying function.
+
+Using Exercise \ref{exer:catfunc:funccomponent}, we can also conclude there is a "functor" $\intro*\Ev: \mathbf{C}\cattimes\catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \mathbf{D}$.\footnote{For a fixed $X \in \obj{\mathbf{C}}$, we just saw $\Ev(X,\placeholder) = \placeholder X$ is a "functor". For a fixed $F \in \obj{\catFunc{\mathbf{C}}{\mathbf{D}}}$, $\Ev(\placeholder,F)$ is simply the "functor" $F$. The equation
+\begin{align*}
+	\Ev(Y,\phi) \circ \Ev(f,F)&= \phi_Y \circ F(f)\\&= G(f) \circ \phi_X\\&= \Ev(f,G) \circ \Ev(X,\phi)
+\end{align*}
+holds by $\NAT(\phi,X,Y,f)$} It sends $(X,F)$ to $F(X)$ and $(f,\phi): (X,F) \Rightarrow (Y,G)$ to $\phi_Y \circ F(f) = G(f) \circ \phi_X$.
+
+We can now restate Theorem \ref{thm:limitspointwise} and Corollary \ref{cor:colimitspointwise} by saying that when $\mathbf{D}$ has all "(co)@colimit""limits" of "shape" $\mathbf{J}$, then $\Ev$ "preserves" "(co)@colimit""limits" in its second component, i.e. for any $X \in \obj{\mathbf{C}}$
+\[\Ev(X, \lim_{\mathbf{J}}F) = \lim_{\mathbf{J}}\Ev(X,F\placeholder).\]
+
 \section{The $2$--category $\catCat$}
 It is now time to build intuition for the "horizontal composition" of "natural transformations" which will ultimately lead to the notion of a \kl[2cat]{$2$--category}.
 \begin{defn}[The left action of functors]\label{defn:leftaction}
@@ -830,7 +853,7 @@ In many situations, we will describe an "isomorphism@@CAT" between $\mathbf{C}$ 
 
 		Let $F: \mathbf{C}\cattimes \mathbf{D} \rightsquigarrow \mathbf{E}$, the "currying" of $F$ is $\intro*\Curry{F}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{D}}{\mathbf{E}}$ defined as follows. For $X \in \obj{\mathbf{C}}$, the "functor" $\Curry{F}(X)$ sends $Y \in \obj{\mathbf{D}}$ to $F(X,Y)$ and $g \in \mor{\mathbf{D}}$ to $F(\id_X,g)$. We showed in Exercise \ref{exer:catfunc:placeholder} that $\Curry{F}(X)= F(X,\placeholder)$ is a "functor". For $f \in \Hom_{\mathbf{C}}(X,X')$, we define the "natural transformation" $\Curry{F}(f): F(X,\placeholder) \Rightarrow F(X', \placeholder)$ by 
 		\[\Curry{F}(f)_Y = F(f,\id_Y): F(X,Y) \rightarrow F(X', Y).\]
-		The "naturality" square \eqref{diag:natsquarecurrying} is "commutative" because, by "functoriality" of $F$, the top and bottom path are equal to $F(f,g)$. We also have to show $\Curry{F}$ is a "functor", namely $\Curry{F}(\id_X) = \one_{F(X,\placeholder)}$ and $\Curry{F}(f \circ f') = \Curry{F}(f) \vertcomp \Curry{F}(f')$. We can verify this componentwise using "functoriality" of $F$.\begin{marginfigure}[-7\baselineskip]\centering \begin{equation}\label{diag:natsquarecurrying}
+		The "naturality" square \eqref{diag:natsquarecurrying} is "commutative" because, by "functoriality" of $F$, the top and bottom "path" are equal to $F(f,g)$. We also have to show $\Curry{F}$ is a "functor", namely $\Curry{F}(\id_X) = \one_{F(X,\placeholder)}$ and $\Curry{F}(f \circ f') = \Curry{F}(f) \vertcomp \Curry{F}(f')$. We can verify this componentwise using "functoriality" of $F$.\begin{marginfigure}[-7\baselineskip]\centering \begin{equation}\label{diag:natsquarecurrying}
 			% https://q.uiver.app/?q=WzAsNCxbMCwwLCJGKFgsWSkiXSxbMCwxLCJGKFgnLFkpIl0sWzEsMCwiRihYLFknKSJdLFsxLDEsIkYoWCcsWScpIl0sWzAsMSwiRihmLFxcaWRfWSkiLDJdLFswLDIsIkYoXFxpZF9YLGcpIl0sWzIsMywiRihmLFxcaWRfe1knfSkiXSxbMSwzLCJGKFxcaWRfe1gnfSxnKSIsMl1d
 		\begin{tikzcd}
 			{F(X,Y)} & {F(X,Y')} \\
@@ -965,6 +988,9 @@ The insight to extract from this argument is that two categories are "equivalent
 \begin{exer}{soln:natural:quasiunique}[\NOW]\label{exer:natural:quasiunique}
 	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $G,G': \mathbf{D} \rightsquigarrow \mathbf{C}$ be two "quasi-inverses" to $F$. Show that $G \isoCAT G'$.
 \end{exer}
+\begin{exer}{soln:natural:natisopreserveequiv}\label{exer:natural:natisopreserveequiv}
+	Let $F: \mathbf{C} \rightsquigarrow \mathbf{D}$ be an "equivalence". Show that if $F \isoCAT F'$, then $F'$ is an "equivalence".
+\end{exer}
 We will detail a couple of \textit{easy} examples of "equivalences" and briefly mention a few \textit{harder} ones. Of course, all the "isomorphisms@@CAT" of "categories" we saw earlier are examples of "equivalences" where the "natural isomorphisms" are identities.
 \begin{exmps}[Easy]\label{exmps:equiveasy}
 	\begin{enumerate}
@@ -1001,7 +1027,7 @@ Here are other more interesting examples of "equivalent" "categories".
 			\arrow["f", from=1-2, to=2-2]
 		\end{tikzcd}
 	\end{equation}\end{marginfigure}
-	($\Rightarrow$) For any $f: X \rightarrow Y \in \mor{\mathbf{C}}$, by hypothesis, there exists $A \in \obj{\mathbf{C}}$ such that $\id_A \isoCAT f$ in $\arrowcat{\mathbf{C}}$. Let $(s: A \rightarrow X ,t: A \rightarrow Y)$ be the "isomorphism@@CAT", its "inverse" must be $(s^{-1},t^{-1})$. Looking at the chain of "commutative" squares in \eqref{diag:chaincommsquare}, we can infer that $s \circ t^{-1}$ is the "inverse" of $f$.\footnote{The "composition" $f \circ s \circ t^{-1}$ is the top path of the combined two leftmost squares, the bottom path is $t \circ t^{-1} \circ \id_Y = \id_Y$. The "composition" $s \circ t^{-1} \circ f$ is the bottom path of the combined two rightmost squares, the top path is $\id_X \circ s \circ s^{-1} =\id_X$.}
+	($\Rightarrow$) For any $f: X \rightarrow Y \in \mor{\mathbf{C}}$, by hypothesis, there exists $A \in \obj{\mathbf{C}}$ such that $\id_A \isoCAT f$ in $\arrowcat{\mathbf{C}}$. Let $(s: A \rightarrow X ,t: A \rightarrow Y)$ be the "isomorphism@@CAT", its "inverse" must be $(s^{-1},t^{-1})$. Looking at the chain of "commutative" squares in \eqref{diag:chaincommsquare}, we can infer that $s \circ t^{-1}$ is the "inverse" of $f$.\footnote{The "composition" $f \circ s \circ t^{-1}$ is the top "path" of the combined two leftmost squares, the bottom "path" is $t \circ t^{-1} \circ \id_Y = \id_Y$. The "composition" $s \circ t^{-1} \circ f$ is the bottom "path" of the combined two rightmost squares, the top "path" is $\id_X \circ s \circ s^{-1} =\id_X$.}
 	\begin{equation}\label{diag:chaincommsquare}
 		% https://q.uiver.app/?q=WzAsMTAsWzEsMCwiQSJdLFsyLDAsIlgiXSxbMSwxLCJBIl0sWzIsMSwiWSJdLFszLDAsIkEiXSxbMywxLCJBIl0sWzQsMCwiWCJdLFs0LDEsIlgiXSxbMCwwLCJZIl0sWzAsMSwiWSJdLFswLDEsInMiXSxbMCwyLCJcXGlkX0EiLDJdLFsyLDMsInQiLDJdLFsxLDMsImYiLDJdLFsxLDQsInNeey0xfSJdLFszLDUsInReey0xfSIsMl0sWzQsNSwiXFxpZF9BIiwyXSxbNCw2LCJzIl0sWzUsNywicyIsMl0sWzYsNywiXFxpZF9YIl0sWzgsMCwidF57LTF9Il0sWzgsOSwiXFxpZF9ZIiwyXSxbOSwyLCJ0XnstMX0iLDJdLFs5LDMsIlxcaWRfWSIsMix7ImN1cnZlIjozfV0sWzEsNiwiXFxpZF9YIiwyLHsiY3VydmUiOi0zfV1d
 		\begin{tikzcd}

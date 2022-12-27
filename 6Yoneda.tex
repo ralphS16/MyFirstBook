@@ -1,6 +1,5 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-%TODO: why I love category theory: % ---- Chap Yoneda: in CT, 99% of the time, you know what to do. Compared to other disciplines where it is harder to find the right method. e.g.: combinatorics: it is practically impossible to find the right way to see your problem. Most of the time (100% of the time in this book) if you don't know what to do, just go back and read the definitions of each part of the problem and try again. This chapter has difficult proofs but a lot of the time, you don't have that many choice. In fact, in the proof of Yoneda, a most important result, stating the result is 99% of the proof done.
 \chapter{Yoneda Lemma}\label{chap:yoneda}
 %TODO: try to talk about representing elements and rephrase yoneda lemma like nat trans is completely determined by representing element and choice of image and of representing element.
 \marginnote[-6\baselineskip]{
@@ -8,63 +7,118 @@
 	\etocsettocdepth{1}
 	\localtableofcontents
 }
+We first defined an "element" of an "object" $X \in \obj{\mathbf{C}}$ to be a "morphism" $\terminal \rightarrow X$. Our inspiration came from $\catSet$ where $\Hom_{\catSet}(\termset,X) \isoCAT X$. This is not a perfect categorification of the notion of element, because it works in some "categories" (e.g. $\catPoset$, $\catTop$, $\catMet$), but not in others (e.g. $\catGrp$, $\catCat$\footnote{In $\catCat$, a "morphism" $\termcat \rightarrow \mathbf{C}$ corresponds to an "object" of $\obj{\mathbf{C}}$, but depending on the context, it may be more relevant to define an element of $\mathbf{C}$ to be a "morphism" of $\mor{\mathbf{C}}$.}, "categories" with no "terminal object"). In Exercise \ref{exer:universal:pointedgrp}, we found a workaround for $\catGrp$, namely, elements of $G$ correspond to "morphisms" $\Z \rightarrow G$.
+
+Armed with our new abstract tools from last chapter, in particular "natural isomorphisms", we can rigorously explain why $\termset$ seems to \emph{represent} the choice of an element in $\catSet$, why $\Z$ plays that role in $\catGrp$, and go further to find other things that are \emph{representable}.
+
+This journey quickly leads to the "Yoneda lemma" which formalizes our conviction\footnote{Hopefully, you have been convinced by earlier chapters.} that studying mathematical objects through their interactions with other objects is ``enough''.
 \section{Representable Functors}
-Throughout this chapter, let $\mathbf{C}$ be a "locally small" "category". Recall that for an "object" $A \in \obj{\mathbf{C}}$, there are two $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$. The "covariant" one, $\Hom_{\mathbf{C}}(A, \placeholder)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to $f \circ (\placeholder)$. The "contravariant" one, $\Hom_{\mathbf{C}}(\placeholder,A)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f: B\rightarrow B'$ to $(\placeholder) \circ f$. In order to lighten the notation, we denote these functors $\Hombis^A$ and $\Hombis_A$ respectively.\footnote{It might seem like this contradicts the notation used so far because $\Hombis^A$ is "covariant" and $\Hombis_A$ "contravariant". However, this is not their \textit{variance} in the parameter $A$, and we will show that in fact, the \textit{variances} in $A$ are opposites.}%TODO: write better.
+Throughout this chapter, let $\mathbf{C}$ be a "locally small" "category". Recall that for an "object" $A \in \obj{\mathbf{C}}$, there are two $\Hom$ "functors" from $\mathbf{C}$ to $\catSet$. The "covariant" one, $\Hom_{\mathbf{C}}(A, \placeholder)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(A,B)$ and a "morphism" $f:B\rightarrow B'$ to $f \circ (\placeholder)$. The "contravariant" one, $\Hom_{\mathbf{C}}(\placeholder,A)$, sends an "object" $B \in \obj{\mathbf{C}}$ to $\Hom_{\mathbf{C}}(B,A)$ and a "morphism" $f: B\rightarrow B'$ to $(\placeholder) \circ f$. In order to lighten the notation, we denote these functors $\Hombis^A:\mathbf{C} \rightsquigarrow \catSet$ and $\Hombis_A: \op{\mathbf{C}} \rightsquigarrow \catSet$ respectively.\footnote{It is somewhat standard to use sub- and superscript as an indication for the \emph{variance} of a notation. Note however that, while $\Hombis^A$ is "covariant" and $\Hombis_A$ "contravariant", we are not talking about this. Instead we are interested in their \textit{variance} in the parameter $A$, and we will, given a "morphism" $f: A \rightarrow A'$, construct a "natural transformation" $\Hombis^{A'} \Rightarrow \Hombis^A$ which means $\Hombis^A$ is "contravariant" in $A$, and similarly, $\Hombis_A$ is "covariant" in $A$.}
 
 Although these "functors" are sometimes interesting on their own, their full power is unleashed when they are related to other "functors" through "natural transformations". Before doing that, let us investigate how nice $\Hom$ "functors" are. For instance, many $\Hom$ "functors" can be described in simpler terms.
-\begin{exmps}\label{exmp:covrep}
+\begin{exmps}\label{exmps:covrep}
+	We are just revisiting things we already know.
 	\begin{enumerate}
-		\item[]
-		\item Let $\terminal = \{*\}$ be the "terminal" "object" in $\catSet$, then what is the action of $\Hombis^{\terminal}$? For any "object" $B$, \[\Hombis^{\terminal}(B) = \Hom_{\catSet}(\terminal, B)\]
-		is easy to describe because for any element $b \in B$, there is a unique function $f: \terminal \rightarrow B = * \mapsto b$. Hence, there is an "isomorphism@@CAT" from $\Hombis^{\terminal}(B)$ to $B$ for any $B \in \obj{\mathbf{C}}$, it sends $f$ to $f(*)$ and its inverse sends $b\in B$ to the map $*\mapsto b$. Moreover, these isomorphisms are natural in $B$ because \eqref{diag:H1Set} clearly "commutes" for any $f:B\rightarrow B'$, yielding a "natural isomorphism" $\Hombis^{\terminal} \isoCAT \id_{\mathbf{C}}$.
+		\item Let $\termset = \{*\}$ be the "terminal" "object" in $\catSet$, then what is the action of $\Hombis^{\termset}$? For any "object" $B$, \[\Hombis^{\termset}(B) = \Hom_{\catSet}(\termset, B)\]
+		is easy to describe because for any element $b \in B$, there is a unique function $f: \termset \rightarrow B = * \mapsto b$. Hence, there is an "isomorphism@@CAT" from $\Hombis^{\termset}(B)$ to $B$ for any $B \in \obj{\mathbf{C}}$, it sends $f$ to $f(*)$ and its inverse sends $b\in B$ to the map $*\mapsto b$. Moreover, these isomorphisms are natural in $B$ because \eqref{diag:H1Set} clearly "commutes" for any $f:B\rightarrow B'$, yielding a "natural isomorphism" $\Hombis^{\termset} \isoCAT \id_{\mathbf{C}}$.
 		\begin{marginfigure}\begin{equation}\label{diag:H1Set}
 			\begin{tikzcd}
-				\Hombis^{\terminal}(B) \arrow[d] \arrow[r, "f\circ (\placeholder)"] & \Hombis^{\terminal}(B') \arrow[d] \\
+				\Hombis^{\termset}(B) \arrow[d] \arrow[r, "f\circ (\placeholder)"] & \Hombis^{\termset}(B') \arrow[d] \\
 				B \arrow[u] \arrow[r, "f"']               & B' \arrow[u]     
 			\end{tikzcd}
 		\end{equation}\end{marginfigure}
-		\item Consider again the "terminal" "object" but in the "category" $\catGrp$, namely, the "group" $\terminal$ only containing an "identity@@GRP" element. Then, for any "group" $G$, the set $\Hombis^{\terminal}(G)$ is a singleton because any "homomorphism@@GRP" $f:\terminal\rightarrow G$ must send the "identity@@GRP" to the "identity@@GRP" and no other choice can be made. Therefore, unlike in $\catSet$, $\Hombis^{\terminal}$ is very uninteresting and acts like the "constant functor" $\terminal:\catGrp \rightsquigarrow \catSet$.
+		\item Consider again the "terminal" "object" but in the "category" $\catGrp$, namely, the "group" $\terminal$ only containing an "identity@@GRP" element. Then, for any "group" $G$, the set $\Hombis^{\terminal}(G)$ is a singleton because any "homomorphism@@GRP" $f:\terminal\rightarrow G$ must send the "identity@@GRP" to the "identity@@GRP" and no other choice can be made. Therefore, unlike in $\catSet$, $\Hombis^{\terminal}$ is very uninteresting and acts like the "constant functor" $\constFunc{\terminal}:\catGrp \rightsquigarrow \catSet$, i.e. $\Hombis^{\terminal} \isoCAT \constFunc{\terminal}$.
 		
-		\item A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $0$ to the "identity@@GRP" and $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because the "homomorphism@@GRP" properties imply that $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$, $f(-n) = f(n)^{-1}$, and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
-		\item The "terminal" "object" in $\catCat$ is the "category" $\termcat$ with a single "object" $\bullet$ and no "morphism" other than the "identity". Observe that for any "category" $\mathbf{C}$, a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object". Therefore, the same argument will show that $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$, where $\obj{(\placeholder)}$ sends a "category" to its set\footnote{Recall that $\catCat$ only contains "small" "categories".} of "objects" and a "functor" to its action restricted on "objects".
+		\item\label{exmp:representobjmorcat} A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because the "homomorphism@@GRP" properties imply that $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$, $f(-n) = f(n)^{-1}$, and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
+		\item The "terminal" "object" in $\catCat$ is the "category" $\termcat$ with a single "object" $\bullet$ and no "morphism" other than the "identity". For any "category" $\mathbf{C} \in \obj{\catCat}$, a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object". Therefore, the same argument will show that $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$, where $\obj{(\placeholder)}$ sends a "category" to its set\footnote{Recall that $\catCat$ only contains "small" "categories".} of "objects" and a "functor" to its action restricted on "objects".
 		
 	 	In order to obtain a similar way to extract "morphisms", consider the category $\cattwo$ with two "objects" and a single "morphism" between them. One obtains a "natural isomorphism" $\Hombis^{\cattwo} \isoCAT (\placeholder)_1$.\footnote{You can prove this as we did for $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$ or use Example \ref{exmp:simplefunccat}.\ref{exmp:funct2arrow}.}
 	\end{enumerate}
 \end{exmps}
-These examples suggest that "functors" that are "naturally isomorphic" to $\Hom$ "functors" have nice properties,\footnote{In fact, we already know that the $\Hom$ 
-"functors" are "continuous" (Theorem \ref{thm:homcont} and Corollary \ref{cor:cohomcont}).} they are said to be "representable". %TODO: write beter.
+Just like we benefitted from recognizing a "category" was "isomorphic@@CAT" to a "functor category" (e.g. Theorem \ref{thm:limitspointwise} and Corollary \ref{cor:colimitspointwise}), we can benefit from finding a "natural isomorphism" between a "functor" and a $\Hom$ "functor". For instance, we already know that the $\Hom$ 
+"functors" are "continuous",\footnote{Theorem \ref{thm:homcont} and Corollary \ref{cor:cohomcont}. Also recall that a "functor" "naturally isomorphic" to a "continuous" "functor" is also "continuous", see Exercise \ref{exer:natural:natisopreserve}.} and with Example \ref{exmps:covrep}.\ref{exmp:representobjmorcat} we can infer
+\[\obj{\left( \Product_{i \in I} \mathbf{C}_i \right)} = \Product_{i \in I} \obj{(\mathbf{C}_i)} \text{ and } \mor{\left( \Product_{i \in I} \mathbf{C}_i \right)} = \Product_{i \in I} \mor{(\mathbf{C}_i)}.\]
+In words, the "objects" of a "product" of "categories" is the Cartesian product of the "objects" of each "category" and similarly for "morphisms".\footnote{We already knew that for the case of "binary products", see Exercise \ref{exer:limits:catprod}.} This suggest carefully studying "representable functors".
 
 \begin{defn}[Representable functor]
 	\AP A "covariant" functor $F: \mathbf{C} \rightsquigarrow \catSet$ is ""representable"" if there is an "object" $X \in \obj{\mathbf{C}}$ such that $F$ is "naturally isomorphic" to $\Hom_{\mathbf{C}}(X,\placeholder)$. If $F$ is "contravariant", then it is "representable" if it is "naturally isomorphic" to $\Hom_{\mathbf{C}}(\placeholder,X)$.
 \end{defn}
-\begin{exmps}\label{exmp:contrarep}
+\begin{exmps}\label{exmps:contrarep}
 	Let us give examples of the "contravariant" kind.
-	\begin{enumerate}%TODO: new notation for contravariant power set 2^X
-		\item The "contravariant" "powerset" functor $\mPcontr{\placeholder}: \catSet \rightsquigarrow \catSet$ sends a set $X$ to its "powerset" $\mP(X)$ and a function $f:X\rightarrow Y$ to the inverse image $f^{-1}:\mP(Y) \rightarrow \mP(X)$. It is common to identify subsets of a given set with functions from this set into $2 = \{0,1\}$. Formally, this is an "isomorphism@@CAT" $\mPcontr{X} \isoCAT \Hombis_{2}(X) = 2^X$ for any $X$, it maps $S \subseteq X$ to the characteristic function $\chi_S$.\footnote{It sends $x \in X$ to $1$ if $x \in S$ and to $0$ otherwise.} In the reverse direction, it sends a function $g:X\rightarrow \{0,1\}$ to $g^{-1}(1)$. It is easy to check that for any $f:X\rightarrow Y$, the "isomorphisms@@CAT" make \eqref{diag:H2pset} "commute", so $\mPcontr{\placeholder} \isoCAT \Hombis_{2}$.
+	\begin{enumerate}
+		\item Recall from Example \ref{exmps:contrafunc}.\ref{exmp:contrapowerset} the "contravariant" "powerset" functor $\mPcontr{\placeholder}: \catSet \rightsquigarrow \catSet$. It sends a set $X$ to its "powerset" $\mPcontr{X} = \mPcov(X)$ and a function $f:X\rightarrow Y$ to the inverse image $\mPcontr{f} = f^{-1}:\mP(Y) \rightarrow \mP(X)$. We can identify subsets of a given set with functions from this set into $\Omega = \{\bot,\top\}$.\footnote{See our discussion of "subobject classifers" in $\catSet$.} This yields a bijection $\mPcontr{X} \isoCAT \Hombis_{\Omega}(X)$ that is "natural in" $X$. Indeed, for all $f:X\rightarrow Y$, you can check \eqref{diag:H2pset} "commutes",\footnote{Starting with $p: Y \rightarrow \Omega$ in the bottom left. The top path yields \[(p\circ f)^{-1}(\top) = \{x \in X \mid p(f(x)) = \top\}.\] The bottom path yields \[f^{-1}(p^{-1}(\top)) = \{x \in X \mid p(f(x)) = \top\}.\]} so $\mPcontr{\placeholder} \isoCAT \Hombis_{\Omega}$.
 		\begin{equation}\label{diag:H2pset}
-			\begin{tikzcd}
-				\Hombis_{2}(X) \arrow[d] \arrow[r, "f\circ (\placeholder)"] & \Hombis_{2}(Y) \arrow[d] \\
-				\mPcontr{X} \arrow[u] \arrow[r, "f^{-1}"']                & \mPcontr{Y} \arrow[u]           
-			\end{tikzcd}
+			% https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbWJpc197XFxPbWVnYX0oWSkiXSxbMiwxLCJcXG1wQ29udHJ7WH0iXSxbMiwwLCJcXG1QY29udHJ7WH0iXSxbMCwwLCJcXEhvbWJpc197XFxPbWVnYX0oWCkiXSxbMCwxLCJwXFxtYXBzdG8gcF57LTF9KFxcdG9wKSIsMix7Im9mZnNldCI6MX1dLFszLDIsInBcXG1hcHN0byBwXnstMX0oXFx0b3ApIiwyLHsib2Zmc2V0IjoxfV0sWzAsMywiXFxwbGFjZWhvbGRlciBcXGNpcmMgZiJdLFsxLDIsIlxcbVBjb250cntmfSIsMl0sWzIsMywiU1xcbWFwc3RvIFxcY2hhcmFjX1MiLDIseyJvZmZzZXQiOjF9XSxbMSwwLCJTXFxtYXBzdG8gXFxjaGFyYWNfUyIsMix7Im9mZnNldCI6MX1dXQ==
+\begin{tikzcd}
+	{\Hombis_{\Omega}(X)} && {\mPcontr{X}} \\
+	{\Hombis_{\Omega}(Y)} && {\mPcontr{X}}
+	\arrow["{p\mapsto p^{-1}(\top)}"', shift right=1, from=2-1, to=2-3]
+	\arrow["{p\mapsto p^{-1}(\top)}"', shift right=1, from=1-1, to=1-3]
+	\arrow["{\placeholder \circ f}", from=2-1, to=1-1]
+	\arrow["{\mPcontr{f}=f^{-1}}"', from=2-3, to=1-3]
+	\arrow["{S\mapsto \charac_S}"', shift right=1, from=1-3, to=1-1]
+	\arrow["{S\mapsto \charac_S}"', shift right=1, from=2-3, to=2-1]
+\end{tikzcd}
 		\end{equation}
-		\item%TODO: replace with exponential example.
-		In functional programming, it is often useful to transform a function taking multiple arguments so that it ends up taking a single argument but outputs another function. For instance, the multiplication function $\textsf{mult}: \textsf{int} \times \textsf{int} \rightarrow \textsf{int}$ that takes two numbers as inputs and outputs their product can be rewritten as $\textsf{multc} : \textsf{int} \rightarrow (\textsf{int} \rightarrow \textsf{int})$. The function $\textsf{multc}$ takes a number as input and outputs a function that outputs the product of its input and the initial input of $\textsf{multc}$. For example $\textsf{multc}(3)$ is a function that outputs $3\cdot n$ when $n$ is the input. This new function $\textsf{multc}$ is said to be the "curried" version of $\textsf{mult}$ in honor of Haskell Curry. This leads to a more general argument in $\catSet$.
+		% \item
+		% In functional programming, it is often useful to transform a function taking multiple arguments so that it ends up taking a single argument but outputs another function. For instance, the multiplication function $\textsf{mult}: \textsf{int} \times \textsf{int} \rightarrow \textsf{int}$ that takes two numbers as inputs and outputs their product can be rewritten as $\textsf{multc} : \textsf{int} \rightarrow (\textsf{int} \rightarrow \textsf{int})$. The function $\textsf{multc}$ takes a number as input and outputs a function that outputs the product of its input and the initial input of $\textsf{multc}$. For example $\textsf{multc}(3)$ is a function that outputs $3\cdot n$ when $n$ is the input. This new function $\textsf{multc}$ is said to be the "curried" version of $\textsf{mult}$ in honor of \href{https://en.wikipedia.org/wiki/Haskell_Curry}{Haskell Curry}. This leads to a more general argument in $\catSet$.
 		
-		Fix two sets $A$ and $B$. The "functor" $\Hom(\placeholder\product A,B)$ maps a set $X$ to $\Hom(X\product A, B)$ and a function $f:X\rightarrow Y$ to the function $(\placeholder) \circ (f \product \id_A)$.\footnote{You can see it as the composition $\Hombis_B \circ (\placeholder\product A)$.} As suggested by the "currying" process for \textsf{mult}, for any set $X$, there is a bijection $\Hom(X\product A,B) \isoCAT \Hom(X, B^A)$. The image of $f:X\product A \rightarrow B$ is denoted $\curry{f}$ and it satisfies $f(x,a) = \curry{f}(x)(a)$ for any $x \in X$ and $a \in A$. It is easy to check that this is a bijection and also that it is "natural" in $X$ because \eqref{diag:natcurry} "commutes" for any $f:X\rightarrow Y$, so $\Hom(\placeholder\product A,B) \isoCAT \Hom(\placeholder,B^A)$.%TODO: make this about exponential objects.
-		\begin{equation}\label{diag:natcurry}
+		% Fix two sets $A$ and $B$. The "functor" $\Hom(\placeholder\product A,B)$ maps a set $X$ to $\Hom(X\product A, B)$ and a function $f:X\rightarrow Y$ to the function $(\placeholder) \circ (f \product \id_A)$.\footnote{You can see it as the composition $\Hombis_B \circ (\placeholder\product A)$.} As suggested by the "currying" process for \textsf{mult}, for any set $X$, there is a bijection $\Hom(X\product A,B) \isoCAT \Hom(X, B^A)$. The image of $f:X\product A \rightarrow B$ is denoted $\curry{f}$ and it satisfies $f(x,a) = \curry{f}(x)(a)$ for any $x \in X$ and $a \in A$. It is easy to check that this is a bijection and also that it is "natural" in $X$ because \eqref{diag:natcurry} "commutes" for any $f:X\rightarrow Y$, so $\Hom(\placeholder\product A,B) \isoCAT \Hom(\placeholder,B^A)$.
+		% \begin{equation}\label{diag:natcurry}
+		% 	\begin{tikzcd}
+		% 		{\Hom(X\product A,B)} \arrow[d] \arrow[rr, "(\placeholder)\circ (f\product \id_A)"] & & {\Hom(Y\product A,B)} \arrow[d] \\
+		% 		{\Hom(X, B^A)} \arrow[u] \arrow[rr, "(\placeholder)\circ f"']           & & {\Hom(Y,B^A)} \arrow[u]      
+		% 	\end{tikzcd}
+		% \end{equation}
+		\item Our first example of "natural isomorphism" (Example \ref{exmps:natiso}.\ref{exmp:natisocurry}) was the "currying" of a "morphism" $\curry{}: \Hom_{\mathbf{C}}(\placeholder \product X,A) \isoCAT \Hom_{\mathbf{C}}(\placeholder, A^X)$, where $A^X$ is an "exponential object". It turns out "exponential objects" can be defined via this "natural isomorphism". Namely, there is an "isomorphism@@CAT" $\ell: \Hom_{\mathbf{C}}(\placeholder \product X,A) \isoCAT \Hom_{\mathbf{C}}(\placeholder, E)$ if and only if $E$ is the "exponential object" and $\ell_E^{-1}(\id_E)$ is the "evaluation" "morphism".
+		
+		($\Leftarrow$) This was already shown in Example \ref{exmps:natiso}.\ref{exmp:natisocurry} modulo the fact that $\uncurry{\id_{A^X}} = \ev$. For the latter, it suffices to note that $\curry{\ev}$ must be $\id_{A^X}$ to make \eqref{diag:curryingevaluation} "commute".\begin{marginfigure}[5\baselineskip]
+			\begin{equation}\label{diag:curryingevaluation}
+				% https://q.uiver.app/?q=WzAsMyxbMSwwLCJBXlhcXHByb2R1Y3QgWCJdLFswLDAsIkEiXSxbMSwxLCJBXlhcXHByb2R1Y3QgWCJdLFswLDEsIlxcZXYiLDJdLFsyLDAsIlxcY3Vycnl7XFxldn0gXFxwcm9kdWN0bSBcXGlkX1giLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJcXGV2Il1d
+		\begin{tikzcd}
+			A & {A^X\product X} \\
+			& {A^X\product X}
+			\arrow["\ev"', from=1-2, to=1-1]
+			\arrow["{\curry{\ev}\productm \id_X}"', dashed, from=2-2, to=1-2]
+			\arrow["\ev", from=2-2, to=1-1]
+		\end{tikzcd}
+			\end{equation}
+			\begin{equation}\label{diag:exponentvianatiso}
+				% https://q.uiver.app/?q=WzAsMyxbMSwwLCJFXFxwcm9kdWN0IFgiXSxbMCwwLCJBIl0sWzEsMSwiQlxccHJvZHVjdCBYIl0sWzAsMSwiXFxlbGxeey0xfShcXGlkX0UpIiwyXSxbMiwwLCJcXGVsbChnKSBcXHByb2R1Y3RtIFxcaWRfWCIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDEsImciXV0=
 			\begin{tikzcd}
-				{\Hom(X\product A,B)} \arrow[d] \arrow[rr, "(\placeholder)\circ (f\product \id_A)"] & & {\Hom(Y\product A,B)} \arrow[d] \\
-				{\Hom(X, B^A)} \arrow[u] \arrow[rr, "(\placeholder)\circ f"']           & & {\Hom(Y,B^A)} \arrow[u]      
+				A & {E\product X} \\
+				& {B\product X}
+				\arrow["{\ell_E^{-1}(\id_E)}"', from=1-2, to=1-1]
+				\arrow["{\ell_B(g) \productm \id_X}"', dashed, from=2-2, to=1-2]
+				\arrow["g", from=2-2, to=1-1]
 			\end{tikzcd}
+			\end{equation}
+		\end{marginfigure}
+
+		($\Rightarrow$) Given $\ell$, we show $E$ is the "exponential". For any $g: B \product X \rightarrow A$, we claim that $\ell_B(g)$ makes \eqref{diag:exponentvianatiso} "commute". The "naturality" of $\ell^{-1}$ yields the following "commutative" square.
+		\begin{equation}\label{diag:exponentvianatiso2}
+			% https://q.uiver.app/?q=WzAsNCxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEUsRSkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsRSkiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEVcXHByb2R1Y3QgWCxBKSJdLFswLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oQlxccHJvZHVjdCBYLEEpIl0sWzAsMSwiXFxwbGFjZWhvbGRlciBcXGNpcmNcXGVsbF9CKGcpIiwyXSxbMiwzLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyAoXFxlbGxfQihnKVxccHJvZHVjdG0gXFxpZF9YKSJdLFswLDIsIlxcZWxsX0Veey0xfSJdLFsxLDMsIlxcZWxsX0Jeey0xfSIsMl1d
+		\begin{tikzcd}
+			{\Hom_{\mathbf{C}}(B\product X,A)} & {\Hom_{\mathbf{C}}(B,E)} \\
+			{\Hom_{\mathbf{C}}(E\product X,A)} & {\Hom_{\mathbf{C}}(E,E)}
+			\arrow["{\placeholder \circ\ell_B(g)}"', from=2-2, to=1-2]
+			\arrow["{\placeholder \circ (\ell_B(g)\productm \id_X)}", from=2-1, to=1-1]
+			\arrow["{\ell_E^{-1}}", from=2-2, to=2-1]
+			\arrow["{\ell_B^{-1}}"', from=1-2, to=1-1]
+		\end{tikzcd}
 		\end{equation}
+		Starting in the bottom right with $\id_E$, the bottom path sends it to $\ell_E^{-1}(\id_E) \circ (\ell_B(g) \productm\id_X)$ and the top path sends to $\ell_B^{-1}(\ell_B(g)) = g$. "Commutativity" lets us conclude $\ell_E^{-1}(\id_E) \circ (\ell_B(g) \productm\id_X) = g$, i.e. \eqref{diag:exponentvianatiso} "commutes".
 	\end{enumerate}
 \end{exmps}
-In the first item of Examples \ref{exmp:covrep} and \ref{exmp:contrarep}, we made an arbitrary choice of set. That is, we could have taken any singleton in the first case and any set with two elements in the second. More generally, one can show that if $A \isoCAT B$, then $\Hombis_A \isoCAT \Hombis_B$ and $\Hombis^A \isoCAT \Hombis^B$.
-\begin{exer}{soln:yoneda:isomeanshomiso}\label{exer:yoneda:isomeanshomiso}
+In the first items of Examples \ref{exmps:covrep} and \ref{exmps:contrarep}, we made an arbitrary choice of set. That is, we could have taken any singleton instead of $\termset$ in the first case and any set with two elements instead of $\Omega$ in the second. More generally, one can show that if $A \isoCAT B$, then $\Hombis_A \isoCAT \Hombis_B$ and $\Hombis^A \isoCAT \Hombis^B$.
+\begin{exer}{soln:yoneda:isomeanshomiso}[\NOW]\label{exer:yoneda:isomeanshomiso}
 	Let $A,B \in \obj{\mathbf{C}}$ be "isomorphic@@CAT" "objects". Show that $\Hombis^A \isoCAT \Hombis^B$. "Dually@@CAT", show that $\Hombis_A\isoCAT \Hombis_B$. 
 \end{exer}
-Surprisingly, the converse is also true and it will follow from the "Yoneda lemma", but we prove it on its own first as a warm-up for the proof of the "lemma@yoneda".
-\begin{prop}
+In particular, for any "object" $E$ "isomorphic@@CAT" to the "exponential" $A^X$, we have \[\Hombis_E \isoCAT \Hombis_{A^X} \isoCAT \Hom_{\mathbf{C}}(\placeholder \product X,A),\]
+which means $E$ is also the "exponential". In Exercise \ref{exer:universal:expounique}, we also showed that if $E$ satisfies the same "universal property" as $A^X$, then they must be "isomorphic@@CAT". In order to prove this using the "natural isomorphism" instead of the "universal property", we would need a converse to Exercise \ref{exer:yoneda:isomeanshomiso}.
+
+Perhaps surprisingly, it is true and it will follow from the "Yoneda lemma", but we prove it on its own first as a warm-up for the proof of the "lemma@yoneda". 
+\begin{prop}\label{prop:homisoisiso}
 	Let $A,B \in \obj{\mathbf{C}}$ be such that $\Hombis^A \isoCAT \Hombis^B$, then $A \isoCAT B$.
 \end{prop}
 \begin{proof}
@@ -81,10 +135,73 @@ Surprisingly, the converse is also true and it will follow from the "Yoneda lemm
 	A "dual@@CAT" argument shows that \[f \circ g = \eta_B(\id_B) \circ \phi_A(\id_A) = \phi_B(\eta_B(\id_B)) = \id_B,\]
 	and we have shown $A \isoCAT B$.
 \end{proof}
-For every $A \in \obj{\mathbf{C}}$, there are two "functors" $\Hombis^A$ and $\Hombis_A$, they are "objects" of $[\mathbf{C}, \catSet]$ and $[\op{\mathbf{C}}, \catSet]$ respectively. It is then reasonable to expect that the assignments $A \mapsto \Hombis^A$ and $A \mapsto \Hombis_A$ are "functorial".
+\begin{cor}["Dual@@CAT"]\label{cor:dualisomeanshomiso}
+	Let $A,B \in \obj{\mathbf{C}}$ be such that $\Hombis_A \isoCAT \Hombis_B$, then $A \isoCAT B$.
+\end{cor}
+\AP Steve Awodey calls ""Yoneda principle"" the equivalences\footnote{They are the combination of Exercise \ref{exer:yoneda:isomeanshomiso}, Proposition \ref{prop:homisoisiso} and Corollary \ref{cor:dualisomeanshomiso}.} 
+\[\Hombis^A \isoCAT \Hombis^B \Leftrightarrow A \isoCAT B \Leftrightarrow \Hombis_A \isoCAT \Hombis_B.\]
+This is the formalization of the philosophical point we mentionned a few times already:
+an "object" is determined up to "isomorphism@@CAT" by all its relations with all other "objects". The $\Hom$ "functor" $\Hombis^A$ (or $\Hombis_A$) makes for an efficient description of all the relations between $A$ and all other "objects".
 
-\begin{defn}[""Yoneda embeddings""]
-	The "contravariant" "embedding@@YON" $\Hombis^{(\placeholder)}: \op{\mathbf{C}} \rightsquigarrow \catFunc{\mathbf{C}}{\catSet}$ sends $A \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis^A$ and a "morphism" $f: A'\rightarrow A$ to the "natural transformation" $\Hombis^f: \Hombis^{A} \Rightarrow \Hombis^{A'}$ defined by $\Hombis^f_B := \Hom_{\mathbf{C}}(f,B) = (\placeholder) \circ f$ for every $B \in \obj{\mathbf{C}}$. The "naturality" of $\Hombis^f$ follows because \eqref{diag:defYonembed} "commutes" (by "associativity") for any $g: B\rightarrow B'$.%TODO: detail in footnote.
+Let us give two more concrete examples of "representable functors".
+\begin{exmp}[$G$ "acting" on itself]\label{exmp:gactsonself}
+	Any "group" $G$ "acts" on itself by "multiplication@@GRP" on the left. The corresponding "functor", abusively denoted by $G: \deloop{G} \rightsquigarrow \catSet$, sends $\deloopobject$ to the set $G$ and $g \in G$ to the bijection $h \mapsto gh$.\footnote{Its inverse is $h \mapsto g^{-1}h$.} Fix another "group action" $F \in \catFunc{\deloop{G}}{\catSet}$, we showed a "natural transformation" $f:G \Rightarrow F$ is a $G$--"equivariant" map, it makes \eqref{diag:equivariantselfaction} "commute" for every $g \in G$.\begin{marginfigure}
+		\begin{equation}\label{diag:equivariantselfaction}
+			% https://q.uiver.app/?q=WzAsNCxbMCwwLCJHIl0sWzAsMSwiRyJdLFsxLDAsIkYoXFxkZWxvb3BvYmplY3QpIl0sWzEsMSwiRihcXGRlbG9vcG9iamVjdCkiXSxbMCwxLCJnXFxwbGFjZWhvbGRlciIsMl0sWzIsMywiZ1xcYWN0XFxwbGFjZWhvbGRlciJdLFsxLDMsImZfe1xcZGVsb29wb2JqZWN0fSIsMl0sWzAsMiwiZl97XFxkZWxvb3BvYmplY3R9Il1d
+		\begin{tikzcd}
+			G & {F(\deloopobject)} \\
+			G & {F(\deloopobject)}
+			\arrow["g\placeholder"', from=1-1, to=2-1]
+			\arrow["g\act\placeholder", from=1-2, to=2-2]
+			\arrow["{f_{\deloopobject}}"', from=2-1, to=2-2]
+			\arrow["{f_{\deloopobject}}", from=1-1, to=1-2]
+		\end{tikzcd}
+		\end{equation}
+	\end{marginfigure}
+	Starting with $1_G$ on the top left, we find that $f_{\deloopobject}(g) = g\act f_{\deloopobject}(1_G)$. Thus, the "equivariant" map $f_{\deloopobject}$ is completely determined by where it sends $1_G$. Since there is no constraint on that choice, we get a bijection between "natural transformations" $G \Rightarrow F$ and elements of $F(\deloopobject)$.
+
+	The assignment $F \mapsto F(\deloopobject)$ is "functorial" as we have seen when defining $\Ev$, and you can also see it as the "forgetful functor" $U:\catFunc{\deloop{G}}{\catSet} \rightsquigarrow \catSet$ that forgets about the "action" of $G$. Thus, we can ask whether the bijection above is "natural in" $F$, i.e. does \eqref{diag:representUgset} "commute" for every $h: F \Rightarrow F'$? It does "commute" as both "paths" send $f$ to $\phi_{\deloopobject}(f_{\deloopobject}(1_G))$, hence we find that $U$ is "representable" with $U \isoCAT \Hombis^G$.\begin{marginfigure}[-5\baselineskip]
+		\begin{equation}\label{diag:representUgset}
+			% https://q.uiver.app/?q=WzAsNCxbMSwwLCJGKFxcZGVsb29wb2JqZWN0KSJdLFsxLDEsIkYnKFxcZGVsb29wb2JqZWN0KSJdLFswLDAsIlxcSG9tX3tcXGNhdEZ1bmN7XFxkZWxvb3B7R319e1xcY2F0U2V0fX0oRyxGKSJdLFswLDEsIlxcSG9tX3tcXGNhdEZ1bmN7XFxkZWxvb3B7R319e1xcY2F0U2V0fX0oRyxGJykiXSxbMCwxLCJcXHBoaV97XFxkZWxvb3BvYmplY3R9Il0sWzIsMywiXFxwaGkgXFx2ZXJ0Y29tcCBcXHBsYWNlaG9sZGVyIiwyXSxbMywxLCJmIFxcbWFwc3RvIGZfe1xcZGVsb29wb2JqZWN0fSgxX0cpIiwyXSxbMiwwLCJmXFxtYXBzdG8gZl97XFxkZWxvb3BvYmplY3R9KDFfRykiXV0=
+	\begin{tikzcd}
+		{\Hom_{\catFunc{\deloop{G}}{\catSet}}(G,F)} & {F(\deloopobject)} \\
+		{\Hom_{\catFunc{\deloop{G}}{\catSet}}(G,F')} & {F'(\deloopobject)}
+		\arrow["{\phi_{\deloopobject}}", from=1-2, to=2-2]
+		\arrow["{\phi \vertcomp \placeholder}"', from=1-1, to=2-1]
+		\arrow["{f \mapsto f_{\deloopobject}(1_G)}"', from=2-1, to=2-2]
+		\arrow["{f\mapsto f_{\deloopobject}(1_G)}", from=1-1, to=1-2]
+	\end{tikzcd}
+		\end{equation}
+	\end{marginfigure}
+\end{exmp}
+\begin{exmp}[Elements of a "ring"]
+	In $\catRing$ just like in $\catGrp$, the "terminal object" is the "ring" containing only one element that is the "zero@@RING" and "identity@@RING" at the same time. Thus, there can be no "morphism" $\terminal \rightarrow R$ unless $R = \terminal$.\footnote{A "ring homomorphism" must send $0$ to $0$ and $1$ to $1$, so if $0=1$ in the "source" then $0$ must equal $1$ in the "target" as well.} We leave you to show $\Hombis^{\terminal}$ is "naturally isomorphic" to the "constant functor" $\constFunc{\emptyset}$.
+
+	Let us try what we did for $\catGrp$: replace $\terminal$ with $\Z$. Unfortunately, a "ring homomoprhism" $f:\Z \rightarrow R$ is too constrained. We must have $f(0) = 0_R$ and $f(1) = 1_R$, and any other value is forced by the "homomorphism@@RING" properties:
+	\[f(n) = f(1) + \stackrel{n}{\cdots}+ f(1) = 1_R + \stackrel{n}{\cdots} + 1_R \text{ and } f(-n) = -f(n).\]
+	This means $\Z$ is the "initial" "ring", and we can prove $\Hombis^{\Z}$ is "naturally isomorphic" to the "constant functor" $\constFunc{\termset}$ (see Exercise \ref{exer:yoneda:initisrepr1}).
+
+	We need to add one element, say $x$, to $\Z$ so that $f$ can map $x$ anywhere, but no other choice can be made.\footnote{This is essentially what we have done to go from $\terminal$ to $\Z$ in $\catGrp$. The "integers" can be seen as the "group" $\termset = \{0\}$ where we add $1$ (it is not the "identity"), its "inverse@@GRP" $-1$ and letting the "group operation" do its thing. For instance $2 = 1+1$, $3 = 1+1+1$, etc.} For the ``map $x$ anywhere'' part, we must make sure that $x$ is free of any constraint other than the properties of a "ring". That is, it has an "additive inverse" $-x$, it satifies $x+x = (1x+1x) = (1+1)x = 2x$ and other similar equations, it has powers like $x^2 = x\cdot x$ and $x^3 = x\cdot x \cdot x$, there are combinations like $5+2x+ 4x^5$, and so on. The ``no other choice'' part is a consequence of the "homomorphism@@RING" properties. If the image of $x$ is known, then the images of all the multiples and powers of $x$ and combinations of them and other elements of $\Z$ are known too.
+
+	In short, we are talking about the "ring" $\Z[x]$ of polynomials with one variable and coefficients in $\Z$. A "ring homomorphism" $\Z[x] \rightarrow R$ is completely determined by where it sends $x$, and we leave you to show $\Hombis^{\Z[x]}$ is "naturally isomorphic" to the "forgetful functor" $\catRing \rightsquigarrow \catSet$.\footnote{With the "Yoneda principle", we now have the promised categorical definition of polynomials from Example \ref{exmps:limits}.\ref{exmp:ringcompletion}. Exercise \ref{exer:yoneda:polynomials} generalizes this to multivariate polynomials with non-"integer" coefficients.}
+
+	With a slight modification, we can show the "units@@RING" "functor" $\units{(\placeholder)}: \catRing \rightsquigarrow \catSet$ (we also forget about the "group" structure) is "representable". The "ring" $\Z[x,x^{-1}]$ is $\Z[x]$ where we add a "multiplicative inverse" to $x$. It satisfies all the expected equations (e.g. $x\cdot x^{-1} = 1$, $x^2 \cdot x^{-3} = x^{-1}$, etc.) and no other. A "ring homomoprhism" $f: \Z[x,x^{-1}] \rightarrow R$ must send $x^{-1}$ to the "inverse@multiplicative inverse" of $f(x)$. Therefore, $f(x)$ is now restricted to $\units{R}$. We leave you to show $\Hombis^{\Z[x,x^{-1}]} \isoCAT \units{(\placeholder)}$.
+\end{exmp}
+
+\begin{exer}{soln:yoneda:polynomials}\label{exer:yoneda:polynomials}
+	Let $U: \catRing \rightsquigarrow \catSet$ be the "forgetful functor" and, for any $n \in \N$, $(\placeholder)^n : \catRing \rightsquigarrow \catRing$  $n$--wise "product" "functor".%TODO: show this is a functor somewhere.
+	\begin{enumerate}
+		\item\label{item:intpolyrepr} Show that $\Hombis^{\Z[x_1,\dots,x_n]}$ is "naturally isomorphic" to the "composition" $U\circ (\placeholder)^n$.
+		\item For any "ring" $R$, show that $\Hombis^{R[x]} \isoCAT \Hombis^R\product U$.\footnote{For this to typecheck, the R.H.S. must be the "product" inside $\catFunc{\catRing}{\catSet}$, i.e. $(\Hombis^R\product U)(S) = \Hom(R,S)\times S$.}
+		\item Make up a categorical definition of $R[x_1,\dots,x_n]$ using this characterization. Does item \ref{item:intpolyrepr} make you more confident in your definition?
+	\end{enumerate} 
+\end{exer}
+\section{Yoneda Lemma}
+
+Taking a closer look at our solution to Exercise \ref{exer:yoneda:isomeanshomiso}, we find the assignments $A \mapsto \Hombis^A$ and $A \mapsto \Hombis_A$ are "functorial".
+
+\begin{defn}["Yoneda embeddings"]
+	\AP The "contravariant" ""Yoneda embedding""\footnote{"Yoneda embeddings" and the "Yoneda lemma" are named in honor of \href{https://en.wikipedia.org/wiki/Nobuo_Yoneda}{Nobuo Yoneda}.} $\Hombis^{(\placeholder)}: \op{\mathbf{C}} \rightsquigarrow \catFunc{\mathbf{C}}{\catSet}$ sends $A \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis^A$ and a "morphism" $f: A'\rightarrow A$ to the "natural transformation" $\Hombis^f: \Hombis^{A} \Rightarrow \Hombis^{A'}$ defined by $\Hombis^f_B = \Hom_{\mathbf{C}}(f,B) = (\placeholder) \circ f$ for every $B \in \obj{\mathbf{C}}$. The "naturality" of $\Hombis^f$ follows from "associativity"\footnote{Starting with $h$ in the top left. The top "path" sends it to $g\circ (h\circ f)$ and the bottom "path" sends it to $(g\circ h)\circ f$. Since "composition" is "associative", both "paths" are the same function.}: for any $g: B\rightarrow B'$, \eqref{diag:defYonembed} "commutes".
 	\begin{equation}\label{diag:defYonembed}
 		\begin{tikzcd}
 			\Hombis^A(B) \arrow[r, "(\placeholder)\circ f"] \arrow[d, "g \circ (\placeholder)"'] & \Hombis^{A'}(B) \arrow[d, "g\circ (\placeholder)"] \\
@@ -92,21 +209,30 @@ For every $A \in \obj{\mathbf{C}}$, there are two "functors" $\Hombis^A$ and $\H
 		\end{tikzcd}
 	\end{equation}
 	
-	The "covariant" "embedding@@YON" $\Hombis_{(\placeholder)}:\mathbf{C} \rightsquigarrow \catFunc{\op{\mathbf{C}}}{\catSet}$ sends $B \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis_B$ and a "morphism" $f:B\rightarrow B'$ to the "natural transformation" $\Hombis_f:\Hombis_B \Rightarrow \Hombis_{B'}$ defined by $\Hombis_f^A = \Hom_{\mathbf{C}}(A,f) = f\circ (\placeholder)$ for any $A \in \obj{\mathbf{C}}$. "Naturality" follows from a similar argument.%TODO: put it in footnote.
-\end{defn}
-"Functoriality" is left for the reader to check.\footnote{A quick proof is to recognize the "embeddings@@YON" as the "curried" $\Hom$ "bifunctor", i.e.: \[\Hombis_{(\placeholder)} = \Curry\Hom_{\mathbf{C}}(\placeholder,\placeholder).\]} The "embeddings@@YON" are called like that because both "functors" are "fully faithful" and injective on "objects" as will follow from the "Yoneda lemma".%TODO: do it!
-%TODO: recall what is happening with the notation.
-\section{Yoneda Lemma}
-We have understood how an "object" $A \in \obj{\mathbf{C}}$ sees the "category" $\mathbf{C}$ through "representables", but since a "representable" is an "object" of another "category", it is daring to study what "representables" see and how it relates to the "object" it "represents". More formally, what is the "functor" $\Hom_{\catFunc{\mathbf{C}}{\catSet}}(\Hombis^A, \placeholder)$ describing. \AP For simplicity, we denote it $\intro*\Nat(\Hombis^A,\placeholder)$ because, for a "functor" $F:\mathbf{C} \rightsquigarrow \catSet$, $\Nat(\Hombis^A,F)$ is the "collection"\footnote{Even if $\mathbf{C}$ is "locally small", there is no guarantee that $\catFunc{\mathbf{C}}{\catSet}$ is "locally small". Nevertheless, one consequence of the "Yoneda lemma" is that $\Nat(F,G)$ is a set whenever $F$ is "representable".} of "natural transformations" from $\Hombis^A$ to $F$.
+	The "covariant" "embedding@@YON" $\Hombis_{(\placeholder)}:\mathbf{C} \rightsquigarrow \catFunc{\op{\mathbf{C}}}{\catSet}$ sends $B \in \obj{\mathbf{C}}$ to the $\Hom$ "functor" $\Hombis_B$ and a "morphism" $f:B\rightarrow B'$ to the "natural transformation" $\Hombis_f:\Hombis_B \Rightarrow \Hombis_{B'}$ defined by $(\Hombis_f)_A = \Hom_{\mathbf{C}}(A,f) = f\circ (\placeholder)$ for any $A \in \obj{\mathbf{C}}$.\footnote{"Naturality" follows from "associativity" of "composition" again.} In order to harmonize the notation, we write $\Hombis_f^A$ instead of $(\Hombis_f)_A$. Now the subscript of $\Hombis$ always goes in the "target" of the $\Hom$, and the superscript alawys goes in the "source".
 
-The surprising relation that the "Yoneda lemma" describes is that $\Nat(\Hombis^A,F)$ is "isomorphic@@CAT" to $F(A)$ "naturally" in $F$ and $A$. We first show the "isomorphism@@CAT" and then explain the "naturality".%TODO: give more intuition
-%TODO: explain naturally
-\begin{lem}[Yoneda lemma I]
+	Another way to obtain these "embeddings@@YON" (incidentally proving they are "functors") is to "curry" the $\Hom$ "bifunctor@hombif". Indeed, you can verify that 
+	\[\Hombis^{\placeholder} = \Curry{\Hom(\placeholder,\placeholder)} \text{ and } \Hombis_{\placeholder} = \Curry{(\Hom(\placeholder, \placeholder) \circ \swap)}.\]
+\end{defn}
+The "embeddings@@YON" are called like that (c.f. Exercise \ref{exer:duality:monicCat}) because both "functors" are injective on "objects"\footnote{If $A \neq B$, then $H^A(A)$ contains $\id_A$ but $H^B(A)$ does not, so $H^A \neq H^B$.} and "fully faithful" as will follow from the "Yoneda lemma".
+
+We now understand how an "object" $A \in \obj{\mathbf{C}}$ can be understood by studying the "representable" $\Hombis^A$. In some sense, $\Hombis^A$ tells us how $A$ views the "category" it is in. Since the "representable" $\Hombis^A$ is an "object" of the "category" $\catFunc{\mathbf{C}}{\catSet}$, it is daring to try and understand it via the "representable" $\Hombis^{\Hombis^A}$. In other words, how does $\Hombis^A$ see other "functors" in $\catFunc{\mathbf{C}}{\catSet}$.
+
+We have already got a problem. Even if $\mathbf{C}$ is "locally small", there is no guarantee that $\catFunc{\mathbf{C}}{\catSet}$ is "locally small". Thus, $\Hombis^{\Hombis^A} = \Hom_{\catFunc{\mathbf{C}}{\catSet}}(\Hombis^A, \placeholder)$ might no be a well-defined "functor".\footnote{We do not know what "category" it lands in.} \AP To avoid confusing or cluttered notation, we write instead $\intro*\Nat(\Hombis^A,\placeholder)$ because, for a "functor" $F:\mathbf{C} \rightsquigarrow \catSet$, $\Nat(\Hombis^A,F)$ is the "collection" of "natural transformations" from $\Hombis^A$ to $F$.
+
+We already saw that for every "morphism" $f:B \rightarrow A$ in $\mathbf{C}$, there is an element $\Hombis^f \in \Nat(\Hombis^A, \Hombis^B)$. Does every "natural transformation" of this type arise like that? Given a "natural transformation" $\alpha :\Hombis^A \Rightarrow \Hombis^B$ constructed from an unknown "morphism" $B \rightarrow A$, we can figure out what is that "morphism" by looking at $\alpha_A(\id_A)$.\footnote{At first glance, this looks like it comes out of nowhere, but this choice is forced on us by the data we have. We are only given $\alpha$ and we need to find an element of $\Hom(B,A)$. It turns out $\alpha_A$ has type $\Hom(A,A) \rightarrow \Hom(B,A)$, so it remains to find an element of $\Hom(A,A)$. Since we know nothing else about $\mathbf{C}$, we can only pick $\id_A$, because $\Hom(A,A)$ might contain no other "morphism".} Indeed, if $\alpha = \Hombis^f$, then \[\alpha_A(\id_A) = \Hombis^f_A(\id_A) = \id_A \circ f = f.\]
+Even if $\alpha$ were not constructed like that, $\alpha_A(\id_A)$ is still a "morphism" $B \rightarrow A$. It turns out we can exploit "naturality" to show $\alpha$ must be the "natural transformation" $\Hombis^{\alpha_A(\id_A)}$.
+
+
+What can we say when the "target" of $\alpha$ is not "representable"? i.e. $\alpha : \Hombis^A \Rightarrow F$ for some "functor" $F: \mathbf{C} \rightsquigarrow \catSet$. Our trick from above tells us every such $\alpha$ yields an element $\alpha_A(\id_A) \in F(A)$. Again relying on "naturality", we can show every element $a \in F(A)$ gives a "transformation" $\alpha: \Hombis^A \Rightarrow F$ satisfying $\alpha_A(\id_A) = a$.
+
+In short, the surprising relation described by the "Yoneda lemma" is an "isomorphism@@CAT" between $\Nat(\Hombis^A,F)$ and $F(A)$ that is "natural in" $F$ and $A$. We first show the "isomorphism@@CAT" and then the "naturality".
+\begin{lem}[""Yoneda lemma"" I]
 	For any $A \in \obj{\mathbf{C}}$ and $F: \mathbf{C}\rightsquigarrow \catSet$,
 	\[\Nat(\Hombis^A, F) \isoCAT F(A).\]
 \end{lem} 
 \begin{proof}
-	Fix $A$ and $F$, let $\phi_{A,F}: \Nat(\Hombis^A, F) \rightarrow F(A)$ be defined by $\alpha \mapsto \alpha_A(\id_A)$ (check that the types match). Let $\eta_{A,F}: F(A) \rightarrow \Nat(\Hombis^A,F)$ send an element $a \in F(A)$ to the "natural transformation" that has "components" $\eta_{A,F}(a)_B: f \mapsto F(f)(a): \Hom_{\mathbf{C}}(A,B) \rightarrow F(B)$ for any $B \in \obj{\mathbf{C}}$. Checking \eqref{diag:Yoneda1} "commutes" for any $g:B\rightarrow B'$ shows that $\eta_{A,F}(a)$ is a "natural transformation".
+	Let $\phi_{A,F}: \Nat(\Hombis^A, F) \rightarrow F(A)$ be defined by $\alpha \mapsto \alpha_A(\id_A)$.\footnote{As we said earlier, this is the only way to obtain an element of $F(A)$ from the given data.} In the opposite direction, let $\eta_{A,F}: F(A) \rightarrow \Nat(\Hombis^A,F)$ send an element $a \in F(A)$ to the "natural transformation" with "components" $(\eta_{A,F}(a))_B: \Hom_{\mathbf{C}}(A,B) \rightarrow F(B) = f \mapsto F(f)(a)$ for each $B \in \obj{\mathbf{C}}$.\footnote{Again this definition is the only one that typechecks. With a "functor" $F$, an element of $F(A)$, and a "morphism" in $\Hom_{\mathbf{C}}(A,B)$, we can apply $F(f) : F(A) \rightarrow F(B)$ to get an element of $F(B)$.} Checking \eqref{diag:Yoneda1} "commutes" for any $g:B\rightarrow B'$ shows that $\eta_{A,F}(a)$ is a "natural transformation". Starting with $f$ in the top left, the top "path" sends it to $F(g)(F(f)(a))$ and the bottom "path" sends it to $F(g\circ f)(a)$. These two are equal by "functoriality", i.e. $F(g) \circ F(f) = F(g\circ f)$.
 	\begin{equation}\label{diag:Yoneda1}
 		\begin{tikzcd}
 			\Hombis^A(B) \arrow[d, "g\circ (\placeholder)"'] \arrow[r, "F(\placeholder)(a)"] & F(B) \arrow[d, "F(g)"] \\
@@ -117,92 +243,121 @@ The surprising relation that the "Yoneda lemma" describes is that $\Nat(\Hombis^
 	We now check that $\phi_{A,F}$ and $\eta_{A,F}$ are inverses. First,
 	$(\eta \circ \phi)_{A,F}$ sends $\alpha\in \Nat(\Hombis^A,F)$ to $\eta_{A,F}(\alpha_A(\id_A))$, and at any $B \in \obj{\mathbf{C}}$, we have 
 	\begin{align*}
-		\eta_{A,F}(\alpha_A(\id_A))_B(f) &= F(f)(\alpha_A(\id_A))&&\mbox{def of $\eta$}\\
-		&= \alpha_B(f \circ \id_A) &&\mbox{"naturality" of $\alpha$}\\
+		(\eta_{A,F}(\alpha_A(\id_A)))_B(f) &= F(f)(\alpha_A(\id_A))&&\mbox{def of $\eta$}\\
+		&= \alpha_B(\Hombis^A(f)(\id_A)) &&\NAT(\alpha,A,B,f)\\
+		&= \alpha_B(f \circ \id_A)&&\mbox{def of $\Hombis^A$}\\
 		&= \alpha_B(f),
 	\end{align*}
 	thus $\alpha = (\eta \circ \phi)_{A,F}(\alpha)$.
 	
-	Conversely, $(\phi\circ \eta)_{A,F}$ sends $a \in F(A)$ to $\eta_{A,F}(a)_A(\id_A) = F(\id_A)(a) = a$.
-	
-	We conclude that $\eta_{A,F}$ and $\phi_{A,F}$ are inverses.
+	Conversely, $(\phi\circ \eta)_{A,F}$ sends $a \in F(A)$ to $\eta_{A,F}(a)_A(\id_A) = F(\id_A)(a) = a$, and we can conclude that $\eta_{A,F}$ and $\phi_{A,F}$ are "natural isomorphisms".
 \end{proof}
-What this results first tells us is that $\Nat(\Hombis^A, F)$ is a set (because it is "isomorphic@@CAT" to $F(A)$ which is a set). This lets us define two new "functors" to understand the second part of the "Yoneda lemma".
+\begin{cor}["Dual@@CAT"]
+	For any $A \in \obj{\mathbf{C}}$ and $F: \op{\mathbf{C}}\rightsquigarrow \catSet$, $\Nat(\Hombis_A, F) \isoCAT F(A)$.
+\end{cor}
+We already mentionned a consequence of this result.
+\begin{cor}
+	The "Yoneda embeddings" $\Hombis^{(\placeholder)}$ and $\Hombis_{(\placeholder)}$ are "fully faithful".\footnote{Recall from Exercises \ref{exer:duality:preserving} and \ref{exer:duality:reflecting} that when a "functor" $F$ is "fully faithful", $A \isoCAT B$ if and only if $FA \isoCAT FB$. Thus, Exercise \ref{exer:yoneda:isomeanshomiso}, Proposition \ref{prop:homisoisiso} and Corollary \ref{cor:dualisomeanshomiso} are all corollaries of this.}
+\end{cor}
+\begin{proof}
+	Applying the lemma with $F = \Hombis^B$, we find an "isomorphism" 
+	\[\Nat(\Hombis^A, \Hombis^B) \isoCAT \Hombis^B(A) = \Hom_{\mathbf{C}}(B,A)\]
+	In the right to left direction, this "isomorphism@@CAT" sends $f:B \rightarrow A$ to $\Hombis^f : \Hombis^A \Rightarrow \Hombis^B$.\footnote{By unrolling the definition of $\eta_{A,\Hombis^B}(f)$, we find its "component" at $A' \in \obj{\mathbf{C}}$ sends $h \in \Hom_{\mathbf{C}}(A,A')$ to $h\circ f \in \Hom_{\mathbf{C}}(B,A')$. So $\eta_{A,\Hombis^B}(f) = \Hombis^f$.} This is the action of the "functor" $\Hombis^{(\placeholder)}$ on the "homset" $\Hom_{\mathbf{C}}(B,A)$. Therefore, for all $A, B \in \obj{\mathbf{C}}$, $f \mapsto \Hombis^f$ is a bijection, which means $\Hombis^{(-)}$ is "fully faithful".
+	
+	The "dual@@CAT" argument shows $\Hombis_{(\placeholder)}$ is "fully faithful".
+\end{proof}
 
-The assignment $(A,F) \mapsto \Nat(\Hombis^A,F)$ is a "functor" $\mathbf{C} \cattimes \catFunc{\mathbf{C}}{\catSet} \rightsquigarrow \catSet$. We denote it $\Nat(\Hombis^{(\placeholder)}, \placeholder)$, it sends a "morphism" $(g,\mu): (A,F) \rightarrow (A',F')$ to $\mu \cdot (\placeholder) \cdot \Hombis^g:\Nat(\Hombis^A,F) \rightarrow \Nat(\Hombis^{A'},F')$.\footnote{If $g: A \rightarrow A'$, $\mu: F \Rightarrow F'$, and $\eta \in \Nat(\Hombis^A, F)$, we have 
-\[\Hombis^{A'} \xRightarrow{\Hombis^g} \Hombis^A \xRightarrow{\eta} F \xRightarrow{\mu} F' \in \Nat(\Hombis^{A'},F').\]
-We leave you to finish checking "functoriality".}
-% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbWJpc157QSd9Il0sWzEsMCwiXFxIb21iaXNeQSJdLFsyLDAsIkYiXSxbMywwLCJGJyJdLFswLDEsIlxcSG9tYmlzXmciLDAseyJsZXZlbCI6Mn1dLFsxLDIsIlxcZXRhIiwwLHsibGV2ZWwiOjJ9XSxbMiwzLCJcXG11IiwwLHsibGV2ZWwiOjJ9XV0=
-% \[\begin{tikzcd}
-% 	{\Hombis^{A'}} & {\Hombis^A} & F & {F'}
-% 	\arrow["{\Hombis^g}", Rightarrow, from=1-1, to=1-2]
-% 	\arrow["\eta", Rightarrow, from=1-2, to=1-3]
-% 	\arrow["\mu", Rightarrow, from=1-3, to=1-4]
-% \end{tikzcd}\in \Nat(\Hombis^{A'},F')\]
+Another consequence is that $\Nat(\Hombis^A, F)$ is a set (because it is "isomorphic@@CAT" to $F(A)$ which is a set), and this allows us to formally state the second part of the "Yoneda lemma".\footnote{That $\phi_{A,F}$ and $\eta_{A,F}$ are "natural in" $A$ and $F$.}
 
-The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We denote it $\intro*\Ev$ (for evaluation), it sends a "morphism" $(g,\mu): (A,F) \rightarrow (A',F')$ to $F'(g) \circ \mu_A :F(A) \rightarrow F'(A')$.\footnote{You can check this functor is the "uncurrying" of the "identity functor" on $\catFunc{\mathbf{C}}{\catSet}$, i.e.: $\Ev = \Uncurry{\id_{\catFunc{\mathbf{C}}{\catSet}}}$}
+The assignment $(A,F) \mapsto \Nat(\Hombis^A,F)$ is a "functor" $\mathbf{C} \cattimes \catFunc{\mathbf{C}}{\catSet} \rightsquigarrow \catSet$ with the action on "morphisms" given by\footnote{If $g: A \rightarrow A'$, $\mu: F \Rightarrow F'$, and $\eta \in \Nat(\Hombis^A, F)$, we have the "composite"
+\[\Hombis^{A'} \xRightarrow{\Hombis^g} \Hombis^A \xRightarrow{\eta} F \xRightarrow{\mu} F' \in \Nat(\Hombis^{A'},F').\]}
+\[(g,\mu): (A,F) \rightarrow (A',F') \mapsto \mu \cdot (\placeholder) \cdot \Hombis^g:\Nat(\Hombis^A,F) \rightarrow \Nat(\Hombis^{A'},F').\]
+We can check this preserves "identities" and "composition". The "identity morphism" on $(A,F)$ is $(\id_A, \one_F)$, and it is sent to $\one_F \vertcomp (\placeholder) \vertcomp \Hombis^{\id_A}$, that is "pre-@pre-composition" and "post-composition" by the "identities".\footnote{It follows from "functoriality" of $\Hombis^{(\placeholder)}$ that $\Hombis^{\id_A} = \one_{\Hombis^A}$.} Given two "morphisms" $(g,\mu): (A,F) \rightarrow (A',F')$ and $(g',\mu'):(A',F') \rightarrow (A'',F'')$, "associativity" of "vertical composition" implies
+\[( \mu' \vertcomp (\placeholder) \vertcomp \Hombis^{g'} ) \circ ( \mu \vertcomp (\placeholder) \vertcomp \Hombis^{g} )=  (\mu'\vertcomp \mu) \vertcomp (\placeholder) \vertcomp (\Hombis^g\vertcomp \Hombis^{g'}) = (\mu'\vertcomp \mu) \vertcomp (\placeholder) \vertcomp \Hombis^{g'\circ g}.\]
+The type of $\Nat(\Hombis^{\placeholder},\placeholder)$ can be confusing. Just for a moment, think of $\Nat(\placeholder, \placeholder)$ as a $\Hom$ "bifunctor@hombif".\footnote{Strictly speaking $\catFunc{\mathbf{C}}{\catSet}$ might not be "locally small", so the "functor" $\Nat(\placeholder,\placeholder)$ is not well-defined.} Then, instead of seeing $\Hombis^{\placeholder}$ as a "functor" $\op{\mathbf{C}} \rightsquigarrow \catFunc{\mathbf{C}}{\catSet}$, see it instead as $\mathbf{C} \rightsquigarrow \op{\catFunc{\mathbf{C}}{\catSet}}$. Then, $\Nat(\Hombis^{\placeholder},\placeholder)$ is the "composite"
+\begin{equation*}
+	% https://q.uiver.app/?q=WzAsMyxbMCwwLCJcXG1hdGhiZntDfVxcY2F0dGltZXMgXFxjYXRGdW5je1xcbWF0aGJme0N9fXtcXGNhdFNldH0iXSxbMiwwLCJcXG9we1xcY2F0RnVuY3tcXG1hdGhiZntDfX17XFxjYXRTZXR9fVxcY2F0dGltZXMgXFxjYXRGdW5je1xcbWF0aGJme0N9fXtcXGNhdFNldH0iXSxbNCwwLCJcXGNhdFNldCJdLFswLDEsIlxcSG9tYmlzXntcXHBsYWNlaG9sZGVyfVxcZnVuY3RpbWVzIFxcaWQiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFsxLDIsIlxcTmF0KFxccGxhY2Vob2xkZXIsXFxwbGFjZWhvbGRlcikiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dXQ==
+\begin{tikzcd}
+	{\mathbf{C}\cattimes \catFunc{\mathbf{C}}{\catSet}} && {\op{\catFunc{\mathbf{C}}{\catSet}}\cattimes \catFunc{\mathbf{C}}{\catSet}} && \catSet
+	\arrow["{\Hombis^{\placeholder}\functimes \id}", squiggly, from=1-1, to=1-3]
+	\arrow["{\Nat(\placeholder,\placeholder)}", squiggly, from=1-3, to=1-5]
+\end{tikzcd}.
+\end{equation*}
 
-\begin{lem}[Yoneda lemma II]
-	There is a "natural isomorphism" $\Nat(\Hombis^{(\placeholder)}, \placeholder) \isoCAT \Ev$.
+The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We denoted it by $\Ev$ (for evaluation), its action on "morphisms" is defined by 
+\[(g,\mu): (A,F) \rightarrow (A',F') \mapsto F'(g) \circ \mu_A = \mu_{A'} \circ F(g):F(A) \rightarrow F'(A').\]
+
+\begin{lem}["Yoneda lemma" II]
+	There is a "natural isomorphism" $\Nat(\Hombis^{\placeholder}, \placeholder) \isoCAT \Ev$.
 \end{lem}
 \begin{proof}
-	The "components" of this "isomorphism@@CAT" are the ones described in the first part of the result. It remains to show that $\phi$ is "natural" in $(A,F)$. For any $(g, \mu): (A,F) \rightarrow (A',F')$, we need to show the following square "commutes".
+	The "components" of this "isomorphism@@CAT" are the ones described in the first part. It remains to show that $\phi$ is "natural in" $(A,F)$.\footnote{By Exercise \ref{exer:natural:componentwise}, it is enough to show it is "natural in" $A$ and "natural in" $F$ separately. We do both at the same time because it is not much harder.} For any $(g, \mu): (A,F) \rightarrow (A',F')$, we need to show the following square "commutes".
 	\begin{equation}
 		\begin{tikzcd}
 			{\Nat(\Hombis^A,F)} \arrow[d, "\mu \cdot (\placeholder) \cdot \Hombis^g"'] \arrow[r, "{\phi_{A,F}}"] & F(A) \arrow[d, "F'(g) \circ \mu_A"] \\
 			{\Nat(\Hombis^{A'}, F')} \arrow[r, "{\phi_{A',F'}}"']                                  & F'(A')                            
 		\end{tikzcd}
 	\end{equation}
-	Starting with a "natural transformation" $\alpha \in \Nat(\Hombis^A,F)$ the lower path sends it to $(\mu\cdot \alpha \cdot \Hombis^g)_{A'}(\id_{A'})$ and the upper path sends it to $(F'(g) \circ \mu_A)(\alpha_A(\id_A))$. The following derivation shows they are equal.
+	Starting with a "natural transformation" $\alpha \in \Nat(\Hombis^A,F)$, the bottom "path" sends it to $(\mu\cdot \alpha \cdot \Hombis^g)_{A'}(\id_{A'})$ and the top "path" sends it to $(F'(g) \circ \mu_A)(\alpha_A(\id_A))$. The following derivation shows they are equal.
 	\begin{align*}
-		(\mu\cdot \alpha \cdot \Hombis^g)_{A'}(\id_{A'}) &= (\mu_{A'}\circ \alpha_{A'})(\Hombis^g_{A'}(\id_{A'}))&&\mbox{def of composition}\\
+		(\mu\cdot \alpha \cdot \Hombis^g)_{A'}(\id_{A'}) &= (\mu_{A'}\circ \alpha_{A'})(\Hombis^g_{A'}(\id_{A'}))&&\mbox{def of $\vertcomp$}\\
 		&= (\mu_{A'}\circ \alpha_{A'})(g)&&\mbox{def of $\Hombis^g_{A'}$}\\
 		&= (\mu_{A'}\circ \alpha_{A'})(\Hombis^A_g(\id_A))&&\mbox{def of $\Hombis^A_g$}\\
 		&= (\mu_{A'}\circ \alpha_{A'} \circ \Hombis^A_g)(\id_A)\\
-		&= (\mu_{A'} \circ F(g) \circ \alpha_A)(\id_A)&&\mbox{naturality of $\alpha$}\\
-		&=(F'(g) \circ \mu_A)(\alpha_A(\id_A)) &&\mbox{naturality of $\mu$}
+		&= (\mu_{A'} \circ F(g) \circ \alpha_A)(\id_A)&&\NAT(\alpha,A,A',g)\\
+		&=(F'(g) \circ \mu_A)(\alpha_A(\id_A)) &&\NAT(\mu,A,A',g)
 	\end{align*}
 \end{proof}
-
-\begin{cor}
-	The "Yoneda embeddings" $\Hombis^{(\placeholder)}$ and $\Hombis_{(\placeholder)}$ are "fully faithful".
+\begin{cor}["Dual@@CAT"]
+	There is a "natural isomorphism" $\Nat(\Hombis_{\placeholder},\placeholder) \isoCAT \Ev$.\footnote{We can typecheck this as before. We see $\Hombis_{\placeholder}$ as a "functor" $\op{\mathbf{C}} \rightsquigarrow \op{\catFunc{\op{\mathbf{C}}}{\catSet}}$ (c.f. Exercise \ref{exer:duality:oppositefunc}). Then $\Nat(\Hombis_{\placeholder},\placeholder) = \Nat(\placeholder,\placeholder) \circ \Hombis_{\placeholder} \functimes \id$.}
 \end{cor}
-\begin{proof}
-	Left as an exercise.%TODO: do it!
-\end{proof}
+While the "Yoneda lemma" is called a lemma, it is extremely important and powerful. We already said how it gives category theorists reasons to study an "object" through its relations to other "objects" (via the "Yoneda principle"). In a shallow exploration of category theory, this might seem like the only point\footnote{I find it already quite grandiose} of the "Yoneda lemma".
 
-\begin{exmp}[Cayley's theorem with the Yoneda lemma]
-	Cayley's theorem states that any "group" is "isomorphic@@GRP" to the "subgroup" of a "permutation group". We will use the "Yoneda lemma" to show that.
-	
+Another result with a similar status in mathematics --- it looks motivated only by philosophical and meta considerations --- is Cayley's theorem. It states that any "group" is "isomorphic@@GRP" to the "subgroup" of a "permutation group".\footnote{It is important to group theorists because they are interested in studying symmetries of geometric shapes or other things, and these can easily be seen as "subgroups" of "permutation groups". Thus, the abstract notion of "group" is made more concrete by Cayley's theorem.} Remarkably, the "Yoneda lemma" can be understood as a generalization of Cayley's theorem. This is our first application "Yoneda".
+\begin{exmp}[Cayley's theorem with the "Yoneda lemma"]
 	Recall the first part of the "Yoneda lemma" which states that for a category $\mathbf{C}$, a "functor" $F:\mathbf{C} \rightsquigarrow \catSet$ and an object $A\in \obj{\mathbf{C}}$, we have \[\Nat(\Hom(A, \placeholder), F) \isoCAT F(A).\]
-    Moreover, we know the explicit maps, namely, a "natural transformation" $\phi$ in the L.H.S. is mapped to $\phi_A(\id_A)$ and an element $u \in F(A)$ is mapped to the "natural transformation" $\{\phi_B = f \mapsto F(f)(u) \mid B \in \obj{\mathbf{C}}\}$.%TODO:explain the notation.
+    Moreover, we know the explicit maps, namely, a "natural transformation" $\phi$ in the L.H.S. is mapped to $\phi_A(\id_A)$ and an element $a \in F(A)$ is mapped to the "natural transformation" whose "component" at $B \in \obj{\mathbf{C}}$ is $\phi_B = f \mapsto F(f)(a)$.
 	
 	Let us apply this to $\mathbf{C}$ being the "delooping" of $G$. Recall that any "functor" $F: \deloop{G} \rightsquigarrow \catSet$ sends $\deloopobject$ to a set $S$ and any $g \in G$ to a "permutation" of $S$, it corresponds to an "action@@GRP" of $G$ on $S$.
 	
-	To use the "Yoneda lemma", our only choice of "object" for $A$ is $\deloopobject$ and we will choose for $F$ the "functor" it "represents", i.e.: $F=\Hom(\deloopobject, \placeholder)$. The "Yoneda lemma" yields
-	\[\Nat(\Hom(\deloopobject, \placeholder), \Hom(\deloopobject,\placeholder)) \isoCAT \Hom(\deloopobject, \deloopobject).\]
-	We already know what the R.H.S. is $G$,\footnote{By definition of $\deloop{G}$.} but we have to do a bit of work to understand the L.H.S. First, observe that a "natural transformation" $\phi: \Hom(\deloopobject, \placeholder) \Rightarrow \Hom(\deloopobject, \placeholder)$ is just one "morphism" $\phi_{\deloopobject}: \Hom(\deloopobject, \deloopobject) \rightarrow \Hom(\deloopobject, \deloopobject)$. Namely, it is a map from $G$ to $G$. Second, recalling that $\Hom(\deloopobject, g) = g \circ (\placeholder)$ and that $\deloopobject$ is the only object in $\obj{\mathbf{C}}$, we get that $\phi_{\deloopobject}$ must only make \eqref{diag:cayleyYoneda} "commute".
+	To use the "Yoneda lemma", our only choice of "object" for $A$ is $\deloopobject$ and we will choose for $F$ the $\Hom$ "functor" $F=\Hom_{\deloop{G}}(\deloopobject, \placeholder)$. The "Yoneda lemma" yields
+	\[\Nat(\Hom_{\deloop{G}}(\deloopobject, \placeholder), \Hom_{\deloop{G}}(\deloopobject,\placeholder)) \isoCAT \Hom_{\deloop{G}}(\deloopobject, \deloopobject).\]
+	We already know that the R.H.S. is $G$,\footnote{By definition of $\deloop{G}$.} but we have to do a bit of work to understand the L.H.S. First, observe that a "natural transformation" $\phi: \Hom_{\deloop{G}}(\deloopobject, \placeholder) \Rightarrow \Hom_{\deloop{G}}(\deloopobject, \placeholder)$ is just one "morphism" $\phi_{\deloopobject}: \Hom_{\deloop{G}}(\deloopobject, \deloopobject) \rightarrow \Hom_{\deloop{G}}(\deloopobject, \deloopobject)$. Namely, it is a map from $G$ to $G$. Second, recalling that $\Hom_{\deloop{G}}(\deloopobject, g) = g \circ (\placeholder)$ and that $\deloopobject$ is the only object in $\obj{\mathbf{C}}$, we get that $\phi_{\deloopobject}$ must only make \eqref{diag:cayleyYoneda} "commute".
 	\begin{equation}\label{diag:cayleyYoneda}
 		\begin{tikzcd}
 			G \arrow[d, "g \circ(\placeholder)"'] \arrow[r, "\phi_{\deloopobject}"] & G \arrow[d, "g\circ (\placeholder)"] \\
 			G \arrow[r, "\phi_{\deloopobject}"'] & G
 		\end{tikzcd}
 	\end{equation}
-	This is equivalent to $\phi_{\deloopobject}(g \cdot h) = g \cdot \phi_{\deloopobject}(h)$, and we get that each $\phi_{\deloopobject}$ is a $G$--"equivariant" map. Denote the set of $G$--"equivariant" maps $\Hom_G(G,G)$. We obtain that, as sets,
+	This is equivalent to $\phi_{\deloopobject}(g \cdot h) = g \cdot \phi_{\deloopobject}(h)$, and we get that each $\phi_{\deloopobject}$ is a $G$--"equivariant" map from $G$ to itself.\footnote{We see $G$ as a $G$"--set" with the "action" of left "multiplication@@GRP" as in Example \ref{exmp:gactsonself}.} Denote the set of such maps by $\Hom_G(G,G)$. We obtain that, as sets,
 	\[\Hom_G(G,G) \isoCAT G.\]
 	Now, we can check that $\Hom_G(G,G)$ is a "subgroup" of $\Perm_G$ (the "group" of "permutations" of the set $G$) and that the bijection is in fact an "group isomorphism". Cayley's theorem follows.
 	
-	To check that $\Hom_G(G,G) < \Perm_G$, we have to show that $\id_G$ is $G$--"equivariant", that $G$--"equivariant" maps are bijective and that they are stable under composition and taking inverse. First, we have $\id_G(g\cdot h) = g \cdot h = g \cdot \id_G(h)$, so $\id_G \in \Hom_G(G,G)$. Second, let $f$ be a $G$--"equivariant" map. For any $g\in G$, we have $f(g) = f(g\cdot 1) = g \cdot f(1)$. Thus, $f$ is determined only by where it sends the "identity@@GRP". Additionally, sice for any choice of $f(1)$, $g \cdot f(1)$ ranges over $G$ when $g$ ranges over $G$, $f$ is bijective. Therefore, if $f$ and $f'$ are both $G$--"equivariant" map, then \[(f\circ f')(g\cdot h) = f(f'(g\cdot h)) = f(g \cdot f'(h)) = g\cdot (f\circ f')(h),\]
-	hence $f\circ f'$ is $G$--"equivariant". Finally, $f^{-1}$ is the $G$--"equivariant" map sending $1$ to $f(1)^{-1}$ and we conclude that $\Hom_G(G,G)$ is a "subgroup" of $\Perm_G$.
+	We have to show that $\id_G$ is in $\Hom_G(G,G)$, that maps in $\Hom_G(G,G)$ are bijective, and that they are stable under composition and taking inverses. First, we have $\id_G(g\cdot h) = g \cdot h = g \cdot \id_G(h)$, so $\id_G \in \Hom_G(G,G)$. Second, let $f$ be a $G$--"equivariant" map. For any $g\in G$, we have $f(g) = f(g\cdot 1) = g \cdot f(1)$, that is $f$ acts on $G$ by right "multiplication@@GRP" by $f(1)$. Thus, it is bijective with its inverse being right "multiplication@@GRP" by $f(1)^{-1}$. Third, if $f$ and $f'$ are both $G$--"equivariant" map, then \[(f\circ f')(g\cdot h) = f(f'(g\cdot h)) = f(g \cdot f'(h)) = g\cdot (f\circ f')(h),\]
+	hence $f\circ f'$ is $G$--"equivariant". Finally, we saw $f^{-1}$ is right "multiplication" by $f(1)^{-1}$, and it is $G$--"equivariant" as $f^{-1}(g\cdot h) = g\cdot h \cdot f(1)^{-1} = g \cdot f^{-1}(h)$. We conclude that $\Hom_G(G,G)$ is a "subgroup" of $\Perm_G$.
 	
 	The final check is that the "Yoneda" bijection $G\rightarrow \Hom_G(G,G)$ sending $g$ to $(\placeholder)\cdot g$ is a "group homomorphism".\footnote{"isomorphism@@GRP" follows because it is a bijection.} It is clear that it sends the "identity@@GRP" to the "identity@@GRP" and for any $g, h \in G$
 	$$(\placeholder)\cdot gh = ((\placeholder) \cdot g)\cdot h = ((\placeholder)\cdot h) \circ ((\placeholder)\cdot g),$$ so this is a "group homomorphism". 
 \end{exmp}
+I would like to believe this book is not a ``shallow exploration of category theory'', so we will also see more concrete uses of "Yoneda".
 
+\begin{exmp}["Exponentials" in $\catDGph$]
+	We saw in Chapter \ref{chap:universal} that $\catDGph$ is a "topos", so it has "exponentials", but we did not write a nice description for them.\footnote{Theoretically, we know how to compute them because we have seen how to take "power objects" in Example \ref{exmp:powerobjdgph} and "(co)@colimit""limits" in Example \ref{exmp:colimdgph}, but we will take a more direct approach here.} We will do this here relying on "Yoneda" and the "isomorphism@@CAT" $\catDGph \isoCAT \catFunc{V\rightrightarrows E}{\catSet}$ outlined in Example \ref{exmp:colimdgph}.
+
+	%TODO: finish this.
+\end{exmp}
+
+
+%TODO: Maybe another, structure on homsets yields structure on object.
+
+
+%TODO: these consequences are formal and good, but once thing Yoneda tells us is that we have a good grasp at understanding representables, but what about other functor. Turns out, we have something called the coYoneda lemma telling us every copresheaf is a colimit of representables. Category of elements and so on...
+%TODO: example in graphs, every graph is a collage of its vertices and edges.
 \section{Universality as Representability}
 "Representability" is one of the two ways to describe "universal" constructions that we hinted at at the end of Chapter \ref{chap:universal}. In this section, we will explore how any "universal property" is equivalent to "representability" of some "functor". Since "(co)@colimits""limits" and "universal morphisms" are "initial" or "terminal" "objects" in some "category", there is a first trivial way to express "universality" as "representability".
+%TODO: say this exercise generalizes a lot of things we have done, like elements of groups rings, etc..
 \begin{exer}{soln:yoneda:initisrepr1}[\NOW]\label{exer:yoneda:initisrepr1}
-	Let $\mathbf{C}$ be a "category", $X \in \obj{\mathbf{C}}$ and $\terminal: \mathbf{C} \rightsquigarrow \catSet$ be the "constant functor" at the singleton $\terminal = \{\star\}$. Show that $\Hom_{\mathbf{C}}(X,\placeholder) \isoCAT \terminal$ if and only if $X$ is "initial". Dually, $\Hom_{\mathbf{C}}(\placeholder,X) \isoCAT \terminal$ if and only if $X$ is "terminal".\footnote{In the dual statement, the domain of $\terminal$ is $\op{\mathbf{C}}$.}
+	Let $\mathbf{C}$ be a "category", $X \in \obj{\mathbf{C}}$ and $\constFunc{\termset}: \mathbf{C} \rightsquigarrow \catSet$ be the "constant functor" at the singleton $\termset = \{\star\}$. Show that $\Hom_{\mathbf{C}}(X,\placeholder) \isoCAT \constFunc{\termset}$ if and only if $X$ is "initial". Dually, $\Hom_{\mathbf{C}}(\placeholder,X) \isoCAT \constFunc{\termset}$ if and only if $X$ is "terminal".\footnote{In the dual statement, the "source" of $\constFunc{\termset}$ is $\op{\mathbf{C}}$.}
 \end{exer}
 It turns out this result is not very useful.%TODO: explain why not useful.
 % This result is not completely satisfactory because it is a bit too close to a tautological construction. Indeed, let $F$ be a "discrete" "diagram" picking two "objects" $X,Y \in \obj{\mathbf{C}}$. The result above says that $P$ is the "limit" of $F$ (i.e.: the "product@binary product" of $X$ and $Y$) if and only if $\Hom_{\Cone(F)}()$ it says that $X\product Y$ is the "product@binary product" of $X$ and $Y$ using this need to construct the right "category" $\mathbf{C}$ and then 
@@ -390,6 +545,13 @@ Comparing Propositions \ref{prop:limitrepr} and \ref{prop:universalrepr} and the
 In the next chapter, we will lift these correspondence to a more global version. Namely, we will see how to assemble the "universal morphisms" for all "diagrams" of shape $\mathbf{J}$ into a powerful "object".
 
 %TODO: Use Yoneda with the previous section to derive some stuff like A^(X^Y) = A^(X \times Y) and so on... Start with : in order to use Yoneda, we need to show examples of how representability is useful. Universality is the most useful concept, let's see how these are linked.
+% First, some cool trick relying on the "Yoneda principle". Earlier in this chapter, we showed that the "exponential" $A^X$ is the only "object" (up to "isomorphism@@CAT") satisfying $\Hom(\placeholder \product X,A) \isoCAT \Hom(\placeholder,A^X)$. This makes our life easier for proving $(A^X)^Y \isoCAT A^{X\product Y}$.
+% \begin{prop}
+% 	In a "category" $\mathbf{C}$ with all "exponentials", $(A^X)^Y \isoCAT A^{X\product Y}$. 
+% \end{prop}
+% \begin{proof}
+
+% \end{proof}
 
 %TODO: section on colimits of representable. Maybe in a bonus chapter on stuff that could fit but decided to make the book a little shorter?
 %TODO: figure out if in set Hom(1,-) \times Hom(1,-) being isomorphic to Hom(1,-\times -) is enough to define products. What about other limits ? Because hom is continuous in both components.

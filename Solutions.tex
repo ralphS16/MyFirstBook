@@ -585,6 +585,17 @@
     %TODO: footnote naturality square notation.
 \end{proof}
 \section{Solutions to Chapter \ref{chap:yoneda}}
+\begin{proof}[Solution to Exercise \ref{exer:yoneda:isomeanshomiso}]\label{soln:yoneda:isomeanshomiso}
+    Let $f: A \rightarrow B$ be an "isomorphism@@CAT". For each $X \in \obj{\mathbf{C}}$, we know from our definition of the other $\Hom$ "functor" that $\placeholder \circ f : \Hom(B,X) \rightarrow \Hom(A,X)$ is an "isomorphism@@CAT".\footnote{All "functors" "preserve@@PROP" "isomorphisms", see Exercise \ref{exer:duality:preserving}.}
+    It remains to show that this is "natural in" $X$. For all $g: X \rightarrow X'$ we have to show \eqref{diag:naturalisofromiso} "commutes".
+    \begin{equation}\label{diag:naturalisofromiso}
+        \begin{tikzcd}
+			\Hombis^A(X) \arrow[r, "(\placeholder)\circ f"] \arrow[d, "g \circ (\placeholder)"'] & \Hombis^{B}(X) \arrow[d, "g\circ (\placeholder)"] \\
+			\Hombis^A(X') \arrow[r, "(\placeholder)\circ f"']                         & \Hombis^{B}(X')                       
+		\end{tikzcd}
+    \end{equation}
+    Starting with $h$ in the top left, both "paths" send it to $g \circ h \circ f$. We conclude that $H^A \isoCAT H^B$. We leave the proof of the "dual@@CAT" to you.
+\end{proof}
 \begin{proof}[Solution to Exercise \ref{exer:yoneda:initisrepr1}]\label{soln:yoneda:initisrepr1}
     ($\Rightarrow$) Suppose there is a "natural isomorphism" $\phi: \Hom_{\mathbf{C}}(X,\placeholder) \Rightarrow \terminal$, then for any "object" $Y \in \obj{\mathbf{C}}$, there is a bijection $\Hom_{\mathbf{C}}(X,Y) \isoCAT \{\star\}$. Hence, there is a unique "morphism" $X \rightarrow Y$.
 
