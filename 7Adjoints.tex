@@ -17,8 +17,43 @@
 %TODO: universal from X to R, L is defined by the codomain of this universal morphism.
 %TODO: needs more motivations in the steps.
 %TODO: from poset to 2Rel and back = adjoints
+%TODO: emphasize that adjunction is property not structure.
+%TODO: exercise on corestriction of an adjunction.
 
-We start with a "universal morphism" $\eta_X: X \rightarrow RLX$ for all $X \in \obj{\mathbf{C}}$ and develop a lot of things. First, we show that $L$ is "functorial". For any $f: X \rightarrow Y$, the "universality" of $\eta_X$ yields a unique "morphism" $Lf: LX \rightarrow LY$ satisfying $RLf \circ \eta_X = \eta_Y \circ f$ as summarized in \eqref{diag:Lisfunctor}.\begin{marginfigure}\begin{equation}\label{diag:Lisfunctor}
+
+
+%TODO: in the UP chapter, we defined free monoids on a set, exponentials of a set, etc. But we could ask, since free monoids always exist, can we describe categorically the action of taking free monoids. Global universal constructions.
+
+\begin{rem}
+    "Adjunctions" are very much everywhere in mathematics (once you learn to recognize them), and this inevitably means there are many angles to approach a first understanding. We will only get to see my favorite here, it can be roughly summarized in ``adjunctions are global universal constructions'', but of course I suggest you visit other resources to round out your intuitions.\footnote{I think feeling comfortable with "adjunctions" is a good signal that you are done with your journey in so-called basic category theory, and you are ready for the harder stuff (or you can apply basic category theory to other stuff).}
+\end{rem}
+
+In Chapter \ref{chap:universal} on "universal properties", we gave categorical descriptions of important constructions in mathematics. We defined the "free monoid" \textit{on a set}, the "abelianization" \textit{of a "group"}, and the "exponential" \textit{of a set} by another one. The given set (resp. "group") on which the constructions are applied is part of the definitions we gave, but we know that they can be applied to any set (resp. "group"). Therefore, one might ask if it is possible to define (categorically) the construction as a whole. For instance, the action of taking "free monoids" sends a set to a "monoid", so it could be the action on "objects" of a "functor" from $\catSet$ to $\catMon$.
+
+We start by explainig how this "functor" arises simply from the existence of "free monoids" on every set.\footnote{We spend a lot of time on this example, so you might want to revisit your understanding of "free monoids" before moving on.} More abstractly, we show that having an "object" $FX$ with a "universal property" based on $X$ for every $X$ means that $F$ is a "functor". Moreover, we will see that $F$ is closely related to the "functor" used in the "universal property". This relation is what we call an "adjunction". The rest of the chapter will be dedicated to learning more about "adjunctions" through examples and properties.
+
+\section{Equivalent Definitions}
+
+There are four very commonly used defintions of an "adjunction".\footnote{Morally only three because one is dual to another.} We will start from the one that is most directly linked to the concrete setting of "free monoids", and then develop the details (in the abstract setting) to get the other definitions. Finally, we will prove the equivalence between the definitions.
+
+Let us have two "categories" $\mathbf{C}$ and $\mathbf{D}$ and a "functor" $R: \mathbf{D} \rightsquigarrow  \mathbf{C}$.\footnote{In our concrete running example, $\mathbf{C} = \catSet$, $\mathbf{D} = \catMon$ and $R$ is the "forgetful functor".} Suppose that for any $X \in \obj{\mathbf{C}}$, we have a "universal morphism" from $X$ to $R$, namely, we have an "object" $LX \in \obj{\mathbf{D}}$ and a "morphism" $\eta_X: X \rightarrow RLX$ satisfying a "universal property" as in Definition \ref{defn:universalmorph} and summarized below.\footnote{For "free monoids", $LX$ is the "free monoid" on $X$, i.e. $\freemon{X}$, and $\eta_X$ is the inclusion of $X$ inside $\freemon{X}$ ($R$ only forgets the "monoid" structure).}
+\begin{equation}\label{diag:recallunivmorph}
+    % https://q.uiver.app/#q=WzAsNyxbMSwwLCJSTFgiXSxbMCwwLCJYIl0sWzEsMSwiUkEiXSxbMywxLCJBIl0sWzMsMCwiTFgiXSxbMiwwXSxbNCwwXSxbMSwwLCJcXGV0YV9YIl0sWzEsMiwiaCIsMl0sWzQsMywiISIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7RH0iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcbWF0aGJme0N9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiUiEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbOSwxMiwiUiIsMix7ImxhYmVsX3Bvc2l0aW9uIjo0MCwic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjMwfSwibGV2ZWwiOjF9XV0=
+\begin{tikzcd}
+	X & RLX & {} & LX & {} \\
+	& RA && A
+	\arrow["{\eta_X}", from=1-1, to=1-2]
+	\arrow["h"', from=1-1, to=2-2]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{!}", dashed, from=1-4, to=2-4]
+	\arrow["{\text{in }\mathbf{D}}"{description}, shift left=5, draw=none, from=1-3, to=1-5]
+	\arrow["{\text{in }\mathbf{C}}"{description}, shift left=5, draw=none, from=1-1, to=1-2]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{R!}", dashed, from=1-2, to=2-2]
+	\arrow["R"'{pos=0.4}, shorten <=7pt, shorten >=20pt, from=0, to=1]
+\end{tikzcd}
+\end{equation}
+
+We first show that the action $X \mapsto LX$ is "functorial" (yielding a "functor" $L : \mathbf{C} \rightsquigarrow \mathbf{D}$). For any $f: X \rightarrow Y$, the "universality" of $\eta_X$ yields a unique "morphism" $Lf: LX \rightarrow LY$ satisfying $RLf \circ \eta_X = \eta_Y \circ f$ as summarized in \eqref{diag:Lisfunctor}.\footnote{For "free monoids", $Lf: \freemon{X} \rightarrow \freemon{Y}$ is the "homomorphism@@MON" defined inductively by $Lf(\emptyword) = \emptyword$ and $Lf(w \cdot x)  =  Lf(w) \cdot f(x)$. Concretely, it applies $f$ to every letter of the word.}
+\begin{equation}\label{diag:Lisfunctor}
     % https://q.uiver.app/?q=WzAsOCxbMSwwLCJSTFgiXSxbMCwwLCJYIl0sWzEsMSwiUkxZIl0sWzMsMSwiTFkiXSxbMywwLCJMWCJdLFsyLDBdLFs0LDBdLFswLDEsIlkiXSxbMSwwLCJcXGV0YV9YIl0sWzEsMiwiXFxldGFfWSBcXGNpcmMgZiIsMV0sWzQsMywiTGYiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSw2LCJcXHRleHR7aW4gfVxcbWF0aGJme0R9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMCwiXFx0ZXh0e2luIH1cXG1hdGhiZntDfSIsMSx7Im9mZnNldCI6LTUsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDIsIlJMZiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDcsImYiLDJdLFs3LDIsIlxcZXRhX1kiLDJdLFsxMCwxMywiUiIsMix7ImxhYmVsX3Bvc2l0aW9uIjo0MCwic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjMwfSwibGV2ZWwiOjF9XV0=
         \begin{tikzcd}
             X & RLX & {} & LX & {} \\
@@ -33,34 +68,129 @@ We start with a "universal morphism" $\eta_X: X \rightarrow RLX$ for all $X \in 
             \arrow["{\eta_Y}"', from=2-1, to=2-2]
             \arrow["R"'{pos=0.4}, shorten <=7pt, shorten >=20pt, from=0, to=1]
         \end{tikzcd}
-\end{equation}\end{marginfigure}
-The "functoriality" follows from the following equalities showing that $L(\id_X) = \id_{LX}$ and $L(g \circ f) = Lg \circ Lf$ because these "morphisms" make the relevant diagrams "commute":
+\end{equation}
+The "functoriality" follows from the following equations showing that $L(\id_X) = \id_{LX}$ and $L(g \circ f) = Lg \circ Lf$ because these "morphisms" make the relevant diagrams "commute":\footnote{The equations respectively show that $\id_{LX}$ makes \eqref{diag:recallunivmorph} "commute" when $h$ is replaced by $\id_X$ and $Lg \circ Lf$ does it when $h$ is replaced by $g \circ f$.}
 \begin{gather*}
     R(\id_{LX}) \circ \eta_X = \id_{RLX} \circ \eta_X = \eta_X = \eta_X \circ \id_X\\
     R(Lg \circ Lf) \circ \eta_X = RLg \circ RLf \circ \eta_X = RLg \circ \eta_Y \circ f = \eta_Z \circ (g \circ f).
 \end{gather*}
-Note that the definition of $L$ on "morphisms" gives us that $\eta$ is a "natural transformation" $\id_{\mathbf{C}} \Rightarrow RL$. Next, we will define a "natural transformation" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$. For $X \in \obj{\mathbf{D}}$, we let $\varepsilon_X$ be the unique "morphism" given by the "universality" of $\eta_{RX}$ such that $R(\varepsilon_X) \circ \eta_{RX} = \id_{RX}$ (see \eqref{diag:defncounit}).\begin{marginfigure}\begin{equation}\label{diag:defncounit}
-    % https://q.uiver.app/?q=WzAsNyxbMSwwLCJSTFJYIl0sWzAsMCwiUlgiXSxbMSwxLCJSWCJdLFszLDEsIlgiXSxbMywwLCJMUlgiXSxbMiwwXSxbNCwwXSxbMSwwLCJcXGV0YV97Ulh9Il0sWzEsMiwiXFxpZF97Ulh9IiwyXSxbNCwzLCJcXHZhcmVwc2lsb25fWCIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7RH0iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcbWF0aGJme0N9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiUlxcdmFyZXBzaWxvbl9YIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzksMTIsIlIiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjozMH0sImxldmVsIjoxfV1d
-        \begin{tikzcd}
-            RX & RLRX & {} & LRX & {} \\
-            & RX && X
-            \arrow["{\eta_{RX}}", from=1-1, to=1-2]
-            \arrow["{\id_{RX}}"', from=1-1, to=2-2]
-            \arrow[""{name=0, anchor=center, inner sep=0}, "{\varepsilon_X}", dashed, from=1-4, to=2-4]
-            \arrow["{\text{in }\mathbf{D}}"{description}, shift left=6, draw=none, from=1-3, to=1-5]
-            \arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-1, to=1-2]
-            \arrow[""{name=1, anchor=center, inner sep=0}, "{R\varepsilon_X}", dashed, from=1-2, to=2-2]
-            \arrow["R"'{pos=0.4}, shorten <=7pt, shorten >=21pt, from=0, to=1]
-        \end{tikzcd}
-\end{equation}\end{marginfigure}
-Let us show that $\varepsilon_X: LRX \rightarrow X$ is a "universal morphism" from $L$ to $X$. For any $f: LA \rightarrow X$, if $g: A \rightarrow RX \in \mor{\mathbf{C}}$ is such that $f = \varepsilon_X \circ Lg$, then applying $R$ and "pre-composing" with $\eta_A$, we obtain 
+Note that the definition of $L$ on "morphisms" readily gives us that $\eta$ is a "natural transformation" $\id_{\mathbf{C}} \Rightarrow RL$. The "functor" $L$ constructed like that is called the "left adjoint" to $R$.\footnote{For "free monoids", $L$ is the "free monoid" "functor" $\catMon \rightsquigarrow \catSet$ sending $X$ to $\freemon{X}$ and it is the "left adjoint" to the "forgetful functor" $\catMon \rightsquigarrow \catSet$.}
+\begin{defn}["Left adjoint"]\label{defn:leftadj}
+    \AP Let $R : \mathbf{D} \rightsquigarrow \mathbf{C}$ be a "functor". A "functor" $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ is called the ""left adjoint"" to $R$ if there exists a "natural transformation" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ such that for every $X$, $\eta_X: X \rightarrow RLX$ is a "universal morphism" from $X$ to $R$, equivalently, $\eta_X$ is "initial" in $\comcat{\constFunc{X}}{R}$.
+\end{defn}
+Following the construction of $L$ with another family of "universal morphisms" to $R$ would yield another "left adjoint". Thus, to justify the use of the definite article \textit{the}, we can prove that the two "left adjoints" would be "naturally isomorphic".
+\begin{prop}\label{prop:leftadjunique}
+    Let $R : \mathbf{D} \rightsquigarrow \mathbf{C}$ be a "functor", and $L,L' : \mathbf{C} \rightsquigarrow \mathbf{D}$ be two "left adjoints" to $R$. Then, $L \isoCAT L'$.
+\end{prop}
+\begin{proof}
+    Let $\eta: \id_{\mathbf{C}} \Rightarrow RL$ and $\eta': \id_{\mathbf{C}} \Rightarrow RL'$ be the "natural transformations" witnessing $L$ and $L'$ respectively as "left adjoints" to $R$. For any $X$, since both $\eta_X: X \rightarrow RLX$ and $\eta'_X: X \rightarrow RL'X$ are "initial" in $\comcat{\constFunc{X}}{R}$, they must be "isomorphic" inside this "comma category". This means there is an (unique) "isomorphism" $\phi_X: LX \rightarrow LX'$ making \eqref{diag:isoleftadjointstriangle} "commute". It is an "isomorphism" in $\comcat{\constFunc{X}}{R}$, but we find it is also an "isomorphism" in $\mathbf{D}$ by applying the "forgetful functor" $U_R: \comcat{\constFunc{X}}{R} \rightsquigarrow \mathbf{D}$ from Exercise \ref{exer:universal:forgetfulcomcat} (recall Exercise \ref{exer:duality:preserving}.\ref{exer:duality:funcpreservesiso}).\begin{marginfigure}[-5\baselineskip]\begin{equation}\label{diag:isoleftadjointstriangle}
+        % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzEsMSwiUkwnWCJdLFsxLDAsIlJMWCJdLFswLDEsIlxcZXRhJ19YIiwyXSxbMCwyLCJcXGV0YV9YIl0sWzIsMSwiUlxccGhpX1giXV0=
+\begin{tikzcd}
+	X & RLX \\
+	& {RL'X}
+	\arrow["{\eta'_X}"', from=1-1, to=2-2]
+	\arrow["{\eta_X}", from=1-1, to=1-2]
+	\arrow["{R\phi_X}", from=1-2, to=2-2]
+\end{tikzcd}
+    \end{equation}\end{marginfigure}
+    
+    It remains to show these "components" assemble into a "natural transformation", i.e. that for any $f: X \rightarrow Y$, $L'f \circ \phi_X = \phi_Y \circ Lf$. We start by drawing the following two "commutative diagrams".
+    \begin{equation}\label{diag:isoleftadjointsnaturality}
+        % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiWCJdLFswLDIsIlkiXSxbMSwyLCJSTCdZIl0sWzEsMCwiUkxYIl0sWzEsMSwiUkxZIl0sWzMsMCwiWCJdLFszLDIsIlkiXSxbNCwyLCJSTCdZIl0sWzQsMSwiUkwnWCJdLFs0LDAsIlJMWCJdLFsxLDIsIlxcZXRhJ19ZIiwyXSxbMCwzLCJcXGV0YV9YIl0sWzMsNCwiUkxmIl0sWzQsMiwiUlxccGhpX1kiXSxbMCwxLCJmIiwyXSxbMSw0LCJcXGV0YV9ZIl0sWzUsNiwiZiIsMl0sWzYsNywiXFxldGEnX1kiLDJdLFs1LDgsIlxcZXRhJ19YIiwyXSxbNSw5LCJcXGV0YV9YIl0sWzksOCwiUlxccGhpX1giXSxbOCw3LCJSTCdmIl0sWzE0LDQsIlxcdGV4dHsoYSl9IiwxLHsibGFiZWxfcG9zaXRpb24iOjcwLCJvZmZzZXQiOi00LCJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTUsMiwiXFx0ZXh0eyhiKX0iLDEseyJsYWJlbF9wb3NpdGlvbiI6NzAsIm9mZnNldCI6LTEsInNob3J0ZW4iOnsic291cmNlIjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxOCw5LCJcXHRleHR7KGMpfSIsMSx7ImxhYmVsX3Bvc2l0aW9uIjo2MCwib2Zmc2V0IjoxLCJzaG9ydGVuIjp7InNvdXJjZSI6MjB9LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTYsOCwiXFx0ZXh0eyhkKX0iLDEseyJsYWJlbF9wb3NpdGlvbiI6NzAsIm9mZnNldCI6NCwic2hvcnRlbiI6eyJzb3VyY2UiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
+\begin{tikzcd}
+	X & RLX && X & RLX \\
+	& RLY &&& {RL'X} \\
+	Y & {RL'Y} && Y & {RL'Y}
+	\arrow["{\eta'_Y}"', from=3-1, to=3-2]
+	\arrow["{\eta_X}", from=1-1, to=1-2]
+	\arrow["RLf", from=1-2, to=2-2]
+	\arrow["{R\phi_Y}", from=2-2, to=3-2]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "f"', from=1-1, to=3-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{\eta_Y}", from=3-1, to=2-2]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "f"', from=1-4, to=3-4]
+	\arrow["{\eta'_Y}"', from=3-4, to=3-5]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "{\eta'_X}"', from=1-4, to=2-5]
+	\arrow["{\eta_X}", from=1-4, to=1-5]
+	\arrow["{R\phi_X}", from=1-5, to=2-5]
+	\arrow["{RL'f}", from=2-5, to=3-5]
+	\arrow["{\text{(a)}}"{description, pos=0.7}, shift left=4, draw=none, from=0, to=2-2]
+	\arrow["{\text{(b)}}"{description, pos=0.9}, shift left, draw=none, from=1, to=3-2]
+	\arrow["{\text{(c)}}"{description, pos=0.65}, shift right, draw=none, from=3, to=1-5]
+	\arrow["{\text{(d)}}"{description, pos=0.7}, shift right=4, draw=none, from=2, to=2-5]
+\end{tikzcd}
+    \end{equation}
+    We find that both $\phi_Y \circ Lf$ and $L'f \circ \phi_X$ make \eqref{diag:recallunivmorph} "commute" when $h$ is replaced by $\eta'_Y \circ f$. Thus, by uniqueness, they must be equal.\marginnote[-8\baselineskip]{Showing \eqref{diag:isoleftadjointsnaturality} "commutes":\begin{enumerate}[(a)]
+        \item $\NAT(\eta,X,Y,f)$.
+        \item Definition of $\phi$ \eqref{diag:isoleftadjointstriangle}.
+        \item Definition of $\phi$ \eqref{diag:isoleftadjointstriangle}.
+        \item $\NAT(\eta',X,Y,f)$.
+    \end{enumerate}}
+    We conclude that $\phi$ is a "natural isomorphism" $L \Rightarrow L'$.
+\end{proof}
+The "dual@@CAT" concept is called a "right adjoint".
+\begin{defn}["Right adjoint"]\label{defn:rightadj}
+    Let $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ be a "functor". A "functor" $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ is called the "right adjoint" to $L$ is there exists a "natural transformation" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ such that for every $X$, $\varepsilon_X: LRX \rightarrow X$ is a "universal morphism" from $L$ to $X$, equivalently, $\varepsilon_X$ is "terminal" in $\comcat{L}{\constFunc{X}}$.
+\end{defn}
+\begin{cor}["Dual@@CAT"]\label{cor:rightadjunique}
+    If $R,R' : \mathbf{D} \rightsquigarrow \mathbf{C}$ are two "right adjoints" to $L: \mathbf{C} \rightsquigarrow \mathbf{D}$, then $R \isoCAT R'$.
+\end{cor}
+
+\begin{exmp}["Cartesian closedness"]
+    Let $\mathbf{C}$ be a category with all "finite products" (in particular, "binary@bproduct" ones and a "terminal object"). Given two "objects" $A,X \in \obj{\mathbf{C}}$, recall that their "exponential" exists if and only if there is a "universal morphism" $\ev: A^X \product X \to A$ from $\placeholder \product X$ to $A$.
+    
+    Fixing $X$, if this "exponential" exists for every $A \in \obj{\mathbf{C}}$, then a "dual@@CAT" argument to the one preceding Definition \ref{defn:leftadj} shows that the assignment $A \mapsto A^X$ yields a "functor" $\mathbf{C} \rightsquigarrow \mathbf{C}$ that is "right adjoint" to $\placeholder \product X : \mathbf{C} \rightsquigarrow \mathbf{C}$ from Exercise \ref{exer:universal:prodXfunc}, and moreover the "evaluation morphisms" are "components" of a "natural transformation" $(\placeholder)^X \product X \Rightarrow \id_{\mathbf{C}}$. By Definition \ref{defn:cartclosed}, $\mathbf{C}$ is "cartesian closed" precisely when all "functors" $\placeholder \product X$ have a "right adjoint".
+\end{exmp}
+
+\begin{exmp}[Free monoids]\label{exmp:rightadjointfreemon}
+    We saw that the "free monoid" "functor" $\freemon{(\placeholder)}: \catSet \rightsquigarrow \catMon$ is "left adjoint" to the "forgetful functor" $U: \catMon \rightsquigarrow \catSet$. We can also show that $U$ is "right adjoint" to $\freemon{(\placeholder)}$. For any "monoid" $M \in \obj{\catMon}$, we need to define a "monoid homomorphism" $\freemon{UM} \rightarrow M$. Since an element $w \in \freemon{UM}$ is a word whose letters are elements of $M$, we can multiply all the letters together with the "monoid operation" (the order does not matter thanks to associativity) to get one element of $M$. We call this function $c: \freemon{UM} \rightarrow M$, and the fact that it is a "homomorphism@@MON" also follows from associativity.
+
+    Now, for any set $A$ and "homomorphism@@MON" $h: \freemon{A} \rightarrow M$, we know that the action of $h$ is completely determined by where it sends the single-letter words.\footnote{You can see this as a consequence of either the classical Definition \ref{defn:freemonclassic} or the categorical Definition \ref{defn:freemon} of "free monoids".} More precisely, we know that if $w = \mathtt{a}_1\cdots\mathtt{a}_n$ is a word in $\freemon{A}$, then $h(w) = h(\mathtt{a}_1)\cdots h(\mathtt{a}_n)$, where $\cdots$ denotes here the multiplciation in $M$. If we instead see $h(\mathtt{a}_1)\cdots h(\mathtt{a}_n)$ as a word in $\freemon{UM}$, i.e. $\cdots$ denotes concatenation of letters, it can be obtained by applying the restriction of $h$ to $A$ to every letter in $w$, i.e. $h(\mathtt{a}_1)\cdots h(\mathtt{a}_n) = \freemon{h|_A}(\mathtt{a}_1\cdots \mathtt{a}_n) = \freemon{h|_A}(w)$. This lets us see that $h|_A: A \rightarrow UM$ is the unique function satisfying $c(\freemon{h|_A}) = h$, and we conclude that $c$ satisfies the appropriate "universal property" summarized in \eqref{diag:upfreemonrightadj}.\begin{marginfigure}
+    \begin{equation}\label{diag:upfreemonrightadj}
+        % https://q.uiver.app/#q=WzAsNyxbMSwwLCJcXGZyZWVtb257VU19Il0sWzAsMCwiTSJdLFsxLDEsIlxcZnJlZW1vbntBfSJdLFszLDEsIkEiXSxbMywwLCJVTSJdLFsyLDBdLFs0LDBdLFswLDEsImMiLDJdLFsyLDAsIlxcZnJlZW1vbntofF9BfSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDEsImgiXSxbMyw0LCJnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzUsNiwiXFx0ZXh0e2luIH1cXGNhdFNldCIsMSx7Im9mZnNldCI6LTUsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDAsIlxcdGV4dHtpbiB9XFxjYXRNb24iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTAsOCwiXFxmcmVlbW9ueyhcXHBsYWNlaG9sZGVyKX0iLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjozMH0sImxldmVsIjoxfV1d
+\begin{tikzcd}
+	M & {\freemon{UM}} & {} & UM & {} \\
+	& {\freemon{A}} && A
+	\arrow["c"', from=1-2, to=1-1]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{\freemon{h|_A}}"', dashed, from=2-2, to=1-2]
+	\arrow["h", from=2-2, to=1-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "g"', dashed, from=2-4, to=1-4]
+	\arrow["{\text{in }\catSet}"{description}, shift left=5, draw=none, from=1-3, to=1-5]
+	\arrow["{\text{in }\catMon}"{description}, shift left=5, draw=none, from=1-1, to=1-2]
+	\arrow["{\freemon{(\placeholder)}}"'{pos=0.4}, shorten <=8pt, shorten >=24pt, from=1, to=0]
+\end{tikzcd}
+    \end{equation}\end{marginfigure}
+    As for "exponentials", we find that $U$ is "right adjoint" to $\freemon{(\placeholder)}$.
+\end{exmp}
+In our running example, we now have a pair of "functors" ($\freemon{(\placeholder)}$ and $U$) adjoint to each other, one "left adjoint" and the other "right adjoint". It turns out we can develop Example \ref{exmp:rightadjointfreemon} abstractly and show that when $L$ is "left adjoint" to $R$, then $R$ is "right adjoint" to $L$, and vice-versa by "duality@@CAT".
+
+\begin{prop}
+    Let $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ be two "functors". If $L$ is "left adjoint" to $R$, then $R$ is "right adjoint" to $L$.
+\end{prop}
+\begin{proof}
+    Let $\eta: \id_{\mathbf{C}} \Rightarrow RL$ be the "natural transformation" witnessing $L$ as "left adjoint" to $R$. We first define the "components" of a "natural transformation" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$. For $X \in \obj{\mathbf{D}}$, we need a "morphism" $LRX \rightarrow X$ in $\mathbf{D}$, and we know from the "universal property" of $\eta_{RX}$ that it is enough to find a "morphism" $RX \rightarrow RX$. Of course we take the "identity", and we let $\varepsilon_X$ be the unique "morphism" given by the "universality" of $\eta_{RX}$ such that $R(\varepsilon_X) \circ \eta_{RX} = \id_{RX}$ (see \eqref{diag:defncounit}).\begin{marginfigure}\begin{equation}\label{diag:defncounit}
+        % https://q.uiver.app/?q=WzAsNyxbMSwwLCJSTFJYIl0sWzAsMCwiUlgiXSxbMSwxLCJSWCJdLFszLDEsIlgiXSxbMywwLCJMUlgiXSxbMiwwXSxbNCwwXSxbMSwwLCJcXGV0YV97Ulh9Il0sWzEsMiwiXFxpZF97Ulh9IiwyXSxbNCwzLCJcXHZhcmVwc2lsb25fWCIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7RH0iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcbWF0aGJme0N9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiUlxcdmFyZXBzaWxvbl9YIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzksMTIsIlIiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjozMH0sImxldmVsIjoxfV1d
+            \begin{tikzcd}
+                RX & RLRX &[-20pt] {} & LRX & {} \\
+                & RX && X
+                \arrow["{\eta_{RX}}", from=1-1, to=1-2]
+                \arrow["{\id_{RX}}"', from=1-1, to=2-2]
+                \arrow[""{name=0, anchor=center, inner sep=0}, "{\varepsilon_X}", dashed, from=1-4, to=2-4]
+                \arrow["{\text{in }\mathbf{D}}"{description}, shift left=6, draw=none, from=1-3, to=1-5]
+                \arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-1, to=1-2]
+                \arrow[""{name=1, anchor=center, inner sep=0}, "{R\varepsilon_X}", dashed, from=1-2, to=2-2]
+                \arrow["R"'{pos=0.36}, shorten <=7pt, shorten >=21pt, from=0, to=1]
+            \end{tikzcd}
+    \end{equation}\end{marginfigure}
+    Next, we show that $\varepsilon_X: LRX \rightarrow X$ is a "universal morphism" from $L$ to $X$. For any $f: LA \rightarrow X$, if $g: A \rightarrow RX \in \mor{\mathbf{C}}$ is such that $f = \varepsilon_X \circ Lg$, then applying $R$ and "pre-composing" with $\eta_A$, we obtain 
 \begin{align*}
     Rf \circ \eta_A &= R\varepsilon_X \circ RLg \circ \eta_A \\
     &= R\varepsilon_X \circ \eta_{RX} \circ g &&\NAT(\eta,A,RX, g)\\
     &= \id_{RX} \circ g &&\text{definition of $\varepsilon_X$}\\
     &= g.
 \end{align*}
-We conclude that $g:= Rf \circ \eta_A$ is the unique "morphism" such that $f = \varepsilon_X \circ Lg$, hence $\varepsilon_X$ is "universal". Next, we show that $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ is "natural". For any $f: X \rightarrow Y \in \mor{\mathbf{D}}$, by "universality", there is a unique "morphism" $g: RX \rightarrow RY$ such that $f \circ \varepsilon_X = \varepsilon_Y \circ Lg$ (see \eqref{diag:counitnatural}) and by our derivation above, $g = Rf \circ R\varepsilon_X \circ \eta_{RX} = Rf$. Thus, we find that $f \circ \varepsilon_X = \varepsilon_Y \circ LRf$, namely $\varepsilon$ is "natural".\begin{marginfigure}\begin{equation}\label{diag:counitnatural}
+We conclude that $g:= Rf \circ \eta_A$ is the unique "morphism" satisfying that $f = \varepsilon_X \circ Lg$, hence $\varepsilon_X$ is "universal".
+
+Finally, we show that $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ is "natural". For any $f: X \rightarrow Y \in \mor{\mathbf{D}}$, by "universality", there is a unique "morphism" $g: RX \rightarrow RY$ such that $f \circ \varepsilon_X = \varepsilon_Y \circ Lg$ (see \eqref{diag:counitnatural}) and by our derivation above, $g = Rf \circ R\varepsilon_X \circ \eta_{RX} \stackrel{\eqref{diag:defncounit}}{=} Rf$. Thus, we find that $f \circ \varepsilon_X = \varepsilon_Y \circ LRf$, namely $\varepsilon$ is "natural".\qedhere\begin{marginfigure}\begin{equation}\label{diag:counitnatural}
     % https://q.uiver.app/?q=WzAsOCxbMSwwLCJMUlkiXSxbMCwwLCJZIl0sWzEsMSwiTFJYIl0sWzMsMSwiUlgiXSxbMywwLCJSWSJdLFsyLDBdLFs0LDBdLFswLDEsIlgiXSxbMCwxLCJcXHZhcmVwc2lsb25fWSIsMl0sWzIsMCwiTGciLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJcXHZhcmVwc2lsb25fWCBcXGNpcmMgZiIsMV0sWzMsNCwiZyIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7Q30iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcbWF0aGJme0R9IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsNywiXFx2YXJlcHNpbG9uX1giXSxbNywxLCJmIl0sWzExLDksIkwiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjozMH0sImxldmVsIjoxfV1d
 \begin{tikzcd}
 	Y & LRY & {} & RY & {} \\
@@ -76,7 +206,16 @@ We conclude that $g:= Rf \circ \eta_A$ is the unique "morphism" such that $f = \
 	\arrow["L"'{pos=0.4}, shorten <=7pt, shorten >=20pt, from=1, to=0]
 \end{tikzcd}
 \end{equation}\end{marginfigure}
-Second to last thing, we show that $\eta$ and $\varepsilon$ satisfy the the ""triangle identities"" shown in \eqref{diag:triangleftadj} and \eqref{diag:triangrightadj} (they are "commutative" in $\catFunc{\mathbf{C}}{\mathbf{D}}$ and $\catFunc{\mathbf{D}}{\mathbf{C}}$ respectively).\\
+\end{proof}
+As a sanity check, notice that using the definition of $\varepsilon_M$ in the case of "free monoids", we get back the "homomorphism" $c$ from Example \ref{exmp:rightadjointfreemon}. Indeed, instantiating \eqref{diag:defncounit}, we find $\varepsilon_M: \freemon{UM} \rightarrow M$ is the unique "homomorphism" that acts like identity on single-letter words $M$ (recall $\eta_{UM}$ sends $x \in UM$ to the word $x \in \freemon{UM}$). It is easy to check $c$ also acts like identity on single-letter words, so $\varepsilon_M$ and $c$ coincide by uniqueness.
+
+\begin{cor}["Dual@@CAT"]
+    If $R$ is "right adjoint" to $L$, then $L$ is "left adjoint" to $R$.
+\end{cor}
+
+This makes Definitions \ref{defn:leftadj} and \ref{defn:rightadj} a bit unsatisfactory because they seem to focus on one side of relation between two "functors". To resolve this, we bring up two important properties that arise from having a "left@left adjoint" and "right adjoint", and we will see these also characterize "adjoints".
+
+First, we note that $\eta: \id_{\mathbf{C}} \Rightarrow RL$ and $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ seem to have the right type to give rise to an "equivalence" between $\mathbf{C}$ and $\mathbf{D}$. However, in general, nothing guarantees the "components" of $\eta$ and $\varepsilon$ are "isomorphisms".\footnote{It is clearly not the case in the "free monoids" example.} There is still some kind of invertibility property: $\eta$ and $\varepsilon$ satisfy the the ""triangle identities"" shown in \eqref{diag:triangleftadj} and \eqref{diag:triangrightadj} (they are "commutative diagrams" in $\catFunc{\mathbf{C}}{\mathbf{D}}$ and $\catFunc{\mathbf{D}}{\mathbf{C}}$ respectively).\\
 \begin{minipage}{0.49\textwidth}
     \begin{equation}\label{diag:triangleftadj}
         \begin{tikzcd}
@@ -99,10 +238,10 @@ Second to last thing, we show that $\eta$ and $\varepsilon$ satisfy the the ""tr
         \end{tikzcd}
     \end{equation}
 \end{minipage}\\
-The second one holds by definition of $\varepsilon_X$ (for any $X \in \obj{\mathbf{D}}$, $R\varepsilon_X \circ \eta_{RX} = \id_{RX}$). For the first one, by "universality" there is a unique "morphism" $g: X \rightarrow RLX$ such that $\id_{LX} = \varepsilon_{LX} \circ Lg$ (see \eqref{diag:triangleleftholds}) and by our derivation above, $g = R(\id_{LX}) \circ \eta_X = \eta_X$. We find that $\varepsilon_{LX} \circ  L\eta_X = \id_{LX}$ as desired.\begin{marginfigure}\begin{equation}\label{diag:triangleleftholds}
+The second one holds by definition of $\varepsilon_X$ (for any $X \in \obj{\mathbf{D}}$, $R\varepsilon_X \circ \eta_{RX} = \id_{RX}$). For the first one, by "universality" of $\varepsilon_X$, there is a unique "morphism" $g: X \rightarrow RLX$ such that $\varepsilon_{LX} \circ Lg = \id_{LX}$ (see \eqref{diag:triangleleftholds}), and by our derivation in the previous proof, $g = R(\id_{LX}) \circ \eta_X = \eta_X$. We find that $\varepsilon_{LX} \circ  L\eta_X = \id_{LX}$ as desired.\begin{marginfigure}\begin{equation}\label{diag:triangleleftholds}
     % https://q.uiver.app/?q=WzAsNyxbMSwwLCJMUkxYIl0sWzAsMCwiTFgiXSxbMSwxLCJMWCJdLFszLDEsIlgiXSxbMywwLCJSTFgiXSxbMiwwXSxbNCwwXSxbMCwxLCJcXHZhcmVwc2lsb25fe0xYfSIsMl0sWzIsMCwiTGciLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJcXGlkX3tMWH0iXSxbMyw0LCJnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzUsNiwiXFx0ZXh0e2luIH1cXG1hdGhiZntDfSIsMSx7Im9mZnNldCI6LTUsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDAsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7RH0iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTAsOCwiTCIsMix7ImxhYmVsX3Bvc2l0aW9uIjo0MCwic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjMwfSwibGV2ZWwiOjF9XV0=
 \begin{tikzcd}
-	LX & LRLX & {} & RLX & {} \\
+	LX & LRLX &[-15pt] {} & RLX & {} \\
 	& LX && X
 	\arrow["{\varepsilon_{LX}}"', from=1-2, to=1-1]
 	\arrow[""{name=0, anchor=center, inner sep=0}, "Lg"', dashed, from=2-2, to=1-2]
@@ -110,16 +249,18 @@ The second one holds by definition of $\varepsilon_X$ (for any $X \in \obj{\math
 	\arrow[""{name=1, anchor=center, inner sep=0}, "g"', dashed, from=2-4, to=1-4]
 	\arrow["{\text{in }\mathbf{C}}"{description}, shift left=6, draw=none, from=1-3, to=1-5]
 	\arrow["{\text{in }\mathbf{D}}"{description}, shift left=6, draw=none, from=1-1, to=1-2]
-	\arrow["L"'{pos=0.4}, shorten <=7pt, shorten >=21pt, from=1, to=0]
+	\arrow["L"'{pos=0.37}, shorten <=7pt, shorten >=21pt, from=1, to=0]
 \end{tikzcd}
 \end{equation}\end{marginfigure}
-Finally, we now show that there is a "natural isomorphisms"
+It is simple, but not very illuminating to see how these "triangle identities" hold in the "free monoids" example. Conversely, the next characterization of "adjoints" is in the spotlight of our running example. It abstractly states the slogan that it is the same thing to give a "homomorphism@@MON" out of the "free monoid" $\freemon{A}$ or a function out of the set $A$.
+
+Formally, we find a "natural isomorphism"\footnote{For "free monoids", this gives \[\Hom_{\catSet}(A,M) \isoCAT \Hom_{\catMon}(\freemon{A},M),\] which is inded what the slogan means.}
 \[\Phi: \Hom_{\mathbf{C}}(\placeholder, R \placeholder) \isoCAT \Hom_{\mathbf{D}}(L\placeholder, \placeholder):\Phi^{-1}.\]
-For $g : X \rightarrow RY$, we define $\Phi_{X,Y}(g) = \varepsilon_Y \circ Lg$ and for $f: LX \rightarrow Y$, we define $\Phi_{X,Y}^{-1}(f) = Rf \circ \eta_X$.\footnote{Note because it will be useful that $\Phi_{X,Y}(\id_{RX}) = \varepsilon_X$ and $\Phi_{X,Y}^{-1}(\id_{LX}) = \eta_X$.} The derivations below show these are inverses:
-\begin{gather*}
-    \Phi_{X,Y}^{-1}(\Phi_{X,Y}(g)) = R\varepsilon_Y \circ RLg \circ \eta_X = R\varepsilon_Y \circ \eta_{RY} \circ g = g\\
-    \Phi_{X,Y}(\Phi_{X,Y}^{-1}(f)) = \varepsilon_Y \circ LRf \circ L\eta_X = f \circ \varepsilon_{LX} \circ L\eta_X = f.
-\end{gather*}
+For $g : X \rightarrow RY$, we define $\Phi_{X,Y}(g) = \varepsilon_Y \circ Lg$ and for $f: LX \rightarrow Y$, we define $\Phi_{X,Y}^{-1}(f) = Rf \circ \eta_X$.\footnote{You can certainly infer these definitions just by looking at the types. Also note because it will be useful that $\Phi_{X,Y}(\id_{RX}) = \varepsilon_X$ and $\Phi_{X,Y}^{-1}(\id_{LX}) = \eta_X$.} The derivations below show these are inverses (and it only relies on the "triangle identities" and "naturality"):
+\begin{gather}
+    \Phi_{X,Y}^{-1}(\Phi_{X,Y}(g)) = R\varepsilon_Y \circ RLg \circ \eta_X = R\varepsilon_Y \circ \eta_{RY} \circ g = g\label{eqn:natisoadjoint1}\\
+    \Phi_{X,Y}(\Phi_{X,Y}^{-1}(f)) = \varepsilon_Y \circ LRf \circ L\eta_X = f \circ \varepsilon_{LX} \circ L\eta_X = f.\label{eqn:natisoadjoint2}
+\end{gather}
 To show that $\Phi$ is "natural", we need to show that \eqref{diag:naturalitytranspose} "commutes" for any $x: X' \rightarrow X$ and $y: Y \rightarrow Y'$. Starting with $g: X \rightarrow RY$ in the top left, the bottom path sends it to $Ry \circ g \circ x$ then to $\varepsilon_{Y'} \circ LRy \circ Lg \circ Lx$ and the top path sends $g$ to $\varepsilon_Y \circ Lg$ then to $y \circ \varepsilon_Y \circ Lg \circ Lx$. The end results are equal by $\NAT(\varepsilon,Y,Y',y)$.\begin{marginfigure}\begin{equation}\label{diag:naturalitytranspose}
     % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsIFJZKSJdLFswLDEsIlxcSG9tX3tcXG1hdGhiZntDfX0oWCcsIFJZJykiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBZKSJdLFsxLDEsIlxcSG9tX3tcXG1hdGhiZntEfX0oTFgnLCBZJykiXSxbMCwxLCJSeSBcXGNpcmMgXFxwbGFjZWhvbGRlciBcXGNpcmMgeCIsMl0sWzAsMiwiXFxQaGlfe1gsWX0iLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMiwzLCJ5IFxcY2lyYyBcXHBsYWNlaG9sZGVyIFxcY2lyYyBMeCJdLFsxLDMsIlxcUGhpX3tYJyxZJ30iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XV0=
 \begin{tikzcd}
@@ -131,31 +272,28 @@ To show that $\Phi$ is "natural", we need to show that \eqref{diag:naturalitytra
 	\arrow["{\Phi_{X',Y'}}"', tail reversed, from=2-1, to=2-2]
 \end{tikzcd}
 \end{equation}\end{marginfigure}
-
+We can now give an unbiased definition (not focused on one side) of "adjunction".
 \begin{defn}[Adjunction]\label{defn:adjoint}
-    An ""adjunction"" between a "functor" $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ is the following data:\footnote{While this data is always part of an "adjunction", we will prove in the next theorem that it is not necessary to specify all this data to obtain an "adjunction". Moreover, this definition is not exhaustive in the sense that there is more things that you could construct and more properties you can derive from an "adjunction". Still, we have to limit ourselves to a finite list and we mentioned the parts of an "adjunction" that are most commonly used. One notable omission is that of "adjunctions" as \href{https://en.wikipedia.org/wiki/Kan_extension}{Kan extensions}.}
+    An ""adjunction"" between a "functor" $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ is the following data:
     \begin{itemize}
-        \itemAP[-] A "natural transformation" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ called the ""unit@@ADJ"" such that $\eta_X$ is "initial" in $\comcat{X}{R}$ for each $X \in \obj{\mathbf{C}}$.
-        \itemAP[-] A "natural transformation" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ called the ""counit@@ADJ"" such that $\varepsilon_X$ is "terminal" in $\comcat{L}{X}$ for each $X \in \obj{\mathbf{D}}$.
+        \itemAP[-] A "natural transformation" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ called the ""unit@@ADJ"" such that $\eta_X$ is "initial" in $\comcat{\constFunc{X}}{R}$ for each $X \in \obj{\mathbf{C}}$.
+        \itemAP[-] A "natural transformation" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ called the ""counit@@ADJ"" such that $\varepsilon_X$ is "terminal" in $\comcat{L}{\constFunc{X}}$ for each $X \in \obj{\mathbf{D}}$.
         \item[-] The "unit@@ADJ" $\eta$ and "counit@@ADJ" $\varepsilon$ satisfy the "triangle identities".
-        \item[-] A "natural isomorphism" $\Phi: \Hom_{\mathbf{C}}(\placeholder, R \placeholder) \isoCAT \Hom_{\mathbf{D}}(L\placeholder, \placeholder):\Phi^{-1}$ such that $\Phi_{RX,X}(\id_{RX}) = \varepsilon_X$ and $\Phi_{X,LX}^{-1}(\id_{LX}) = \eta_X$. %TODO: give more general Phi = epsi ci - and - ci eta
+        \item[-] A "natural isomorphism" $\Phi: \Hom_{\mathbf{C}}(\placeholder, R \placeholder) \isoCAT \Hom_{\mathbf{D}}(L\placeholder, \placeholder):\Phi^{-1}$ such that $\Phi_{RX,X}(\id_{RX}) = \varepsilon_X$ and $\Phi_{X,LX}^{-1}(\id_{LX}) = \eta_X$.\footnote{It follows by "naturality" that $\Phi_{X,Y}(g) = \varepsilon_Y \circ Lg$ and $\Phi_{X,Y}^{-1}(f) = Rf \circ \eta_X$, as we had above.}
     \end{itemize}
-    \AP We denote $\mathbf{C}:L \adjoint R: \mathbf{D}$ when there is an "adjunction" between $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ and we call $L$ the ""left adjoint"" and $R$ the ""right adjoint"".\footnote{When they are clear from the context or irrelevant, we omit the "categories" from the notation and write $L \adjoint R$.}
+    \AP We denote $\mathbf{C}:L \adjoint R: \mathbf{D}$ when there is an "adjunction" between $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ and we call $L$ the "left adjoint" and $R$ the "right adjoint", and we say $L$ and $R$ are "adjoints".\footnote{When they are clear from the context or irrelevant, we omit the "categories" from the notation and write $L \adjoint R$.}
 \end{defn}
 \begin{exmp}[Boring]
     The "identity functor" on any "category" is self-"adjoint": $\id_{\mathbf{C}} \adjoint \id_{\mathbf{C}}$. Both the "unit@@ADJ" and "counit@@ADJ" are $\one_{\id_{\mathbf{C}}}$.\footnote{You can prove this easily but it also follows from Proposition \ref{prop:equivadj} and the fact that $\id_{\mathbf{C}}$ is its own "inverse".}
 \end{exmp}
-%TODO: lots of exercises like this to convince yourself that stuff are good up to isomorphisms.
-\begin{exer}{soln:adjoints:adjisoadj}\label{exer:adjoints:adjisoadj}
-    Show that if $\mathbf{C}:L \adjoint R: \mathbf{D}$ is an "adjunction" and $R \isoCAT R'$, then $L \adjoint R'$. State the "dual@@CAT" statement and prove it.
-\end{exer}
-Giving all this data in order to define an "adjunction" is cumbersome and turns out not to be necessary.
+While we resolved the bias in our definitions of "adjoints", it cost us brevity. The culminating point of this section is the proof that all this data is not necessary to define an "adjunction", giving only one of the fours points is enough. In other words, Definition \ref{defn:adjoint} gives in fact four equivalent definitions of an "adjunction".\footnote{There are still more equivalent definitions, but we have to limit ourselves to a finite list and we mentioned the parts of an "adjunction" that are most commonly used. One notable omission is that of "adjunctions" as \href{https://en.wikipedia.org/wiki/Kan_extension}{Kan extensions}.}
+
 \begin{thm}\label{thm:defnadjoint}
     Two "functors" $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ are "adjoints" if at least one of the following holds.
     %TODO: list all things.
     \begin{enumerate}[i.]
-        \item\label{defn:adjointinitial} There is a "natural transformation" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ such that $\eta_X$ is "initial" in $\comcat{X}{R}$ for each $X \in \obj{\mathbf{C}}$.
-        \item\label{defn:adjointterminal} There is a "natural transformation" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ such that $\varepsilon_X$ is "terminal" in $\comcat{L}{X}$ for each $X \in \obj{\mathbf{D}}$.
+        \item\label{defn:adjointinitial} There is a "natural transformation" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ such that $\eta_X$ is "initial" in $\comcat{\constFunc{X}}{R}$ for each $X \in \obj{\mathbf{C}}$.
+        \item\label{defn:adjointterminal} There is a "natural transformation" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ such that $\varepsilon_X$ is "terminal" in $\comcat{L}{\constFunc{X}}$ for each $X \in \obj{\mathbf{D}}$.
         \item\label{defn:adjointunitcounit} There are two "natural transformations" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ and $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ that satisfy the "triangle identities".\footnote{They satisfy \[
             \varepsilon L \vertcomp L\eta = \one_L \quad \quad R\varepsilon \vertcomp \eta R = \one_R.
         \]}
@@ -163,12 +301,12 @@ Giving all this data in order to define an "adjunction" is cumbersome and turns 
     \end{enumerate}
 \end{thm}
 \begin{proof}
-    We have already shown that \eqref{defn:adjointinitial} gives rise to an "adjunction" at the start of the chapter.
+    We have already shown that \eqref{defn:adjointinitial} gives rise to all the data of an "adjunction" at the start of the chapter.
     
-    For \eqref{defn:adjointterminal}, we can use "duality@@CAT". Indeed, taking the "dual" of Definition \ref{defn:adjoint}, we see that $L \adjoint R$ if and only if $\op{R} \adjoint \op{L}$ and $\eta$ and $\varepsilon$ swap their roles as "unit@@ADJ" and "counit@@ADJ". Hence, from $\varepsilon$, we can derive an "adjunction" $\op{R} \adjoint \op{L}$ as we did at the start of the chapter and "duality@@CAT" yields $L \adjoint R$.
+    For \eqref{defn:adjointterminal}, we can use "duality@@CAT". Indeed, taking the "dual" of Definition \ref{defn:adjoint}, we see that $\mathbf{C} : L \adjoint R : \mathbf{D}$ if and only if $\op{\mathbf{D}}: \op{R} \adjoint \op{L}: \op{\mathbf{C}}$ and $\eta$ and $\varepsilon$ swap their roles as "unit@@ADJ" and "counit@@ADJ". Hence, from $\varepsilon$, we can derive an "adjunction" $\op{R} \adjoint \op{L}$ as we did at the start of the chapter and "duality@@CAT" yields $L \adjoint R$.
 
-    For \eqref{defn:adjointunitcounit}, it is enough to show $\eta_X$ is "initial" in $\comcat{X}{R}$ and use \eqref{defn:adjointinitial}.\footnote{As before note that the "triangle identities" ensure that the "adjunction" constructed from \eqref{defn:adjointinitial} will have $\varepsilon$ as a "counit@@ADJ".}%TODO: develop this above or below in a remark.
-    Recall from our construction of $\Phi$ and $\Phi^{-1}$ above that for any $g : X \rightarrow RY \in \mor{\mathbf{C}}$, there is a unique "morphism" $\Phi_{X,Y}(g) = \varepsilon_Y \circ Lg$ such that $R(\Phi_{X,Y}(g)) \circ \eta_X = \Phi_{X,Y}^{-1}(\Phi_{X,Y}(g)) = g$. Thus, $\eta_X$ is a "universal morphism" as required.
+    For \eqref{defn:adjointunitcounit}, it is enough to show the "components" of the "unit@@ADJ" $\eta_X$ are "initial" in $\comcat{\constFunc{X}}{R}$ and use \eqref{defn:adjointinitial}.\footnote{You can check that the "triangle identities" ensure that the "adjunction" constructed from \eqref{defn:adjointinitial} will have $\varepsilon$ as a "counit@@ADJ".} %TODO: develop this above or below in a remark.
+    Recall from \eqref{eqn:natisoadjoint1} and \eqref{eqn:natisoadjoint2} that for any $g : X \rightarrow RY \in \mor{\mathbf{C}}$, there is a unique (because the components of $\Phi$ and $\Phi^{-1}$ are bijections) "morphism" $\Phi_{X,Y}(g) = \varepsilon_Y \circ Lg$ such that $R(\Phi_{X,Y}(g)) \circ \eta_X = \Phi_{X,Y}^{-1}(\Phi_{X,Y}(g)) = g$. Thus, $\eta_X$ is a "universal morphism" as required.
 
     For \eqref{defn:adjointisomorphism}, we will construct a "unit@@ADJ" satisfying \eqref{defn:adjointinitial}. Fix $X \in \obj{\mathbf{C}}$, we have a "natural isomorphism" $\Phi_{X,\placeholder}: \Hom_{\mathbf{C}}(X, R \placeholder) \isoCAT \Hom_{\mathbf{D}}(LX, \placeholder)$. By Proposition \ref{prop:universalrepr}, there is a "universal morphism" $\eta_X: X \rightarrow RLX$ from $X$ to $R$.\footnote{From the proof of Proposition \ref{prop:universalrepr}, we recover $\eta_X = \Phi_{X,LX}^{-1}(\id_{LX})$.} This yields a "natural transformation" $\eta: \id_{\mathbf{C}} \Rightarrow RL$ because for any $f: X \rightarrow Y$, the "commutativity" of \eqref{diag:unitfromiso} implies (by starting with $\id_{LX}$ and $\id_{LY}$ in the top left and top right corners respectively) $RLf \circ \eta_X = \Phi_{X,LY}^{-1}(Lf) =  \eta_Y \circ f$.
     \begin{equation}\label{diag:unitfromiso}
@@ -185,8 +323,9 @@ Giving all this data in order to define an "adjunction" is cumbersome and turns 
             \arrow["{\Phi_{Y,LY}}", tail reversed, from=1-3, to=2-3]
         \end{tikzcd}
     \end{equation}
+    You can check the "natural isomorphism" constructed with \eqref{defn:adjointinitial} coincides with $\Phi$.%TODO: do this check?
 \end{proof}
-Each points of Theorem \ref{thm:defnadjoint} can be seen as a definition of "adjunctions".\footnote{In fact, that is how most textbooks present it.} We would like to spend a bit more time on point \eqref{defn:adjointisomorphism} which is, in our opinion, the hardest definition to internalize and yet the easiest one to use in concrete contexts. The definition of an "adjunction" according to \eqref{defn:adjointisomorphism} can be stated as follows.%TODO: spend a bit more time on every point.
+Each item of Theorem \ref{thm:defnadjoint} can be seen as a definition of "adjunctions".\footnote{That is how most textbooks present it.} We would like to spend a bit more time on point \eqref{defn:adjointisomorphism} which is, in our opinion, the hardest definition to internalize and yet the easiest one to use in concrete contexts. The definition of an "adjunction" according to \eqref{defn:adjointisomorphism} can be stated as follows.%TODO: spend a bit more time on every point.
 
 Two "functors" $L: \mathbf{C} \rightsquigarrow \mathbf{D}$ and $R: \mathbf{D} \rightsquigarrow \mathbf{C}$ are "adjoint" if there is a "natural isomorphism"\footnote{We use Remark \ref{rem:hombifunctor} to define
 \begin{align*}
@@ -208,9 +347,122 @@ Less concisely, for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{D}}$, t
         \arrow["{\placeholder \circ f}", from=1-1, to=1-2]
         \arrow["{\placeholder \circ Lf}"', from=2-1, to=2-2]
     \end{tikzcd}
-\end{equation}%TODO: special case when composition by eta and vareps and introduce transpose at this point.
+\end{equation}
+In a very informal sense, the bijections $\Phi_{X,Y}$ let us embed $\mathbf{C}$ in $\mathbf{D}$ and vice-versa in a compatible way, that is, "morphisms" between $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{D}}$ can be seen either by viewing $X$ in $\mathbf{D}$ via $L$ or viewing $Y$ in $\mathbf{C}$ via $R$.\footnote{For the "adjunction" $\catSet : \freemon{(\placeholder)} \adjoint U : \catMon$, any set can be viewed as the "monoid" of words over it, and any "monoid" can be viewed as a set by forgetting the operation.}
 
-Our main point in the introduction to this chapter was that grouping "universal morphisms" together as we did into an "adjunction" yields a notion of \textit{global} "universal" construction. In particular, we can characterize when a "category" has all "(co)@colimt""limits" of shape $\mathbf{J}$.
+To make proofs go smoother, we will often use the superscript notation $\transpose{(\placeholder)}$ to denote an application of a "component" of $\Phi$ or $\Phi^{-1}$. That is, for any $X \in \obj{\mathbf{C}}$ and $Y \in \obj{\mathbf{D}}$, we have
+\[\transpose{(\placeholder)} : \Hom_{\mathbf{C}}(X,RY) \cong \Hom_{\mathbf{D}}(LX, Y): \transpose{(\placeholder)}.\]
+\AP We call $\transpose{f}$ the ""transpose"" of $f$.\footnote{Unfortunately, the term \textit{"transpose"} is probably inspired by \href{https://en.wikipedia.org/wiki/Transpose}{matrix transposition}, but I do not know of a technical way to realize one as an instance of the other. Some authors also write $f^*$ or $f^{\sharp}$ for the "transpose" of $f$.}
+%TODO: special case when composition by eta and vareps. (but what does this mean ?)
+
+
+\section{Results and Examples}
+There are a couple of very important results in this section (Theorem \ref{thm:radjcont} and Theorem \ref{thm:pointwiselimitsviaadj}), but we will start slow.
+
+We already proved in Proposition \ref{prop:leftadjunique} that two "left adjoints" to the same "functor" must be "isomorphic".\footnote{With our new notation: if $L \adjoint R$ and $L' \adjoint R$, then $L \isoCAT L'$, and "dually@@CAT" if $L \adjoint R$ and $L \adjoint R'$, then $R\isoCAT R'$.} That proof used the first definition of left adjoints we saw with a "natural" family of "universal morphisms". Let us prove the same thing, but relying on our two new definitions instead.\footnote{We omit the second item in Definition \ref{defn:adjoint} because it is "dual@@CAT" to the proof we already gave.}
+\begin{proof}[Proof of Proposition \ref{prop:leftadjunique} via "triangle identities"]
+    Let $\eta$ and $\varepsilon$ be the "unit@@ADJ" and "counit@@ADJ" of the "adjunction" $\mathbf{C} : L \adjoint R: \mathbf{D}$, $\eta'$ and $\varepsilon'$ be those of $\mathbf{C}: L' \adjoint R: \mathbf{D}$. Guided by the types, it is easy to compose the "natural transformations" we have to obtain two new "natural transformations" of type $L \Rightarrow L'$ and $L' \Rightarrow L$:
+    \[\phi = L \xRightarrow{L\eta'} LRL' \xRightarrow{\varepsilon L'} L' \quad \text{ and } \quad \phi^{-1} = L' \xRightarrow{L'\eta} L'RL \xRightarrow{\varepsilon' L} L.\]
+    It remains to show $\phi^{-1}$ is the inverse of $\phi$. We show $\phi^{-1} \circ \phi = \one_L$ by "paving" the following diagram (it lives in $\catFunc{\mathbf{C}}{\mathbf{D}}$).\marginnote[3\baselineskip]{Showing \eqref{diag:leftadjuniquetrid} "commutes":\begin{enumerate}[(a)]
+        \item Apply $L(\placeholder)'$ to $\HOR(\eta',\eta)$.
+        \item By $\HOR(\varepsilon L', \eta)$ or $\HOR(\varepsilon, L'\eta)$.
+        \item Apply $(\placeholder)L$ to $\HOR(\varepsilon,\varepsilon')$.
+        \item Apply $L(\placeholder)L$ to the "triangle identity" \eqref{diag:triangrightadj} instantiated for $\eta'$ and $\varepsilon'$.
+        \item Apply the "triangle identity" \eqref{diag:triangleftadj} for $\eta$ and $\varepsilon$.
+    \end{enumerate}}
+    \begin{equation}\label{diag:leftadjuniquetrid}
+        % https://q.uiver.app/#q=WzAsMTEsWzAsMCwiTCJdLFsxLDAsIkxSTCciXSxbMiwwLCJMJyJdLFszLDAsIkwnUkwiXSxbNCwwLCJMIl0sWzEsMiwiTFJMIl0sWzIsMSwiTFJMJ1JMIl0sWzMsMiwiTFJMIl0sWzAsMiwiTCJdLFs0LDIsIkwiXSxbMiwzLCJMIl0sWzAsMSwiTFxcZXRhJyJdLFsxLDIsIlxcdmFyZXBzaWxvbiBMJyJdLFsyLDMsIkwnXFxldGEiXSxbMyw0LCJcXHZhcmVwc2lsb24nTCJdLFsxLDYsIkxSTCdcXGV0YSIsMl0sWzUsNiwiTFxcZXRhJ1JMIl0sWzYsMywiXFx2YXJlcHNpbG9uIEwnUkwiLDJdLFs2LDcsIkxSXFx2YXJlcHNpbG9uJ0wiXSxbNSw3LCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs4LDUsIkxcXGV0YSJdLFswLDgsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzcsOSwiXFx2YXJlcHNpbG9uIEwiXSxbNCw5LCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs4LDEwLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs5LDEwLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDYsIlxcdGV4dHsoYil9IiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDIsIlxccGhpIiwwLHsiY3VydmUiOi01fV0sWzIsNCwiXFxwaGleey0xfSIsMCx7ImN1cnZlIjotNX1dLFsxMSw1LCJcXHRleHR7KGEpfSIsMSx7Im9mZnNldCI6MSwic2hvcnRlbiI6eyJzb3VyY2UiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzE0LDcsIlxcdGV4dHsoYyl9IiwxLHsib2Zmc2V0IjotMSwic2hvcnRlbiI6eyJzb3VyY2UiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzYsMTksIlxcdGV4dHsoZCl9IiwxLHsic2hvcnRlbiI6eyJ0YXJnZXQiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzE5LDEwLCJcXHRleHR7KGUpfSIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMH0sInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+\begin{tikzcd}
+	L & {LRL'} & {L'} & {L'RL} & L \\
+	&& {LRL'RL} \\
+	L & LRL && LRL & L \\
+	&& L
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{L\eta'}", from=1-1, to=1-2]
+	\arrow["{\varepsilon L'}", from=1-2, to=1-3]
+	\arrow["{L'\eta}", from=1-3, to=1-4]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{\varepsilon'L}", from=1-4, to=1-5]
+	\arrow["{LRL'\eta}"', from=1-2, to=2-3]
+	\arrow["{L\eta'RL}", from=3-2, to=2-3]
+	\arrow["{\varepsilon L'RL}"', from=2-3, to=1-4]
+	\arrow["{LR\varepsilon'L}", from=2-3, to=3-4]
+	\arrow[""{name=2, anchor=center, inner sep=0}, Rightarrow, no head, from=3-2, to=3-4]
+	\arrow["L\eta", from=3-1, to=3-2]
+	\arrow[Rightarrow, no head, from=1-1, to=3-1]
+	\arrow["{\varepsilon L}", from=3-4, to=3-5]
+	\arrow[Rightarrow, no head, from=1-5, to=3-5]
+	\arrow[Rightarrow, no head, from=3-1, to=4-3]
+	\arrow[Rightarrow, no head, from=3-5, to=4-3]
+	\arrow["{\text{(b)}}"{description}, draw=none, from=1-3, to=2-3]
+	\arrow["\phi", curve={height=-30pt}, from=1-1, to=1-3]
+	\arrow["{\phi^{-1}}", curve={height=-30pt}, from=1-3, to=1-5]
+	\arrow["{\text{(a)}}"{description}, shift right, draw=none, from=0, to=3-2]
+	\arrow["{\text{(c)}}"{description}, shift left, draw=none, from=1, to=3-4]
+	\arrow["{\text{(d)}}"{description}, draw=none, from=2-3, to=2]
+	\arrow["{\text{(e)}}"{description}, draw=none, from=2, to=4-3]
+\end{tikzcd}
+    \end{equation}
+    We leave you to show $\phi \circ \phi^{-1}$ by "paving" a similar diagram (where $L$, $\eta$ and $\varepsilon$ swap roles with $L'$, $\eta'$ and $\varepsilon'$).
+\end{proof}
+\begin{proof}[Proof of Proposition \ref{prop:leftadjunique} via "transposes"]
+    For any $X \in \obj{\mathbf{C}}$, we define $\phi_X: LX \rightarrow L'X$ to be the image of $\id_{L'X} \in \Hom_{\mathbf{D}}(L'X, L'X)$ under the "composition" of the "natural isomorphisms"
+    \[\Hom_{\mathbf{D}}(L'X, L'X) \isoCAT \Hom_{\mathbf{C}}(X, RL'X) \isoCAT \Hom_{\mathbf{D}}(LX,L'X).\]
+   Then, for any $f: X \rightarrow Y$, the "naturality" squares in \eqref{diag:equivadjoint} imply $L'f \circ \phi_X = \phi_Y \circ Lf$.\footnote{Start with $\id_{L'X}$ and $\id_{L'Y}$ at the top left and top right respectively and compare the results at the bottom middle.}
+   \begin{equation}\label{diag:equivadjoint}
+       % https://q.uiver.app/?q=WzAsOSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsIFJMJ1gpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0N9fShYLCBSTFkpIl0sWzAsMiwiXFxIb21fe1xcbWF0aGJme0R9fShMWCwgTCdYKSJdLFsxLDIsIlxcSG9tX3tcXG1hdGhiZntEfX0oTFgsIEwnWSkiXSxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTCdYKSJdLFsxLDAsIlxcSG9tX3tcXG1hdGhiZntEfX0oTCdYLCBMJ1kpIl0sWzIsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1ksIEwnWSkiXSxbMiwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFksIFJMWSkiXSxbMiwyLCJcXEhvbV97XFxtYXRoYmZ7RH19KExZLCBMJ1kpIl0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzIsMywiTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIiwyXSxbMSwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbNCwwLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbNSwxLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMCwxLCJSTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzQsNSwiTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzYsNywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzcsOCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzYsNSwiXFxwbGFjZWhvbGRlciBcXGNpcmMgTCdmIiwyXSxbNywxLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyBmIiwyXSxbOCwzLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyBMZiJdXQ==
+        \begin{tikzcd}
+            {\Hom_{\mathbf{D}}(L'X, L'X)} & {\Hom_{\mathbf{D}}(L'X, L'Y)} & {\Hom_{\mathbf{D}}(L'Y, L'Y)} \\
+            {\Hom_{\mathbf{C}}(X, RL'X)} & {\Hom_{\mathbf{C}}(X, RLY)} & {\Hom_{\mathbf{C}}(Y, RLY)} \\
+            {\Hom_{\mathbf{D}}(LX, L'X)} & {\Hom_{\mathbf{D}}(LX, L'Y)} & {\Hom_{\mathbf{D}}(LY, L'Y)}
+            \arrow[tail reversed, from=2-1, to=3-1]
+            \arrow["{L'f \circ \placeholder}"', from=3-1, to=3-2]
+            \arrow[tail reversed, from=2-2, to=3-2]
+            \arrow[tail reversed, from=1-1, to=2-1]
+            \arrow[tail reversed, from=1-2, to=2-2]
+            \arrow["{RL'f \circ \placeholder}", from=2-1, to=2-2]
+            \arrow["{L'f \circ \placeholder}", from=1-1, to=1-2]
+            \arrow[tail reversed, from=1-3, to=2-3]
+            \arrow[tail reversed, from=2-3, to=3-3]
+            \arrow["{\placeholder \circ L'f}"', from=1-3, to=1-2]
+            \arrow["{\placeholder \circ f}"', from=2-3, to=2-2]
+            \arrow["{\placeholder \circ Lf}", from=3-3, to=3-2]
+        \end{tikzcd}
+   \end{equation}
+   We conclude that $\phi: L \Rightarrow L'$ is "natural". With a symmetric argument, we construct $\phi^{-1}: L' \Rightarrow L$\footnote{i.e.: $\phi^{-1}_X$ is the image of $\id_{LX}$ under \[\Hom_{\mathbf{D}}(LX, LX) \isoCAT \Hom_{\mathbf{C}}(X, RLX) \isoCAT \Hom_{\mathbf{D}}(L'X,LX).\]} and we check that they are "inverses" with \eqref{diag:equivadjinversephi} and \eqref{diag:equivadjphiinverse}.
+    \begin{equation}\label{diag:equivadjinversephi}
+        % https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTFgpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMWCwgTFgpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1gsIEwnWCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMJ1gpIl0sWzEsMywiXFxwaGlfWFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzAsMiwiXFxwaGlfWCBcXGNpcmMgXFxwbGFjZWhvbGRlciIsMl0sWzEsMCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzMsMiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV1d
+        \begin{tikzcd}
+            {\Hom_{\mathbf{D}}(LX, LX)} & {\Hom_{\mathbf{D}}(LX, L'X)} \\
+            {\Hom_{\mathbf{D}}(L'X, LX)} & {\Hom_{\mathbf{D}}(L'X, L'X)}
+            \arrow["{\phi_X\circ \placeholder}", from=1-1, to=1-2]
+            \arrow["{\phi_X \circ \placeholder}"', from=2-1, to=2-2]
+            \arrow[tail reversed, from=1-1, to=2-1]
+            \arrow[tail reversed, from=1-2, to=2-2]
+        \end{tikzcd}
+    \end{equation}\begin{marginfigure}\begin{equation}\label{diag:equivadjphiinverse}
+        % https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMJ1gpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1gsIEwnWCkiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMWCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTFgpIl0sWzEsMywiXFxwaGleey0xfV9YXFxjaXJjIFxccGxhY2Vob2xkZXIiXSxbMCwyLCJcXHBoaV57LTF9X1ggXFxjaXJjIFxccGxhY2Vob2xkZXIiLDJdLFsxLDAsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFszLDIsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dXQ==
+        \begin{tikzcd}
+            {\Hom_{\mathbf{D}}(L'X, L'X)} & {\Hom_{\mathbf{D}}(L'X, LX)} \\
+            {\Hom_{\mathbf{D}}(LX, L'X)} & {\Hom_{\mathbf{D}}(LX, LX)}
+            \arrow["{\phi^{-1}_X\circ \placeholder}", from=1-1, to=1-2]
+            \arrow["{\phi^{-1}_X \circ \placeholder}"', from=2-1, to=2-2]
+            \arrow[tail reversed, from=1-1, to=2-1]
+            \arrow[tail reversed, from=1-2, to=2-2]
+        \end{tikzcd}
+    \end{equation}\end{marginfigure}
+   \noindent Starting with $\id_{LX}$ in the top left of \eqref{diag:equivadjinversephi} and reaching the top right, we find that the image of $\phi_X \circ \phi^{-1}_X$ under the "isomorphism@@CAT" is $\phi_X$ which is the image of $\id_{L'X}$, thus $\phi_X \circ \phi^{-1}_X = \id_{L'X}$. We proceed with a symmetric argument for \eqref{diag:equivadjphiinverse}.
+\end{proof}
+Of the three different proofs of Proposition \ref{prop:leftadjunique}, the second one using the "triangle identities" seems to be the quickest. You can judge for yourself which proof you prefer. In the rest of this chapter, we will see many examples of "adjunctions" and results about "adjoint" "functors" and try to have a balance between the different definitions we use.\footnote{We try to care about which definition is easiest to use.}
+
+
+%TODO: lots of exercises like this to convince yourself that stuff are good up to isomorphisms.
+
+We start with a converse to Proposition \ref{prop:leftadjunique}. When $L$ has a "right adjoint" $R$ and $R'$ is "isomorphic@@CAT" to $R$, then $R'$ is also "right adjoint" to $L$.
+\begin{exer}{soln:adjoints:adjisoadj}\label{exer:adjoints:adjisoadj}
+    Show that if $\mathbf{C}:L \adjoint R: \mathbf{D}$ is an "adjunction" and $R \isoCAT R'$, then $L \adjoint R'$. State the "dual@@CAT" statement and prove it.
+\end{exer}
+
+
+Our main point in the introduction to this chapter was that grouping "universal morphisms" together as we did into an "adjunction" yields a notion of \textit{global} "universal" construction. In particular, we can characterize when a "category" has \textit{all} "(co)@colimt""limits" of shape $\mathbf{J}$.
 \begin{thm}\label{thm:limitadj}
     A "category" $\mathbf{C}$ has all "limits" of shape $\mathbf{J}$ if (and only if)\footnote{} the "functor" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$ has a "right adjoint".%TODO: mention axiom of choice in footnote, maybe anacategories and so on.
 \end{thm}
@@ -227,17 +479,18 @@ Our main point in the introduction to this chapter was that grouping "universal 
 %TODO: do a proof of products + equalizers => limits at the level of adjoint functors 
 
 
-In the rest of this chapter, we will see many examples of "adjunctions" and results about "adjoint" "functors" and try to have a balance between the different definitions we use.\footnote{We try to care about which definition is easiest to use but it is not always possible.} We start with a long list of examples.%TODO: find example for unit and counit instead of maybe functor to respect this.
-\begin{exmps}[Old stuff]
-    Let us revisit some of the "universal morphisms" from Example \ref{exmps:allup} and see what "adjunction" may arise from them.
-    \begin{enumerate}
-        \item For every set $A$, there is a "free monoid" $\freemon{A}$ and an inclusion $A \inclusion \freemon{A}$ that is a "universal morphism" from $A \rightarrow U(\freemon{A})$, where $U: \catMon \rightsquigarrow \catSet$ is the "forgetful" "functor". Thus, $U$ has a "left adjoint" $\freemon{(\placeholder)}: \catSet \rightsquigarrow \catMon$.\footnote{It sends $A$ to $\freemon{A}$ and $f: A \rightarrow B$ to the unique "homomorphism@@MON" $\freemon{f}: \freemon{A} \rightsquigarrow \freemon{B}$ satisfying $\freemon{f}(a) = f(a)$ for all $a \in A$.}
-        \item Fixing a "field" $k$, every set $S$ is the "basis" of the "vector space" $k[S]$, so the "forgetful" "functor" $\catVect{k} \rightsquigarrow \catSet$ has a "left adjoint" $k[\placeholder] :\catSet \rightsquigarrow \catVect{k}$.
-        \item Fix $X \in \obj{\mathbf{C}}$ such that $\placeholder \product X$ is a "functor". If for every $A$, the "exponential object" $A^X$ exists, then $\placeholder\product X$ has a "right adjoint" $\placeholder^X: \mathbf{C} \rightsquigarrow \mathbf{C}$.
-        % TODO: continue this? \item In a "well-powered" "category" $\mathbf{C}$ with a "terminal" "object" and all "pullbacks", the "functor" $\Sub_{\mathbf{C}}: \op{\mathbf{C}} \rightsquigarrow \catSet$ has a "left adjoint" if and only if $\mathbf{C}$ has a "subobject classifier".
-    \end{enumerate} 
-\end{exmps}
 
+% \begin{exmps}[Old stuff]
+%     Let us revisit some of the "universal morphisms" from Example \ref{exmps:allup} and see what "adjunction" may arise from them.
+%     \begin{enumerate}
+%         \item For every set $A$, there is a "free monoid" $\freemon{A}$ and an inclusion $A \inclusion \freemon{A}$ that is a "universal morphism" from $A \rightarrow U(\freemon{A})$, where $U: \catMon \rightsquigarrow \catSet$ is the "forgetful" "functor". Thus, $U$ has a "left adjoint" $\freemon{(\placeholder)}: \catSet \rightsquigarrow \catMon$.\footnote{It sends $A$ to $\freemon{A}$ and $f: A \rightarrow B$ to the unique "homomorphism@@MON" $\freemon{f}: \freemon{A} \rightarrow \freemon{B}$ satisfying $\freemon{f}(a) = f(a)$ for all $a \in A$.}
+%         \item Fixing a "field" $k$, every set $S$ is the "basis" of the "vector space" $k[S]$, so the "forgetful" "functor" $\catVect{k} \rightsquigarrow \catSet$ has a "left adjoint" $k[\placeholder] :\catSet \rightsquigarrow \catVect{k}$.
+%         \item Fix $X \in \obj{\mathbf{C}}$ such that $\placeholder \product X$ is a "functor". If for every $A$, the "exponential object" $A^X$ exists, then $\placeholder\product X$ has a "right adjoint" $\placeholder^X: \mathbf{C} \rightsquigarrow \mathbf{C}$.
+%         % TODO: continue this? \item In a "well-powered" "category" $\mathbf{C}$ with a "terminal" "object" and all "pullbacks", the "functor" $\Sub_{\mathbf{C}}: \op{\mathbf{C}} \rightsquigarrow \catSet$ has a "left adjoint" if and only if $\mathbf{C}$ has a "subobject classifier".
+%     \end{enumerate} 
+% \end{exmps}
+
+We saw how families of "universal morphisms" give rise to an "adjunction", so we could make our examples from Chapter \ref{chap:universal} into "adjunctions". Here, we carry out a similar but new example.
 \begin{exmp}\label{exmp:maybefunctoradj}
     Recall from Exercise \ref{exer:limits:maybefunctor} the "maybe functor" $\placeholder \coproduct \terminal$. Denote $\terminal = \{\ast\}$ for the "terminal" "object" of $\catSet$. We consider a very similar "functor" $\placeholder\coproduct\terminal: \catSet \rightsquigarrow \catPtd$ sending a set $X$ to $(X\coproduct\terminal,\ast)$ and $f: X \rightarrow Y$ to $f\coproductm\id_{\terminal}: X\coproduct\terminal \rightarrow Y\coproduct\terminal$. In the other direction, we have the "forgetful" "functor" $U:\catPtd \rightsquigarrow \catSet$ that forgets about the distinguished element of a "pointed" set. We claim that $\placeholder\coproduct\terminal \adjoint U$.
 
@@ -289,6 +542,8 @@ In the rest of this chapter, we will see many examples of "adjunctions" and resu
         \end{equation}
     \end{minipage}\\
     A good exercise in categorical thinking is to generalize this example to an arbitrary "category" $\mathbf{C}$ with binary "coproducts" and a "terminal" "object".\footnote{See ... for a solution.}%TODO: ref maybe monad.
+    %TODO: also say that is not always straightforward, like in DGph or Cat, we need to add an object and a morphism between every objects to behave like sinks (composition with a sink gives a sink).
+    %TODO: make analogy with free monoid. Free pointed set is set with an additional distinguished point.
 \end{exmp}
 \begin{exmp}[$\catTop$]
     Let $U: \catTop \rightsquigarrow \catSet$ be the "forgetful" "functor" sending a "topological space" to its underlying set. We will find a left and a right "adjoint" to $U$.
@@ -297,7 +552,7 @@ In the rest of this chapter, we will see many examples of "adjunctions" and resu
 
     \textbf{Right adjoint:} Fix a "topological space" $(X,\topo)$ and a set $Y$. We need to find a "topological space" $(LY,\lambda)$ so that "continuous" functions $(X,\topo) \rightarrow (LY,\lambda)$ are in correspondence with functions $X \rightarrow Y$. Again, there is a trivial "topology" that we can put on $Y$ that makes any function $f:X \rightarrow Y$ "continuous", \AP it is called the ""codiscrete topology"" and contains only the empty set and the full space $Y$.\footnote{Since $\emptyset \cap Y = \emptyset$ and $\emptyset \cup Y$, we conclude that $\{\emptyset,Y\}$ is closed under any union and intersection, hence it is a "topology".} We can check that any function $f: X \rightarrow Y$ is "continuous" relative to the "codiscrete topology" because the $f^{-1}(\emptyset) = \emptyset$ and $f^{-1}(Y) = X$ must be "open" by the definition of a "topology". After checking that sending $Y$ to $(Y,\{\emptyset,Y\})$ and $f: Y \rightarrow Y'$ to $f: (Y,\{\emptyset,Y\}) \rightarrow (Y',\{\emptyset,Y'\})$ is a "functor", we denote it $\mathrm{codisc}$, we can conclude that $U\adjoint \mathrm{codisc}$.
 \end{exmp}
-We found our first chain of "adjunctions" $\mathrm{disc} \adjoint U \adjoint \mathrm{codisc}$. Another interesting one is $\colim_{\mathbf{J}} \adjoint \gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \adjoint \lim_{\mathbf{J}}$ in a "category" $\mathbf{C}$ with all "limits" of shape $\mathbf{J}$. A less interesting one is $\cdots \adjoint \id_{\mathbf{C}} \adjoint \id_{\mathbf{C}} \adjoint \id_{\mathbf{C}} \adjoint \cdots$. Here is a chain of five "adjunctions".
+We found our first chain of "adjunctions" $\mathrm{disc} \adjoint U \adjoint \mathrm{codisc}$. Another interesting one is $\colim_{\mathbf{J}} \adjoint \gdiagFunc_{\mathbf{C}}^{\mathbf{J}} \adjoint \lim_{\mathbf{J}}$ in a "category" $\mathbf{C}$ with all "limits" and "colimits" of shape $\mathbf{J}$. A less interesting one is $\cdots \adjoint \id_{\mathbf{C}} \adjoint \id_{\mathbf{C}} \adjoint \id_{\mathbf{C}} \adjoint \cdots$. Here is a chain of five "adjunctions".
 \begin{exer}{soln:adjoints:chainadjCarrow}\label{exer:adjoints:chainadjCarrow}
     Let $\mathbf{C}$ be a "category" and $\idarr,\sourcearr,\targetarr$ be the "functors" described in Exercise \ref{exer:universal:arrowcatfunctors}. Show they are related by the "adjunctions" $\targetarr \adjoint \idarr \adjoint \sourcearr$. Suppose furthermore that $\mathbf{C}$ has an "initial" "object" $\initial$ and a "terminal" "object" $\terminal$. Show that the "constant functor" at $\id_{\initial}$ is "left adjoint" to $\targetarr$ and the "constant functor" at $\id_{\terminal}$ is "right adjoint" to $\sourcearr$.
 \end{exer}
@@ -309,61 +564,61 @@ As a final example, we show that any "equivalence" gives rise to two "adjunction
     It is enough to show $L \adjoint R$ as the definition of "quasi-inverses" is symmetric.%TODO: but not using this: There are "natural isomorphisms" $\eta: \id_{\mathbf{C}} \isoCAT RL$ and $\varepsilon: LR \isoCAT \id_{\mathbf{D}}$.
 \end{proof}
 
-Let us now turn to the many great properties of "adjoint" "functors".
-\begin{prop}\label{prop:leftadjunique}
-    A "left adjoint" is unique up to "natural isomorphism". Namely, if $L \adjoint R$ and $L' \adjoint R$, then $L \isoCAT L'$.
-\end{prop}
-\begin{proof}
-    For any $X \in \obj{\mathbf{C}}$, we define $\phi_X: LX \rightarrow L'X$ to be the image of $\id_{L'X} \in \Hom_{\mathbf{D}}(L'X, L'X)$ under the "composition" of the "natural isomorphisms"
-    \[\Hom_{\mathbf{D}}(L'X, L'X) \isoCAT \Hom_{\mathbf{C}}(X, RL'X) \isoCAT \Hom_{\mathbf{D}}(LX,L'X).\]
-   Then, for any $f: X \rightarrow Y$, the "naturality" squares in \eqref{diag:equivadjoint} imply $L'f \circ \phi_X = \phi_Y \circ Lf$.\footnote{Start with $\id_{L'X}$ and $\id_{L'Y}$ at the top left and top right respectively and compare the results at the bottom middle.}
-   \begin{equation}\label{diag:equivadjoint}
-       % https://q.uiver.app/?q=WzAsOSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsIFJMJ1gpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0N9fShYLCBSTFkpIl0sWzAsMiwiXFxIb21fe1xcbWF0aGJme0R9fShMWCwgTCdYKSJdLFsxLDIsIlxcSG9tX3tcXG1hdGhiZntEfX0oTFgsIEwnWSkiXSxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTCdYKSJdLFsxLDAsIlxcSG9tX3tcXG1hdGhiZntEfX0oTCdYLCBMJ1kpIl0sWzIsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1ksIEwnWSkiXSxbMiwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFksIFJMWSkiXSxbMiwyLCJcXEhvbV97XFxtYXRoYmZ7RH19KExZLCBMJ1kpIl0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzIsMywiTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIiwyXSxbMSwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbNCwwLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbNSwxLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMCwxLCJSTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzQsNSwiTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzYsNywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzcsOCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzYsNSwiXFxwbGFjZWhvbGRlciBcXGNpcmMgTCdmIiwyXSxbNywxLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyBmIiwyXSxbOCwzLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyBMZiJdXQ==
-        \begin{tikzcd}
-            {\Hom_{\mathbf{D}}(L'X, L'X)} & {\Hom_{\mathbf{D}}(L'X, L'Y)} & {\Hom_{\mathbf{D}}(L'Y, L'Y)} \\
-            {\Hom_{\mathbf{C}}(X, RL'X)} & {\Hom_{\mathbf{C}}(X, RLY)} & {\Hom_{\mathbf{C}}(Y, RLY)} \\
-            {\Hom_{\mathbf{D}}(LX, L'X)} & {\Hom_{\mathbf{D}}(LX, L'Y)} & {\Hom_{\mathbf{D}}(LY, L'Y)}
-            \arrow[tail reversed, from=2-1, to=3-1]
-            \arrow["{L'f \circ \placeholder}"', from=3-1, to=3-2]
-            \arrow[tail reversed, from=2-2, to=3-2]
-            \arrow[tail reversed, from=1-1, to=2-1]
-            \arrow[tail reversed, from=1-2, to=2-2]
-            \arrow["{RL'f \circ \placeholder}", from=2-1, to=2-2]
-            \arrow["{L'f \circ \placeholder}", from=1-1, to=1-2]
-            \arrow[tail reversed, from=1-3, to=2-3]
-            \arrow[tail reversed, from=2-3, to=3-3]
-            \arrow["{\placeholder \circ L'f}"', from=1-3, to=1-2]
-            \arrow["{\placeholder \circ f}"', from=2-3, to=2-2]
-            \arrow["{\placeholder \circ Lf}", from=3-3, to=3-2]
-        \end{tikzcd}
-   \end{equation}
-   We conclude that $\phi: L \Rightarrow L'$ is "natural". With a symmetric argument, we construct $\phi^{-1}: L' \Rightarrow L$\footnote{i.e.: $\phi^{-1}_X$ is the image of $\id_{LX}$ under \[\Hom_{\mathbf{D}}(LX, LX) \isoCAT \Hom_{\mathbf{C}}(X, RLX) \isoCAT \Hom_{\mathbf{D}}(L'X,LX).\]} and we check that they are "inverses" with \eqref{diag:equivadjinversephi} and \eqref{diag:equivadjphiinverse}.
-    \begin{equation}\label{diag:equivadjinversephi}
-        % https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTFgpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMWCwgTFgpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1gsIEwnWCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMJ1gpIl0sWzEsMywiXFxwaGlfWFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzAsMiwiXFxwaGlfWCBcXGNpcmMgXFxwbGFjZWhvbGRlciIsMl0sWzEsMCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzMsMiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV1d
-        \begin{tikzcd}
-            {\Hom_{\mathbf{D}}(LX, LX)} & {\Hom_{\mathbf{D}}(LX, L'X)} \\
-            {\Hom_{\mathbf{D}}(L'X, LX)} & {\Hom_{\mathbf{D}}(L'X, L'X)}
-            \arrow["{\phi_X\circ \placeholder}", from=1-1, to=1-2]
-            \arrow["{\phi_X \circ \placeholder}"', from=2-1, to=2-2]
-            \arrow[tail reversed, from=1-1, to=2-1]
-            \arrow[tail reversed, from=1-2, to=2-2]
-        \end{tikzcd}
-    \end{equation}\begin{marginfigure}\begin{equation}\label{diag:equivadjphiinverse}
-        % https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMJ1gpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1gsIEwnWCkiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMWCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTFgpIl0sWzEsMywiXFxwaGleey0xfV9YXFxjaXJjIFxccGxhY2Vob2xkZXIiXSxbMCwyLCJcXHBoaV57LTF9X1ggXFxjaXJjIFxccGxhY2Vob2xkZXIiLDJdLFsxLDAsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFszLDIsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dXQ==
-        \begin{tikzcd}
-            {\Hom_{\mathbf{D}}(L'X, L'X)} & {\Hom_{\mathbf{D}}(L'X, LX)} \\
-            {\Hom_{\mathbf{D}}(LX, L'X)} & {\Hom_{\mathbf{D}}(LX, LX)}
-            \arrow["{\phi^{-1}_X\circ \placeholder}", from=1-1, to=1-2]
-            \arrow["{\phi^{-1}_X \circ \placeholder}"', from=2-1, to=2-2]
-            \arrow[tail reversed, from=1-1, to=2-1]
-            \arrow[tail reversed, from=1-2, to=2-2]
-        \end{tikzcd}
-    \end{equation}\end{marginfigure}
-   \noindent Starting with $\id_{LX}$ in the top left of \eqref{diag:equivadjinversephi} and reaching the top right, we find that the image of $\phi_X \circ \phi^{-1}_X$ under the "isomorphism@@CAT" is $\phi_X$ which is the image of $\id_{L'X}$, thus $\phi_X \circ \phi^{-1}_X = \id_{L'X}$. We proceed with a symmetric argument for \eqref{diag:equivadjphiinverse}.
-\end{proof}
-\begin{cor}["Dual@@CAT"]\label{cor:rightadjunique}
-    If $L \adjoint R$ and $L \adjoint R'$, then $R\isoCAT R'$.
-\end{cor}
+% Let us now turn to the many great properties of "adjoint" "functors".
+% \begin{prop}\label{prop:leftadjunique}
+%     A "left adjoint" is unique up to "natural isomorphism". Namely, if $L \adjoint R$ and $L' \adjoint R$, then $L \isoCAT L'$.
+% \end{prop}
+% \begin{proof}
+%     For any $X \in \obj{\mathbf{C}}$, we define $\phi_X: LX \rightarrow L'X$ to be the image of $\id_{L'X} \in \Hom_{\mathbf{D}}(L'X, L'X)$ under the "composition" of the "natural isomorphisms"
+%     \[\Hom_{\mathbf{D}}(L'X, L'X) \isoCAT \Hom_{\mathbf{C}}(X, RL'X) \isoCAT \Hom_{\mathbf{D}}(LX,L'X).\]
+%    Then, for any $f: X \rightarrow Y$, the "naturality" squares in \eqref{diag:equivadjoint} imply $L'f \circ \phi_X = \phi_Y \circ Lf$.\footnote{Start with $\id_{L'X}$ and $\id_{L'Y}$ at the top left and top right respectively and compare the results at the bottom middle.}
+%    \begin{equation}\label{diag:equivadjoint}
+%        % https://q.uiver.app/?q=WzAsOSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsIFJMJ1gpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0N9fShYLCBSTFkpIl0sWzAsMiwiXFxIb21fe1xcbWF0aGJme0R9fShMWCwgTCdYKSJdLFsxLDIsIlxcSG9tX3tcXG1hdGhiZntEfX0oTFgsIEwnWSkiXSxbMCwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTCdYKSJdLFsxLDAsIlxcSG9tX3tcXG1hdGhiZntEfX0oTCdYLCBMJ1kpIl0sWzIsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1ksIEwnWSkiXSxbMiwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFksIFJMWSkiXSxbMiwyLCJcXEhvbV97XFxtYXRoYmZ7RH19KExZLCBMJ1kpIl0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzIsMywiTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIiwyXSxbMSwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbNCwwLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbNSwxLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMCwxLCJSTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzQsNSwiTCdmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzYsNywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzcsOCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzYsNSwiXFxwbGFjZWhvbGRlciBcXGNpcmMgTCdmIiwyXSxbNywxLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyBmIiwyXSxbOCwzLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyBMZiJdXQ==
+%         \begin{tikzcd}
+%             {\Hom_{\mathbf{D}}(L'X, L'X)} & {\Hom_{\mathbf{D}}(L'X, L'Y)} & {\Hom_{\mathbf{D}}(L'Y, L'Y)} \\
+%             {\Hom_{\mathbf{C}}(X, RL'X)} & {\Hom_{\mathbf{C}}(X, RLY)} & {\Hom_{\mathbf{C}}(Y, RLY)} \\
+%             {\Hom_{\mathbf{D}}(LX, L'X)} & {\Hom_{\mathbf{D}}(LX, L'Y)} & {\Hom_{\mathbf{D}}(LY, L'Y)}
+%             \arrow[tail reversed, from=2-1, to=3-1]
+%             \arrow["{L'f \circ \placeholder}"', from=3-1, to=3-2]
+%             \arrow[tail reversed, from=2-2, to=3-2]
+%             \arrow[tail reversed, from=1-1, to=2-1]
+%             \arrow[tail reversed, from=1-2, to=2-2]
+%             \arrow["{RL'f \circ \placeholder}", from=2-1, to=2-2]
+%             \arrow["{L'f \circ \placeholder}", from=1-1, to=1-2]
+%             \arrow[tail reversed, from=1-3, to=2-3]
+%             \arrow[tail reversed, from=2-3, to=3-3]
+%             \arrow["{\placeholder \circ L'f}"', from=1-3, to=1-2]
+%             \arrow["{\placeholder \circ f}"', from=2-3, to=2-2]
+%             \arrow["{\placeholder \circ Lf}", from=3-3, to=3-2]
+%         \end{tikzcd}
+%    \end{equation}
+%    We conclude that $\phi: L \Rightarrow L'$ is "natural". With a symmetric argument, we construct $\phi^{-1}: L' \Rightarrow L$\footnote{i.e.: $\phi^{-1}_X$ is the image of $\id_{LX}$ under \[\Hom_{\mathbf{D}}(LX, LX) \isoCAT \Hom_{\mathbf{C}}(X, RLX) \isoCAT \Hom_{\mathbf{D}}(L'X,LX).\]} and we check that they are "inverses" with \eqref{diag:equivadjinversephi} and \eqref{diag:equivadjphiinverse}.
+%     \begin{equation}\label{diag:equivadjinversephi}
+%         % https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTFgpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMWCwgTFgpIl0sWzEsMSwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1gsIEwnWCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMJ1gpIl0sWzEsMywiXFxwaGlfWFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzAsMiwiXFxwaGlfWCBcXGNpcmMgXFxwbGFjZWhvbGRlciIsMl0sWzEsMCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzMsMiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV1d
+%         \begin{tikzcd}
+%             {\Hom_{\mathbf{D}}(LX, LX)} & {\Hom_{\mathbf{D}}(LX, L'X)} \\
+%             {\Hom_{\mathbf{D}}(L'X, LX)} & {\Hom_{\mathbf{D}}(L'X, L'X)}
+%             \arrow["{\phi_X\circ \placeholder}", from=1-1, to=1-2]
+%             \arrow["{\phi_X \circ \placeholder}"', from=2-1, to=2-2]
+%             \arrow[tail reversed, from=1-1, to=2-1]
+%             \arrow[tail reversed, from=1-2, to=2-2]
+%         \end{tikzcd}
+%     \end{equation}\begin{marginfigure}\begin{equation}\label{diag:equivadjphiinverse}
+%         % https://q.uiver.app/?q=WzAsNCxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMJ1gpIl0sWzAsMCwiXFxIb21fe1xcbWF0aGJme0R9fShMJ1gsIEwnWCkiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7RH19KExYLCBMWCkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7RH19KEwnWCwgTFgpIl0sWzEsMywiXFxwaGleey0xfV9YXFxjaXJjIFxccGxhY2Vob2xkZXIiXSxbMCwyLCJcXHBoaV57LTF9X1ggXFxjaXJjIFxccGxhY2Vob2xkZXIiLDJdLFsxLDAsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFszLDIsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dXQ==
+%         \begin{tikzcd}
+%             {\Hom_{\mathbf{D}}(L'X, L'X)} & {\Hom_{\mathbf{D}}(L'X, LX)} \\
+%             {\Hom_{\mathbf{D}}(LX, L'X)} & {\Hom_{\mathbf{D}}(LX, LX)}
+%             \arrow["{\phi^{-1}_X\circ \placeholder}", from=1-1, to=1-2]
+%             \arrow["{\phi^{-1}_X \circ \placeholder}"', from=2-1, to=2-2]
+%             \arrow[tail reversed, from=1-1, to=2-1]
+%             \arrow[tail reversed, from=1-2, to=2-2]
+%         \end{tikzcd}
+%     \end{equation}\end{marginfigure}
+%    \noindent Starting with $\id_{LX}$ in the top left of \eqref{diag:equivadjinversephi} and reaching the top right, we find that the image of $\phi_X \circ \phi^{-1}_X$ under the "isomorphism@@CAT" is $\phi_X$ which is the image of $\id_{L'X}$, thus $\phi_X \circ \phi^{-1}_X = \id_{L'X}$. We proceed with a symmetric argument for \eqref{diag:equivadjphiinverse}.
+% \end{proof}
+% \begin{cor}["Dual@@CAT"]\label{cor:rightadjunique}
+%     If $L \adjoint R$ and $L \adjoint R'$, then $R\isoCAT R'$.
+% \end{cor}
 %TODO: say that we go slow at first for products.
 \begin{prop}\label{prop:adjproduct}
     Let $\mathbf{C}: L \adjoint R : \mathbf{D}$ be "adjoint" "functors" and $X, Y \in \obj{\mathbf{D}}$. If $X \product Y$ exists, then $R(X \product Y)$ with the "projections" $R(\projection_X)$ and $R(\projection_Y)$ is the "product@binary product" $R(X) \product R(Y)$.\footnote{In other words, "right adjoints" "preserve" "binary products".}%TODO: check if dually.
@@ -381,7 +636,7 @@ Let us now turn to the many great properties of "adjoint" "functors".
             \arrow["{R\projection_Y}"', from=2-2, to=2-3]
         \end{tikzcd}
     \end{equation}
-    We need to show there is a unique "mediating morphism" $A \rightarrow R(X \product Y)$. First, we will get rid of the applications of $R$ at the bottom, in order to use the "universal property" of the "product@binary product" $X \product Y$. To do this, we apply $L$ to \eqref{diag:adjprodhyp} and use the "counit" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ to obtain \eqref{diag:Fadjprodhyp}.
+    We need to show there is a unique "mediating morphism" $A \rightarrow R(X \product Y)$. First, we will get rid of the applications of $R$ at the bottom, in order to use the "universal property" of the "product@binary product" $X \product Y$. To do this, we apply $L$ to \eqref{diag:adjprodhyp} and use the "counit@@ADJ" $\varepsilon: LR \Rightarrow \id_{\mathbf{D}}$ to obtain \eqref{diag:Fadjprodhyp}.
     \begin{equation}\label{diag:Fadjprodhyp}
         % https://q.uiver.app/?q=WzAsNyxbMSwwLCJGQSJdLFswLDEsIkZHWCJdLFsyLDEsIkZHWSJdLFsxLDEsIkZHKFhcXHByb2R1Y3QgWSkiXSxbMSwyLCJYXFxwcm9kdWN0IFkiXSxbMCwyLCJYIl0sWzIsMiwiWSJdLFswLDEsIkZwX1giLDJdLFswLDIsIkZwX1kiXSxbMywxLCJGR1xccHJvamVjdGlvbl9YIl0sWzMsMiwiRkdcXHByb2plY3Rpb25fWSIsMl0sWzMsNCwiXFx2YXJlcHNpbG9uX3tYXFxwcm9kdWN0IFl9IiwyXSxbMSw1LCJcXHZhcmVwc2lsb25fWCIsMl0sWzIsNiwiXFx2YXJlcHNpbG9uX1kiLDJdLFs0LDUsIlxccHJvamVjdGlvbl9YIl0sWzQsNiwiXFxwcm9qZWN0aW9uX1kiLDJdXQ==
         \begin{tikzcd}
@@ -496,7 +751,7 @@ Let us now turn to the many great properties of "adjoint" "functors".
     Let $\mathbf{C}: L \adjoint R : \mathbf{D}$ be "adjoint" "functors". If $f: A \rightarrow  B \in \mor{\mathbf{C}}$ is "epic", then $L(f)$ is "epic".\footnote{In other words, "left adjoints" "preserve" "epimorphisms".}
 \end{cor}
 \begin{rem}
-    We want to put the emphasis on a crucial step in the proof above which was to derive $g \circ \transpose{h_1} = \transpose{(Rg \circ h_1)}$ from \eqref{diag:adjmonosquare}.\footnote{It was also a crucial step in the proof of Proposition \ref{prop:adjproduct}, we used \eqref{diag:adjprodtranssquare} to derive $\transpose{(\projection_X \circ {!})} = R\projection_X \circ \transpose{!}$.} By varying the arguments slightly (i.e.: going around the square in another direction or considering the "naturality" square involving "pre-composition"), we cook up four similar equations that can be helpful.
+    We want to put the emphasis on a crucial step in the proof above which was to derive $g \circ \transpose{h_1} = \transpose{(Rg \circ h_1)}$ from \eqref{diag:adjmonosquare}. By varying the arguments slightly (i.e.: going around the square in another direction or considering the "naturality" square involving "pre-composition"), we cook up four similar equations that can be helpful.\footnote{For instance, \eqref{eqn:transposeeqns2} was a crucial step in the proof of Proposition \ref{prop:adjproduct}: we used \eqref{diag:adjprodtranssquare} to derive $\transpose{(\projection_X \circ {!})} = R\projection_X \circ \transpose{!}$.}
     \begin{align}
         \forall g:X \rightarrow Y, f: Z \rightarrow RX,&&g \circ \transpose{f} &= \transpose{(Rg \circ f)}\label{eqn:transposeeqns1}\\
         \forall g:X \rightarrow Y, f: LZ \rightarrow X,&&\transpose{(g \circ f)} &= Rg \circ \transpose{f}\label{eqn:transposeeqns2}\\
@@ -525,7 +780,7 @@ Let us now turn to the many great properties of "adjoint" "functors".
         \end{equation}
     \end{minipage}
     \begin{minipage}{0.49\textwidth}
-        \begin{equation}\label{diag:coneradjconttrasnposed}
+        \begin{equation}\label{diag:coneradjconttransposed}
             % https://q.uiver.app/?q=WzAsNCxbMSwxLCJcXGxpbSBGIl0sWzAsMiwiRlgiXSxbMiwyLCJGWSJdLFsxLDAsIkxDIl0sWzAsMSwiXFxlbGxfWCIsMl0sWzEsMiwiRmYiLDJdLFswLDIsIlxcZWxsX1kiXSxbMywxLCJcXHRyYW5zcG9zZXtjX1h9IiwyLHsiY3VydmUiOjJ9XSxbMywyLCJcXHRyYW5zcG9zZXtjX1l9IiwwLHsiY3VydmUiOi0yfV1d
             \begin{tikzcd}
                 & LC \\
@@ -580,9 +835,9 @@ Let us now turn to the many great properties of "adjoint" "functors".
 \begin{cor}["Dual@@CAT"]\label{cor:ladjcocont}
     "Left adjoints" are "cocontinuous".
 \end{cor}
-\begin{rem}
-    %TODO: remark about forgetful functors and limits and underlying sets.
-\end{rem}
+% \begin{rem}
+%     %TODO: remark about forgetful functors and limits and underlying sets.
+% \end{rem}
 
 \begin{thm}\label{thm:adjcomp}
     If $\mathbf{C}: L \adjoint R : \mathbf{D}$ and $\mathbf{D}: L' \adjoint R' : \mathbf{E}$ are two "adjunctions", then $\mathbf{C}: L'L \adjoint RR' : \mathbf{E}$ is an "adjunction".\footnote{This theorem is often referred to as \textit{"adjunctions" can be "composed"}.}
@@ -657,19 +912,19 @@ Let us now turn to the many great properties of "adjoint" "functors".
 %TODO: functors preserve adjunction hence see below.
 %TODO: show that compositionisfunc with adjunction yields an adjunction
 \begin{prop}\label{prop:adjcompisadj}
-    If $\mathbf{D}: L \adjoint R : \mathbf{E}$ is an "adjunction", then there is an "adjunction" $\catFunc{\mathbf{C}}{\mathbf{D}}: L \placeholder \adjoint R \placeholder : \catFunc{\mathbf{C}}{\mathbf{E}}$.
+    If $\mathbf{D}: L \adjoint R : \mathbf{E}$ is an "adjunction", then there is an "adjunction" $\catFunc{\mathbf{C}}{\mathbf{D}}: (L \circ \placeholder )\adjoint (R \circ \placeholder) : \catFunc{\mathbf{C}}{\mathbf{E}}$.
 \end{prop}
 \begin{proof}
-    First, we can see that $L \placeholder$ and $R \placeholder$ are "functors" by Exercise \ref{exer:natural:compositionisfunc}.\footnote{They are "compositions":
+    We simplify the notation a little bit by writing $L\placeholder$ and $R\placeholder$ instead of $L\circ \placeholder$ and $R \circ \placeholder$ respectively. First, we can see that $L \placeholder$ and $R \placeholder$ are "functors" by Exercise \ref{exer:natural:compositionisfunc},\footnote{They are "compositions":
     \begin{gather*}
-        L \placeholder = (\placeholder\circ\placeholder) \circ (L \functimes \id_{\catFunc{\mathbf{C}}{\mathbf{D}}})\\
-        R \placeholder = (\placeholder\circ\placeholder) \circ (R \functimes \id_{\catFunc{\mathbf{C}}{\mathbf{E}}}).
+        L \placeholder = (\placeholder\circ\placeholder) \circ (\constFunc{L} \functimes \id_{\catFunc{\mathbf{C}}{\mathbf{D}}})\\
+        R \placeholder = (\placeholder\circ\placeholder) \circ (\constFunc{R} \functimes \id_{\catFunc{\mathbf{C}}{\mathbf{E}}}).
     \end{gather*}
     Alternatively, we can use Example \ref{exmp:isocat}.\ref{exmp:curryingfunctors} where we described "currying" for "functors". In that setting, we have 
     \begin{gather*}
         L \placeholder =\Curry{(\placeholder \circ \placeholder)}(L)\\
         R \placeholder =\Curry{(\placeholder \circ \placeholder)}(R).
-    \end{gather*}These "functors" send a "natural transformation" $\phi: F \Rightarrow G$ to $L\phi$ and $R\phi$ respectively.} "Composing" them yields $RL \placeholder :\catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$ and $LR \placeholder : \catFunc{\mathbf{C}}{\mathbf{E}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{E}}$. Let $\eta: \id_{\mathbf{D}} \Rightarrow RL$ and $\varepsilon : LR \Rightarrow \id_{\mathbf{E}}$ be the "unit@@ADJ" and "counit@@ADJ" of $L \adjoint R$. We claim that $\eta\placeholder = F \mapsto \eta F$ and $\varepsilon \placeholder = G \mapsto \varepsilon G$ are the "unit@@ADJ" and "counit@@ADJ" of an "adjunction" $L \placeholder \adjoint R \placeholder$.
+    \end{gather*}} they send a "natural transformation" $\phi: F \Rightarrow G$ to $L\phi$ and $R\phi$ respectively. "Composing" them yields $RL \placeholder :\catFunc{\mathbf{C}}{\mathbf{D}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$ and $LR \placeholder : \catFunc{\mathbf{C}}{\mathbf{E}} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{E}}$. Let $\eta: \id_{\mathbf{D}} \Rightarrow RL$ and $\varepsilon : LR \Rightarrow \id_{\mathbf{E}}$ be the "unit@@ADJ" and "counit@@ADJ" of $L \adjoint R$. We claim that $\eta\placeholder = F \mapsto \eta F$ and $\varepsilon \placeholder = G \mapsto \varepsilon G$ are the "unit@@ADJ" and "counit@@ADJ" of an "adjunction" $L \placeholder \adjoint R \placeholder$.
 
     To see that $\eta \placeholder$ and $\varepsilon \placeholder$ are "natural transformations" of the right type, we can recognize them in the image of $\Curry{(\placeholder \circ \placeholder)}$ (noting that $\id_{\mathbf{D}} \placeholder = \id_{\catFunc{\mathbf{C}}{\mathbf{D}}}$ and $\id_{\mathbf{E}} \placeholder = \id_{\catFunc{\mathbf{C}}{\mathbf{E}}}$):
     \begin{gather*}
@@ -679,7 +934,7 @@ Let us now turn to the many great properties of "adjoint" "functors".
     It is left to show the "triangle identities" hold assuming they hold for $\eta$ and $\varepsilon$. In the following derivations, we use three simple facts:\footnote{They can be shown by proving the equality at each "component".}
     \begin{itemize}
         \item[-] the "biaction" of $F \placeholder$ and $G \placeholder$ on $\phi \placeholder$ yields $(F\phi G)\placeholder$,
-        \item[-] $\phi \placeholder \vertcomp \phi'\placeholder = (\phi \vertcomp \phi')\placeholder$, and 
+        \item[-] $(\phi \placeholder) \vertcomp (\phi'\placeholder) = (\phi \vertcomp \phi')\placeholder$, and 
         \item[-] $(\one_F)\placeholder = \one_{F \placeholder}$.
     \end{itemize}
     Now, the "triangle identities" hold by:
@@ -692,8 +947,8 @@ Let us now turn to the many great properties of "adjoint" "functors".
     If $\mathbf{D}: L \adjoint R : \mathbf{E}$ is an "adjunction", then there is an "adjunction" $\catFunc{\mathbf{C}}{\mathbf{D}}: \placeholder L \adjoint \placeholder R : \catFunc{\mathbf{C}}{\mathbf{E}}$.
 \end{cor}%TODO: explain duality
 %TODO: show that limits are taken pointwise.
-\begin{thm}
-    Let $\mathbf{D}$ be a "category" with all "limits" of shape $\mathbf{J}$. For any "category" $\mathbf{C}$, the "functor category" $\catFunc{\mathbf{C}}{\mathbf{D}}$ has all "limits" of shape $\mathbf{J}$ and the "limit" of any "diagram" $F: \mathbf{J} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$ satisfies for any $X \in \obj{\mathbf{C}}$, $(\lim_{\mathbf{J}}F)(X) = \lim_{\mathbf{J}}(F(\placeholder)(X))$.\footnote{In other words (that you will often hear), "limits" in "functor categories" are taken pointwise.}
+\begin{thm}\label{thm:pointwiselimitsviaadj}
+    Let $\mathbf{D}$ be a "category" with all "limits" of shape $\mathbf{J}$. For any "category" $\mathbf{C}$, the "functor category" $\catFunc{\mathbf{C}}{\mathbf{D}}$ has all "limits" of shape $\mathbf{J}$ and the "limit" of any "diagram" $F: \mathbf{J} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$ satisfies for any $X \in \obj{\mathbf{C}}$, $(\lim_{\mathbf{J}}F)(X) = \lim_{\mathbf{J}}(F(\placeholder)(X))$.\footnote{This means "limits" in "functor categories" are taken pointwise, just like we proved in Theorem \ref{thm:limitspointwise}}
 \end{thm}
 \begin{proof}
     From previous results, we have the following chain of "adjunctions". 
@@ -721,7 +976,7 @@ Let us now turn to the many great properties of "adjoint" "functors".
 
     Next, we show that the "composition" of the top "path" is $\gdiagFunc_{\catFunc{\mathbf{C}}{\mathbf{D}}}^{\mathbf{J}}$. Starting with a "functor" $F: \mathbf{C} \rightsquigarrow \mathbf{D}$, the first "left adjoint" sends it to $\gdiagFunc_{\mathbf{D}}^{\mathbf{J}} \circ F$ which sends $X\in \obj{\mathbf{C}}$ to the "constant functor" at $FX$ and $f: X \rightarrow Y \in \mor{\mathbf{C}}$ to the "natural transformation" whose "components" are all $Ff: FX \rightarrow FY$. Applying the three other "left adjoints", we obtain a "functor" which sends any $j \in \obj{\mathbf{J}}$ to the "functor" $F$ and any $m: j \rightarrow j' \in \mor{\mathbf{J}}$ to $\one_F$. We conclude that the top "path" sends $F$ to the "constant functor" at $F$.
 
-    We obtain a "right adjoint" to $\gdiagFunc_{\catFunc{\mathbf{C}}{\mathbf{D}}}^{\mathbf{J}}$ by "composing" all the "adjunctions" in \ref{diag:compadjlimfunc} with Theorem \ref{thm:adjcomp} and thus $\catFunc{\mathbf{C}}{\mathbf{D}}$ has all "limits" of shape $\mathbf{J}$. To compute them, we can "compose" the "right adjoints" in \ref{diag:compadjlimfunc} to find $(\lim_{\mathbf{J}}F)(X) = \lim_{\mathbf{J}}(F(\placeholder)(X))$.%TODO: a bit more help?
+    We obtain a "right adjoint" to $\gdiagFunc_{\catFunc{\mathbf{C}}{\mathbf{D}}}^{\mathbf{J}}$ by "composing" all the "right adjoins" in \eqref{diag:compadjlimfunc} with Theorem \ref{thm:adjcomp} and thus $\catFunc{\mathbf{C}}{\mathbf{D}}$ has all "limits" of shape $\mathbf{J}$. To compute them, we can "compose" the "right adjoints" in \eqref{diag:compadjlimfunc} to find $(\lim_{\mathbf{J}}F)(X) = \lim_{\mathbf{J}}(F(\placeholder)(X))$.%TODO: a bit more help?
 \end{proof}
 \begin{cor}["Dual@@CAT"]
     Let $\mathbf{D}$ be a "category" with all "colimits" of shape $\mathbf{J}$. For any "category" $\mathbf{C}$, the "functor category" $\catFunc{\mathbf{C}}{\mathbf{D}}$ has all "colimits" of shape $\mathbf{J}$ and the "colimit" of any "diagram" $F: \mathbf{J} \rightsquigarrow \catFunc{\mathbf{C}}{\mathbf{D}}$ satisfies for any $X \in \obj{\mathbf{C}}$, $(\colim_{\mathbf{J}}F)(X) = \colim_{\mathbf{J}}(F(\placeholder)(X))$.\footnote{In other words, "colimits" are taken pointwise. You can use Exercise \ref{exer:natural:opcatfun} or draw a similar chain of "adjunctions" as in \eqref{diag:compadjlimfunc}.}

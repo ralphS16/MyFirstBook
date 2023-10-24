@@ -7,6 +7,8 @@
 	\localtableofcontents
 }
 
+%TODO: can we introduce the constructions arrow, slice and comma using less formal universal properties.
+
 We continue our exploration of "universal constructions". This chapter is arranged like the previous one, we give lots of examples before abstracting away to define "universal properties".\footnote{I estimate we have done enough "diagram chasing", so we will not prove as much results as we did in Chapter \ref{chap:limits}.} This abstracting step involves a new concept: "comma categories", which are interesting in their own right.
 
 %TODO: small paragraph introducing universal properties informally as extreme solutions to some problem.?
@@ -16,7 +18,7 @@ We continue our exploration of "universal constructions". This chapter is arrang
 The construction of a \textit{free} object is common to different fields of mathematics. Informally, when $\mathbf{C}$ is a "category" whose "objects" are "objects" of another "category" $\mathbf{D}$ equipped with extra structure (e.g. $\mathbf{C}$ is a "concrete category" and $\mathbf{D} = \catSet$), the free $\mathbf{C}$--"object" over a $\mathbf{D}$--"object" $X$ carries the least amount of structure possible to be considered a part of $\mathbf{C}$ while \textit{containing} $X$.
 
 The example we will carry out in $\catMon$ can be carried out in many other "categories" like $\catGrp$, $\catAb$, $\catRing$, etc. We choose $\catMon$ because the concrete characterization of a "free monoid" is simple.
-\begin{defn}[Classical]
+\begin{defn}[Classical]\label{defn:freemonclassic}
     \AP The ""free monoid"" on a set $A$, denoted by $\freemon{A}$, is the set of finite words with symbols in $A$ with the "multiplication@@MON" being concatenation of words and "identity@@MON" being \AP the ""empty word@emptyword"" $\emptyword$.\footnote{Examples of finite words in $\freemon{\{\mathtt{a},\mathtt{b},\mathtt{c}\}}$ are $\mathtt{a}$, $\mathtt{ab}$, $\mathtt{abc}$, $\mathtt{accabac}$, etc. The concatenation of $\mathtt{abc}$ and $\mathtt{aacb}$ is $\mathtt{abcaacb}$.}
 \end{defn}
 An intuitive way to see $\freemon{A}$ is that it is the \textit{smallest} "monoid" that contains $A$. We start from single-letter words which are just elements of $A$, and then generate the rest by concatenating bigger and bigger words together (before finally adding $\emptyword$).
@@ -126,6 +128,7 @@ Recall that we can see a "category" as a "directed graph" with extra structure u
 \begin{exer}{soln:universal:freecat}\label{exer:universal:freecat}
     Show that $\mathbf{P}G$ is the free "category" over the "directed graph" $G$. Moreover, show that when $G$ has a single "object", $\mathbf{P}G$ is the "delooping" of the "free monoid" $\freemon{\mor{G}}$. 
 \end{exer}
+%TODO: exercise about free thin category.
 
 \subsection{Exponential Objects}
 This section and the following two are motivated by important constructions in $\catSet$ that we want to define categorically. Going further in this direction amounts to doing \href{https://ncatlab.org/nlab/show/topos}{topos theory}, namely, studying "categories" which look a lot like $\catSet$.
@@ -168,7 +171,7 @@ Informally, one can think of $A^X$ as an "object" which behaves like $\Hom_{\mat
 \begin{exer}{soln:universal:expounique}\label{exer:universal:expounique}
     Show that if $e: Y \product X \rightarrow A$ satisfies the same "universal property" as $\ev$, then $Y \isoCAT A^X$.\footnote{We will stop proving that "universal properties" determine "objects" up to "isomorphisms@@CAT", the abstract result (stating that works for all "universal properties") is Corollary \ref{cor:univpropiso}.}
 \end{exer}
-\begin{defn}[Cartesian closed]
+\begin{defn}[Cartesian closed]\label{defn:cartclosed}
     \AP When a "category" $\mathbf{C}$ has a "terminal object" and all "exponentials" $A^X$ for all $A,X \in \obj{\mathbf{C}}$ (in particular, it has all "binary products"\footnote{It also follows that $\mathbf{C}$ has all finite "products".}), we say it is ""cartesian closed"".
 \end{defn}
 The "category" of sets is "cartesian closed". Here is an exercise calling back to when we showed many familiar properties of Cartesian products generalized to "binary products".
@@ -254,7 +257,7 @@ Crucially, this "pullback" uniquely determines $\charac_I$.\footnote{If $f:X \ri
 \end{equation}\end{marginfigure}
 Before we can draw a diagram (akin to \eqref{diag:freemon}, \eqref{diag:abelianization}, etc.) summarizing the "universal property" of the "subobject classifier", we need to make sure that the "classifying morphisms" of two "monomorphisms" in the same equivalence class in $\Sub_{\mathbf{C}}(X)$ are equal. Let $I' \mono X$ and $I \mono X$ represent the same "subobject", namely, there is an "isomorphism@@CAT" $I' \isoCAT I$ making the left square in \eqref{diag:classifierwelldef} "commute". The right square is a "pullback" by hypothesis and the left square is a "pullback" by Exercise \ref{exer:limits:isopullback}. Therefore, the rectangle is a "pullback" by the "pasting lemma", and we see that $\charac_{I'} = \charac_I \circ \id_X$ by uniqueness of the "classifying morphism".
 
-Now, in a "well-powered" "category" $\mathbf{C}$ that has a "terminal" object and all "pullbacks",\footnote{The definition of "subobject classifier" does not need the "well-poweredness" and the existence of all "pullbacks", but they are necessary to have a "universal property" because it uses the "functor" $\Sub_{\mathbf{C}}$. In any case, "subobject classifiers" are usually used when these conditions are satisfied.} the "subobject classifier" $\top: \terminal \rightarrow \Omega$ is such that for any "subobject" $m$ of $X$, there is a unique "morphism" $\charac_{m}: X \rightarrow \Omega$ satisfying $\pull{\charac_m}{\top} = m$. This is summarized in \eqref{diag:upsubobjectclassifier} where we identify $\top$ with the function $\terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ picking out this "subobject" (recall that any "morphism" out of $\terminal$ is "monic" by Exercise \ref{exer:duality:morterminal}), and similarly for $m$.
+Now, in a "well-powered" "category" $\mathbf{C}$ that has a "terminal" object and all "pullbacks",\footnote{The definition of "subobject classifier" does not need the "well-poweredness" and the existence of all "pullbacks", but they are necessary to have a "universal property" because it uses the "functor" $\Sub_{\mathbf{C}}$. In any case, "subobject classifiers" are usually used when these conditions are satisfied.} the "subobject classifier" $\top: \terminal \rightarrow \Omega$ is such that for any "subobject" $m$ of $X$, there is a unique "morphism" $\charac_{m}: X \rightarrow \Omega$ satisfying $\pull{\charac_m}{\top} = m$. This is summarized in \eqref{diag:upsubobjectclassifier} where we identify $\top$ with the function $\terminal \rightarrow \Sub_{\mathbf{C}}(\Omega)$ picking out this equivalence class of $\top: \terminal \rightarrow \Omega$ in $\Sub_{\mathbf{C}}(\Omega)$ (recall that any "morphism" out of $\terminal$, in particular $\top: \terminal \mono \Omega$, is "monic" by Exercise \ref{exer:duality:morterminal}), and similarly for $m$.
 \marginnote[2\baselineskip]{Notice that the dashed arrow gets reversed because $\Sub_{\mathbf{C}}$ is "contravariant". We could also write ``in $\op{\mathbf{C}}$'' and not reverse the arrow.}
 \begin{equation}\label{diag:upsubobjectclassifier}
     % https://q.uiver.app/?q=WzAsNyxbMSwwLCJcXFN1Yl97XFxtYXRoYmZ7Q319KFxcT21lZ2EpIl0sWzAsMCwiXFx0ZXJtaW5hbCJdLFsxLDEsIlxcU3ViX3tcXG1hdGhiZntDfX0oWCkiXSxbMywxLCJYIl0sWzMsMCwiXFxPbWVnYSJdLFsyLDBdLFs0LDBdLFsxLDAsIlxcdG9wIl0sWzEsMiwiXFxpb3RhIiwyXSxbMyw0LCJcXGNoYXJhY197XFxpb3RhfSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDYsIlxcdGV4dHtpbiB9XFxtYXRoYmZ7Q30iLDEseyJvZmZzZXQiOi01LCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJcXHRleHR7aW4gfVxcY2F0U2V0IiwxLHsib2Zmc2V0IjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMiwiXFxwdWxse1xcY2hhcmFjX3tcXGlvdGF9fXtcXHBsYWNlaG9sZGVyfSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs5LDEyLCJcXFN1Yl97XFxtYXRoYmZ7Q319IiwyLHsibGFiZWxfcG9zaXRpb24iOjQwLCJzaG9ydGVuIjp7InNvdXJjZSI6MTAsInRhcmdldCI6NDB9LCJsZXZlbCI6MX1dXQ==
@@ -496,8 +499,7 @@ The function $f$ is defined inductively. We let $f(0)$ be the element of $X$ in 
 \begin{exer}{soln:universal:nnoposet}\label{exer:universal:nnoposet}
     Show that the "NNO" in $\catPoset$ is $(\N,\leq)$ with the same zero and successor functions (now seen as "morphisms" in $\catPoset$).
 \end{exer}
-%TODO: make sure we cannot. otherwise say will not
-We cannot summarize the universal property of an "NNO" using a diagram exactly like the others. Still, the definition really feels like a "universal property", so we should not forget this when generalizing what we have seen in all examples above.
+It is not evident how we could summarize the universal property of an "NNO" using a diagram exactly like the others. Still, the definition really feels like a "universal property", so we should not forget this when generalizing what we have seen in all examples above.
 
 % But, if we note that \eqref{diag:upnno2} "commuting" is equivalent to \eqref{diag:upnno3} "commuting", we can draw \eqref{diag:upnnocommacat}.\begin{marginfigure}
 %     \begin{equation}\label{diag:upnnocommacat}
@@ -534,7 +536,7 @@ We cannot summarize the universal property of an "NNO" using a diagram exactly l
 \section{Generalization}
 Diagrams \eqref{diag:freemon}, \eqref{diag:abelianization}, \eqref{diag:basis}, \eqref{diag:exponent}, \eqref{diag:upsubobjectclassifier} and \eqref{diag:uppowerobject} look so similar that you can try to infer the following definition unifying all these concepts under one roof.\footnote{Although, \eqref{diag:exponent} looks like all arrows have been reversed, so, you guessed it, it will be an instance of the "dual@@CAT" notion.}
 
-\begin{defn}[Universal morphism]
+\begin{defn}[Universal morphism]\label{defn:universalmorph}
     If $F: \mathbf{D} \rightsquigarrow \mathbf{C}$ is a functor and $X \in \obj{\mathbf{C}}$. \AP A ""universal morphism"" from $X$ to $F$ is a "morphism" $a : X \rightarrow F(A)$ such that for any other "morphism" $b: X \rightarrow F(B)$, there is a unique "morphism" $f: A \rightarrow B$ in $\mathbf{D}$ such that $F(f) \circ a = b$, which is summarized in \eqref{diag:univmorphalt}. 
     \begin{equation}\label{diag:univmorphalt}
         \begin{tikzcd}
@@ -631,6 +633,9 @@ Before moving on, we are going to have some fun with new definitions that let us
         \end{tikzcd}
     \end{equation} 
 \end{defn}
+\begin{exer}{soln:universal:forgetfulcomcat}\label{exer:universal:forgetfulcomcat}
+    Given two "functors" \begin{tikzcd}\mathbf{D} \arrow[r, squiggly, "F"] & \mathbf{C} & \mathbf{E} \arrow[l, squiggly, "G"']\end{tikzcd} and their "comma category" $\comcat{F}{G}$, show there are two "forgetful functors" $U_F: \comcat{F}{G} \rightsquigarrow \mathbf{D}$ and $U_G: \comcat{F}{G} \rightsquigarrow \mathbf{E}$ that send $(X,Y,\alpha)$ to $X$ and to $Y$ respectively.
+\end{exer}
 \begin{exmp}["NNO"]
     Let $\mathbf{C}$ be a "category" with a "terminal" "object" and a "NNO", and let $\terminal \coproduct \placeholder: \mathbf{C} \rightsquigarrow \mathbf{C}$ be the "maybe functor". The "natural numbers object" is the "initial" "object" in $\comcat{(\terminal\coproduct\placeholder)}{\id_{\mathbf{C}}}$. The "morphisms" $\mathsf{0}: \terminal \rightarrow \NNO$ and $\succ: \NNO \rightarrow \NNO$ can be "copaired" in $\copair{\mathsf{0}, \succ}: \terminal \coproduct\NNO \rightarrow \NNO$ that is an "object" of this "comma category". An arbitrary "object" of $\comcat{(\terminal\coproduct\placeholder)}{\id_{\mathbf{C}}}$ is a "morphism" $f: \terminal\coproduct X \rightarrow X$ which we can decompose as $\copair{f\circ \coprojection_{\terminal}, f\circ \coprojection_X}$. Writing $z = f\circ \coprojection_{\terminal}$ and $s = f\circ \coprojection_X$, by the "universal property" of the "NNO", there is a unique "morphism" making \eqref{diag:upnno2} "commute". Equivalently, \eqref{diag:upnno3} "commutes",\footnote{If \eqref{diag:upnno2} "commutes", we have $z= {!}\circ \mathsf{0}$ and $s \circ {!} = {!}\circ \succ$. Thus, we have
     \begin{align*}
@@ -790,6 +795,8 @@ In case a "universal property" is realized by a "universal morphism", we can for
     Show that if there is a "universal morphism" from $X$ to $F$ and one from $Y$ to $F$, then $X \isoCAT Y$. State and prove the "dual@@CAT" statement.
 \end{exer}
 %TODO: maybe exercises on the category of elements. e.g. category of elements of Hom functor is slice category. Preparation for Yoneda lemma basically.
+
+%TODO: well with our definition of universal property, we already know that (co)limits satisfy something, we meant through universal morphisms.
 We have to postpone to Chapter \ref{chap:yoneda} showing that, as we have claimed, any "(co)@colimit""limit" satisfies a "universal property". Still, you might have noticed that our definition of "universal property" also uses a special case of "(co)@colimit""limits", that is, "initial" and "terminal" "objects". What is more, in the following chapters, we will introduce a couple more concepts which often coincide\footnote{By \textit{coincide}, we mean that one is a special case of the other or vice-versa or both directions.} with the concepts of "(co)@colimit""limits" and "universal properties".
 
 \end{document}

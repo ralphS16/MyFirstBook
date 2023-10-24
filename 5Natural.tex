@@ -10,12 +10,12 @@
 %TODO: exercise about product and coproduct in category of endofunctor 
 %TODO: reflected by equivalence implies preserved by equivalence.
 
-In the previous chapters, we saw how to use the framework of "categories" to do mathematics. While fundamentally the same,\footnote{We rely on rigorous logical arguments.} doing mathematics with "categories" can feel different because we study mathematical structures from above rather than from the inside. Now, if we want to study "group" theory categorically, we have many options:
+In the previous chapters, we saw how to use the framework of "categories" to do mathematics. While fundamentally the same as ``classical'' mathematics,\footnote{We rely on rigorous logical arguments.} doing mathematics with "categories" can feel different because we study mathematical structures from above rather than from the inside. Now, if we want to study "group" theory categorically, we have many options: %TODO: better wording
 \begin{itemize}
 	\item[-] We can study single-object "categories" where every "morphism" is "invertible" ("deloopings" of "groups") and "functors" between them ("group homomorphisms").\footnote{This amounts to doing ``classical'' "group" theory.}
 	\item[-] We can go one step higher and study the "category" $\catGrp$ as a whole. We do not have access to what is inside a "group", only how "groups" relate to each other.\footnote{This has been our point of view until now.}
 	\item[-] We can climb another step and study $\catGrp$ as an "object" of a "category" of "categories".\footnote{Recall that due to "size issues", $\catGrp$ is not an "object" of $\catCat$, but we could carefully define a "category" of "categories" that contains $\catGrp$.}
-	\item[-] In between the previous two items, we can study $\catGrp$ as a "subcategory" of $\catCat$. Taking the "delooping" is a "functor" $\deloop{}: \catGrp \rightsquigarrow \catCat$, so we identify $\catGrp$ with its image in $\catCat$. We still get to study how "groups" interact with each other, but also how they interact with other "categories".
+	\item[-] In between the previous two items, we can study $\catGrp$ as a "subcategory" of $\catCat$. Taking the "delooping" is a "fully faithful" "functor" $\deloop{}: \catGrp \rightsquigarrow \catCat$, so we identify $\catGrp$ with its image in $\catCat$. We still get to study how "groups" interact with each other, but also how they interact with other "categories".
 \end{itemize}
 The first and last step are particular to "groups", not all mathematical structures can be viewed as a "categories". For instance, studying "group" theory requires to understand "group homomorphisms" which are "functors", not "categories". Taking the categorical mindset to the extreme,\footnote{This might seem extreme at this point, but category theorists can go way further.} we should only have to study how "homomorphisms@@GRP" relate to each other, but what is a "morphism" between "homomoprhisms@@GRP"? More generally, what is a "morphism" between "functors"?
 \section{Functor Categories}
@@ -28,7 +28,7 @@ Unfortunately, the definition of a "functor" does not fit this pattern. It is ha
 
 Following the introduction, you can try to find a satisfying definition of "morphism" between "group homomorphisms" $f,g: G \rightarrow H$,\footnote{Recall that "morphisms" should "compose" and there should be an "identity morphism".} and then figure out its meaning when $f$ and $g$ are seen as "functors" $\deloop{G} \rightsquigarrow \deloop{H}$.
 
-We will proceed with another special case. Given a "functor" $F: \mathbf{C} \rightsquigarrow \catSet$, we would like to know what is a \emph{subfunctor} of $F$.\footnote{If we had a notion of "morphisms" between "functors", we could define a subfunctor as a "subobject", i.e. an equivalence class of "monomorphisms".} To every "object" $X \in \obj{\mathbf{C}}$, $F$ assigns a set $FX$. It makes sense that a subfunctor $F'$ sends $X$ to a subset $F'X \subseteq FX$. To every $f \in \Hom_{\mathbf{C}}(X,Y)$, $F$ assigns a function $Ff: FX \rightarrow FY$. It makes sense that a subfunctor $F'$ sends $f$ to a restriction of $Ff$ on the domain $F'X$. Moreover, we need to require the image of $F'f$ ($Ff$ restricted to $F'X$) lies in $F'Y$, otherwise the "target" of $F'f$ cannot be $F'Y$. We can summarize the restrictions on $F'$ with the following "commutative" square.\footnote{\eqref{diag:subfunctorset} "commutes" if and only if $F'f$ is the restriction of $Ff$ to $F'X$.}
+We will proceed with another special case. Given a "functor" $F: \mathbf{C} \rightsquigarrow \catSet$, we would like to know what is a \emph{subfunctor} of $F$.\footnote{If we had a notion of "morphisms" between "functors", we could define a subfunctor as a "subobject", i.e. an equivalence class of "monomorphisms".} To every "object" $X \in \obj{\mathbf{C}}$, $F$ assigns a set $FX$. It makes sense that a subfunctor $F'$ sends $X$ to a subset $F'X \subseteq FX$. To every $f \in \Hom_{\mathbf{C}}(X,Y)$, $F$ assigns a function $Ff: FX \rightarrow FY$. It makes sense that a subfunctor $F'$ sends $f$ to a restriction of $Ff$ on the domain $F'X$. Moreover, we need to require the image of $F'f$ ($Ff$ restricted to $F'X$) lies in $F'Y$, otherwise the "target" of $F'f$ cannot be $F'Y$. We can summarize the constraints on $F'$ with the following "commutative" square.\footnote{\eqref{diag:subfunctorset} "commutes" if and only if $F'f$ is the restriction of $Ff$ to $F'X$.}
 \begin{equation}\label{diag:subfunctorset}
 	% https://q.uiver.app/?q=WzAsNCxbMCwwLCJHWCJdLFswLDEsIkdZIl0sWzEsMSwiRlkiXSxbMSwwLCJGWCJdLFswLDEsIkdmIiwyXSxbMSwyLCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDMsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsMiwiRmYiXV0=
 \begin{tikzcd}
@@ -86,14 +86,14 @@ We can generalize this to "functors" with arbitrary "codomains".
 \end{exer}
 This does not strictly define a subfunctor because we still need to quotient by some equivalence saying when two "functors" represent the same subfunctor of $F$. Informally, if $F'X \mono X$ and $F''X \mono X$ always represent the same "subobject" in the same way, then $F'$ and $F''$ represent the same subfunctor. To make this formal, we define "morphisms" of "functors" in full generality.
 \begin{defn}[Natural transformation]\label{defnattran}
-	\AP Let $F,G : \mathbf{C} \rightsquigarrow \mathbf{D}$ be two ("covariant") "functors", a ""natural transformation"" $\phi: F \Rightarrow G$ is a map $\phi: \obj{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ that satisfies $\phi(A) \in \Hom_{\mathbf{D}}(FA, GA)$ for all $A \in \obj{\mathbf{C}}$ and makes \eqref{diag:nattrans} "commute" for any $f \in \Hom_{\mathbf{C}}(A,B)$.\footnote{When doing proofs relying on "naturality" (i.e. the property of being "natural"), we will use \eqref{diag:nattrans} where we instantiate $\phi$, $F$, $G$, $A$, $B$ and $f$ with the "natural transformation", "functors", "objects" and "morphism" that is needed in the proof. In order to make this instantiation less painful, we will use the shorthand $\intro*\NAT(\phi,A,B,f)$ and instantiate the parameters (we can omit $F$ and $G$ because they should be known from the context).}
+	\AP Let $F,G : \mathbf{C} \rightsquigarrow \mathbf{D}$ be two ("covariant") "functors", a ""natural transformation"" $\phi: F \Rightarrow G$ is a map $\phi: \obj{\mathbf{C}} \rightarrow \mor{\mathbf{D}}$ that satisfies $\phi(A) \in \Hom_{\mathbf{D}}(FA, GA)$ for all $A \in \obj{\mathbf{C}}$ and makes \eqref{diag:nattrans} "commute" for any $f \in \Hom_{\mathbf{C}}(A,B)$.\footnote{When doing proofs relying on "naturality" (i.e. the property of being "natural"), we will use \eqref{diag:nattrans} where we instantiate $\phi$, $F$, $G$, $A$, $B$ and $f$ with the "natural transformation", "functors", "objects" and "morphism" that is needed in the proof. In order to make this instantiation less painful, we will use the shorthand $\intro*\NAT(\phi,A,B,f)$ and instantiate the parameters (we can omit $F$ and $G$ because they should be known from the context). I will try to be this precise whenever I use "naturality", but it is very common to simply write ``by "naturality" of $\phi$'' instead of $\NAT(\phi,A,B,f)$.}
 	\begin{equation}\label{diag:nattrans}
 	\begin{tikzcd}
 	F(A) \arrow[d, "F(f)"'] \arrow[r, "\phi(A)"] & G(A) \arrow[d, "G(f)"] \\
 	F(B) \arrow[r, "\phi(B)"'] & G(B)
 	\end{tikzcd}
 	\end{equation}
-    \AP Each $\phi(A)$ will be called a ""component"" of $\phi$ and may also be denoted $\phi_A$.
+    \AP Each $\phi(A)$ will be called a ""component"" of $\phi$ and may also be denoted with $\phi_A$.
 \end{defn}
 \AP As usual, there is an ""identity transformation"" $\one_F:F \Rightarrow F$\footnote{The $\Rightarrow$ (\textbackslash\texttt{Rightarrow}) notation is used more generally for "morphisms" between "morphisms".}, it sends every "object" $A$ to the "identity" map $\id_{F(A)}$. In the setting of Exercise \ref{exer:natural:subfunctordef}, the "monomorphisms" $F'X \mono FX$ are the "components" of a "natural transformation" $F' \Rightarrow F$.\footnote{To actually define subfunctors, we still need to tell you how to "compose" "natural transformations", but we are not done with examples.}
 % \begin{defn}[Subfunctor]
@@ -164,7 +164,7 @@ Next, a concrete example closer to the general idea of a "natural transformation
 	\end{align*}
 	We conclude that the diagram "commutes" and that $\det$ is indeed a "natural transformation".\footnote{Modulo the cases $n>2$.}
 \end{exmp}
-\begin{exer}{soln:natural:tautnattrans}\label{exer:natural:tautnattrans}
+\begin{exer}{soln:natural:tautnattrans}\label{exer:natural:tautnattrans} %TODO: show later that source and target are evaluation functors when seeing Arr(C) as a [2,C].
 	Recall the "functors" $\sourcearr,\targetarr:\arrowcat{\mathbf{C}} \rightsquigarrow \mathbf{C}$ defined in Exercise \ref{exer:universal:arrowcatfunctors}. Show that $\phi: \sourcearr \Rightarrow \targetarr$ defined by $\phi(f) = f$ for any $f \in \obj{\arrowcat{\mathbf{C}}} = \mor{\mathbf{C}}$ is a "natural transformation".
 \end{exer}
 %TODO: define post-rigorously earlier.
@@ -189,7 +189,7 @@ It is also possible that $F$ and $G$ take more than one parameter.
 	\arrow["{g\mapsto \curry{g}}", from=1-1, to=1-2]
 \end{tikzcd}
 	\end{equation}
-	Starting with $g$ in the bottom left, we need to prove $\curry{g}\circ f = \curry{\left( g \circ (f\productm \id_X) \right)}$. The "universal property" of $A^X$ tells us $\ev \circ (\curry{g} \productm \id_X) = g$. "Post-composing" with $f\productm \id_X$, we find 
+	Starting with $g$ in the bottom left, we need to prove $\curry{g}\circ f = \curry{\left( g \circ (f\productm \id_X) \right)}$. The "universal property" of $A^X$ tells us $\ev \circ (\curry{g} \productm \id_X) = g$. "Pre-composing" with $f\productm \id_X$, we find 
 	\[g \circ (f\productm \id_X) = \ev \circ (\curry{g} \productm \id_X) \circ (f\productm \id_X) = \ev \circ ((\curry{g} \circ f)\productm \id_X),\]
 	thus both $\curry{g}\circ f$ and $\curry{\left( g \circ (f\productm \id_X) \right)}$ make \eqref{diag:upexpnatural} "commute", and they must be equal by uniqueness.\begin{marginfigure}[-3\baselineskip]
 		\begin{equation}\label{diag:upexpnatural}
@@ -449,7 +449,7 @@ If you are craving some more "diagram chasing" or you want to get more familiar 
 	\end{marginfigure}
 \end{exer}
 \begin{exer}{soln:natural:pullbackpointwise}\label{exer:natural:pullbackpointwise}
-	Suppose $\mathbf{D}$ has all "pullbacks" and let $\phi: F \Rightarrow G \Leftarrow H: \psi$ be a "cospan" of "natural transformation". For $X \in \obj{\mathbf{C}}$, let \eqref{diag:pullbackcatfunc} be the "pullback" in $\mathbf{D}$. Find the action of $P$ on "morphisms" that make $P$ into a "functor" $\mathbf{C} \rightsquigarrow \mathbf{D}$ and $\ell: P \Rightarrow F$ and $r: P \Rightarrow G$ into "natural transformation". Finally, show that $P$ with $p$ and $r$ is the "pullback" of that "cospan". State and prove the "dual@@CAT" statement.\begin{marginfigure}[-6\baselineskip]
+	Suppose $\mathbf{D}$ has all "pullbacks" and let $\phi: F \Rightarrow G \Leftarrow H: \psi$ be a "cospan" of "natural transformation". For $X \in \obj{\mathbf{C}}$, let \eqref{diag:pullbackcatfunc} be the "pullback" in $\mathbf{D}$. Find the action of $P$ on "morphisms" that makes $P$ into a "functor" $\mathbf{C} \rightsquigarrow \mathbf{D}$ and $\ell: P \Rightarrow F$ and $r: P \Rightarrow G$ into "natural transformation". Finally, show that $P$ with $\ell$ and $r$ is the "pullback" of that "cospan". State and prove the "dual@@CAT" statement.\begin{marginfigure}[-6\baselineskip]
 		\begin{equation}\label{diag:pullbackcatfunc}
 			% https://q.uiver.app/?q=WzAsNCxbMCwxLCJGWCJdLFsxLDEsIkdYIl0sWzEsMCwiSFgiXSxbMCwwLCJQKFgpIl0sWzIsMSwiXFxwc2lfWCJdLFswLDEsIlxccGhpX1giLDJdLFszLDAsIlxcZWxsX1giLDJdLFszLDIsInJfWCJdLFszLDEsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
 	\begin{tikzcd}
@@ -466,6 +466,7 @@ If you are craving some more "diagram chasing" or you want to get more familiar 
 \end{exer}
 %TODO: this means categories [C,D] are nice when D is a nice category. On particular example is D = Set which is complete and cocomplete. [C,Set] and due to some conventions [C^op,Set] are studied a lot. Let's look at one concrete example, DGph = [C^op,Set]. So limits in DGph are taken pointwise.
 %TODO: a dgph is just a set E with sources and targets to V. that looks awfully like a diagram in Set of shape V->-> E. And we saw that is a functor V->->E rsa Set. But what about morphisms, we verify that nat trans are actually graph homs
+%TODO: that is why it is sometimes called categories of diagrams.
 \begin{exmp}["(Co)@colimit""limits" in $\catDGph$]\label{exmp:colimdgph}
 	
 \end{exmp}
@@ -540,15 +541,15 @@ It is now time to build intuition for the "horizontal composition" of "natural t
 \begin{prop}
 	The two actions commute, i.e. in the setting of \eqref{diag:commleftright}, $G(\phi H) = (G\phi) H$.\footnote{For this reason, we will drop all the parentheses from such expressions. We will also drop the $\circ$ for "composition" of "functors". All in all, expect to find expressions like $G'G\phi HH'$ and infer the "natural transformation" $A \mapsto G'(G(\phi(H(H'(A)))))$.}
 	\begin{equation}\label{diag:commleftright}
-	% https://q.uiver.app/?q=WzAsNCxbMSwwLCJcXG1hdGhiZntDfSJdLFs0LDAsIlxcbWF0aGJme0R9Il0sWzUsMCwiXFxtYXRoYmZ7RH0nIl0sWzAsMCwiXFxtYXRoYmZ7Q30nIl0sWzAsMSwiRiIsMCx7ImN1cnZlIjotMywic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbMSwyLCJHIl0sWzAsMSwiRiciLDIseyJjdXJ2ZSI6Mywic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbMywwLCJIIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbNCw2LCJcXHBoaSIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XV0=
-    \begin{tikzcd}
-        {\mathbf{C}'} & {\mathbf{C}} &&& {\mathbf{D}} & {\mathbf{D}'}
-        \arrow[""{name=0, anchor=center, inner sep=0}, "F", curve={height=-18pt}, squiggly, from=1-2, to=1-5]
-        \arrow["G", from=1-5, to=1-6]
-        \arrow[""{name=1, anchor=center, inner sep=0}, "{F'}"', curve={height=18pt}, squiggly, from=1-2, to=1-5]
-        \arrow["H", squiggly, from=1-1, to=1-2]
-        \arrow["\phi", shorten <=5pt, shorten >=5pt, Rightarrow, from=0, to=1]
-    \end{tikzcd}
+	% https://q.uiver.app/dev/#q=WzAsNCxbMCwwLCJcXG1hdGhiZntDfSciXSxbMSwwLCJcXG1hdGhiZntDfSJdLFs0LDAsIlxcbWF0aGJme0R9Il0sWzUsMCwiXFxtYXRoYmZ7RH0nIl0sWzEsMiwiRiIsMCx7ImN1cnZlIjotMywic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbMiwzLCJHIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbMSwyLCJ7Rid9IiwyLHsiY3VydmUiOjMsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6InNxdWlnZ2x5In19fV0sWzAsMSwiSCIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6InNxdWlnZ2x5In19fV0sWzQsNiwiXFxwaGkiLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV1d
+\begin{tikzcd}
+	{\mathbf{C}'} & {\mathbf{C}} &&& {\mathbf{D}} & {\mathbf{D}'}
+	\arrow[""{name=0, anchor=center, inner sep=0}, "F", curve={height=-18pt}, squiggly, from=1-2, to=1-5]
+	\arrow["G", squiggly, from=1-5, to=1-6]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{{F'}}"', curve={height=18pt}, squiggly, from=1-2, to=1-5]
+	\arrow["H", squiggly, from=1-1, to=1-2]
+	\arrow["\phi", shorten <=5pt, shorten >=5pt, Rightarrow, from=0, to=1]
+\end{tikzcd}
 	\end{equation}
 \end{prop}
 \begin{proof}
@@ -925,6 +926,7 @@ In many situations, we will describe an "isomorphism@@CAT" between $\mathbf{C}$ 
 		\end{gather*}
 	\end{enumerate}
 \end{exmps}
+%TODO: Isomorphism of directed graphs and actions of a monoid on a set EXercise GRMN in TTT.
 Of course, the list above is not exhaustive, but it is time to introduce "equivalences". Instead of requiring the round trips between $\mathbf{C}$ and $\mathbf{D}$ to be the "identities", we merely require they are "naturaly isomorphic" to the "identities".
 \begin{defn}[Equivalence]
 	\AP A "functor" $F:\mathbf{C}\rightsquigarrow \mathbf{D}$ is an ""equivalence"" of "categories" if there exists a "functor" $G:\mathbf{D}\rightsquigarrow \mathbf{C}$ such that $F\circ G\isoCAT \id_{\mathbf{D}}$ and $G\circ F \isoCAT \id_{\mathbf{C}}$.\footnote{Recall that $\isoCAT$ between "functors" stands for "natural isomorphisms".} \AP This is clearly symmetric, so we say two "categories" $\mathbf{C}$ and $\mathbf{D}$ are ""equivalent"", denoted $\mathbf{C} \eqCat \mathbf{D}$, if there is an "equivalence" between them. \AP Moreover, we say that $G$ is a ""quasi-inverse"" of $F$ and vice-versa.
@@ -996,7 +998,7 @@ We will detail a couple of \textit{easy} examples of "equivalences" and briefly 
 	\begin{enumerate}
 		\itemAP Consider the "full@@CAT" "subcategory" of $\catFinSet$ consisting only of the sets $\emptyset, \{1\}, \{1,2\}, \dots, \{1,\dots,n\},\dots$, we denoted it by $\catFinOrd$. The "inclusion functor" is "fully faithful" by definition and we claim it is "essentially surjective". Indeed, any set $X \in \obj{\catFinSet}$ has a finite cardinality $n$, so $X \isoCAT \{1,\dots,n\}$ and the latter belongs to $\catFinOrd$.
 		\item In a very similar fashion, an early result in linear algebra says that any "finite dimensional" "vector space" over a "field" $k$ is "isomorphic@@VECT" to $k^n$ for some $n\in \N$. \AP Thus, the "category" whose objects are $k^n$ for all $n\in \N$ and "morphisms" are $m\times n$ "matrices" with entries in $k$,\footnote{After making a choice of "basis" for all $k^n$, an $m\times n$ matrix with entries in $k$ corresponds to a "linear map" $k^n \rightarrow k^m$.} which we denote $\intro*\catMat{k}$, is "equivalent" to the "category" of "finite dimensional" "vector spaces".
-		\itemAP\label{exmp:partialpointed} A ""partial"" function $f: X \pfun Y$ is a function that may not be defined on all of $X$.\footnote{\AP In this context, a \textit{normal} function defined on all of $X$ is called ""total"".} There is "category" $\catPar$ of sets and "partial" functions where "identity morphism" and "composition" are defined straightforwardly.\footnote{You can view $\catPar$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$ (cf. Remark \ref{rem:setsubrel}), \[\cardinal{\left\{ y \in Y\mid (x,y) \in R \right\}} \leq 1.\]} We can view a "partial" function $f:X \pfun Y$ as a "total" function $f':X \rightarrow Y\coproduct\terminal$ which assigns to every $x$ where $f(x)$ is undefined the value $\ast \in \terminal$. Further extending $f'$ to $[f',\id_{\terminal}]: X\coproduct\terminal \rightarrow Y\coproduct \terminal$, we can see any "partial" function as a function between "pointed" sets where the distinguished element corresponds to being undefined.
+		\itemAP\label{exmp:partialpointed} A ""partial"" function $f: X \pfun Y$ is a function that may not be defined on all of $X$.\footnote{\AP In this context, a \textit{normal} function defined on all of $X$ is called ""total"".} There is "category" $\catPar$ of sets and "partial" functions where "identity morphism" and "composition" are defined straightforwardly.\footnote{You can view $\catPar$ as the "subcategory" of $\catRel$ where you only take the relations $R \subseteq X\times Y$ satisfying for any $x \in X$ (cf. Remark \ref{rem:setsubrel}), \[\cardinal{\left\{ y \in Y\mid (x,y) \in R \right\}} \leq 1.\]} We can view a "partial" function $f:X \pfun Y$ as a "total" function $f':X \rightarrow Y\coproduct\terminal$ which sneds $x$ to $f(x)$ when the latter is defined and to $\ast \in \terminal$ otherwise. Further extending $f'$ to $[f',\id_{\terminal}]: X\coproduct\terminal \rightarrow Y\coproduct \terminal$, we can see any "partial" function as a function between "pointed" sets where the distinguished element corresponds to being undefined.
 		
 		This yields a "fully faithful" "functor" $F:\catPar \rightsquigarrow \catPtd$ sending $X$ to $(X\coproduct\termset, \ast)$ and $f: X \pfun Y$ to $\copair{f',\id_{\termset}}$.\footnote{We have already seen in Corollary \ref{cor:cohomcoprod} that $\copair{f',\id_{\termset}} = \copair{g',\id_{\termset}}$ if and only if $f' = g'$. It should be clear from the definition that $f' = g'$ if and only if $f = g$.} This "functor" is "essentially surjective" because for every "pointed set" $(X,x)$, we find an "isomorphism@@CAT" $(X\setminus\{x\}\coproduct\termset,\ast) \rightarrow  (X,x)$ that sends $y \in X\setminus\{x\}$ to $y$ and $\ast$ to $x$. We infer the "quasi-inverse" to $F$ sends a "pointed set" $(X,x)$ to $X\setminus \{x\}$ and a function $f: (X,x) \rightarrow (Y,y)$ to the "partial" function $X\setminus \{x\} \rightarrow Y\setminus\{y\}$ that acts like $f$ but is undefined whenever $f(a) = y$.
 	\end{enumerate}

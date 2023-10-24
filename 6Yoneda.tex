@@ -20,17 +20,17 @@ Although these "functors" are sometimes interesting on their own, their full pow
 	We are just revisiting things we already know.
 	\begin{enumerate}
 		\item Let $\termset = \{*\}$ be the "terminal" "object" in $\catSet$, then what is the action of $\Hombis^{\termset}$? For any "object" $B$, \[\Hombis^{\termset}(B) = \Hom_{\catSet}(\termset, B)\]
-		is easy to describe because for any element $b \in B$, there is a unique function $f: \termset \rightarrow B = * \mapsto b$. Hence, there is an "isomorphism@@CAT" from $\Hombis^{\termset}(B)$ to $B$ for any $B \in \obj{\mathbf{C}}$, it sends $f$ to $f(*)$ and its inverse sends $b\in B$ to the map $*\mapsto b$. Moreover, these isomorphisms are natural in $B$ because \eqref{diag:H1Set} clearly "commutes" for any $f:B\rightarrow B'$, yielding a "natural isomorphism" $\Hombis^{\termset} \isoCAT \id_{\mathbf{C}}$.
+		is easy to describe because for any element $b \in B$, there is a unique function $f: \termset \rightarrow B = * \mapsto b$. Hence, there is an "isomorphism@@CAT" from $\Hombis^{\termset}(B)$ to $B$ for any $B \in \obj{\catSet}$, it sends $f$ to $f(*)$ and its inverse sends $b\in B$ to the map $*\mapsto b$. Moreover, these isomorphisms are natural in $B$ because \eqref{diag:H1Set} clearly "commutes" for any $f:B\rightarrow B'$, yielding a "natural isomorphism" $\Hombis^{\termset} \isoCAT \id_{\catSet}$.
 		\begin{marginfigure}\begin{equation}\label{diag:H1Set}
 			\begin{tikzcd}
 				\Hombis^{\termset}(B) \arrow[d] \arrow[r, "f\circ (\placeholder)"] & \Hombis^{\termset}(B') \arrow[d] \\
 				B \arrow[u] \arrow[r, "f"']               & B' \arrow[u]     
 			\end{tikzcd}
 		\end{equation}\end{marginfigure}
-		\item Consider again the "terminal" "object" but in the "category" $\catGrp$, namely, the "group" $\terminal$ only containing an "identity@@GRP" element. Then, for any "group" $G$, the set $\Hombis^{\terminal}(G)$ is a singleton because any "homomorphism@@GRP" $f:\terminal\rightarrow G$ must send the "identity@@GRP" to the "identity@@GRP" and no other choice can be made. Therefore, unlike in $\catSet$, $\Hombis^{\terminal}$ is very uninteresting and acts like the "constant functor" $\constFunc{\terminal}:\catGrp \rightsquigarrow \catSet$, i.e. $\Hombis^{\terminal} \isoCAT \constFunc{\terminal}$.
+		\item Consider again the "terminal" "object" but in the "category" $\catGrp$, namely, the "group" $\terminal$ only containing an "identity@@GRP" element. Then, for any "group" $G$, the set $\Hombis^{\terminal}(G)$ is a singleton because any "homomorphism@@GRP" $f:\terminal\rightarrow G$ must send the "identity@@GRP" to the "identity@@GRP" and no other choice can be made. Therefore, unlike in $\catSet$, $\Hombis^{\terminal}$ is very uninteresting and acts like the "constant functor" $\constFunc{\termset}:\catGrp \rightsquigarrow \catSet$, i.e. $\Hombis^{\terminal} \isoCAT \constFunc{\termset}$.
 		
-		\item\label{exmp:representobjmorcat} A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because the "homomorphism@@GRP" properties imply that $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$, $f(-n) = f(n)^{-1}$, and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
-		\item The "terminal" "object" in $\catCat$ is the "category" $\termcat$ with a single "object" $\bullet$ and no "morphism" other than the "identity". For any "category" $\mathbf{C} \in \obj{\catCat}$, a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object". Therefore, the same argument will show that $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$, where $\obj{(\placeholder)}$ sends a "category" to its set\footnote{Recall that $\catCat$ only contains "small" "categories".} of "objects" and a "functor" to its action restricted on "objects".
+		\item A better choice of "object" to mimic the behavior of $\id_{\catGrp}$ is the additive "group" $\Z$. Indeed, for any $g\in G$, there is a unique "homomorphism@@GRP" $f:\Z \rightarrow G$ sending $1$ to $g$.\footnote{Note that $f$ is completely determined by $f(1)$ because the "homomorphism@@GRP" properties imply that $f(n) = f(1)+\stackrel{n}{\cdots}+f(1)$, $f(-n) = f(n)^{-1}$, and $f(0)$ must be the "identity@@GRP".} A very similar argument as above yields a "natural isomorphism" $\Hombis^{\Z} \isoCAT \id_{\catGrp}$.
+		\item\label{exmp:representobjmorcat}  The "terminal" "object" in $\catCat$ is the "category" $\termcat$ with a single "object" $\bullet$ and no "morphism" other than the "identity". For any "category" $\mathbf{C} \in \obj{\catCat}$, a "functor" $\termcat \rightsquigarrow \mathbf{C}$ is just a choice of "object". Therefore, the same argument will show that $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$, where $\obj{(\placeholder)}$ sends a "category" to its set\footnote{Recall that $\catCat$ only contains "small" "categories".} of "objects" and a "functor" to its action restricted on "objects".
 		
 	 	In order to obtain a similar way to extract "morphisms", consider the category $\cattwo$ with two "objects" and a single "morphism" between them. One obtains a "natural isomorphism" $\Hombis^{\cattwo} \isoCAT (\placeholder)_1$.\footnote{You can prove this as we did for $\Hombis^{\termcat} \isoCAT \obj{(\placeholder)}$ or use Example \ref{exmp:simplefunccat}.\ref{exmp:funct2arrow}.}
 	\end{enumerate}
@@ -38,7 +38,7 @@ Although these "functors" are sometimes interesting on their own, their full pow
 Just like we benefitted from recognizing a "category" was "isomorphic@@CAT" to a "functor category" (e.g. Theorem \ref{thm:limitspointwise} and Corollary \ref{cor:colimitspointwise}), we can benefit from finding a "natural isomorphism" between a "functor" and a $\Hom$ "functor". For instance, we already know that the $\Hom$ 
 "functors" are "continuous",\footnote{Theorem \ref{thm:homcont} and Corollary \ref{cor:cohomcont}. Also recall that a "functor" "naturally isomorphic" to a "continuous" "functor" is also "continuous", see Exercise \ref{exer:natural:natisopreserve}.} and with Example \ref{exmps:covrep}.\ref{exmp:representobjmorcat} we can infer
 \[\obj{\left( \Product_{i \in I} \mathbf{C}_i \right)} = \Product_{i \in I} \obj{(\mathbf{C}_i)} \text{ and } \mor{\left( \Product_{i \in I} \mathbf{C}_i \right)} = \Product_{i \in I} \mor{(\mathbf{C}_i)}.\]
-In words, the "objects" of a "product" of "categories" is the Cartesian product of the "objects" of each "category" and similarly for "morphisms".\footnote{We already knew that for the case of "binary products", see Exercise \ref{exer:limits:catprod}.} This suggest carefully studying "representable functors".
+In words, the "objects" of a "product" of "categories" are tuples of objects of each "category" and similarly for "morphisms".\footnote{We already knew that for the case of "binary products", see Exercise \ref{exer:limits:catprod}.} This suggest carefully studying "representable functors".
 
 \begin{defn}[Representable functor]
 	\AP A "covariant" functor $F: \mathbf{C} \rightsquigarrow \catSet$ is ""representable"" if there is an "object" $X \in \obj{\mathbf{C}}$ such that $F$ is "naturally isomorphic" to $\Hom_{\mathbf{C}}(X,\placeholder)$. If $F$ is "contravariant", then it is "representable" if it is "naturally isomorphic" to $\Hom_{\mathbf{C}}(\placeholder,X)$.
@@ -70,19 +70,19 @@ In words, the "objects" of a "product" of "categories" is the Cartesian product 
 		% 		{\Hom(X, B^A)} \arrow[u] \arrow[rr, "(\placeholder)\circ f"']           & & {\Hom(Y,B^A)} \arrow[u]      
 		% 	\end{tikzcd}
 		% \end{equation}
-		\item Our first example of "natural isomorphism" (Example \ref{exmps:natiso}.\ref{exmp:natisocurry}) was the "currying" of a "morphism" $\curry{}: \Hom_{\mathbf{C}}(\placeholder \product X,A) \isoCAT \Hom_{\mathbf{C}}(\placeholder, A^X)$, where $A^X$ is an "exponential object". It turns out "exponential objects" can be defined via this "natural isomorphism". Namely, there is an "isomorphism@@CAT" $\ell: \Hom_{\mathbf{C}}(\placeholder \product X,A) \isoCAT \Hom_{\mathbf{C}}(\placeholder, E)$ if and only if $E$ is the "exponential object" and $\ell_E^{-1}(\id_E)$ is the "evaluation" "morphism".
+		\item Our first example of "natural isomorphism" (Example \ref{exmps:natiso}.\ref{exmp:natisocurry}) was the "currying" of a "morphism" $\curry{}: \Hom_{\mathbf{C}}(\placeholder \product X,A) \isoCAT \Hom_{\mathbf{C}}(\placeholder, A^X)$, where $A^X$ is an "exponential object". It turns out "exponential objects" can be defined via this "natural isomorphism". Namely, there is an "isomorphism@@CAT" $\ell: \Hom_{\mathbf{C}}(\placeholder \product X,A) \isoCAT \Hom_{\mathbf{C}}(\placeholder, E)$ if and only if $E$ is the "exponential object" and $\ell_E^{-1}(\id_E)$ is the "evaluation" "morphism".\footnote{The expression $\ell_E^{-1}(\id_E)$ might look like it comes out of nowhere, but it is not so mysterious. Given the "natural isomorphism" $\ell$, if we are looking for a "moprhism" of type $E\product X \rightarrow A$, then we may as well look for a "morphism" of type $E \rightarrow E$ and use the bijection $\ell_E^{-1}$. What morphism of type $E \rightarrow E$ do we have? Only one is guaranteed to exist, the "identity" $\id_E$. This chapter contains several instances of this kind of forced choice.}
 		
-		($\Leftarrow$) This was already shown in Example \ref{exmps:natiso}.\ref{exmp:natisocurry} modulo the fact that $\uncurry{\id_{A^X}} = \ev$. For the latter, it suffices to note that $\curry{\ev}$ must be $\id_{A^X}$ to make \eqref{diag:curryingevaluation} "commute".\begin{marginfigure}[5\baselineskip]
-			\begin{equation}\label{diag:curryingevaluation}
-				% https://q.uiver.app/?q=WzAsMyxbMSwwLCJBXlhcXHByb2R1Y3QgWCJdLFswLDAsIkEiXSxbMSwxLCJBXlhcXHByb2R1Y3QgWCJdLFswLDEsIlxcZXYiLDJdLFsyLDAsIlxcY3Vycnl7XFxldn0gXFxwcm9kdWN0bSBcXGlkX1giLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJcXGV2Il1d
-		\begin{tikzcd}
-			A & {A^X\product X} \\
-			& {A^X\product X}
-			\arrow["\ev"', from=1-2, to=1-1]
-			\arrow["{\curry{\ev}\productm \id_X}"', dashed, from=2-2, to=1-2]
-			\arrow["\ev", from=2-2, to=1-1]
-		\end{tikzcd}
-			\end{equation}
+		($\Leftarrow$) This was already shown in Example \ref{exmps:natiso}.\ref{exmp:natisocurry} modulo the fact that $\uncurry{\id_{A^X}} = \ev$. For the latter, it suffices to note that $\curry{\ev}$ must be $\id_{A^X}$ to make \eqref{diag:curryingevaluation} "commute".
+		\begin{equation}\label{diag:curryingevaluation}
+			% https://q.uiver.app/?q=WzAsMyxbMSwwLCJBXlhcXHByb2R1Y3QgWCJdLFswLDAsIkEiXSxbMSwxLCJBXlhcXHByb2R1Y3QgWCJdLFswLDEsIlxcZXYiLDJdLFsyLDAsIlxcY3Vycnl7XFxldn0gXFxwcm9kdWN0bSBcXGlkX1giLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJcXGV2Il1d
+	\begin{tikzcd}
+		A & {A^X\product X} \\
+		& {A^X\product X}
+		\arrow["\ev"', from=1-2, to=1-1]
+		\arrow["{\curry{\ev}\productm \id_X}"', dashed, from=2-2, to=1-2]
+		\arrow["\ev", from=2-2, to=1-1]
+	\end{tikzcd}
+		\end{equation}\begin{marginfigure}[2\baselineskip]
 			\begin{equation}\label{diag:exponentvianatiso}
 				% https://q.uiver.app/?q=WzAsMyxbMSwwLCJFXFxwcm9kdWN0IFgiXSxbMCwwLCJBIl0sWzEsMSwiQlxccHJvZHVjdCBYIl0sWzAsMSwiXFxlbGxeey0xfShcXGlkX0UpIiwyXSxbMiwwLCJcXGVsbChnKSBcXHByb2R1Y3RtIFxcaWRfWCIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDEsImciXV0=
 			\begin{tikzcd}
@@ -94,7 +94,6 @@ In words, the "objects" of a "product" of "categories" is the Cartesian product 
 			\end{tikzcd}
 			\end{equation}
 		\end{marginfigure}
-
 		($\Rightarrow$) Given $\ell$, we show $E$ is the "exponential". For any $g: B \product X \rightarrow A$, we claim that $\ell_B(g)$ makes \eqref{diag:exponentvianatiso} "commute". The "naturality" of $\ell^{-1}$ yields the following "commutative" square.
 		\begin{equation}\label{diag:exponentvianatiso2}
 			% https://q.uiver.app/?q=WzAsNCxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEUsRSkiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEIsRSkiXSxbMCwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KEVcXHByb2R1Y3QgWCxBKSJdLFswLDAsIlxcSG9tX3tcXG1hdGhiZntDfX0oQlxccHJvZHVjdCBYLEEpIl0sWzAsMSwiXFxwbGFjZWhvbGRlciBcXGNpcmNcXGVsbF9CKGcpIiwyXSxbMiwzLCJcXHBsYWNlaG9sZGVyIFxcY2lyYyAoXFxlbGxfQihnKVxccHJvZHVjdG0gXFxpZF9YKSJdLFswLDIsIlxcZWxsX0Veey0xfSJdLFsxLDMsIlxcZWxsX0Jeey0xfSIsMl1d
@@ -189,7 +188,7 @@ Let us give two more concrete examples of "representable functors".
 \end{exmp}
 
 \begin{exer}{soln:yoneda:polynomials}\label{exer:yoneda:polynomials}
-	Let $U: \catRing \rightsquigarrow \catSet$ be the "forgetful functor" and, for any $n \in \N$, $(\placeholder)^n : \catRing \rightsquigarrow \catRing$  $n$--wise "product" "functor".%TODO: show this is a functor somewhere.
+	Let $U: \catRing \rightsquigarrow \catSet$ be the "forgetful functor" and, for any $n \in \N$, $(\placeholder)^n : \catRing \rightsquigarrow \catRing$ the $n$--wise "product" "functor".%TODO: show this is a functor somewhere.
 	\begin{enumerate}
 		\item\label{item:intpolyrepr} Show that $\Hombis^{\Z[x_1,\dots,x_n]}$ is "naturally isomorphic" to the "composition" $U\circ (\placeholder)^n$.
 		\item For any "ring" $R$, show that $\Hombis^{R[x]} \isoCAT \Hombis^R\product U$.\footnote{For this to typecheck, the R.H.S. must be the "product" inside $\catFunc{\catRing}{\catSet}$, i.e. $(\Hombis^R\product U)(S) = \Hom(R,S)\times S$.}
@@ -220,8 +219,8 @@ We now understand how an "object" $A \in \obj{\mathbf{C}}$ can be understood by 
 
 We have already got a problem. Even if $\mathbf{C}$ is "locally small", there is no guarantee that $\catFunc{\mathbf{C}}{\catSet}$ is "locally small". Thus, $\Hombis^{\Hombis^A} = \Hom_{\catFunc{\mathbf{C}}{\catSet}}(\Hombis^A, \placeholder)$ might no be a well-defined "functor".\footnote{We do not know what "category" it lands in.} \AP To avoid confusing or cluttered notation, we write instead $\intro*\Nat(\Hombis^A,\placeholder)$ because, for a "functor" $F:\mathbf{C} \rightsquigarrow \catSet$, $\Nat(\Hombis^A,F)$ is the "collection" of "natural transformations" from $\Hombis^A$ to $F$.
 
-We already saw that for every "morphism" $f:B \rightarrow A$ in $\mathbf{C}$, there is an element $\Hombis^f \in \Nat(\Hombis^A, \Hombis^B)$. Does every "natural transformation" of this type arise like that? Given a "natural transformation" $\alpha :\Hombis^A \Rightarrow \Hombis^B$ constructed from an unknown "morphism" $B \rightarrow A$, we can figure out what is that "morphism" by looking at $\alpha_A(\id_A)$.\footnote{At first glance, this looks like it comes out of nowhere, but this choice is forced on us by the data we have. We are only given $\alpha$ and we need to find an element of $\Hom(B,A)$. It turns out $\alpha_A$ has type $\Hom(A,A) \rightarrow \Hom(B,A)$, so it remains to find an element of $\Hom(A,A)$. Since we know nothing else about $\mathbf{C}$, we can only pick $\id_A$, because $\Hom(A,A)$ might contain no other "morphism".} Indeed, if $\alpha = \Hombis^f$, then \[\alpha_A(\id_A) = \Hombis^f_A(\id_A) = \id_A \circ f = f.\]
-Even if $\alpha$ were not constructed like that, $\alpha_A(\id_A)$ is still a "morphism" $B \rightarrow A$. It turns out we can exploit "naturality" to show $\alpha$ must be the "natural transformation" $\Hombis^{\alpha_A(\id_A)}$.
+We already saw that for every "morphism" $f:B \rightarrow A$ in $\mathbf{C}$, there is an element $\Hombis^f \in \Nat(\Hombis^A, \Hombis^B)$. Does every "natural transformation" of this type arise like that? Given a "natural transformation" $\alpha :\Hombis^A \Rightarrow \Hombis^B$ constructed from an unknown "morphism" $B \rightarrow A$, we can figure out what is that "morphism" by looking at $\alpha_A(\id_A)$.\footnote{Once again, this choice is forced on us by the data we have. We are only given $\alpha$ and we need to find an element of $\Hom(B,A)$. It turns out $\alpha_A$ has type $\Hom(A,A) \rightarrow \Hom(B,A)$, so it remains to find an element of $\Hom(A,A)$. Since we know nothing else about $\mathbf{C}$, we can only pick $\id_A$, because $\Hom(A,A)$ might contain no other "morphism".} Indeed, if $\alpha = \Hombis^f$ for some given $f: B \rightarrow A$, then \[\alpha_A(\id_A) = \Hombis^f_A(\id_A) = \id_A \circ f = f.\]
+Even if we do not know such an $f$, $\alpha_A(\id_A)$ is still a "morphism" $B \rightarrow A$. It turns out we can exploit "naturality" to show $\alpha$ must be the "natural transformation" $\Hombis^{\alpha_A(\id_A)}$.
 
 
 What can we say when the "target" of $\alpha$ is not "representable"? i.e. $\alpha : \Hombis^A \Rightarrow F$ for some "functor" $F: \mathbf{C} \rightsquigarrow \catSet$. Our trick from above tells us every such $\alpha$ yields an element $\alpha_A(\id_A) \in F(A)$. Again relying on "naturality", we can show every element $a \in F(A)$ gives a "transformation" $\alpha: \Hombis^A \Rightarrow F$ satisfying $\alpha_A(\id_A) = a$.
@@ -284,7 +283,7 @@ The type of $\Nat(\Hombis^{\placeholder},\placeholder)$ can be confusing. Just f
 \end{tikzcd}.
 \end{equation*}
 
-The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We denoted it by $\Ev$ (for evaluation), its action on "morphisms" is defined by 
+The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We denoted it by $\Ev$,\footnote{See Example \ref{exmp:isocat}.\ref{exmp:curryingfunctors}.} its action on "morphisms" is defined by 
 \[(g,\mu): (A,F) \rightarrow (A',F') \mapsto F'(g) \circ \mu_A = \mu_{A'} \circ F(g):F(A) \rightarrow F'(A').\]
 
 \begin{lem}["Yoneda lemma" II]
@@ -305,20 +304,20 @@ The assignment $(A,F) \mapsto F(A)$ is another "functor" of the same type. We de
 		&= (\mu_{A'}\circ \alpha_{A'})(\Hombis^A_g(\id_A))&&\mbox{def of $\Hombis^A_g$}\\
 		&= (\mu_{A'}\circ \alpha_{A'} \circ \Hombis^A_g)(\id_A)\\
 		&= (\mu_{A'} \circ F(g) \circ \alpha_A)(\id_A)&&\NAT(\alpha,A,A',g)\\
-		&=(F'(g) \circ \mu_A)(\alpha_A(\id_A)) &&\NAT(\mu,A,A',g)
+		&=(F'(g) \circ \mu_A)(\alpha_A(\id_A)) &&\NAT(\mu,A,A',g)\qedhere
 	\end{align*}
 \end{proof}
 \begin{cor}["Dual@@CAT"]
 	There is a "natural isomorphism" $\Nat(\Hombis_{\placeholder},\placeholder) \isoCAT \Ev$.\footnote{We can typecheck this as before. We see $\Hombis_{\placeholder}$ as a "functor" $\op{\mathbf{C}} \rightsquigarrow \op{\catFunc{\op{\mathbf{C}}}{\catSet}}$ (c.f. Exercise \ref{exer:duality:oppositefunc}). Then $\Nat(\Hombis_{\placeholder},\placeholder) = \Nat(\placeholder,\placeholder) \circ \Hombis_{\placeholder} \functimes \id$.}
 \end{cor}
-While the "Yoneda lemma" is called a lemma, it is extremely important and powerful. We already said how it gives category theorists reasons to study an "object" through its relations to other "objects" (via the "Yoneda principle"). In a shallow exploration of category theory, this might seem like the only point\footnote{I find it already quite grandiose} of the "Yoneda lemma".
+While the "Yoneda lemma" is called a lemma, it is extremely important and powerful. We already said how it gives category theorists reasons to study an "object" through its relations to other "objects" (via the "Yoneda principle"). In a shallow exploration of category theory, this might seem like the only point\footnote{I find it already quite grandiose.} of the "Yoneda lemma".
 
-Another result with a similar status in mathematics --- it looks motivated only by philosophical and meta considerations --- is Cayley's theorem. It states that any "group" is "isomorphic@@GRP" to the "subgroup" of a "permutation group".\footnote{It is important to group theorists because they are interested in studying symmetries of geometric shapes or other things, and these can easily be seen as "subgroups" of "permutation groups". Thus, the abstract notion of "group" is made more concrete by Cayley's theorem.} Remarkably, the "Yoneda lemma" can be understood as a generalization of Cayley's theorem. This is our first application "Yoneda".
-\begin{exmp}[Cayley's theorem with the "Yoneda lemma"]
+Another result with a similar status in mathematics --- it looks motivated only by philosophical and meta considerations --- is Cayley's theorem. It states that any "group" is "isomorphic@@GRP" to the "subgroup" of a "permutation group".\footnote{It is important to group theorists because they are interested in studying symmetries of geometric shapes or other things, and these can easily be seen as "subgroups" of "permutation groups". Thus, the abstract notion of "group" is made more concrete by Cayley's theorem.} Remarkably, the "Yoneda lemma" can be understood as a generalization of Cayley's theorem. This is our first application of "Yoneda".
+\begin{exmp}[Cayley's theorem with the "Yoneda lemma"]%TODO: make this better. In particular, start by saying the functor Hom(*,-) is represents the action of G on itself by left-multiplication.
 	Recall the first part of the "Yoneda lemma" which states that for a category $\mathbf{C}$, a "functor" $F:\mathbf{C} \rightsquigarrow \catSet$ and an object $A\in \obj{\mathbf{C}}$, we have \[\Nat(\Hom(A, \placeholder), F) \isoCAT F(A).\]
     Moreover, we know the explicit maps, namely, a "natural transformation" $\phi$ in the L.H.S. is mapped to $\phi_A(\id_A)$ and an element $a \in F(A)$ is mapped to the "natural transformation" whose "component" at $B \in \obj{\mathbf{C}}$ is $\phi_B = f \mapsto F(f)(a)$.
 	
-	Let us apply this to $\mathbf{C}$ being the "delooping" of $G$. Recall that any "functor" $F: \deloop{G} \rightsquigarrow \catSet$ sends $\deloopobject$ to a set $S$ and any $g \in G$ to a "permutation" of $S$, it corresponds to an "action@@GRP" of $G$ on $S$.
+	Let us apply this to $\mathbf{C}$ being the "delooping" of a "group" $G$. Recall that any "functor" $F: \deloop{G} \rightsquigarrow \catSet$ sends $\deloopobject$ to a set $S$ and any $g \in G$ to a "permutation" of $S$, it corresponds to an "action@@GRP" of $G$ on $S$.
 	
 	To use the "Yoneda lemma", our only choice of "object" for $A$ is $\deloopobject$ and we will choose for $F$ the $\Hom$ "functor" $F=\Hom_{\deloop{G}}(\deloopobject, \placeholder)$. The "Yoneda lemma" yields
 	\[\Nat(\Hom_{\deloop{G}}(\deloopobject, \placeholder), \Hom_{\deloop{G}}(\deloopobject,\placeholder)) \isoCAT \Hom_{\deloop{G}}(\deloopobject, \deloopobject).\]
@@ -357,7 +356,7 @@ I would like to believe this book is not a ``shallow exploration of category the
 "Representability" is one of the two ways to describe "universal" constructions that we hinted at at the end of Chapter \ref{chap:universal}. In this section, we will explore how any "universal property" is equivalent to "representability" of some "functor". Since "(co)@colimits""limits" and "universal morphisms" are "initial" or "terminal" "objects" in some "category", there is a first trivial way to express "universality" as "representability".
 %TODO: say this exercise generalizes a lot of things we have done, like elements of groups rings, etc..
 \begin{exer}{soln:yoneda:initisrepr1}[\NOW]\label{exer:yoneda:initisrepr1}
-	Let $\mathbf{C}$ be a "category", $X \in \obj{\mathbf{C}}$ and $\constFunc{\termset}: \mathbf{C} \rightsquigarrow \catSet$ be the "constant functor" at the singleton $\termset = \{\star\}$. Show that $\Hom_{\mathbf{C}}(X,\placeholder) \isoCAT \constFunc{\termset}$ if and only if $X$ is "initial". Dually, $\Hom_{\mathbf{C}}(\placeholder,X) \isoCAT \constFunc{\termset}$ if and only if $X$ is "terminal".\footnote{In the dual statement, the "source" of $\constFunc{\termset}$ is $\op{\mathbf{C}}$.}
+	Let $X \in \obj{\mathbf{C}}$ and $\constFunc{\termset}: \mathbf{C} \rightsquigarrow \catSet$ be the "constant functor" at the singleton $\termset = \{\star\}$. Show that $\Hom_{\mathbf{C}}(X,\placeholder) \isoCAT \constFunc{\termset}$ if and only if $X$ is "initial". Dually, $\Hom_{\mathbf{C}}(\placeholder,X) \isoCAT \constFunc{\termset}$ if and only if $X$ is "terminal".\footnote{In the dual statement, the "source" of $\constFunc{\termset}$ is $\op{\mathbf{C}}$.}
 \end{exer}
 It turns out this result is not very useful.%TODO: explain why not useful.
 % This result is not completely satisfactory because it is a bit too close to a tautological construction. Indeed, let $F$ be a "discrete" "diagram" picking two "objects" $X,Y \in \obj{\mathbf{C}}$. The result above says that $P$ is the "limit" of $F$ (i.e.: the "product@binary product" of $X$ and $Y$) if and only if $\Hom_{\Cone(F)}()$ it says that $X\product Y$ is the "product@binary product" of $X$ and $Y$ using this need to construct the right "category" $\mathbf{C}$ and then 
@@ -385,10 +384,10 @@ It turns out this result is not very useful.%TODO: explain why not useful.
 		\end{tikzcd}
 	\end{equation}
 
-	($\Leftarrow$) First, we define $\projection_X$ and $\projection_Y$ to be the pair of "morphisms" corresponding to $\id_P$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(P,P)$. Given two "morphisms" $f: A \rightarrow X$ and $g: A \rightarrow Y$, the "isomorphism@@CAT" 
+	($\Leftarrow$) First, we define $\projection_X$ and $\projection_Y$ to be the pair of "morphisms" corresponding to $\id_P$ under the "isomorphism@@CAT" $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(P,P)$.\footnote{Once more, we are making a forced choice. To define the "projections", we need two "morphims" $P \rightarrow X$ and $P \rightarrow Y$. By the "natural isomorphism" of the hypothesis, it is enough to find a "morphism" $P \rightarrow P$. We can only take $\id_P$ as we know nothing else about $\mathbf{C}$.} Given two "morphisms" $f: A \rightarrow X$ and $g: A \rightarrow Y$, the "isomorphism@@CAT" 
 	\[\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y)) \isoCAT \Hom_{\mathbf{C}}(A,P)\]
 	yields a unique "morphism" $!: A \rightarrow P$. To see that $\projection_X \circ {!} = f$ and $\projection_Y \circ {!} = g$ we start with $\id_P$ in the top right of \eqref{diag:productreprnaturaltwo} which "commutes" by hypothesis.
-	\begin{marginfigure}\begin{equation}\label{diag:productreprnaturaltwo}
+	\begin{equation}\label{diag:productreprnaturaltwo}
 		\begin{tikzcd}
 			{\Hom_{\mathbf{C}\cattimes \mathbf{C}}((P,P),(X,Y))} & {\Hom_{\mathbf{C}}(P,P)} \\
 			{\Hom_{\mathbf{C}\cattimes \mathbf{C}}((A,A),(X,Y))} & {\Hom_{\mathbf{C}}(A,P)}
@@ -397,14 +396,14 @@ It turns out this result is not very useful.%TODO: explain why not useful.
 			\arrow["\sim", from=2-2, to=2-1]
 			\arrow["{\placeholder \circ {!}}", from=1-2, to=2-2]
 		\end{tikzcd}
-	\end{equation}\end{marginfigure}
+	\end{equation}
 \end{proof}
 \begin{cor}["Dual@@CAT"]
-	Let $X,Y\in \obj{\mathbf{C}}$. The "coproduct" of $X$ and $Y$ exists if and only if there exists $S \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((X,Y), \diagFunc_{\mathbf{C}}(\placeholder)) \isoCAT \Hom_{\mathbf{C}}(S,\placeholder)$. The "coproduct" is $S$.\footnote{We implicitly use the fact that $\op{(\mathbf{C}\cattimes \mathbf{C})} \isoCAT \op{\mathbf{C}} \cattimes \op{\mathbf{C}}$.}
+	Let $X,Y\in \obj{\mathbf{C}}$. The "coproduct" of $X$ and $Y$ exists if and only if there exists $S \in \obj{\mathbf{C}}$ such that $\Hom_{\mathbf{C}\cattimes \mathbf{C}}((X,Y), \diagFunc_{\mathbf{C}}(\placeholder)) \isoCAT \Hom_{\mathbf{C}}(S,\placeholder)$. The "coproduct" is $S$.\footnote{We implicitly use the fact that $\op{(\mathbf{C}\cattimes \mathbf{C})} \isoCAT \op{\mathbf{C}} \cattimes \op{\mathbf{C}}$.}%TODO: check the variance for this and the previous prop.
 \end{cor}
 In order to generalize these two results to arbitrary "(co)@colimits""limits", we define the generalized version of $\diagFunc_{\mathbf{C}}$.
 \begin{defn}[Generalized diagonal functor]
-	\AP Let $\mathbf{J}$ and $\mathbf{C}$ be "categories", the ""generalized diagonal functor"" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{J}}{\mathbf{C}}$ sends an "object" $X \in \obj{\mathbf{C}}$ to the "constant functor" at $X$ and a "morphism" $f: X \rightarrow Y \in \mor{\mathbf{C}}$ to the "natural transformation" whose components are all $f: X \rightarrow Y$.\begin{marginfigure}[-1\baselineskip]We have $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f) : X \Rightarrow Y$ because for any $a \in \mor{\mathbf{J}}$, the square below "commutes". \[\begin{tikzcd}
+	\AP Let $\mathbf{J}$ be a "small" "category", the ""generalized diagonal functor"" $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}: \mathbf{C} \rightsquigarrow \catFunc{\mathbf{J}}{\mathbf{C}}$ sends an "object" $X \in \obj{\mathbf{C}}$ to the "constant functor" at $X$ and a "morphism" $f: X \rightarrow Y \in \mor{\mathbf{C}}$ to the "natural transformation" whose components are all $f: X \rightarrow Y$.\begin{marginfigure}[-1\baselineskip]We have $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f) : X \Rightarrow Y$ because for any $a \in \mor{\mathbf{J}}$, the square below "commutes". \[\begin{tikzcd}
 		X & X \\
 		Y & Y
 		\arrow["f"', from=1-1, to=2-1]
@@ -416,9 +415,10 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 \begin{rem}
 	This is a generalization of the "diagonal functor" $\diagFunc_{\mathbf{C}}: \mathbf{C} \rightsquigarrow \mathbf{C} \cattimes \mathbf{C}$ because, with the "isomorphism@@CAT" $\catFunc{\termcat\coproduct\termcat}{\mathbf{C}} \isoCAT \mathbf{C} \cattimes \mathbf{C}$ described in Example \ref{exmp:simplefunccat}.\ref{exmp:isoprodfunccat}, we can identify $\diagFunc_{\mathbf{C}}$ with $\gdiagFunc_{\mathbf{C}}^{\termcat\coproduct\termcat}$.
 \end{rem}
-\begin{prop}\label{prop:limitrepr}
+\begin{prop}\label{prop:limitrepr}%TODO: talk about size issues here. C must be a locally small cateogry for the functors to be well defined.
 	Let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". The "limit" of $F$ exists if and only if there is an object $L \in \obj{\mathbf{C}}$ such that $\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) \isoCAT \Hom_{\mathbf{C}}(\placeholder,L)$.\footnote{Recall that 
-	\[\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) = \Nat(\placeholder,F) \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}.\]} The "tip" of the "limit cone" is $L$.
+	\[\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) = \Nat(\placeholder,F) \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}.\]
+	For this to be a "functor" $\op{\mathbf{C}} \rightsquigarrow \catSet$, it is important that $\mathbf{J}$ is "small" and $\mathbf{C}$ is "locally small" as it guarantees the "functor category" $\catFunc{\mathbf{J}}{\mathbf{C}}$ to be "locally small" too, hence $\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X),F)$ is a set for any $X \in \obj{\mathbf{C}}$.} The "tip" of the "limit cone" is $L$.
 \end{prop}
 \begin{proof}
 	First, we note that for any $X \in \obj{\mathbf{C}}$, a "natural transformation" $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X) \Rightarrow F$ is a "cone over" $F$ with "tip" $X$. Indeed, for any $a: A \rightarrow B \in \mor{\mathbf{J}}$, the "naturality" square in \eqref{diag:natiscone} is "commutative".
@@ -433,7 +433,7 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 		\arrow["{F(a)}"', from=2-1, to=2-2]
 	\end{tikzcd}
 	\end{equation}
-	This is equivalent to $\{\psi_A: X \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$ being a "cone over" $F$. Furthermore, a "morphism" of "cones" $\phi \rightarrow \psi$ is a "morphism" $f$ between the "tips" such that $\forall A \in \obj{\mathbf{J}}, \phi_A = \psi_A \circ f$. By looking at \eqref{diag:morphconediagonal}, we see this condition is equivalent to $\phi = \psi \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$.
+	This is equivalent to $\{\psi_A: X \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$ being a "cone over" $F$. Furthermore, a "morphism" of "cones" $\phi \rightarrow \psi$ is a "morphism" $f$ between the "tips" such that $\forall A \in \obj{\mathbf{J}}, \phi_A = \psi_A \circ f$. By looking at \eqref{diag:morphconediagonal}, we see this condition is equivalent to $\phi = \psi \vertcomp \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$.
 	\begin{marginfigure}[-2\baselineskip]
 		\begin{equation}\label{diag:morphconediagonal}
 		% https://q.uiver.app/?q=WzAsNixbMCwxLCJYIl0sWzEsMiwiRkEiXSxbMiwxLCJYIl0sWzMsMiwiRkIiXSxbMSwwLCJZIl0sWzMsMCwiWSJdLFswLDEsIlxccHNpX0EiLDJdLFsyLDMsIlxccHNpX0IiLDJdLFsxLDMsIkYoaikiLDJdLFs0LDEsIlxccGhpX0EiLDIseyJsYWJlbF9wb3NpdGlvbiI6NzB9XSxbNSwzLCJcXHBoaV9CIl0sWzQsNSwiXFxpZF9ZIiwxXSxbNCwwLCJmIiwxXSxbNSwyLCJmIiwxXSxbMCwyLCJcXGlkX1giLDEseyJsYWJlbF9wb3NpdGlvbiI6NzB9XV0=
@@ -453,23 +453,23 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 		\end{tikzcd}
 		\end{equation}
 	\end{marginfigure}
-	($\Rightarrow$) Let $\{\psi_A: L \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$ be the "terminal" "cone over" $F$ and see it as a "natural transformation" $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(L) \Rightarrow F$. We need to define a "natural isomorphism" $\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) \isoCAT \Hom_{\mathbf{C}}(\placeholder,L)$. Similarly to the proofs of the previous section, we will see that we only need to see where $\id_L$ is sent to and the rest of the "natural transformation" will \textit{construct itself}. Our only choice for the "cone" corresponding to $\id_L$ is $\psi$ (it is the only "cone" we know exists).
+	($\Rightarrow$) Let $\{\psi_A: L \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$ be the "terminal" "cone over" $F$ (i.e. the "limit") and see it as a "natural transformation" $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(L) \Rightarrow F$. We need to define a "natural isomorphism" $\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder),F) \isoCAT \Hom_{\mathbf{C}}(\placeholder,L)$. Similarly to the proofs of the previous section, we will see that we only need to see where $\id_L$ is sent to and the rest of the "natural transformation" will \textit{construct itself}. Our only choice for the "cone" corresponding to $\id_L$ is $\psi$ (it is the only "cone" we know exists).
 	\begin{marginfigure}[\baselineskip]
 		\begin{equation}\label{diag:natdefiso}
 			% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXE5hdChcXGdkaWFnRnVuY197XFxtYXRoYmZ7Q319XntcXG1hdGhiZntKfX0oTCksRikiXSxbMCwxLCJcXE5hdChcXGdkaWFnRnVuY197XFxtYXRoYmZ7Q319XntcXG1hdGhiZntKfX0oWCksRikiXSxbMSwwLCJcXEhvbV97XFxtYXRoYmZ7Q319KEwsTCkiXSxbMSwxLCJcXEhvbV97XFxtYXRoYmZ7Q319KFgsTCkiXSxbMCwxLCJcXHBsYWNlaG9sZGVyXFxjaXJjIFxcZ2RpYWdGdW5jX3tcXG1hdGhiZntDfX1ee1xcbWF0aGJme0p9fShmKSIsMl0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzIsMywiXFxwbGFjZWhvbGRlclxcY2lyYyBmIl0sWzEsMywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV1d
 		\begin{tikzcd}
 			{\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(L),F)} & {\Hom_{\mathbf{C}}(L,L)} \\
 			{\Nat(\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X),F)} & {\Hom_{\mathbf{C}}(X,L)}
-			\arrow["{\placeholder\circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)}"', from=1-1, to=2-1]
+			\arrow["{\placeholder\vertcomp \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)}"', from=1-1, to=2-1]
 			\arrow[tail reversed, from=1-1, to=1-2]
 			\arrow["{\placeholder\circ f}", from=1-2, to=2-2]
 			\arrow[tail reversed, from=2-1, to=2-2]
 		\end{tikzcd}
 		\end{equation}
 	\end{marginfigure}
-	Indeed, for any $f: X \rightarrow L$ the "naturality" square in \eqref{diag:natdefiso} means the "cone" corresponding to $f: X \rightarrow L$ is $\{\psi_A \circ f: X \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$ by starting with $\id_L$ in the top right. Now, since $\psi$ is the "terminal" "cone", for any "cone" $\{\phi_A: X \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$, there is a unique "morphism" of "cones" $f: X \rightarrow L$ which satisfies $\forall A \in \obj{\mathbf{J}}, \psi_A \circ f = \phi_A$. We conclude that $f \mapsto \psi \circ  \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$ is a "natural isomorphism".
+	Indeed, for any $f: X \rightarrow L$ the "naturality" square in \eqref{diag:natdefiso} means the "cone" corresponding to $f: X \rightarrow L$ is $\{\psi_A \circ f: X \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$ by starting with $\id_L$ in the top right. Now, since $\psi$ is the "terminal" "cone", for any "cone" $\{\phi_A: X \rightarrow FA\}_{A \in \obj{\mathbf{J}}}$, there is a unique "morphism" of "cones" $f: X \rightarrow L$ which satisfies $\forall A \in \obj{\mathbf{J}}, \psi_A \circ f = \phi_A$. We conclude that $f \mapsto \psi \vertcomp  \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$ is a "natural isomorphism".
 
-	($\Leftarrow$) Let $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(L) \Rightarrow F$ be the "cone" corresponding to $\id_L \in \Hom_{\mathbf{C}}(L,L)$ under the "natural isomorphism", we will show it is "terminal". By the "commutativity" of \eqref{diag:natdefiso} and bijectivity of the horizontal arrows, for any "cone" $\phi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X) \Rightarrow F$, there is a unique "morphism" $f: X \rightarrow L$ such that $\phi = \psi \circ \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$. By the first paragraph of the proof, this is the unique "morphism" of "cones" showing $\psi$ is "terminal".
+	($\Leftarrow$) Let $\psi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(L) \Rightarrow F$ be the "cone" corresponding to $\id_L \in \Hom_{\mathbf{C}}(L,L)$ under the "natural isomorphism", we will show it is "terminal". By the "commutativity" of \eqref{diag:natdefiso} and bijectivity of the horizontal arrows, for any "cone" $\phi: \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(X) \Rightarrow F$, there is a unique "morphism" $f: X \rightarrow L$ such that $\phi = \psi \vertcomp \gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(f)$. By the first paragraph of the proof, this is the unique "morphism" of "cones" showing $\psi$ is "terminal".
 \end{proof}
 \begin{cor}["Dual@@CAT"]
 	Let $F: \mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram". The "colimit" of $F$ exists if and only if there is an object $L \in \obj{\mathbf{C}}$ such that $\Nat(F,\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}(\placeholder)) \isoCAT \Hom_{\mathbf{C}}(L,\placeholder)$. The "tip" of the "colimit" "cone" is $L$.
@@ -479,8 +479,8 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 	Let $U: \catMon \rightsquigarrow \catSet$ be the "forgetful functor", $A$ be a set and $\freemon{A}$ be the "free monoid" on $A$, we have $\Hom_{\catSet}(A,U\placeholder) \isoCAT \Hom_{\catMon}(\freemon{A},\placeholder)$.
 \end{prop}
 \begin{proof}
-	We have already shown before Definition \ref{defn:freemon} that sending $h: A \rightarrow M$ to $h^*: \freemon{A} \rightarrow M$ is a bijection.\footnote{In the other direction, $h:\freemon{A} \rightarrow M$ is sent to $U(h) \circ i$ where $i: A \inclusion A^*$ is the inclusion.} Now, we need to show it is "natural" in $M$. For any "monoid homomorphism" $f: M \rightarrow N$, \eqref{diag:freemonrepr} "commutes" (we omitted applications of $U$) because starting with $h: A \rightarrow M$, we have $(f \circ h)^* = f \circ h^*$.\footnote{To check this, let $w = a_1\cdots a_n\in A^*$, we have \begin{align*}
-		(f \circ h)^*(w) &= fh(a_1)\cdots fh(a_n)\\&= f(h(a_1)\cdots h(a_n))\\&= f(h(w)).
+	We have already shown before Definition \ref{defn:freemon} that sending $h: A \rightarrow M$ to $h^*: \freemon{A} \rightarrow M$ is a bijection of the desired type.\footnote{In the other direction, $h:\freemon{A} \rightarrow M$ is sent to $U(h) \circ i$ where $i: A \inclusion \freemon{A}$ is the inclusion.} Now, we need to show it is "natural" in $M$. For any "monoid homomorphism" $f: M \rightarrow N$, \eqref{diag:freemonrepr} "commutes" (we omitted applications of $U$) because starting with $h: A \rightarrow M$, we have $(f \circ h)^* = f \circ h^*$.\footnote{To check this, let $w = a_1\cdots a_n\in \freemon{A}$, we have \begin{align*}
+		(f \circ h)^*(w) &= fh(a_1)\cdots fh(a_n)\\&= f(h(a_1)\cdots h(a_n))\\&= f(h^*(w)).
 	\end{align*}}
 	\begin{equation}\label{diag:freemonrepr}
 		% https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXEhvbV97XFxjYXRTZXR9KEEsTSkiXSxbMCwxLCJcXEhvbV97XFxjYXRTZXR9KEEsTikiXSxbMSwwLCJcXEhvbV97XFxjYXRNb259KFxcZnJlZW1vbntBfSxNKSJdLFsxLDEsIlxcSG9tX3tcXGNhdE1vbn0oXFxmcmVlbW9ue0F9LE4pIl0sWzAsMSwiZiBcXGNpcmMgXFxwbGFjZWhvbGRlciIsMl0sWzAsMiwiXFxzaW0iXSxbMiwzLCJmIFxcY2lyYyBcXHBsYWNlaG9sZGVyIl0sWzEsMywiXFxzaW0iLDJdXQ==
@@ -494,7 +494,7 @@ In order to generalize these two results to arbitrary "(co)@colimits""limits", w
 		\end{tikzcd}
 	\end{equation}
 \end{proof}
-In the next Proposition, we will generalize this result to see how any "universal morphism" corresponds to some kind of "representability" and we will even give a converse direction. The generalizations of the proof is straightforward, so we suggest you try to get familiar with a specific case in the next exercise.
+In the next Proposition, we will generalize this result to see how any "universal morphism" corresponds to some kind of "representability" and we will even give a converse direction. The generalizations of the proof is straightforward, so I suggest you try to get familiar with a specific case in the next exercise.
 \begin{exer}{soln:yoneda:expobjectrepr}\label{exer:yoneda:expobjectrepr}
 	Let $\mathbf{C}$ be a "category" and $X \in \obj{\mathbf{C}}$ be such that $\placeholder \product X$ is a "functor". An "object" $A \in \obj{\mathbf{C}}$ has an "exponential" $A^X \in \obj{\mathbf{C}}$ if and only if $\Hom_{\mathbf{C}}(\placeholder \product X, A) \isoCAT \Hom_{\mathbf{C}}(\placeholder,A^X)$.
 \end{exer} %TODO: solve
@@ -542,7 +542,8 @@ Comparing Propositions \ref{prop:limitrepr} and \ref{prop:universalrepr} and the
 	\end{itemize}
 \end{thm}
 %TODO: can we make this about limit preservation, reflection and creation ? Then prove that Hom preserves limits.
-In the next chapter, we will lift these correspondence to a more global version. Namely, we will see how to assemble the "universal morphisms" for all "diagrams" of shape $\mathbf{J}$ into a powerful "object".
+%TODO: also about Yoneda preserving limits.
+In the next chapter, we will lift these correspondence to a more global version. Namely, we will see how to assemble the "universal morphisms" for all "diagrams" of shape $\mathbf{J}$ (if they all exist) into something called a "right adjoint" to $\gdiagFunc_{\mathbf{C}}^{\mathbf{J}}$.
 
 %TODO: Use Yoneda with the previous section to derive some stuff like A^(X^Y) = A^(X \times Y) and so on... Start with : in order to use Yoneda, we need to show examples of how representability is useful. Universality is the most useful concept, let's see how these are linked.
 % First, some cool trick relying on the "Yoneda principle". Earlier in this chapter, we showed that the "exponential" $A^X$ is the only "object" (up to "isomorphism@@CAT") satisfying $\Hom(\placeholder \product X,A) \isoCAT \Hom(\placeholder,A^X)$. This makes our life easier for proving $(A^X)^Y \isoCAT A^{X\product Y}$.

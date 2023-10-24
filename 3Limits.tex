@@ -11,6 +11,7 @@
 %TODO: say we will be loose on equality and isoCAT because limits are defined up to unique iso.
 %TODO: change the pullback diagrams to quiver.
 %TODO: say that diagram chasing can feel guided by the types.
+%TODO: examples of pullbacks of categories. Ring -> Grp with units, Ab -> Grp with forgetful. Pullback is CRing of commutative rings. Note that it is a pullback in a larger category than Cat.
 The unifying power of categorical abstraction is arguably its biggest benefit. Indeed, it is often the case that many mathematical objects or results from different fields fit under the same categorical definition or fact. In my opinion, category theory is at its peak of elegance when a complex idea becomes close to trivial when viewed categorically, and when this same view helps link together the intuitions behind many ideas throughout mathematics.
 
 The next two chapters concern one particular instance of this power: "universal" constructions. Along with Chapter \ref{chap:yoneda}, these three chapters constitute the heart of our investigation into a philosophical idea central to category theory:\footnote{We already hinted at it in Chapter \ref{chap:catfunc}. I am not a good philosopher of mathematics, but I believe this statement is a fundamental belief in structuralism.}
@@ -726,7 +727,7 @@ Put simply, a "colimit" in $\mathbf{C}$ is a "limit" in $\op{\mathbf{C}}$. I sug
 \end{defn}
 \AP The "category" of "cocones" under $F$ is denoted $\intro*\cocone(F)$.
 \begin{defn}[Colimit]
-    \AP Let $F:\mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram", the "colimit" of $F$ denoted $\colim F$, if it exists, is the "initial" "object" of $\cocone(F)$.
+    \AP Let $F:\mathbf{J} \rightsquigarrow \mathbf{C}$ be a "diagram", the ""colimit"" of $F$ denoted $\colim F$, if it exists, is the "initial" "object" of $\cocone(F)$.
 \end{defn}
 \begin{exmps}
     We "dualize@@CAT" two examples from the previous section.
@@ -823,13 +824,19 @@ In words, $F\circ D$ is the "diagram" $D$ where we applied $F$ to all "objects" 
 \begin{defn}\label{defn:presreflcreatlim}
     Let $F: \mathbf{C} \rightsquigarrow \mathbf{C}'$ be a "functor" and $\mathbf{J}$ be a "category".
     \begin{itemize}
-        \itemAP[-] We say that $F$ ""preserves@@LIM"" "limits" of "shape" $\mathbf{J}$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $D$, then $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $F \circ D$. In other words, for any $D$, $F_D$ "preserves@@PROP" (in the sense of Definition \ref{defn:presreflprop}) "terminal" "objects".\footnote{We will often be less rigorous and write something like $\lim(F \circ D) = F(\lim_{\mathbf{J}}D)$. For instance, we will say that $F$ "preserves@@LIM" "binary products" if $FX \times FY = F(X\times Y)$.}
+        \itemAP[-] We say that $F$ ""preserves@@LIM"" "limits" of "shape" $\mathbf{J}$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $D$, then $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $F \circ D$. In other words, for any $D$, $F_D$ "preserves@@PROP" (in the sense of Definition \ref{defn:presreflprop}) "terminal" "objects".\footnote{We will often be less rigorous and write something like $\lim(F \circ D) = F(\lim_{\mathbf{J}}D)$. For instance, we will say that $F$ "preserves@@LIM" "binary products" if $FX \times FY = F(X\times Y)$ or $FX \times FY \isoCAT F(X\times Y)$.}
         \itemAP[-] We say that $F$ ""reflects@@LIM"" "limits" of "shape" $\mathbf{J}$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is a "cone over" $D$ and $\{F\psi_X\}_{X \in \obj{\mathbf{J}}}$ is the "limit cone" over $F \circ D$, then $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is also the "limit cone" over $D$. In other words, for any $D$, $F_D$ "reflects@@PROP" (in the sense of Definition \ref{defn:presreflprop}) "terminal" "objects".
         \itemAP[-] We say that $F$ ""creates@@LIM"" "limits" of "shape" $\mathbf{J}$ if for any "diagram" $D: \mathbf{J} \rightsquigarrow \mathbf{C}$, if $\{\phi_X\}_{X \in \obj{\mathbf{J}}}$ is a "limit cone" over $F \circ D$, then there exists a unique "cone over" $D$ $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ such that $F\psi_X = \phi_X$ and $\{\psi_X\}_{X \in \obj{\mathbf{J}}}$ is a "limit cone".
     \end{itemize}
     We leave to you the "dualization@@CAT" of this definition.\footnote{Replace "cone" by "cocone" and "limit" by "colimit".}
 \end{defn}
 These are more technical and rigorous than our previous notions of "preservation@@PROP" and "reflection@@PROP" of properties, but the intuition should stay the same. In practice, "preservation@@LIM" is used way more often,\footnote{In this book, we will not use the other two.} so let us practice a bit.
+
+\begin{exmp}
+Recall from Exercise \ref{exer:catfunc:forgetfulcat} that we have two "functors" $\obj{(\placeholder)}$ and $\mor{(\placeholder)}$ from $\catCat$ to $\catSet$. It follows from the definition of "product categories" that both "preserve@@LIM" "products". Indeed the "objects" of $\mathbf{C} \cattimes \mathbf{D}$ are pairs of "objects" in $\obj{\mathbf{C}} \times \obj{\mathbf{D}}$, and "morphisms" of $\mathbf{C} \cattimes \mathbf{D}$ are pairs of "morphisms" in $\mor{\mathbf{C}} \times \mor{\mathbf{D}}$, so  
+\[\obj{(\mathbf{C}\cattimes \mathbf{D})} = \obj{\mathbf{C}} \times \obj{\mathbf{D}} \text{ and } \mor{(\mathbf{C}\cattimes \mathbf{D})} = \mor{\mathbf{C}} \times \mor{\mathbf{D}}.\]
+\end{exmp}
+
 \begin{exer}{soln:limits:preservepullbackmono}\label{exer:limits:preservepullbackmono}
     Show that if $F$ "preserves@@LIM" "pullbacks" (i.e.: $F$ "preserves@@LIM" "limits" of "cospans"), then $F$ "preserves@@PROP" "monomorphisms". State and prove the "dual@@CAT" statement.
 \end{exer}
@@ -839,7 +846,7 @@ These are more technical and rigorous than our previous notions of "preservation
 
 As we already hinted at, oftentimes, "forgetful functors" "preserve" "limits",\footnote{Due to results in Chapter \ref{chap:adjoints}.} we let you prove a very specific instance of this.
 \begin{exer}{soln:limits:preserveptd}\label{exer:limits:preserveptd}
-    Let $U: \catPtd \rightsquigarrow \catSet$ be the "forgetful functor" from "pointed sets" to sets. Show that $U$ "preserves" "products", "equalizers" and "pullbacks".
+    Let $U: \catPtd \rightsquigarrow \catSet$ be the "forgetful functor" from "pointed sets" to sets. Show that $U$ "preserves@@LIM" "products", "equalizers" and "pullbacks".
 \end{exer}
 
 %TODO: more examples of preserving, reflecting and creating with inclusion functors. Mon inside Cat, Poset and Pre inside 2Rel.
